@@ -1,0 +1,351 @@
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="CNM"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="CNM">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Forms">Safety Management</a></li>
+					<li><a href="#/CrewhealthMain">Crew Health Reports</a></li>
+					<li><a href="#"> Crew Health Reports Details</a>
+					<li><b>Crew Health Reports Guidance</b></li>
+					<!--<span class="pull-right"><img
+						src="Sidebar/assets/faces/Shore.svg" />You are in <strong>{{vslname}}</strong></span>-->
+				</ul>
+
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">Crew Health Report - Guidance
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top: -19px;">
+					<div class="form_table">
+						<div class="row">
+											<div class="col-sm-6">
+												<div class="panel panel-primary">
+													<div class="panel-heading">GENERAL : BLOOD PRESSURE LEVEL SEVERITY</div>
+													<div class="panel-body">
+														<table class="table">
+															<thead>
+																<tr>
+																	<th>
+																		<b>Blood Pressure Category</b>
+																	</th>
+																	<th>
+																		<b>Systolic</b>
+																	</th>
+																	<th>
+																		<b>Diastolic</b>
+																	</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>Normal</td>
+																	<td>0>>119 mmHg</td>
+																	<td>0>>80mmHg</td>
+																</tr>
+																<tr>
+																	<td>Pre hypertension</td>
+																	<td>120>>139mmHg</td>
+																	<td>80>>89mmHg</td>
+																</tr>
+																<tr>
+																	<td>Hypertension (stage 1)</td>
+																	<td>140>>159mmHg</td>
+																	<td>90>>99mmHg</td>
+																</tr>
+																<tr>
+																	<td>Hypertension (stage 2)</td>
+																	<td>160>>mmHg</td>
+																	<td>100mmHg</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<div class="panel-footer"></div>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="panel panel-primary">
+													<div class="panel-heading">BY US NAVY CALCULATION : BODY FAT EVALUATION</div>
+													<div class="panel-body">
+														<table class="table">
+															<thead>
+																<tr>
+																	<th>
+																		<b>Men</b>
+																	</th>
+																	<th>
+																		<b>Women</b>
+																	</th>
+																	<th>
+																		<b>Description</b>
+																	</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>0>>5%</td>
+																	<td>0>>15%</td>
+																	<td>ESSENTIAL FAT</td>
+																</tr>
+																<tr>
+																	<td>5>>13%</td>
+																	<td>15>>20%</td>
+																	<td>ATHELETE</td>
+																</tr>
+																<tr>
+																	<td>13>>18%</td>
+																	<td>20>>25%</td>
+																	<td>FITNESS</td>
+																</tr>
+																<tr>
+																	<td>18>>25%</td>
+																	<td>25>>32%</td>
+																	<td>ACCEPTABLE</td>
+																</tr>
+																<tr>
+																	<td>25>>%</td>
+																	<td>32>>%</td>
+																	<td>OBESE</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<div class="panel-footer"></div>
+												</div>
+											</div>
+									
+
+									<div class="col-sm-6">
+										<div class="panel panel-primary">
+											<div class="panel-heading">NATIONAL HEALTH  STANDARD : BMI CONDITION</div>
+											<div class="panel-body">
+												<table class="table">
+													<thead>
+														<tr>
+															<th>
+																<b>JAPANESE</b>
+															</th>
+															<th>
+																<b>INPUT---J</b>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>0.0>>18.5</td>
+															<td>UNDERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>18.5>>23.0</td>
+															<td>NORMAL</td>
+														</tr>
+														<tr>
+															<td>23.0>>25.0</td>
+															<td>OVERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>25.0>></td>
+															<td>VERY OVERWEIGHT</td>
+														</tr>
+													</tbody>
+												</table>
+												<table class="table">
+													<thead>
+														<tr>
+															<th>
+																<b>INDIAN</b>
+															</th>
+															<th>
+																<b>INPUT---I</b>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>0.0>>18.5</td>
+															<td>UNDERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>18.5>>25.0</td>
+															<td>NORMAL</td>
+														</tr>
+														<tr>
+															<td>25.0>>30.0</td>
+															<td>OVERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>30.0>>40.0</td>
+															<td>VERY OVERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>40.0>></td>
+															<td>EXTREME</td>
+														</tr>
+													</tbody>
+												</table>
+												<table class="table">
+													<thead>
+														<tr>
+															<th>
+																<b>EUROPEAN</b>
+															</th>
+															<th>
+																<b>INPUT---E</b>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>0.0>>18.5</td>
+															<td>UNDERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>18.5>>25.0</td>
+															<td>NORMAL</td>
+														</tr>
+														<tr>
+															<td>25.0>>30.0</td>
+															<td>OVERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>30.0>></td>
+															<td>VERY OVERWEIGHT</td>
+														</tr>
+													</tbody>
+												</table>
+												<table class="table">
+													<thead>
+														<tr>
+															<th>
+																<b>FILIPINO</b>
+															</th>
+															<th>
+																<b>INPUT---P</b>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>0.0>>18.5</td>
+															<td>UNDERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>18.5>>23.0</td>
+															<td>NORMAL</td>
+														</tr>
+														<tr>
+															<td>23.0>>25.0</td>
+															<td>OVERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>25.0>>30.0</td>
+															<td>VERY OVERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>30.0>></td>
+															<td>EXTREME</td>
+														</tr>
+													</tbody>
+												</table>
+												<table class="table">
+													<thead>
+														<tr>
+															<th>
+																<b>INDONESIAN</b>
+															</th>
+															<th>
+																<b>INPUT---A</b>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+														<td>0.0>>20.0</td>
+														<td>UNDERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>20.0>>25.0</td>
+															<td>NORMAL</td>
+														</tr>
+														<tr>
+															<td>25.0>>30.0</td>
+															<td>OVERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>30.0>>40.0</td>
+															<td>VERY OVERWEIGHT</td>
+														</tr>
+														<tr>
+															<td>40.0>></td>
+															<td>EXTREME</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="panel-footer"></div>
+										</div>
+									</div>
+									
+									<div class="col-sm-6">
+										<div class="panel panel-primary">
+											<div class="panel-heading">MEASUREMENT GUIDANCE-Height</div>
+											<div class="panel-body">
+												<img src="img/chimg1.jpg" class="img-responsive" style="width:100%" alt="Image">
+												</div>
+												<div class="panel-footer">  <li>Measure your height without shoes.  </li></div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="panel panel-primary">
+												<div class="panel-heading">MEASUREMENT GUIDANCE-Waist</div>
+												<div class="panel-body">
+													<img src="img/chimg3.jpg" class="img-responsive" style="width:100%" alt="Image">
+													</div>
+													<div class="panel-footer">  <li> Measure the circumference of your waist at a horizontal level around the navel for men, and at the
+level with the least width for women.</li><li> Don't pull your stomach in.</li>
+</div>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="panel panel-primary">
+													<div class="panel-heading">MEASUREMENT GUIDANCE-Neck</div>
+													<div class="panel-body">
+														<img src="img/chimg2.jpg" class="img-responsive" style="width:100%" alt="Image">
+														</div>
+														<div class="panel-footer"><li>Measure the circumference of the neck.</li><li> Start below the larynx with the tape sloping slightly downward to the front.</li><li> Avoid flaring your neck out.</li></div>
+													</div>
+												</div>
+										</div>
+										<div class="container-fluid">
+										<h2><u>Note:</u></h2>
+										<h4><b><u> Measuring Body Fat</u></b> </h4>
+										<p>Specific techniques must be used to measure body fat. The U.S. Navy has come up with a straightforward and useful method - equations developed by Drs. Hodgdon and Beckett 
+</p>
+										<p>at the Naval Health Research Center take into account differences in the way men and women accumulate fat, thus different measurements are required.</p>
+										<h4><b><u>US NAVY body fat calculator formula for man</b></u></h4>
+										<p style="color:blue";>
+  x=495/(1.0324-0.19077*log[(wast-neck))+0.15456*log(100*height)]).450
+  </p>
+									</div>
+									</div>
+									
+									<!--  form_table  -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+ 
+

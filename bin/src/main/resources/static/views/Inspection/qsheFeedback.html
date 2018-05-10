@@ -1,0 +1,2250 @@
+<style>
+.full button span {
+	background-color: limegreen !important;
+	border-radius: 32px;
+	color: black;
+}
+
+.disabled {
+	cursor: not-allowed;
+}
+
+.partially button span {
+	background-color: orange !important;
+	border-radius: 32px;
+	color: black;
+}
+</style>
+<div class="main" id="main" ng-hide="hidebody">
+
+
+	<div ng-show="haspermission" mdlcode="QSE"
+		callback-fn="unauthorize(arg1)" allowed="unauthorized"
+		id="unauthorized"></div>
+	<div allowed="read" mdlcode="QSE">
+
+		<div class="sticky_header" style="height: 94px;">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i>
+						<a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Inspection">Inspections</a></li>
+					<li><a href="#/QSHEFeedBack-main">QSHE FeedBack</a></li>
+					<li><b>QSHE Feedback Details</b></li>
+					<!--    <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span> -->
+				</ul>
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">QSHE FeedBack</div>
+					<div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+						<span ng-if="qsherefid.length > 0"
+							style="display: inline-block; border-right: 2px solid #fff; padding-right: 20px;">Ref.Id
+							: {{qsherefid}}</span> <span
+							style="display: inline-block; padding-left: 18px;">Form
+							No: {{formNo.actFormno}}</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<!--------------------------------------------------------------->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper">
+					<div class="form_table">
+						<div class="workflow_wrapper">
+							<div class="workflow_wrapper_title">Vessel Workflow</div>
+							<!--               <div class="no-workflow" ng-if="!displayShipWorkflow">Work -->
+							<!--                 Flow Not Yet Started</div> -->
+							<div class="row workflow_wrapper_content">
+								<div class="col-xs-12 col-sm-1">
+									<div class="ship-stage pull-right">
+										<img src="img/ship-stage.svg" />
+									</div>
+								</div>
+								<div class="col-sm-11">
+									<div class="btn-stage-container"
+										ng-repeat="wrkflowstatusdetails in wrkflowstatus"
+										ng-if="wrkflowstatusdetails.cntrltype=='CNT002'">
+										<div class="stage-head">{{wrkflowstatusdetails.stageid}}</div>
+										<div class="stage-neck"></div>
+										<div class="stage-body">
+											<p>{{ wrkflowstatusdetails.username}}</p>
+											<p>{{ wrkflowstatusdetails.rankname}}</p>
+											<p>{{ wrkflowstatusdetails.upddate | date:setdate
+											 }}</p>
+											<span class="stage-body-footer">{{wrkflowstatusdetails.formstatusname}}</span>
+										</div>
+										<div class="stage-tail"></div>
+										<div class="dropdown-content dropdown-menu-arrow"
+											ng-if="wrkflowstatusdetails.remarks!=null">
+											<div class="label label-primary">Remarks</div>
+											<div class="dropdown-content-desc">{{wrkflowstatusdetails.remarks}}</div>
+											<div class="dropdown-content-footer">{{wrkflowstatusdetails.senddate
+												| date:setdate}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-7">
+
+								<div class="form-group row">
+									<label class="col-sm-4 form-control-label">Vessel Name</label>
+									<div class="col-sm-4">
+										<input type="text" class="col-sm-6 form-control" disabled
+											ng-model="vesselname">
+									</div>
+								</div>
+
+
+								<div class="form-group row">
+									<label class="col-sm-4 form-control-label">Master</label>
+									<div class="col-sm-4">
+										<input type="text" class="col-sm-6 form-control" disabled
+											ng-model="masterName">
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-sm-4 form-control-label">Reporting
+										Year <span style="color: red"><span style="color: red">*</span></span>
+									</label>
+									<div class="col-sm-4">
+										<p class="input-group">
+											<input type="text" class="form-control" ng-disabled="true"
+												uib-datepicker-popup="{{format}}" ng-model="reportyear"
+												ng-change="inspectiondate()" is-open="status.opened"
+												datepicker-options="dateOptions"
+												date-disabled="disabled(date, mode)" ng-required="true"
+												close-text="Close" /> <span class="input-group-btn">
+												<button type="button" class="btn btn-default"
+													ng-click="open($event)">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</span>
+										</p>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="col-xs-12 col-sm-5 pull-right commpadd">
+								<div class="form-group row">
+									<label class="col-sm-5 form-control-label">Date</label>
+									<div class="col-sm-6">
+										<input type="text" class="col-sm-6 form-control" disabled
+											ng-model="reportDate | date:setdate">
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-sm-5 form-control-label">Reporting
+										Month <span style="color: red"><span style="color: red">*</span></span>
+									</label>
+									<div class="col-sm-6">
+										<select class="form-control" ng-model="reportmonth"
+											ng-change="changeCheckBox()">
+											<option value="1">January</option>
+											<option value="2">February</option>
+											<option value="3">March</option>
+											<option value="4">April</option>
+											<option value="5">May</option>
+											<option value="6">June</option>
+											<option value="7">July</option>
+											<option value="8">August</option>
+											<option value="9">September</option>
+											<option value="10">October</option>
+											<option value="11">November</option>
+											<option value="12">December</option>
+										</select>
+										<div class="text-error">{{reportmontherror}}</div>
+									</div>
+
+								</div>
+
+								<div class="form-group row">
+									<div class="col-sm-6">
+										<input name="radio-stacked_semiyear_VesselInspection"
+											style="float: left; margin-top: 5px" ng-disabled="true"
+											ng-model="semiYear" value="firsthalf_vesselInspection"
+											type="radio"><span class="radio-text"><div
+												class="info_msg">
+												<span>1st Jan - 30th Jun</span> <i class="fa fa-info-circle"></i>
+												<div class="dropdown-content dropdown-menu-arrow"
+													style="right: -50px;">
+													<div class="dropdown-content-desc"
+														style="width: 200px; padding-bottom: 10px;">
+														<span>Totals for the semi year shall be computed by
+															adding this reporting months figures from last month
+															report.</span>
+													</div>
+												</div>
+											</div></span>
+									</div>
+									<div class="col-sm-6">
+										<input name="radio-stacked_semiyear_VesselInspection"
+											style="float: left; margin-top: 5px" ng-disabled="true"
+											ng-model="semiYear" value="secondhalf_vesselInspection"
+											type="radio"><span class="radio-text"><div
+												class="info_msg">
+												<span>1st July - 31st Dec</span> <i
+													class="fa fa-info-circle"></i>
+												<div class="dropdown-content dropdown-menu-arrow"
+													style="right: -50px;">
+													<div class="dropdown-content-desc"
+														style="width: 200px; padding-bottom: 10px;">
+														<span>Totals for the semi year shall be computed by
+															adding this reporting months figures from last month
+															report.</span>
+													</div>
+												</div>
+											</div></span>
+									</div>
+									<div style="margin-left: 15px" class="text-error">{{showReportMonthError}}</div>
+								</div>
+
+								<div class="row">
+									<div class="col-sm-12">
+
+										<!-- ng-if="formstatus=='APR'" -->
+
+										<a type="button" style="margin-left: 10px;"
+											ng-show="pdfandexport" class="btn-custom pull-right"
+											ng-click="exportexcel()"><img
+											src="Sidebar/css/button/export_ex.svg" /> <img
+											src="Sidebar/css/button/export_ex_h.svg" /></a> <a
+											ng-click="populateExternalInspectionIntoQSHEMonthlyDetail()"
+											type="button" style="margin-left: 10px;"
+											class="btn-custom pull-right"> <img
+											src="Sidebar/css/button/show.svg" /> <img
+											src="Sidebar/css/button/show_h.svg" />
+										</a> <a type="button" style="margin-left: 10px"
+											ng-show="pdfandexport" allowed="write" mdlcode="QSE"
+											style="margin-left: 10px;" class="btn-custom pull-right"
+											ng-click="saveAsPDFDocument()"><img
+											src="Sidebar/css/button/pdf.svg" /> <img
+											src="Sidebar/css/button/pdf_h.svg" /></a>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+						<hr />
+
+
+						<h4 class="lead_title">Key Performance Indicator (KPI)</h4>
+
+						<div id="qshe_tabs" class="bs-nav-tabs nav-tabs-warning">
+
+
+							<ul class="nav nav-tabs nav-animated-border-from-left">
+								<li class="nav-item"><a class="nav-link" id="firsttab"
+									onclick="firstback()" data-target="#nav-tabs-0-1">Current
+										Inspection</a></li>
+								<li class="nav-item"><a class="nav-link" id="secondtab"
+									onclick="firstnext()" data-target="#nav-tabs-0-2">Semi-Annual
+										Inspections</a></li>
+
+								<li class="nav-item"><a class="nav-link" id="thirdtab"
+									onclick="secondnext()" data-target="#nav-tabs-0-3">SM &
+										Review Status</a></li>
+								<li class="nav-item"><a class="nav-link" id="fourthtab"
+									onclick="thirdnext()" data-target="#nav-tabs-0-4">Vessel
+										Maintenance</a></li>
+								<li class="nav-item"><a class="nav-link" id="fifthtab"
+									onclick="fourthnext()" data-target="#nav-tabs-0-5">Safety
+										Excellence</a></li>
+								<li class="nav-item"><a class="nav-link" id="sixthtab"
+									onclick="fifthnext()" data-target="#nav-tabs-0-6">Environmental
+								</a></li>
+
+							</ul>
+
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane in active"
+									id="nav-tabs-0-1">
+									<div class="lead_title">
+										Current (REPORTING MONTH) Vessel Inspection<span
+											style="color: red"><span style="color: red">*</span></span>
+									</div>
+
+									</br>
+									<div class="form_highlight">
+										<div class="col-xs-12 col-sm-6">
+
+											<div class="form-group row">
+												<label class="col-sm-4 form-control-label">Type of
+													Inspection </label>
+												<div class="col-sm-7">
+													<select class="form-control current-inspection-type"
+														ng-disabled="hideshipdiv"
+														ng-model="qsheMonthlyDetail_inspectioncode"
+														value={{qsheMonthlyDetail_inspectioncode}}>
+														<option ng-repeat="inspection in internalInspections"
+															ng-model="qsheMonthlyDetail_inspectionname"
+															value="{{inspection.inspectioncode}}">{{inspection.inspectionname}}</option>
+													</select>
+												</div>
+											</div>
+
+											<!-- <div class="form-group row">
+                  <label class="col-sm-4 form-control-label">Place of Inspection :</label>
+                  <div class="col-sm-2">
+                    <input ng-model="placeinspection" value={{placeinspection}} ng-blur = "populatePortName()" type="text" class="form-control">
+                  </div>
+                  <div class="col-sm-2">
+
+                    <input  ng-model="portName" value={{portName}} type="text" class="form-control" disabled>
+                    </select>
+
+                  </div>
+                </div> -->
+											<div class="form-group row">
+												<label class="col-sm-4 form-control-label ">Place of
+													Inspection </label>
+												<div class="col-sm-8">
+													<input type="text" class="col-sm-4 form-control"
+														ng-disabled="hideshipdiv" valid-alpha maxlength="5"
+														style="width: 30%; margin-right: 10px;" placeholder=""
+														ng-keyup="atPort()" ng-model="placeinspection"
+														id="PortCode"> <input type="text"
+														class="col-sm-12 form-control" placeholder=""
+														readonly="true" style="width: 54%; margin-right: 10px;"
+														ng-model="portName" id="PortName">
+
+													<button type="button" class="btn btn-primary fa fa-search"
+														ng-show="placeinspection.length >= 2"
+														style="position: absolute"
+														ng-click="btnPortCodeActionPerformed()"></button>
+												</div>
+
+												<modal class="" visible="showPortModal"
+													on-sown="modalOneShown()" on-hide="modalOneHide()">
+												<modal-header class="tab_head" title="Port Selection"></modal-header>
+												<modal-body title1="Port Code" title2="Port Name"
+													data="portnameList" searchdesc1="Search Port Code"
+													searchdesc2="Search Port Name" searchdesc3="Search on both"
+													keymodelid="m1" valuemodelid="m2"
+													callback-fn="setValue(arg1,arg2)" hide-fn="hide()">
+												</modal-body> </modal>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-sm-4 form-control-label">Number of
+													Observations or Deficiencies </label>
+												<div class="col-sm-7">
+													<input ng-model="obsdefcount" value={{obsdefcount}}
+														ng-disabled="hideshipdiv" valid-positive-number-exp
+														class="form-control">
+												</div>
+											</div>
+
+										</div>
+
+
+
+										<div class="col-xs-12 col-sm-6">
+											<div class="form-group row">
+												<label class="col-sm-5 form-control-label">Date of
+													Inspection :</label>
+												<div class="col-sm-7">
+													<input id="inspectiondate" ng-model="inspectiondate"
+														kendo-date-picker ng-disabled="hideshipdiv"
+														k-rebind="inspectiondates" ng-disabled=true
+														ng-blur="validateDate('inspectiondate','inspectiondate', 'inspectiondate_error','inspectiondateCondtn','date')"
+														k-options="inspectiondates" style="width: 100%;" />
+													<div class="text-error" ng-if="inspectiondateCondtn">{{inspectiondate_error}}</div>
+													<!--                            <input id="inspectiondate" ng-model="inspectiondate" -->
+													<!--                              value={{inspectiondate}} type="date" -->
+													<!--                              class="form-control current-inspection-date"> -->
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-sm-5 form-control-label">No. of
+													Non-Confirmities :</label>
+												<div class="col-sm-7">
+													<input ng-model="nccount" value={{nccount}}
+														valid-positive-number-exp ng-disabled="hideshipdiv"
+														class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-xs-12 col-sm-12">
+												<a ng-click="addcurrentInspection()" type="button"
+													ng-show="addbutton" ng-show="showbuttonvalidation"
+													class="btn-custom pull-right"> <img
+													src="Sidebar/css/button/add.svg" /> <img
+													src="Sidebar/css/button/add_h.svg" />
+												</a> <a type="button" ng-show="updatebutton"
+													ng-click="updateInspectionReport()"
+													class="btn-custom pull-right"> <img
+													src="Sidebar/css/button/updated.svg" /> <img
+													src="Sidebar/css/button/updated_h.svg" />
+												</a>
+											</div>
+										</div>
+										<label class="col-sm-4 form-control-label" style="color: red">{{addCurVes}}</label>
+
+										<div class="form-group row">
+											<div class="col-sm-12">
+												<table
+													class="table table-hover table-striped table-bordered"
+													cellspacing="0">
+													<thead>
+														<tr>
+															<th width=14%>Type</th>
+															<th width=10%>Date</th>
+															<th width=6%>Place</th>
+															<th><div class="info_msg">
+																	<span style="color: #fff;">Number of
+																		Non-Conformities</span> <i class="fa fa-info-circle"></i>
+																	<div class="dropdown-content dropdown-menu-arrow"
+																		style="right: -258px; top: 51px;">
+																		<div class="dropdown-content-desc"
+																			style="width: 355px; padding-bottom: 10px;">
+																			<span>A Non-Conformity is an observed
+																				situation where objective evidence indicates the non
+																				fulfillment of a specified requirement(include major
+																				NC)</span>
+																		</div>
+																	</div>
+																</div></th>
+															<th><div class="info_msg">
+																	<span style="color: #fff;">Number of
+																		Observations or Deficiencies</span> <i
+																		class="fa fa-info-circle"></i>
+																	<div class="dropdown-content dropdown-menu-arrow"
+																		style="right: -242px; top: 51px;">
+																		<div class="dropdown-content-desc"
+																			style="width: 355px; padding-bottom: 10px;">
+																			<span>An Observation means a statement of fact
+																				made during an audit or inspection and substantiated
+																				by objective</span>
+																		</div>
+																	</div>
+																</div></th>
+															<th>Inspections w/o any NC,Obs or Def</th>
+															<th>Total Number of Inspections</th>
+															<th>Remarks</th>
+															<th colspan="2"></th>
+														</tr>
+													<thead>
+													<tbody>
+														<tr
+															ng-repeat="currentInspection in currentInspections track by $index">
+															<td><label>{{currentInspection.inspectionname}}</label></td>
+															<td><label>{{currentInspection.inspectiondate
+																	| cmdate:'MM/dd/yyyy'}}</label></td>
+															<td><label>{{currentInspection.portName}}</label></td>
+															<td style="text-align: right;"><label>{{currentInspection.nccount}}</label></td>
+															<td style="text-align: right;"><label>{{currentInspection.obsdefcount}}</label></td>
+															<td style="text-align: right;"><label>{{currentInspection.withoutncobsdef}}</label>
+															</td>
+															<td style="text-align: right;"><label>{{currentInspection.totalinspection}}</label></td>
+															<td><textarea value="{{currentInspection.remarks}}"
+																	ng-model="currentInspection.remarks"
+																	class="form-control" style="height: 50px !important;"
+																	rows="3" cols="50"></textarea></td>
+															<td style="text-align: center;"><button
+																	class="btn btn-info btn-sm"
+																	ng-disabled="currentInspection.inspectiontype != 'internal'"
+																	data-toggle="tooltip" data-placement="bottom"
+																	title="Edit" ng-click="editCurrentInspection($index)">
+																	<i class="fa fa-edit " style="color: #F44336;"></i>
+																</button> <span class="text-muted"></span></td>
+															<td><button
+																	ng-disabled="currentInspection.inspectiontype != 'internal'"
+																	ng-click="deleteCurrentInspection($index)"
+																	type="button" class="btn btn-danger btn-sm">
+																	<i class="fa fa-trash"></i>
+																</button></td>
+														</tr>
+													</tbody>
+												</table>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<a type="button" onclick="firstnext()"
+											class="btn-custom pull-right" style="margin-right: 30px">
+											<img src="Sidebar/css/button/next.svg" /> <img
+											src="Sidebar/css/button/next_h.svg" />
+										</a>
+									</div>
+
+								</div>
+								<div role="tabpanel" class="tab-pane " id="nav-tabs-0-2">
+									<div class="lead_title">
+										Semi Annual Vessel Inspection<span style="color: red">*</span>
+									</div>
+									<!--                    <div style="float: right"> -->
+									<!--                                        <input name="radio-stacked_semiyear_VesselInspection" -->
+									<!--                                          ng-model="semiYearVesselInspection" -->
+									<!--                                          value="firsthalf_vesselInspection" -->
+									<!--                                          style="vertical-align: middle !important" type="radio" -->
+									<!--                                          ng-click="populateSemiAnnualExternalInspection()"><span -->
+									<!--                                          class="radio-text">1st Jan - 30th Jun</span> <input -->
+									<!--                                          name="radio-stacked_semiyear_VesselInspection" -->
+									<!--                                          ng-model="semiYearVesselInspection" -->
+									<!--                                          value="secondhalf_vesselInspection" -->
+									<!--                                          style="vertical-align: middle !important" type="radio" -->
+									<!--                                          ng-click="populateSemiAnnualExternalInspection()"><span -->
+									<!--                                          class="radio-text">1st July - 31st Dec</span> -->
+									<!--                    </div> -->
+									</br>
+									<!--                    <div class="form-group row"> -->
+									<!--                      <div class="col-sm-6 form-control-label"> -->
+									<!--                        <div> -->
+									<!--                          <label class="col-sm-5 form-control-label">Type of -->
+									<!--                            Inspection</label> -->
+									<!--                          <div class="col-sm-6"> -->
+									<!--                            <select class="form-control current-inspection-type" -->
+									<!--                              ng-model="qsheSemiAnnualDetail_inspectioncode" -->
+									<!--                              value={{qsheSemiAnnualDetail_inspectioncode}}> -->
+									<!--                              <option -->
+									<!--                                ng-repeat="inspection_SemiAnnual in internalInspections" -->
+									<!--                                value="{{inspection_SemiAnnual.inspectioncode}}">{{inspection_SemiAnnual.inspectionname}}</option> -->
+									<!--                            </select> -->
+									<!--                          </div> -->
+									<!--                        </div> -->
+									<!--                        <br></br> -->
+									<!--                        <div> -->
+									<!--                          <label class="col-sm-5 form-control-label">Number -->
+									<!--                            of Open Non-Confirmaties</label> -->
+									<!--                          <div class="col-sm-6"> -->
+									<!--                            <input ng-model="opennccount" value={{opennccount}} -->
+									<!--                              type="number" class="form-control"> -->
+									<!--                          </div> -->
+									<!--                        </div> -->
+									<!--                        <br></br> -->
+
+									<!--                      </div> -->
+
+
+									<!--                      <div class="col-sm-6 form-control-label"> -->
+									<!--                        <div class="row"> -->
+
+									<!--                          <div> -->
+									<!--                            <label class="col-sm-5 form-control-label">Number -->
+									<!--                              of Open Observations / Deficiencies</label> -->
+									<!--                            <div class="col-sm-6"> -->
+									<!--                              <input ng-model="openobsdefcount" -->
+									<!--                                value={{openobsdefcount}} type="number" -->
+									<!--                                class="form-control"> -->
+									<!--                            </div> -->
+									<!--                          </div> -->
+									<!--                        </div> -->
+									<!--                      </div> -->
+									<!--                    </div> -->
+
+									<!--                    <div class="form-group row"> -->
+									<!--                      <div class="col-sm-offset-2 col-sm-10"> -->
+									<!--                        <a ng-click="addSemiAnnualInspection()" type="button" -->
+									<!--                          class="btn-custom pull-right"> <img -->
+									<!--                          src="Sidebar/css/button/add.svg"> <img -->
+									<!--                          src="Sidebar/css/button/add_h.svg"> -->
+									<!--                        </a> -->
+									<!--                      </div> -->
+									<!--                      <label class="col-sm-4 form-control-label" style="color: red">{{semiAnualValidation}}</label> -->
+									<!--                    </div> -->
+									<label class="col-sm-4 form-control-label" style="color: red">{{semiAnnualInspectionserrorMessageText}}</label>
+									<div class="form-group row">
+										<div class="col-sm-12">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<thead>
+													<tr>
+														<th width=6%>Type of Inspection</th>
+														<th width=12%><div class="info_msg">
+																<span style="color: #fff;">Total no. of
+																	Inspections</span> <i class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -263px; top: 51px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 355px; padding-bottom: 10px;">
+																		<span>Totals for the semi year shall be
+																			computed by adding this reporting months figures from
+																			last month report.</span>
+																	</div>
+																</div>
+															</div></th>
+														<th><span
+															style="cursor: pointer; border-bottom: 1px solid #fff;"
+															data-toggle="tooltip" title="Non-Confirmities">NC</span></th>
+														<th><span
+															style="cursor: pointer; border-bottom: 1px solid #fff;"
+															data-toggle="tooltip"
+															title="Observations or Deficiencies">Obs</span></th>
+														<th><span
+															style="cursor: pointer; border-bottom: 1px solid #fff;"
+															data-toggle="tooltip" title="Non-Confirmities">Open
+																NC</span></th>
+														<th>Open Obs or Def</th>
+														<th>Inspections w/o any NC,Obs,or Def</th>
+														<th>Remarks</th>
+														<!--                              <th></th> -->
+														<!--                              <th></th> -->
+													</tr>
+												<thead>
+												<tbody>
+													<tr
+														ng-repeat="semiAnnualInspection in semiAnnualInspections track by $index">
+														<td>{{semiAnnualInspection.inspectionname}}</td>
+														<td style="text-align: right;"><label>{{semiAnnualInspection.totalinspeccount}}</label></td>
+														<td style="text-align: right;"><label>{{semiAnnualInspection.totalnccount}}</label>
+														</td>
+														<td style="text-align: right;"><label>{{semiAnnualInspection.totalobsdefcount}}</label>
+														</td>
+														<td><input class="form-control"
+															style="text-align: right;"
+															ng-disabled="semiAnnualInspection.inspectiontype != 'internal'"
+															ng-change="validateopennc(semiAnnualInspection.totalnccount,semiAnnualInspection.opennccount, 'semiAnnualInspections', $index, 'opennccount')"
+															valid-positive-number-exp
+															ng-model="semiAnnualInspection.opennccount"> <!--                               <label>{{semiAnnualInspection.opennccount}}</label> -->
+														</td>
+
+														<td><input class="form-control"
+															style="text-align: right;"
+															ng-disabled="semiAnnualInspection.inspectiontype != 'internal'"
+															ng-change="validateopenobs(semiAnnualInspection.totalobsdefcount,semiAnnualInspection.openobsdefcount,'semiAnnualInspections', $index, 'openobsdefcount')"
+															valid-positive-number-exp
+															ng-model="semiAnnualInspection.openobsdefcount">
+															<!--                              <label>{{semiAnnualInspection.openobsdefcount}}</label> -->
+														</td>
+														<td style="text-align: right;"><label>{{semiAnnualInspection.withoutncobsdefcount}}</label>
+														</td>
+														<td><textarea
+																value="{{semiAnnualInspection.remarks}}"
+																ng-model="semiAnnualInspection.remarks"
+																class="form-control" style="height: 50px !important;"
+																rows="3" cols="50"></textarea></td>
+														<!--                              <td style="text-align: center;"><a -->
+														<!--                                href="javascript:void(0);" data-toggle="tooltip" -->
+														<!--                                data-placement="bottom" title="Edit" -->
+														<!--                                data-target="#nearmismodal2" -->
+														<!--                                ng-disabled="semiAnnualInspection.inspectiontype != 'internal'" -->
+														<!--                                ng-click="editSemiAnnualInspection($index)"> <i -->
+														<!--                                  class="fa fa-edit " style="color: #F44336;"></i> <span -->
+														<!--                                  class="text-muted"></span> -->
+														<!--                              </a></td> -->
+														<!--                              <td><button -->
+														<!--                                  ng-disabled="semiAnnualInspection.inspectiontype != 'internal'" -->
+														<!--                                  ng-click="deleteSemiAnnualInspection($index)" -->
+														<!--                                  type="button" -->
+														<!--                                  class="btn btn-danger label btn btn-danger label-rounded"> -->
+														<!--                                  <i class="fa fa-minus"></i> -->
+														<!--                                </button></td> -->
+													</tr>
+
+													<tr>
+														<td>TOTAL</td>
+														<td style="text-align: right;"><label>{{totalinspeccounts}}</label></td>
+														<td style="text-align: right;"><label>{{totalnccounts}}</label></td>
+														<td style="text-align: right;"><label>{{totalobsdefcounts}}</label></td>
+														<td style="text-align: right;"><label>{{opennccounts}}</label></td>
+
+														<td style="text-align: right;"><label>{{openobsdefcounts}}</label></td>
+														<td style="text-align: right;"><label>{{withoutncobsdefcounts}}</label></td>
+														<td><label></label>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="form-group row">
+										<a type="button" onclick="secondnext()"
+											class="btn-custom pull-right" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/next.svg"> <img
+											src="Sidebar/css/button/next_h.svg">
+										</a> <a type="button" onclick="firstback()"
+											class="btn-custom pull-right" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/back.svg"> <img
+											src="Sidebar/css/button/back_h.svg">
+										</a>
+									</div>
+								</div>
+
+
+								<div role="tabpanel" class="tab-pane" id="nav-tabs-0-3">
+									<div class="lead_title">Shipboard Meetings and Review
+										Status</div>
+									</br>
+									<div class="form-group row">
+										<div class="col-sm-12">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<thead>
+													<tr>
+														<th>Type of Function</th>
+														<th>Last Done</th>
+														<th>Next Due</th>
+														<!--                              <td><b>Office Acknowledgement</b></td> -->
+														<th>Remarks</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><div class="info_msg">
+																<span>Masters Review of Safety Management</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -117px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 200px; padding-bottom: 10px;">
+																		<ul style="margin-left: -25px;">
+																			<li>Required once in each tenure of Master</li>
+																			<li>Additionally whenever Master wishes to
+																				submit a review</li>
+																		</ul>
+																	</div>
+																</div>
+															</div></td>
+														<td><input id="reviewlastdate"
+															ng-model="reviewlastdate" ng-disabled=true
+															ng-change="saftymanagementcalculatemonth()"
+															style="width: 100%;" /> <!--                              <input id="reviewlastdate" -->
+															<!--                                ng-model="reviewlastdate" value={{reviewlastdate}} -->
+															<!--                                type="date" class="form-control master-review-done"> -->
+														</td>
+														<td><input id="reviewnextdue" ng-disabled=true
+															ng-model="reviewnextdue" style="width: 100%;" /> <!--                                 <input id="reviewnextdue" -->
+															<!--                                ng-model="reviewnextdue" value={{reviewnextdue}} -->
+															<!--                                type="date" class="form-control master-review-due"> -->
+															<!--                                </td> --> <!--                              <td style="width: 18%"><label -->
+															<!--                                class="c-input c-radio"> <input -->
+															<!--                                  name="radio-stacked_masterack" ng-model="masterack" -->
+															<!--                                  value="Y" type="radio"><span -->
+															<!--                                   class="c-indicator c-indicator-warning"></span> <span -->
+															<!--                                  class="c-input-text"> Received </span> -->
+															<!--                              </label> <label class="c-input c-radio"> <input -->
+															<!--                                  name="radio-stacked_masterack" ng-model="masterack" -->
+															<!--                                  value="N" type="radio"><span -->
+															<!--                                   class="c-indicator c-indicator-warning"></span> <span -->
+															<!--                                  class="c-input-text"> Not Received </span> -->
+															<!--                              </label></td> -->
+														<td><textarea ng-model="masterRemarks"
+																ng-disabled="hideshipdiv" value={{masterRemarks}}
+																class="form-control" style="height: 50px !important;"
+																rows="3" cols="50"></textarea></td>
+													</tr>
+
+													<tr>
+														<td><div class="info_msg">
+																<span>Safety & Health Meeting</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -117px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 200px; padding-bottom: 10px;">
+																		<span>Required every month</span>
+																	</div>
+																</div>
+															</div></td>
+														<td><input ng-disabled=true ng-model="safetylastdate"
+															ng-disabled=true style="width: 100%;" /> <!--                              <input id="safetylastdate" ng-disabled="true" -->
+															<!--                                ng-model="safetylastdate" value={{safetylastdate}} -->
+															<!--                                type="date" class="form-control safety-meeting-done"> -->
+														</td>
+														<td><input id="safetynextdue" ng-disabled=true
+															ng-model="safetynextdue" style="width: 100%;" /> <!--                               <input id="safetynextdue" -->
+															<!--                                ng-model="safetynextdue" value={{safetynextdue}} -->
+															<!--                                type="date" class="form-control safety-meeting-due"> -->
+														</td>
+														<!--                              <td style="width: 18%"><label -->
+														<!--                                class="c-input c-radio"> <input -->
+														<!--                                  name="radio-stacked_safetyack" ng-model="safetyack" -->
+														<!--                                  value="Y" type="radio"><span -->
+														<!--                                  class="c-indicator c-indicator-warning"></span> <span -->
+														<!--                                  class="c-input-text"> Received </span> -->
+														<!--                              </label> <label class="c-input c-radio"> <input -->
+														<!--                                  name="radio-stacked_safetyack" ng-model="safetyack" -->
+														<!--                                  value="N" type="radio"><span -->
+														<!--                                  class="c-indicator c-indicator-warning"></span> <span -->
+														<!--                                  class="c-input-text"> Not Received </span> -->
+														<!--                              </label></td> -->
+														<td><textarea ng-model="safetyremarks"
+																ng-disabled="hideshipdiv" value={{safetyremarks}}
+																class="form-control" style="height: 50px !important;"
+																rows="3" cols="50"></textarea></td>
+													</tr>
+
+													<tr>
+														<td><div class="info_msg">
+																<span>Welfare Commitee Meeting</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -117px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 200px; padding-bottom: 10px;">
+																		<span>Required every 3 month</span>
+																	</div>
+																</div>
+															</div></td>
+														<td><input id="welfarelastdate"
+															ng-model="welfarelastdate" ng-disabled=true
+															ng-change="swelfarelastdatecalculatemonth()"
+															style="width: 100%;" /> <!--                              <input id="welfarelastdate" -->
+															<!--                                ng-model="welfarelastdate" value={{welfarelastdate}} -->
+															<!--                                type="date" class="form-control welfare-meeting-done"> -->
+														</td>
+														<td><input id="welfarenextdue" ng-disabled="true"
+															ng-model="welfarenextdue" style="width: 100%;" /> <!--                              <input id="welfarenextdue" -->
+															<!--                                ng-model="welfarenextdue" value={{welfarenextdue}} -->
+															<!--                                type="date" class="form-control welfare-meeting-due"> -->
+														</td>
+														<!--                              <td style="width: 18%"><label -->
+														<!--                                class="c-input c-radio"> <input -->
+														<!--                                  name="radio-stacked_welfareack" ng-model="welfareack" -->
+														<!--                                  value="Y" type="radio"><span -->
+														<!--                                  class="c-indicator c-indicator-warning"></span> <span -->
+														<!--                                  class="c-input-text"> Received </span> -->
+														<!--                              </label> <label class="c-input c-radio"> <input -->
+														<!--                                  name="radio-stacked_welfareack" ng-model="welfareack" -->
+														<!--                                  value="N" type="radio"><span -->
+														<!--                                  class="c-indicator c-indicator-warning"></span> <span -->
+														<!--                                  class="c-input-text"> Not Received </span> -->
+														<!--                              </label></td> -->
+														<td><textarea ng-model="welfareremarks"
+																ng-disabled="hideshipdiv" value={{welfareremarks}}
+																class="form-control" style="height: 50px !important;"
+																rows="3" cols="50"></textarea></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="form-group row">
+										<a type="button" onclick="thirdnext()"
+											class="btn-custom pull-right" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/next.svg"> <img
+											src="Sidebar/css/button/next_h.svg">
+										</a> <a type="button" onclick="secondback()"
+											class="btn-custom pull-right" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/back.svg"> <img
+											src="Sidebar/css/button/back_h.svg">
+										</a>
+									</div>
+								</div>
+
+
+								<div role="tabpanel" class="tab-pane" id="nav-tabs-0-4">
+									<div class="form-group row">
+										<div class="col-xs-12">
+											<div class="lead_title">Semi Annual & Current Vessel
+												Maintenance</div>
+										</div>
+									</div>
+									</br>
+									<div class="form-group row">
+										<div class="col-sm-5">
+											<div class="form-group row">
+												<label class="col-sm-6 form-control-label">Type of
+													Function </label>
+												<div class="col-sm-6">
+													<input ng-model="maintenancetype" value={{maintenancetype}}
+														type="text" disabled="true" value="PMS Items Outstanding"
+														class="form-control">
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-sm-6 form-control-label"><div
+														class="info_msg">
+														<span>Reporting Month<span style="color: red">*</span>
+															<i class="fa fa-info-circle"></i>
+															<div class="dropdown-content dropdown-menu-arrow"
+																style="right: -166px;">
+																<div class="dropdown-content-desc"
+																	style="width: 250px; padding-bottom: 10px;">
+																	<span>Count of PMS items due in reporting month
+																		but not carried out. i.e. PMS outstanding items for
+																		the reporting month.</span>
+																</div>
+															</div>
+													</div> </label>
+												<div class="col-sm-6">
+													<input ng-model="pmscurmoncount" style="text-align: right;"
+														value={{pmscurmoncount}} ng-disabled="hideshipdiv"
+														valid-positive-number-exp
+														ng-change="calculatevesselmaintain()" class="form-control">
+													<div class="text-error">{{pmscurmoncounterrorMessageText}}</div>
+												</div>
+
+											</div>
+										</div>
+										<div class="col-sm-7">
+											<div class="form-group row">
+												<label class="col-sm-6 form-control-label"><div
+														class="info_msg">
+														<span>Carried Over From Previous Month</span><span
+															style="color: red">*</span> <i class="fa fa-info-circle"></i>
+														<div class="dropdown-content dropdown-menu-arrow"
+															style="right: -166px;">
+															<div class="dropdown-content-desc"
+																style="width: 250px; padding-bottom: 10px;">
+																<ul style="margin-left: -25px">
+																	<li>Cumulative count of PMS outstanding items
+																		reported every month.</li>
+																	<li>This figure is obtained by adding each
+																		previous month count.</li>
+																</ul>
+															</div>
+														</div>
+													</div> </label>
+												<div class="col-sm-6">
+													<input ng-model="pmstotmoncount" style="text-align: right;"
+														value={{pmstotmoncount}} ng-disabled="hideshipdiv"
+														valid-positive-number-exp
+														ng-change="calculatevesselmaintain()" class="form-control">
+													<div class="text-error">{{pmstotmoncounterrorMessageText}}</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-6 form-control-label">Total At
+													Present </label>
+												<div class="col-sm-6">
+													<input ng-model="totcount" style="text-align: right;"
+														value={{totcount}} type="text" class="form-control"
+														disabled>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<a type="button" onclick="fourthnext()"
+											class="btn-custom pull-right" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/next.svg"> <img
+											src="Sidebar/css/button/next_h.svg">
+										</a> <a type="button" onclick="thirdback()"
+											class="btn-custom pull-right" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/back.svg"> <img
+											src="Sidebar/css/button/back_h.svg">
+										</a>
+									</div>
+								</div>
+
+								<div role="tabpanel" class="tab-pane" id="nav-tabs-0-5">
+									<div class="lead_title">Semi Annual & Safety Excellence</div>
+									<!-- <div style="float: right">
+                                        <input name="radio-stacked_semiyear2" ng-model="semiyearvalue"
+                                          style="vertical-align: middle !important" type="radio"
+                                          value="firsthalf_currsafexc"
+                                          ng-click="populatenearmisssemiannualcount()"><span
+                                          class="radio-text">1st Jan - 30th Jun</span> <input
+                                          name="radio-stacked_semiyear2" ng-model="semiyearvalue"
+                                          style="vertical-align: middle !important" type="radio"
+                                          value="secondhalf_currsafexc"
+                                          ng-click="populatenearmisssemiannualcount()"><span
+                                          class="radio-text">1st July - 31st Dec</span>
+                    </div> -->
+									</br>
+									<div class="form-group row">
+										<div class="col-xs-12">
+											<div class="table-responsive">
+												<table
+													class="table table-hover table-striped table-bordered"
+													cellspacing="0">
+													<thead>
+														<tr>
+															<th>Type of Function</th>
+															<th>For Reporting Month</th>
+															<th>For the semi-year</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>A.Accident
+																&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(total>>)</td>
+															<td><input ng-model="accidentcurcount"
+																style="text-align: right;" type="text"
+																value={{accidentcurcount}} disabled="true"
+																class="form-control"></td>
+															<td><input ng-model="accidentsemicount"
+																style="text-align: right;" type="text"
+																value={{accidentsemicount}} disabled="true"
+																class="form-control"></td>
+														</tr>
+
+														<tr>
+															<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.Injury & FAC</td>
+															<td><input ng-model="injurycurcount"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp value={{injurycurcount}}
+																ng-change="calculateaccidentcurcount()"
+																class="form-control"></td>
+															<td><input ng-model="injurysemicount"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp value={{injurysemicount}}
+																ng-change="calculateaccidentsemicount()"
+																class="form-control"></td>
+														</tr>
+
+														<tr>
+															<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.Oil Spill</td>
+															<td><input ng-model="oilcurcount"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp value={{oilcurcount}}
+																ng-change="calculateaccidentcurcount()"
+																class="form-control"></td>
+															<td><input ng-model="oilsemicount"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp value={{oilsemicount}}
+																ng-change="calculateaccidentsemicount()"
+																class="form-control"></td>
+														</tr>
+
+														<tr>
+															<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.Stoppage</td>
+															<td><input ng-model="stoppagecurcount"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp value={{stoppagecurcount}}
+																ng-change="calculateaccidentcurcount()"
+																class="form-control"></td>
+															<td><input ng-model="stoppagesemicount"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp value={{stoppagesemicount}}
+																ng-change="calculateaccidentsemicount()"
+																class="form-control"></td>
+														</tr>
+
+														<tr>
+															<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.Others</td>
+															<td><input ng-model="otherscurcount"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp value={{otherscurcount}}
+																ng-change="calculateaccidentcurcount()"
+																class="form-control"></td>
+															<td><input ng-model="otherssemicount"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp value={{otherssemicount}}
+																ng-change="calculateaccidentsemicount()"
+																class="form-control"></td>
+														</tr>
+
+														<tr>
+															<td>B.Near Miss</td>
+															<td><input class="form-control"
+																style="text-align: right;" disabled
+																ng-model="nearmisscurcount" value={{nearmisscurcount}}>
+															</td>
+															<td><input class="form-control"
+																style="text-align: right;" disabled
+																ng-model="nearmisssemicount" value={{nearmisssemicount}}></td>
+														</tr>
+
+														<tr>
+															<td>C.Maintenance Related engine stoppage(Hrs)</td>
+															<td><input ng-model="mainengcurhrs"
+																style="text-align: right;" ng-disabled="hideshipdiv" restrict-decimal
+																valid-positive-number-exp-dots
+																ng-blur="validatecurrentsafety()"
+																value={{mainengcurhrs}} class="form-control"></td>
+															<td><input ng-model="mainengsemihrs"
+																style="text-align: right;" ng-disabled="hideshipdiv" restrict-decimal
+																valid-positive-number-exp-dots
+																ng-blur="validatecurrentsafetysecond()"
+																value={{mainengsemihrs}} class="form-control"></td>
+														</tr>
+
+														<tr>
+															<td>D.Stoppage in Cargo work due to Vessel(Hrs)</td>
+															<td><input ng-model="cargowrkcurhrs"
+																style="text-align: right;" ng-disabled="hideshipdiv" restrict-decimal
+																valid-positive-number-exp-dots value={{cargowrkcurhrs}}
+																ng-blur="validatecurrentsafety()" class="form-control"></td>
+															<td><input ng-model="cargowrksemihrs"
+																style="text-align: right;" ng-disabled="hideshipdiv" restrict-decimal
+																valid-positive-number-exp-dots value={{cargowrksemihrs}}
+																ng-blur="validatecurrentsafetysecond()"
+																class="form-control"></td>
+														</tr>
+
+														<tr>
+															<td><div class="info_msg">
+																	<span>E.Carried Over From Previous Month</span> <i
+																		class="fa fa-info-circle"></i>
+																	<div class="dropdown-content dropdown-menu-arrow"
+																		style="right: -166px;">
+																		<div class="dropdown-content-desc"
+																			style="width: 250px; padding-bottom: 10px;">
+																			<ul style="margin-left: -25px">
+																				<li>Cumulative count of PMS outstanding items
+																					reported every month.</li>
+																				<li>This figure is obtained by adding each
+																					previous month count.</li>
+																			</ul>
+																		</div>
+																	</div>
+																</div></td>
+															<td><label id="lastaccdate">{{lastaccdate}}</label></td>
+															<td><input ng-model="operatingDaysSemiYear"
+																style="text-align: right;" ng-disabled="hideshipdiv"
+																valid-positive-number-exp
+																value={{operatingDaysSemiYear}} class="form-control"></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="col-sm-12">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<thead>
+													<tr>
+														<th colspan="7" class="text-center"><b>Monthly
+																exposure hours:(24hrs per day X no. of days X no. of
+																crew on board)</b><span style="color: red"><span
+																style="color: red">*</span></span>
+														</td>
+													</tr>
+													<tr>
+														<th><div class="info_msg">
+																<span style="color: #fff;">Number of crew on
+																	board</span> <i class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -166px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 250px; padding-bottom: 10px;">
+																		<ul style="margin-left: -25px">
+																			<li>Includes all crew, suptds., technicians etc
+																				sailing on board.</li>
+																			<li>Does not include persons engaged by
+																				charterer like pilot, mooring master, stevedores on
+																				short visit etc.</li>
+																		</ul>
+																	</div>
+																</div>
+															</div></th>
+														<th><div class="info_msg">
+																<span style="color: #fff;">Number of exposure
+																	days</span> <i class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -166px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 250px; padding-bottom: 10px;">
+																		<span>eg: Out of 31 days, 25 days with 26 crew
+																			+ 5 days with 27 crew + 1 day with 29 crew on board.</span>
+																	</div>
+																</div>
+															</div></th>
+														<th style="color: #fff;">Number of exposure hours</th>
+														<th><button type="button"
+																ng-click="addqsheCrewMonthDetailobj($index)"
+																class="btn btn-success btn-xs btn-rounded">
+																<i class="fa fa-plus"></i>
+															</button></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr
+														ng-repeat="setqsheCrewMonthDetails in qsheCrewMonthDetailobj">
+														<td ng-show="index">{{$index}}</td>
+														<td><input style="text-align: right;"
+															ng-model="setqsheCrewMonthDetails.crewonboard"
+															ng-disabled="hideshipdiv" valid-positive-number-exp
+															value={{setqsheCrewMonthDetails.crewonboard}}
+															ng-blur="noexposurehours[$index] = setqsheCrewMonthDetails.crewonboard * setqsheCrewMonthDetails.noexposuredays * 24"
+															ng-disabled="disableMonthlyExposureHours(1)"
+															class="form-control"></td>
+														<td><input style="text-align: right;"
+															ng-model="setqsheCrewMonthDetails.noexposuredays"
+															ng-disabled="hideshipdiv" valid-positive-number-exp
+															ng-blur="noexposurehours[$index] = setqsheCrewMonthDetails.crewonboard * setqsheCrewMonthDetails.noexposuredays * 24"
+															ng-disabled="disableMonthlyExposureHours(1)"
+															ng-change="validatedateofmonth('qsheCrewMonthDetailobj',$index)"
+															class="form-control"></td>
+														<td ng-show="index"></td>
+														<td ng-show="index"
+															ng-model="setqsheCrewMonthDetails.noexposurehours=noexposurehours[$index]"></td>
+														<td><input id="ExposureHours"
+															style="text-align: right;"
+															ng-model="noexposurehours[$index]" type="text"
+															ng-disabled=true class="form-control"></td>
+														<td><button type="button"
+																ng-click="deleteqsheCrewMonthDetailobj($index)"
+																class="btn btn-danger btn-xs btn-rounded">
+																<i class="fa fa-minus"></i>
+															</button></td>
+													</tr>
+
+													<!-- <tr>
+                              <td>February <input type="hidden" id="febMonth"
+                                ng-model="febMonth" value="02">
+                              </td>
+                              <td><input ng-model="febCrewOnboard"
+                                value={{febCrewOnboard}}
+                                ng-blur="febExposureHours = febCrewOnboard * febExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(2)" type="text"
+                                class="form-control"></td>
+                              <td><input ng-model="febExposureDays"
+                                value={{febExposureDays}}
+                                ng-blur="febExposureHours = febCrewOnboard * febExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(2)" type="text"
+                                class="form-control"></td>
+                              <td><input id="febExposureHours"
+                                ng-model="febExposureHours" value="{{febExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr>
+
+                            <tr>
+                              <td>March <input type="hidden" id="marMonth"
+                                value="03"></td>
+                              <td><input ng-model="marCrewOnboard"
+                                value={{marCrewOnboard}}
+                                ng-blur="marExposureHours = marCrewOnboard * marExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(3)" type="text"
+                                class="form-control"></td>
+                              <td><input ng-model="marExposureDays"
+                                value={{marExposureDays}}
+                                ng-blur="marExposureHours = marCrewOnboard * marExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(3)" type="text"
+                                class="form-control"></td>
+                              <td><input id="marExposureHours"
+                                ng-model="marExposureHours" value="{{marExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr>
+                            <tr>
+                              <td>April <input type="hidden" id="aprMonth"
+                                value="04"></td>
+                              <td><input ng-model="aprCrewOnboard"
+                                value={{aprCrewOnboard}}
+                                ng-blur="aprExposureHours = aprCrewOnboard * aprExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(4)" type="text"
+                                class="form-control"></td>
+                              <td><input ng-model="aprExposureDays"
+                                value={{aprExposureDays}}
+                                ng-blur="aprExposureHours = aprCrewOnboard * aprExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(4)" type="text"
+                                class="form-control"></td>
+                              <td><input id="aprExposureHours"
+                                ng-model="aprExposureHours" value="{{aprExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+
+                            </tr>
+                            <tr>
+                              <td>May <input type="hidden" id="mayMonth"
+                                value="05"></td>
+                              <td><input ng-model="mayCrewOnboard"
+                                value={{mayCrewOnboard}}
+                                ng-blur="mayExposureHours = mayCrewOnboard * mayExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(5)" type="text"
+                                class="form-control"></td>
+                              <td><input ng-model="mayExposureDays"
+                                value={{mayExposureDays}}
+                                ng-blur="mayExposureHours = mayCrewOnboard * mayExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(5)" type="text"
+                                class="form-control"></td>
+                              <td><input id="mayExposureHours"
+                                ng-model="mayExposureHours" value="{{mayExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr>
+                            <tr>
+                              <td>June <input type="hidden" id="junMonth"
+                                value="06"></td>
+                              <td><input ng-model="junCrewOnboard"
+                                value={{junCrewOnboard}}
+                                ng-blur="junExposureHours = junCrewOnboard * junExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(6)" type="text"
+                                class="form-control"></td>
+                              <td><input ng-model="junExposureDays"
+                                value={{junExposureDays}}
+                                ng-blur="junExposureHours = junCrewOnboard * junExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(6)" type="text"
+                                class="form-control"></td>
+                              <td><input id="junExposureHours"
+                                ng-model="junExposureHours" value="{{junExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr>
+                            <tr>
+                              <td>July <input type="hidden" id="julyMonth"
+                                value="07"></td>
+                              <td><input ng-model="julyCrewOnboard"
+                                value={{julyCrewOnboard}}
+                                ng-blur="julyExposureHours = julyCrewOnboard * julyExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(7)" type="text"
+                                class="form-control"></td>
+                              <td><input ng-model="julyExposureDays"
+                                value={{julyExposureDays}}
+                                ng-blur="julyExposureHours = julyCrewOnboard * julyExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(7)" type="text"
+                                class="form-control"></td>
+                              <td><input id="julyExposureHours"
+                                ng-model="julyExposureHours"
+                                value="{{julyExposureHours}}" type="text"
+                                disabled="true" class="form-control"></td>
+                            </tr>
+                            <tr>
+                              <td>August <input type="hidden" id="augMonth"
+                                value="08"></td>
+                              <td><input ng-model="augCrewOnboard"
+                                value={{augCrewOnboard}}
+                                ng-blur="augExposureHours = augCrewOnboard * augExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(8)" type="text"
+                                class="form-control"></td>
+                              <td><input ng-model="augExposureDays"
+                                value={{augExposureDays}}
+                                ng-blur="augExposureHours = augCrewOnboard * augExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(8)" type="text"
+                                class="form-control"></td>
+                              <td><input id="augExposureHours"
+                                ng-model="augExposureHours" value="{{augExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr>
+                            <tr>
+                              <td>September <input type="hidden" id="sepMonth"
+                                value="09"></td>
+                              <td><input ng-model="sepCrewOnboard"
+                                value={{sepCrewOnboard}}
+                                ng-blur="sepExposureHours = sepCrewOnboard * sepExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(9)" type="text"
+                                class="form-control"></td>
+                              <td><input ng-model="sepExposureDays"
+                                value={{sepExposureDays}}
+                                ng-blur="sepExposureHours = sepCrewOnboard * sepExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(9)" type="text"
+                                class="form-control"></td>
+                              <td><input id="sepExposureHours"
+                                ng-model="sepExposureHours" value="{{sepExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr>
+                            <tr>
+                              <td>October <input type="hidden" id="octMonth"
+                                value="10"></td>
+                              <td><input ng-model="octCrewOnboard"
+                                value={{octCrewOnboard}}
+                                ng-blur="octExposureHours = octCrewOnboard * octExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(10)"
+                                type="text" class="form-control"></td>
+                              <td><input ng-model="octExposureDays"
+                                value={{octExposureDays}}
+                                ng-blur="octExposureHours = octCrewOnboard * octExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(10)"
+                                type="text" class="form-control"></td>
+                              <td><input id="octExposureHours"
+                                ng-model="octExposureHours" value="{{octExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr>
+                            <tr>
+                              <td>November <input type="hidden" id="novMonth"
+                                value="11"></td>
+                              <td><input ng-model="novCrewOnboard"
+                                value={{novCrewOnboard}}
+                                ng-blur="novExposureHours = novCrewOnboard * novExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(11)"
+                                type="text" class="form-control"></td>
+                              <td><input ng-model="novExposureDays"
+                                value={{novExposureDays}}
+                                ng-blur="novExposureHours = novCrewOnboard * novExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(11)"
+                                type="text" class="form-control"></td>
+                              <td><input id="novExposureHours"
+                                ng-model="novExposureHours" value="{{novExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr>
+                            <tr>
+                              <td>December <input type="hidden" id="decMonth"
+                                value="12"></td>
+                              <td><input ng-model="decCrewOnboard"
+                                value={{decCrewOnboard}}
+                                ng-blur="decExposureHours = decCrewOnboard * decExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(12)"
+                                type="text" class="form-control"></td>
+                              <td><input ng-model="decExposureDays"
+                                value={{decExposureDays}}
+                                ng-blur="decExposureHours = decCrewOnboard * decExposureDays * 24"
+                                ng-disabled="disableMonthlyExposureHours(12)"
+                                type="text" class="form-control"></td>
+                              <td><input id="decExposureHours"
+                                ng-model="decExposureHours" value="{{decExposureHours}}"
+                                type="text" disabled="true" class="form-control"></td>
+                            </tr> -->
+													<tr>
+														<td colspan="2"><span class="pull-right"><b>Total
+																	Exposure Hours</b></span></td>
+														<td><span class="pull-right"><b>{{totalexposehoure}}</b></span></td>
+														<td></td>
+													</tr>
+													<tr>
+														<td colspan="2"><span class="pull-right"><b>Total
+																	Semi-Annual Exposure Hours</b></span></td>
+														<td><span class="pull-right"
+															ng-model="totalsemiannualhour"><b>{{totalsemiannualhour}}</b></span></td>
+														<td></td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+										<label class="col-sm-4 form-control-label" style="color: red">{{qsheCrewMonthDetailobjerrortext}}</label>
+									</div>
+
+									<div class="form-group row">
+										<div class="col-sm-11">
+											<div class="col-sm-6">If you cross International Date
+												Line,please count the day</div>
+											<div class="col-sm-5" ng-init="isinternationdateline = 'N'">
+												<label class="c-input c-radio"> <input
+													name="radio-stacked6" value="Y" ng-disabled="hideshipdiv"
+													ng-model="isinternationdateline" id="reviewedmins"
+													type="radio" checked><span
+													class="c-indicator c-indicator-warning"></span> <span
+													class="c-input-text"> Yes </span>
+												</label> <label class="c-input c-radio"> <input
+													name="radio-stacked6" value="N" ng-disabled="hideshipdiv"
+													ng-model="isinternationdateline" id="reviewedmins2"
+													type="radio"><span
+													class="c-indicator c-indicator-warning"></span> <span
+													class="c-input-text"> No </span>
+												</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-11">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<thead>
+
+													<tr>
+														<th>Category</th>
+														<th><div class="info_msg">
+																<span style="color: #fff;">FATAL</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -166px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 250px; padding-bottom: 10px;">
+																		<span><b>Fatality:</b> A death directly
+																			resulting from a work injury regardless of the length
+																			of the time between the injury and death.</span>
+																	</div>
+																</div>
+															</div></th>
+														<th><div class="info_msg">
+																<span style="color: #fff;">PTD</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -166px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 250px; padding-bottom: 10px;">
+																		<span><b>Permanent Total Disability</b> - a
+																			work injury which incapacitates an employee
+																			permanently and results in termination of employment
+																			on medical grounds (e.g. loss of limb(s)) permanent
+																			brain damage, loss of sight) and predudes the
+																			individual from working eighter at sea or ashore</span>
+																	</div>
+																</div>
+															</div></th>
+														<th><div class="info_msg">
+																<span style="color: #fff;">PPD</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -216px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 300px; padding-bottom: 10px;">
+																		<span><b>Permanent Partial Disability</b> - any
+																			work injury which results in the complete loss, or
+																			permanent loss of use, of any member or part of the
+																			body, or any pre-existing disability of the injured
+																			member or impaired body function, that partially
+																			restricts or limits an employee basis to work on
+																			permanent basis at sea. Such an individual could be
+																			employed ashore but not at sea in line with industry
+																			guidelines.</span>
+																	</div>
+																</div>
+															</div></th>
+														<th><div class="info_msg">
+																<span style="color: #fff;">LWC</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -166px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 250px; padding-bottom: 10px;">
+																		<span><b>Lost Workday Case</b> - an injury
+																			which results in an individual being unable to work
+																			on a scheduled work shift on the day following the
+																			injury unless caused by delays in getting medical
+																			treatment ashore.</span>
+																	</div>
+																</div>
+															</div></th>
+														<th><div class="info_msg">
+																<span style="color: #fff;">RWC</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -166px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 250px; padding-bottom: 10px;">
+																		<span><b>Restricted Work Case</b> - an injury
+																			which results in an individual being unable to
+																			perform all normally assigned work functions during a
+																			scheduled work shift or being assigned to another job
+																			on a temporary or permanent basis on the day
+																			following the injury.</span>
+																	</div>
+																</div>
+															</div></th>
+														<th><div class="info_msg">
+																<span style="color: #fff;">MTC</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -216px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 300px; padding-bottom: 10px;">
+																		<span><b>Medical Treatment Case</b> - any work
+																			- related loss of consiousness (unless due to ill
+																			health), injury or illness requiring more than first
+																			aid treatment by a physician, dentist, surgeon, or
+																			registered medical personnel, e.g. nurse or paramedic
+																			under the standing orders of a physician, or under
+																			the specific order of a physician or if at sea with
+																			no physician onboard could be considered as being in
+																			the province of a physician.</span>
+																	</div>
+																</div>
+															</div></th>
+														<th><div class="info_msg">
+																<span style="color: #fff;">FAC</span> <i
+																	class="fa fa-info-circle"></i>
+																<div class="dropdown-content dropdown-menu-arrow"
+																	style="right: -166px;">
+																	<div class="dropdown-content-desc"
+																		style="width: 250px; padding-bottom: 10px;">
+																		<span><b>First Aid Case</b> - any work related
+																			accident resulting in minor injury requiring on board
+																			first aid for cuts, bruises, abrasions, etc., where
+																			medical assistance from shore is not required</span>
+																	</div>
+																</div>
+															</div></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Number of Injuries</td>
+														<td><input style="text-align: right;"
+															ng-model="fatalcount" value={{fatalcount}}
+															ng-disabled="hideshipdiv" valid-positive-number-exp
+															class="form-control"></td>
+														<td><input style="text-align: right;"
+															ng-model="ptdcount" value={{ptdcount}}
+															ng-disabled="hideshipdiv" valid-positive-number-exp
+															class="form-control"></td>
+														<td><input style="text-align: right;"
+															ng-model="ppdcount" value={{ppdcount}}
+															ng-disabled="hideshipdiv" valid-positive-number-exp
+															class="form-control"></td>
+														<td><input style="text-align: right;"
+															ng-model="lwccount" value={{lwccount}}
+															ng-disabled="hideshipdiv" valid-positive-number-exp
+															class="form-control"></td>
+														<td><input style="text-align: right;"
+															ng-model="rwccount" value={{rwccount}}
+															ng-disabled="hideshipdiv" valid-positive-number-exp
+															class="form-control"></td>
+														<td><input style="text-align: right;"
+															ng-model="mtccount" value={{mtccount}}
+															ng-disabled="hideshipdiv" valid-positive-number-exp
+															class="form-control"></td>
+														<td><input style="text-align: right;"
+															ng-model="faccount" ng-disabled="hideshipdiv"
+															value={{faccount}} class="form-control"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<a type="button" onclick="fifthnext()"
+											class="btn-custom pull-right" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/next.svg"> <img
+											src="Sidebar/css/button/next_h.svg">
+										</a> <a type="button" onclick="fourthback()"
+											class="btn-custom pull-right" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/back.svg"> <img
+											src="Sidebar/css/button/back_h.svg">
+										</a>
+									</div>
+
+								</div>
+
+
+								<div role="tabpanel" class="tab-pane " id="nav-tabs-0-6">
+									<div class="lead_title">Semi Annual & Current
+										Environmental</div>
+									<!-- <div style="float: right">
+                                        <input name="radio_semiAnnual" ng-model="semiyearenv"
+                                          value="firsthalf_currentenv"
+                                          style="vertical-align: middle !important" type="radio"><span
+                                          class="radio-text">1st Jan - 30th Jun</span> <input
+                                          name="radio_semiAnnual" ng-model="semiyearenv"
+                                          value="secondhalf_currentenv"
+                                          style="vertical-align: middle !important" type="radio"><span
+                                          class="radio-text">1st July - 31st Dec</span>
+                    </div> -->
+									</br>
+									<div class="form-group row">
+										<div class="col-sm-12">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<thead>
+													<tr>
+														<th style="width: 52% !important;">Type of Function</th>
+														<th style="width: 25% !important;">For Reporting
+															Month</th>
+														<th style="width: 25% !important;">For the semi-year</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td style="width: 50% !important;">Other Garbage
+															Landed Ashore(m3)<span style="color: red"><span
+																style="color: red">*</span></span>
+														</td>
+														<td>
+															<div>
+																<div class="col-sm-12">
+																	<input ng-model="othercurgarbage" restrict-decimal
+																		style="text-align: right;" ng-disabled="hideshipdiv"
+																		valid-positive-number-exp-dots value={{othercurgarbage}}
+																		ng-blur="validateothercurgarbage()"
+																		class="form-control">
+																</div>
+															</div>
+															</div>
+														</td>
+														<td><input ng-model="othersemigarbage" restrict-decimal
+															style="text-align: right;" ng-disabled="hideshipdiv"
+															valid-positive-number-exp-dots value={{othersemigarbage}}
+															ng-blur="validateothersemigarbage()"
+															class="form-control"></td>
+													</tr>
+
+													<tr>
+														<td style="width: 50% !important;">Food Waste (Cat.B)
+															Dumped At Sea(m3)<span style="color: red"><span
+																style="color: red">*</span></span>
+														</td>
+														<td>
+															<div>
+																<div class="col-sm-12">
+																	<input ng-model="foodcurgarbage" restrict-decimal
+																		style="text-align: right;" ng-disabled="hideshipdiv"
+																		valid-positive-number-exp-dots value={{foodcurgarbage}}
+																		ng-blur="validatefoodcurgarbage()"
+																		class="form-control">
+																</div>
+															</div>
+														</td>
+														<td><input ng-model="foodsemigarbage" restrict-decimal
+															style="text-align: right;" ng-disabled="hideshipdiv"
+															valid-positive-number-exp-dots value={{foodsemigarbage}}
+															ng-blur="validatefoodsemigarbage()"
+															class="form-control"></td>
+													</tr>
+
+													<tr>
+														<td style="width: 50% !important;">Amount
+															Incinerated(m3) (includes garbage & sludge)<span
+															style="color: red"><span style="color: red">*</span></span>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="amtcurgarbage" restrict-decimal
+																	style="text-align: right;" value={{amtcurgarbage}}
+																	ng-disabled="hideshipdiv" valid-positive-number-exp-dots
+																	ng-blur="validateamtcurgarbage()"
+																	class="form-control">
+															</div>
+														</td>
+														<td><input ng-model="amtsemigarbage" restrict-decimal
+															ng-disabled="hideshipdiv" style="text-align: right;"
+															valid-positive-number-exp-dots
+															ng-blur="validateamtsemigarbage()"
+															value={{amtsemigarbage}} class="form-control"></td>
+													</tr>
+
+													<tr>
+														<td style="width: 50% !important;">Plastic (Cat.A)
+															Garbage Landed Ashore(m3)<span style="color: red"><span
+																style="color: red">*</span></span>
+														</td>
+														<td>
+															<div>
+																<div class="col-sm-12">
+																	<input ng-model="plasticcurgarbage" restrict-decimal
+																		style="text-align: right;" ng-disabled="hideshipdiv"
+																		valid-positive-number-exp-dots value={{plasticcurgarbage}}
+																		ng-blur="validateplasticcurgarbage()"
+																		class="form-control">
+																</div>
+															</div>
+														</td>
+														<td><input ng-model="plasticsemigarbage"
+															style="text-align: right;"
+															ng-blur="validateplasticsemigarbage()" restrict-decimal
+															ng-disabled="hideshipdiv" valid-positive-number-exp-dots
+															value={{plasticsemigarbage}} min="0" class="form-control"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<label class="col-sm-4 form-control-label" style="color: red">{{SemiAnnualerrorMessageText}}</label>
+									</div>
+									<div ng-hide="actionFormHide">
+										<div class="form-group row" allowed="write" mdlcode="QSE">
+											<div class="col-sm-offset-2 col-sm-10">
+												<a type="button" class="btn_wrapper pull-right"  allowed="delete" mdlcode="QSE"
+													ng-show="deleteAction" ng-click="deleteActionPerformed()">
+													<span>Delete</span> <img src="Sidebar/css/icons/delete.svg" />
+												</a> <a ng-click="saveFormData('Send')" type="button"
+													a-disabled="newDisabled"
+													ng-if="actionrights == 'SUB' && defaultaction=='Y'"
+													class="btn-custom pull-right"> <img
+													src="Sidebar/css/button/send.svg"> <img
+													src="Sidebar/css/button/send_h.svg">
+												</a> <a ng-click="saveFormData('Save')" type="button"
+													a-disabled="newDisabled"
+													ng-if="(actionrights == 'SUB' && defaultaction=='Y') || (actionrights == 'APR' && defaultaction=='Y')"
+													class="btn-custom pull-right" style="margin-right: 10px">
+													<img src="Sidebar/css/button/save.svg"> <img
+													src="Sidebar/css/button/save_h.svg">
+												</a> <a ng-click="reAssignDialogClick('#reAssign')"
+													type="button" a-disabled="newDisabled"
+													ng-if="reassignrights == 'RSN' && defaultaction=='Y'"
+													class="btn-custom pull-right" style="margin-right: 10px">
+													<img src="Sidebar/css/button/re-assign.svg"> <img
+													src="Sidebar/css/button/re-assign_h.svg">
+												</a> <a ng-click="saveFormData('approve')" type="button"
+													a-disabled="newDisabled"
+													ng-if="actionrights == 'APR' && defaultaction=='Y'"
+													class="btn-custom pull-right" style="margin-right: 10px">
+													<img src="Sidebar/css/button/approved.svg"> <img
+													src="Sidebar/css/button/approved_h.svg">
+												</a> <a type="button" onclick="fifthback()"
+													class="btn-custom pull-right" style="margin-right: 10px">
+													<img src="Sidebar/css/button/back.svg"> <img
+													src="Sidebar/css/button/back_h.svg">
+												</a> <img ng-if="newDisabled" style="width: 35px;"
+													src="/img/loader.gif" class="pull-right" />
+											</div>
+										</div>
+									</div>
+									<div class="row marginalign alert alert-danger"
+										ng-hide="datastatus"
+										style="padding: 4px; text-align: center; background-color: #efde73; border-color: #efde73; color: #d43f3a;">
+										<b>{{dataSaveStatus}}</b>
+									</div>
+
+
+
+									<div class="row">
+										<!--              <label class="col-sm-2 form-control-label lead_title">Ship -->
+										<!--                Workflow </label> -->
+										<!-- <img style="margin-top: 20px"
+                  ng-src="data:image/PNG;base64,{{image}}"> -->
+									</div>
+
+									<!--                  <div class="row"> -->
+									<!--                    <div class="col-xs-12"> -->
+									<!--                      <div class="workflow_stages" -->
+									<!--                        ng-repeat="wrkflowstatusdetails in wrkflowstatus" -->
+									<!--                        ng-if="wrkflowstatusdetails.cntrltype =='CNT002'"> -->
+									<!--                        <div class="dropdown"> -->
+									<!--                          <a href="#" class="dropbtn"> <span>{{wrkflowstatusdetails.stageid}}</span> -->
+									<!--                            <span>{{ wrkflowstatusdetails.username}}</span> <span>{{ -->
+									<!--                              wrkflowstatusdetails.formstatusname}}</span> -->
+									<!--                          </a> -->
+									<!--                          <div class="dropdown-content"> -->
+									<!--                            <p>{{wrkflowstatusdetails.userid}}</p> -->
+									<!--                            <p>{{ wrkflowstatusdetails.rankname}}</p> -->
+									<!--                            <p>{{ wrkflowstatusdetails.senddate | -->
+									<!--                              date:'dd-MM-yyyy'}}</p> -->
+									<!--                          </div> -->
+									<!--                        </div> -->
+									<!--                      </div> -->
+									<!--                    </div> -->
+									<!--                  </div> -->
+
+
+
+
+
+
+								</div>
+							</div>
+						</div>
+						<div>
+							<!--                <label class="col-sm-2 form-control-label">Ship -->
+							<!--                  Workflow </label> <img style="margin-top: 20px" -->
+							<!--                  ng-src="data:image/PNG;base64,{{image}}"> -->
+							<!--              </div> -->
+							<!--              <div> -->
+							<!--                <label>Business process Status: {{bpmStatus}}</label> -->
+							<!--              </div> -->
+							<toaster-container
+								toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+							<toaster-container
+								toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+
+							<kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+								title="Missed something!" name="systemvalidationdialog"
+								custom-options="actions" error-type="warning"
+								error-message="dataerror" error-status="{{geterrorstatuscode}}"
+								detail-error-message="{{detailerrormessages}}"
+								showexception="showexception" error-details="errordetails"
+								error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+
+							<div kendo-dialog="dialog" k-title="'Alert Message!'"
+								k-on-open="dialogVisible = true"
+								k-on-close="dialogVisible = false" k-width="300" k-height="150"
+								k-actions="actions" k-modal="true">
+								<img src="img/warning-dialog.png">
+								<p>{{validatemessage}}</p>
+							</div>
+						</div>
+						</form>
+					</div>
+
+					<div kendo-dialog="reAssignDialog" k-title="'Reassign'"
+						k-on-open="dialogVisible = true"
+						k-on-close="dialogVisible = false" k-width="300" k-height="150"
+						k-actions="reassignActions" k-modal="true">
+						<img src="img/reassign_icon.png">
+						<p>{{reAssignConf + mdlname + " ?"}}</p>
+					</div>
+
+					<div class="modal fade" id="reAssign" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Remarks</h4>
+								</div>
+								<div class="modal-body">
+									<textarea ng-model="remarks" maxlength="100" ng-trim="false"
+										rows="4" cols="68"></textarea>
+									<div class="char-left">Characters left: {{max200Length -
+										remarks.length}}</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" ng-click="okAction()"
+										data-dismiss="modal" class="btn btn-success">OK</button>
+									<button type="button" class="btn btn-danger"
+										data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+
+					<div class="modal fade" id="formvalidation" tabindex="-1"
+						role="dialog" aria-labelledby="large-modalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content" style="height: 450px;">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="large-modalLabel">QSHE Report</h4>
+								</div>
+								<div class="modal-body">
+
+
+
+									<div class="alert alert-info">Following forms 
+<!-- 									  reported in -->
+<!-- 										the month '{{totaldaysofmonth}}'  -->
+										is not closed out.Please
+										close out the forms before approving the QSHE Feedback Report</div>
+
+
+									<table class="table table-bordered" id="myTable">
+										<thead style="display: block;">
+											<tr>
+												<th style="width: 127px;">S No</th>
+												<th style="width: 253px;">Form Name</th>
+												<th style="width: 316px;">Reference No</th>
+												<th style="width: 163px;">Status</th>
+											</tr>
+										</thead>
+										<tbody
+											style="display: block; max-height: 160px; overflow-y: scroll;">
+											<tr ng-repeat="safety in safetyvalidation">
+												<td style="width: 10%;">{{$index+1}}</td>
+												<td style="width: 20%;">Safety Meeting</td>
+												<td style="width: 25%;">{{ safety.safid}}</td>
+												<td style="width: 10%;"><span
+													class="label label-warning"
+													ng-if="safety.activeStatus=='INP'">IN progress</span> <span
+													class="label label-success"
+													ng-if="safety.activeStatus=='SUB'">Submitted</span> <span
+													class="label label-success"
+													ng-if="safety.activeStatus=='APR'">Approved</span> <span
+													class="label label-info" ng-if="safety.activeStatus=='RSN'">Reassigned</span>
+													<span class="label label-danger"
+													ng-if="safety.activeStatus=='REV'">Reviewed</span></td>
+											</tr>
+											<tr ng-repeat="nearmiss in nearmissvalidation">
+												<td style="width: 10%;">{{$index+1+safetyvalidation.length}}</td>
+												<td style="width: 20%;">Nearmiss</td>
+												<td style="width: 25%;">{{ nearmiss.nrmid}}</td>
+												<td style="width: 10%;"><span
+													class="label label-warning"
+													ng-if="nearmiss.active_status=='INP'">IN progress</span> <span
+													class="label label-success"
+													ng-if="nearmiss.active_status=='SUB'">Submitted</span> <span
+													class="label label-success"
+													ng-if="nearmiss.active_status=='APR'">Approved</span> <span
+													class="label label-info"
+													ng-if="nearmiss.active_status=='RSN'">Reassigned</span> <span
+													class="label label-danger"
+													ng-if="nearmiss.active_status=='REV'">Reviewed</span></td>
+											</tr>
+											<tr ng-repeat="nearmisssemi in nearmisssemivalidation">
+												<td style="width: 10%;">{{$index+nearmissvalidation.length+1+safetyvalidation.length}}</td>
+												<td style="width: 20%;">Nearmiss</td>
+												<td style="width: 25%;">{{ nearmisssemi.nrmid}}</td>
+												<td style="width: 10%;"><span
+													class="label label-warning"
+													ng-if="nearmisssemi.active_status=='INP'">IN
+														progress</span> <span class="label label-success"
+													ng-if="nearmisssemi.active_status=='SUB'">Submitted</span>
+													<span class="label label-success"
+													ng-if="nearmisssemi.active_status=='APR'">Approved</span> <span
+													class="label label-info"
+													ng-if="nearmisssemi.active_status=='RSN'">Reassigned</span>
+													<span class="label label-danger"
+													ng-if="nearmisssemi.active_status=='REV'">Reviewed</span></td>
+											</tr>
+											<tr ng-repeat="accident in accidentvalidation">
+												<td style="width: 10%;">{{$index+nearmissvalidation.length+nearmisssemivalidation.length+1+safetyvalidation.length}}</td>
+												<td style="width: 20%;">Accident</td>
+												<td style="width: 25%;">{{ accident.accid}}</td>
+												<td style="width: 10%;"><span
+													class="label label-warning"
+													ng-if="accident.active_status=='INP'">IN progress</span> <span
+													class="label label-success"
+													ng-if="accident.active_status=='SUB'">Submitted</span> <span
+													class="label label-success"
+													ng-if="accident.active_status=='APR'">Approved</span> <span
+													class="label label-info"
+													ng-if="accident.active_status=='RSN'">Reassigned</span> <span
+													class="label label-danger"
+													ng-if="accident.active_status=='REV'">Reviewed</span></td>
+											</tr>
+											<tr ng-repeat="accidentsemi in accidentsemivalidation">
+												<td style="width: 10%;">{{$index+nearmissvalidation.length+nearmisssemivalidation.length+accidentvalidation.length+1+safetyvalidation.length}}</td>
+												<td style="width: 20%;">Accident</td>
+												<td style="width: 25%;">{{ accidentsemi.accid}}</td>
+												<td style="width: 10%;"><span
+													class="label label-warning"
+													ng-if="accidentsemi.active_status=='INP'">IN
+														progress</span> <span class="label label-success"
+													ng-if="accidentsemi.active_status=='SUB'">Submitted</span>
+													<span class="label label-success"
+													ng-if="accidentsemi.active_status=='APR'">Approved</span> <span
+													class="label label-info"
+													ng-if="accidentsemi.active_status=='RSN'">Reassigned</span>
+													<span class="label label-danger"
+													ng-if="accidentsemi.active_status=='REV'">Reviewed</span></td>
+											</tr>
+											<tr ng-repeat="external in Extinspectmastervalidation">
+												<td style="width: 10%;">{{$index+nearmissvalidation.length+nearmisssemivalidation.length+accidentvalidation.length+1+safetyvalidation.length+
+													accidentsemivalidation.length}}</td>
+												<td style="width: 20%;">External Inspection</td>
+												<td style="width: 25%;">{{ external.extinsid}}</td>
+												<td style="width: 10%;"><span
+													class="label label-warning"
+													ng-if="external.activeStatus=='INP'">IN progress</span> <span
+													class="label label-success"
+													ng-if="external.activeStatus=='SUB'">Submitted</span> <span
+													class="label label-success"
+													ng-if="external.activeStatus=='APR'">Approved</span> <span
+													class="label label-info"
+													ng-if="external.activeStatus=='RSN'">Reassigned</span> <span
+													class="label label-danger"
+													ng-if="external.activeStatus=='REV'">Reviewed</span></td>
+											</tr>
+										</tbody>
+									</table>
+
+
+									<div class="text-center">
+
+										<a type="button" class="btn-custom pull-right"
+											ng-click="closepopupvalidation()"> <img
+											src="Sidebar/css/button/no.svg" style="width: 85px"> <img
+											src="Sidebar/css/button/no_h.svg" style="width: 85px">
+										</a> <a type="button" class="btn-custom pull-right"
+											ng-click="populateExternalInspectionIntoQSHEMonthlyDetailforview()">
+											<img src="Sidebar/css/button/yes.svg"
+											style="margin-right: 5px"> <img
+											src="Sidebar/css/button/yes_h.svg" style="margin-right: 5px">
+										</a>
+									</div>
+								</div>
+
+
+
+
+
+
+							</div>
+
+
+
+
+
+
+
+
+
+
+
+						</div>
+						<!--<div class="modal-footer">
+                    Footer
+                  </div>-->
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12">
+
+							<div class="revision_content">
+								<b>Revision No: </b> {{revnumber}} | <b>Date: </b>{{revdate |
+								date:setdate}} <span class="pull-right"> <b>S.No
+										:</b> {{qsheid}}
+								</span>
+							</div>
+							<!--  <label class="form-control-label revision"><b>Revision
+                  No :</b>{{revnumber}} | <b>Date:</b>{{revdate | date:'dd-MM-yyyy'}} |</label>
+                  <span
+              style="display: inline-block; border-right: 2px solid #fff; padding-right: 20px;">S.No:
+              {{qsheid}}</span> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+            function firstnext() {
+              $('#secondtab').addClass("active");
+              $('#firsttab').removeClass("active");
+              $('#thirdtab').removeClass("active");
+              $('#fourthtab').removeClass("active");
+              $('#fifthtab').removeClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-2').addClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-3').removeClass("active");
+              $('#nav-tabs-0-4').removeClass("active");
+              $('#nav-tabs-0-5').removeClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+            }
+
+            function secondnext() {
+              $('#thirdtab').addClass("active");
+              $('#firsttab').removeClass("active");
+              $('#secondtab').removeClass("active");
+              $('#fourthtab').removeClass("active");
+              $('#fifthtab').removeClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-3').addClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-2').removeClass("active");
+              $('#nav-tabs-0-4').removeClass("active");
+              $('#nav-tabs-0-5').removeClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+              document.getElementById('#nav-tabs-0-3').attr(
+                  'aria-expanded', 'true');
+            }
+
+            function thirdnext() {
+              $('#thirdtab').removeClass("active");
+              $('#firsttab').removeClass("active");
+              $('#secondtab').removeClass("active");
+              $('#fourthtab').addClass("active");
+              $('#fifthtab').removeClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-3').removeClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-2').removeClass("active");
+              $('#nav-tabs-0-4').addClass("active");
+              $('#nav-tabs-0-5').removeClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+              document.getElementById('#nav-tabs-0-4').attr(
+                  'aria-expanded', 'true');
+            }
+
+            function fourthnext() {
+              $('#thirdtab').removeClass("active");
+              $('#firsttab').removeClass("active");
+              $('#secondtab').removeClass("active");
+              $('#fourthtab').removeClass("active");
+              $('#fifthtab').addClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-3').removeClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-2').removeClass("active");
+              $('#nav-tabs-0-4').removeClass("active");
+              $('#nav-tabs-0-5').addClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+              document.getElementById('#nav-tabs-0-5').attr(
+                  'aria-expanded', 'true');
+            }
+
+            function fifthnext() {
+              $('#thirdtab').removeClass("active");
+              $('#firsttab').removeClass("active");
+              $('#secondtab').removeClass("active");
+              $('#fourthtab').removeClass("active");
+              $('#fifthtab').removeClass("active");
+              $('#sixthtab').addClass("active");
+              $('#nav-tabs-0-3').removeClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-2').removeClass("active");
+              $('#nav-tabs-0-4').removeClass("active");
+              $('#nav-tabs-0-5').removeClass("active");
+              $('#nav-tabs-0-6').addClass("active");
+              document.getElementById('#nav-tabs-0-6').attr(
+                  'aria-expanded', 'true');
+            }
+
+            function firstback() {
+              $('#firsttab').addClass("active");
+              $('#thirdtab').removeClass("active");
+              $('#secondtab').removeClass("active");
+              $('#fourthtab').removeClass("active");
+              $('#fifthtab').removeClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-1').addClass("active");
+              $('#nav-tabs-0-2').removeClass("active");
+              $('#nav-tabs-0-3').removeClass("active");
+              $('#nav-tabs-0-4').removeClass("active");
+              $('#nav-tabs-0-5').removeClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+              document.getElementById('#nav-tabs-0-1').attr(
+                  'aria-expanded', 'true');
+            }
+
+            function secondback() {
+              $('#firsttab').removeClass("active");
+              $('#thirdtab').removeClass("active");
+              $('#secondtab').addClass("active");
+              $('#fourthtab').removeClass("active");
+              $('#fifthtab').removeClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-2').addClass("active");
+              $('#nav-tabs-0-3').removeClass("active");
+              $('#nav-tabs-0-4').removeClass("active");
+              $('#nav-tabs-0-5').removeClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+              document.getElementById('#nav-tabs-0-2').attr(
+                  'aria-expanded', 'true');
+            }
+
+            function thirdback() {
+              $('#firsttab').removeClass("active");
+              $('#thirdtab').addClass("active");
+              $('#secondtab').removeClass("active");
+              $('#fourthtab').removeClass("active");
+              $('#fifthtab').removeClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-2').removeClass("active");
+              $('#nav-tabs-0-3').addClass("active");
+              $('#nav-tabs-0-4').removeClass("active");
+              $('#nav-tabs-0-5').removeClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+              document.getElementById('#nav-tabs-0-3').attr(
+                  'aria-expanded', 'true');
+            }
+
+            function fourthback() {
+              $('#firsttab').removeClass("active");
+              $('#thirdtab').removeClass("active");
+              $('#secondtab').removeClass("active");
+              $('#fourthtab').addClass("active");
+              $('#fifthtab').removeClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-2').removeClass("active");
+              $('#nav-tabs-0-3').removeClass("active");
+              $('#nav-tabs-0-4').addClass("active");
+              $('#nav-tabs-0-5').removeClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+              document.getElementById('#nav-tabs-0-4').attr(
+                  'aria-expanded', 'true');
+            }
+
+            function fifthback() {
+              $('#firsttab').removeClass("active");
+              $('#thirdtab').removeClass("active");
+              $('#secondtab').removeClass("active");
+              $('#fourthtab').removeClass("active");
+              $('#fifthtab').addClass("active");
+              $('#sixthtab').removeClass("active");
+              $('#nav-tabs-0-1').removeClass("active");
+              $('#nav-tabs-0-2').removeClass("active");
+              $('#nav-tabs-0-3').removeClass("active");
+              $('#nav-tabs-0-4').removeClass("active");
+              $('#nav-tabs-0-5').addClass("active");
+              $('#nav-tabs-0-6').removeClass("active");
+              document.getElementById('#nav-tabs-0-5').attr(
+                  'aria-expanded', 'true');
+            }
+            $(document)
+                .ready(
+                    function() {
+                      // create DateTimePicker from input HTML element
+                      $(
+                          "#reviewlastdate,#welfarelastdate")
+                          .kendoDatePicker({
+                            value : new Date(),
+                            
+                          });
+                      //          $("#inspectiondate")
+                      //                  .kendoDatePicker({
+                      //                    value : new Date(),
+                      //                    max : new Date(),
+                      //                    disabled : true
+                      //                  });
+                      //          $("#inspectiondate,#reviewlastdate,#safetylastdate,#welfarelastdate").kendoDatePicker({
+                      //              value:new Date(),max: new Date() 
+                      //            });
+                      $(
+                          "#reviewnextdue,#welfarenextdue,#safetynextdue")
+                          .kendoDatePicker({
+                            value : new Date()
+                          });
+                    });
+          </script>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip(); 
+    });
+    </script>

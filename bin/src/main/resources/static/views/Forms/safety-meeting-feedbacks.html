@@ -1,0 +1,2937 @@
+<div class="main" id="main" ng-hide="hidebody">
+
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="SAF"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="SAF">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Forms">Safety Management</a></li>
+					<li><a href="#/SafetyMain">Safety Health Environment
+							Committee Meeting - Reports</a></li>
+					<li><b>Safety Health Environment Committee Meeting</b></li>
+				</ul>
+
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">Safety Health
+						Environment Committee Meeting</div>
+					<div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+						<span ng-if="safrfid.length > 0"
+							style="display: inline-block; border-right: 2px solid #fff; padding-right: 20px;">Ref.Id :
+							{{safrfid}}</span> <span
+							style="display: inline-block; padding-left: 18px;">Form
+							No: {{formNo}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------------------------------------->
+
+		<style>
+.k-multiselect-wrap .k-input {
+	background-color: transparent;
+	height: 1.31em;
+	line-height: 1.31em;
+	padding: .18em 0;
+	text-indent: .33em;
+	border: 0;
+	margin: 4px 0 0;
+	float: left;
+}
+
+.header_collapse label {
+	cursor: pointer;
+}
+/* CSS Method for adding Font Awesome Chevron Icons */
+.accordion-toggle:after {
+	/* symbol for "opening" panels */
+	font-family: 'FontAwesome';
+	content: "\f078";
+	float: right;
+	color: inherit;
+}
+
+.panel-heading.collapsed .accordion-toggle:after {
+	/* symbol for "collapsed" panels */
+	content: "\f054";
+}
+</style>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top: 15px !important">
+					<div class="form_table">
+
+						<div class="row">
+							<div class="col-xs-12">
+								<a type="button" ng-show="exportDis" class="btn-custom pull-right"
+									ng-click="exportexcel()" style="margin-left: 10px"> <img
+									src="Sidebar/css/button/export_ex.svg" /> <img
+									src="Sidebar/css/button/export_ex_h.svg" />
+								</a> <a type="button" ng-show="exportDis" class="btn-custom pull-right"
+									allowed="read" mdlcode="RSK" ng-click="saveAsPDFDocument()">
+									<img src="Sidebar/css/button/pdf.svg" /> <img
+									src="Sidebar/css/button/pdf_h.svg" />
+								</a>
+							</div>
+						</div>
+
+
+						<div class="workflow_wrapper" style="margin-top: 10px;">
+							<div class="workflow_wrapper_title">Vessel Workflow</div>
+							<div class="no-workflow" ng-if="!displayShipWorkflow">Work
+								Flow Not Yet Started</div>
+							<div ng-if="displayShipWorkflow"
+								class="row workflow_wrapper_content">
+								<div class="col-xs-12 col-sm-1">
+									<div class="ship-stage pull-right">
+										<img src="img/ship-stage.svg" />
+									</div>
+								</div>
+								<div class="col-sm-11">
+									<div class="btn-stage-container"
+										ng-repeat="wrkflowstatusdetails in wrkflowstatus"
+										ng-if="wrkflowstatusdetails.cntrltype=='CNT002'">
+										<div class="stage-head">{{wrkflowstatusdetails.stageid}}</div>
+										<div class="stage-neck"></div>
+										<div class="stage-body">
+											<p>{{ wrkflowstatusdetails.username}}</p>
+											<p>{{ wrkflowstatusdetails.rankname}}</p>
+											 <p ng-if="wrkflowstatusdetails.upddate==null">{{ wrkflowstatusdetails.senddate 
+                      | date:dateFormat }}</p>
+                      <p ng-if="wrkflowstatusdetails.upddate!=null">{{ wrkflowstatusdetails.upddate 
+                      | date:dateFormat }}</p>
+											<span class="stage-body-footer">{{wrkflowstatusdetails.formstatusname}}</span>
+										</div>
+										<div class="stage-tail"></div>
+										<div class="dropdown-content dropdown-menu-arrow"
+											ng-if="wrkflowstatusdetails.remarks!=null">
+											<div class="label label-primary">Remarks</div>
+											<div class="dropdown-content-desc">{{wrkflowstatusdetails.remarks}}</div>
+											<div class="dropdown-content-footer">{{wrkflowstatusdetails.senddate
+												| date:dateFormat }}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Vessel</label>
+									<div class="col-sm-6">
+										<input type="text" class=" form-control" ng-model="vesselName"
+											value="{{vesselCode}}" readonly />
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<div class="col-sm-6">
+										<label class="form-control-label">Name of the Captain</label>
+									</div>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" disabled
+											ng-model="master">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6">
+										<label class="form-control-label">Name of the Chief
+											Engineer</label>
+									</div>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" disabled
+											ng-model="chiefEngineer">
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label" id="dateTime">Date
+										& Time<span style="color: red"><span style="color: red">*</span></span>
+										<br><span style="font-size: 0.66em; color: #00688B;">
+										 ( Changing date will update Section G (Near miss, Accident, Near miss Share) & Section M (Drill report) )</span>
+									</label>
+									<div class="col-sm-6">
+										<input ng-change="fetchNearMissData()" k-ng-model="obj3"
+											kendo-date-time-picker k-options="restrictFutureDate"
+											ng-model="dateTime" 
+											ng-focus="hideError('dateTime')" style="width: 100%;" 
+											ng-blur="validateDate('dateTime','dateTime','validationDateAndTime','validationDateAndTimeInvalid','datetime')"/> 
+											<label ng-if="dateTimeRequiredError" class="text-error">This field is required</label>
+											<label ng-if="dateTimeRootError" class="text-error">Future Date Cannot be allowed</label>
+										<div ng-if="validationDateAndTimeInvalid" class="text-error">{{validationDateAndTime}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label" id="meetingType">Type
+										Meeting<span style="color: red"><span
+											style="color: red">*</span></span>
+									</label>
+									<div class="col-sm-6">
+										<label class="c-input c-radio"> <input
+											ng-click="hideError('meetingType')" ng-model="meetingType"
+											value="M" type="radio"><span
+											class="c-indicator c-indicator-warning"></span> <span
+											class="c-input-text"> Monthly </span>
+										</label> <label class="c-input c-radio"> <input
+											ng-click="hideError('meetingType')" ng-model="meetingType"
+											value="O" type="radio"><span
+											class="c-indicator c-indicator-warning"></span> <span
+											class="c-input-text"> Occasional </span>
+										</label>
+										<div ng-if="meetingTypeRequiredError" class="text-error">This
+											field is required</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label"
+										id="isOfficeStaffAttendence">Office staff attendance<span
+										style="color: red"><span style="color: red">*</span></span>
+									</label>
+									<div class="col-sm-6">
+										<label class="c-input c-radio"> <input
+											ng-click="hideError('isOfficeStaffAttendence')"
+											ng-model="isOfficeStaffAttendence" value="Y" type="radio"><span
+											class="c-indicator c-indicator-warning"></span> <span
+											class="c-input-text"> Yes </span>
+										</label> <label class="c-input c-radio"> <input
+											ng-click="hideError('isOfficeStaffAttendence')"
+											ng-model="isOfficeStaffAttendence" value="N" type="radio"><span
+											class="c-indicator c-indicator-warning"></span> <span
+											class="c-input-text"> No </span>
+										</label>
+										<div ng-if="isOfficeStaffAttendenceRequiredError"
+											class="text-error">This field is required</div>
+									</div>
+									<div class="col-sm-offset-6 col-sm-6"
+										ng-show="isOfficeStaffAttendence==='Y'">
+
+										<select kendo-multi-select k-options="selectAttendeesOptions"
+											ng-model="officeStaffAttendence"></select>
+
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">List of
+										Non-Attendees</label>
+									<div class="col-sm-6">
+										<select kendo-multi-select
+											k-options="selectNonAttendeesOptions" ng-model="nonAttendees"></select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label" id="remark">Remarks<span
+										style="color: red"><span style="color: red">*</span></span></label>
+									<div class="col-sm-6">
+										<div>
+											<textarea maxlength="300" ng-model="remark" ng-trim="false"
+												title={{remark}} ng-focus="hideError('remark')"
+												class="form-control" style="height: 75px !important;"
+												rows="5" cols="50"></textarea>
+
+										</div>
+										<div class="char-left">Characters left: {{max300Length -
+											remark.length}}</div>
+										<div ng-if="remarkRequiredError" class="text-error">This
+											field is required</div>
+									</div>
+								</div>
+								<div class="form-group row"></div>
+							</div>
+
+							<!-- Communication part ---------------------------------------------------------------------------------------------------------------------------->
+							<div class="col-xs-12 col-sm-offset-1 col-sm-5" allowed="read" 
+								mdlcode="CMW">
+								<div class="card">
+									<div class="card-header danger-color-dark white-text commbtnbg">
+										<label>&nbsp;&nbsp; <i class="fa fa-comments-o"
+											style="color: white; font-size: 24px !important;"></i>
+											&nbsp;&nbsp;&nbsp; Communication Window
+										</label>
+									</div>
+									<div class="card-block">
+										<div class="m-b-6">
+											<div class="activity-widget-5 scroller"
+												id="communication-window"
+												style="height: 250px; overflow-y: scroll;">
+
+												<div class="container"
+													style="width: 380px; padding-top: 15px;"
+													ng-repeat="accdata in chatdata">
+													<div class='row' ng-if="accdata.senderId != currentUserCode">
+														<div class="left-name">
+															<span class="emp-name">{{accdata.empName}}</span> <span
+																class="rank-name">{{accdata.rankname}}</span>
+														</div>
+														<div class='left-msg'>{{accdata.message}}</div>
+														<div>
+															<img class='left-img' src="assets/faces/user-icon-6.png" />
+														</div>
+														<div class="msg-time">
+															<span>{{accdata.createdOn 
+															| date: dateFormat}}</span>
+																
+														</div>
+													</div>
+
+													<div class='row' ng-if="accdata.senderId == currentUserCode">
+														<div class="right-name">
+															<span class="emp-name">{{accdata.empName}}</span> <span
+																class="rank-name">{{accdata.rankname}}</span>
+														</div>
+														<div class='right-msg'>{{accdata.message}}</div>
+														<div>
+															<img class='right-img' src="assets/faces/user-icon-6.png" />
+														</div>
+														<div class="msg-time">{{accdata.createdOn 
+														| date:dateFormat}}</div>
+															
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+									<div class="input-group"  allowed="write" mdlcode="CMW">
+										<div class="form-group  has-feedback">
+											<input type="text" class="form-control commbtn" ng-disabled="voidStatus"
+												id="inputSuccess5" ng-model="msg" ng-enter="updateChat()">
+										</div>
+										<span class="input-group-btn">
+											<button class="btn btn-success" type="button"
+												ng-click="updateChat()">Send</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row header_collapse">
+							<label class="col-sm-4 form-control-label sub-head"
+								id="isReviewedMinutesofPrevMeet">A. Reviewed minutes of
+								previous meeting<span style="color: red"><span
+									style="color: red">*</span></span>
+							</label> <label class="c-input c-radio"> <input value="Y"
+								ng-click="reviewMinutes()"
+								ng-model="isReviewedMinutesofPrevMeet" name="radio-stacked6"
+								type="radio"><span
+								class="c-indicator c-indicator-warning"></span> <span
+								class="c-input-text"> Yes </span>
+							</label> <label class="c-input c-radio"> <input value="N"
+								ng-click="reviewMinutes()"
+								ng-model="isReviewedMinutesofPrevMeet" name="radio-stacked6"
+								type="radio"><span
+								class="c-indicator c-indicator-warning"></span> <span
+								class="c-input-text"> No </span>
+							</label>
+							<div ng-if="isReviewedMinutesofPrevMeetRequiredError"
+								class="text-error">This field is required</div>
+						</div>
+
+						<div id="section-b">
+							<div class="form-group row header_collapse" data-toggle="collapse" data-target="#safety_b">
+								<label class="col-sm-12 form-control-label sub-head">B.
+									Follow up of outstanding items from previous meeting <a  ng-if="isReviewedMinutesofPrevMeet=='Y'" class="pull-right"> <i
+										class="fa fa-chevron-right"></i>
+								</a>
+								</label>
+
+							</div>
+
+							<div class="row collapse" id="safety_b">
+								<div class="col-sm-12">
+									<table ng-if="isReviewedMinutesofPrevMeet === 'Y'"
+										class="table table-hover table-striped table-bordered"
+										cellspacing="0">
+										<thead>
+											<tr>
+												<th>Task ID</th>
+												<th>Safety ID</th>
+												<th>Outstanding Items</th>
+												<th>Percentage</th>
+												<th>Target completion date</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-if="outstandingItems.length<=0">
+												<td colspan=5 class="no_data">No Data Available</td>
+											</tr>
+											<tr ng-repeat="outstandingItem in outstandingItems">
+												<td><label class="col-sm-8 form-control-label">{{outstandingItem[0]}}</label>
+												</td>
+												<td><a style="cursor: pointer !important"
+													target="_blank"
+													href="/welcome#/SafetyReport/{{outstandingItem[1]}}"> <label
+														class="col-sm-12 form-control-label">{{outstandingItem[1]}}</label>
+												</a></td>
+												<td><label class="col-sm-6 form-control-label">
+														{{outstandingItem[2]}}</label></td>
+												<td><label class="col-sm-2 form-control-label"></label>
+													{{outstandingItem[4]}}</td>
+												<td><label class="col-sm-12">{{outstandingItem[3]
+														| date : dateFormat}}</label></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group row header_collapse" data-toggle="collapse"
+							data-target="#safety_c">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="safetyTopics">C.Safety topics discussed<span
+								style="color: red">*</span><a class="pull-right"><i
+									class="fa fa-chevron-right"></i></a>
+							</label>
+						</div>
+						<div class="row collapse" id="safety_c">
+							<div class="col-sm-12">
+								<div class="table-responsive">
+									<table class="table table-hover table-striped table-bordered"
+										cellspacing="0">
+										<thead>
+											<tr>
+												<th style="width: 3% !important";>S.No</th>
+												<th style="width: 30% !important;">Topic<span
+													style="color: red"><span style="color: red">*</span></span></th>
+												<th>Description<span style="color: red"><span
+														style="color: red">*</span></span></th>
+												<th style="text-align: center">
+													<button ng-click="addSafetyTopic()" type="button"
+														class="btn btn-success btn-xs btn-rounded">
+														<i class="fa fa-plus"></i>
+													</button>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="safetyTopic in safetyTopics track by $index">
+												<td>{{$index + 1}}</td>
+												<td>
+													<div class="col-sm-12">
+														<select class="form-control"
+															ng-model="safetyTopic.topiccode"
+															value={{safetyTopic.topiccode}}>
+															<option value="" disabled selected hidden>Select
+																a topic</option>
+															<option
+																ng-repeat="safetyTopics in safetyTopicsList | orderBy"
+																value="{{safetyTopics[0]}}">{{safetyTopics[1]}}</option>
+														</select>
+														<div ng-if="safetyTopicsRequiredError" class="text-error">This
+															field is required</div>
+													</div>
+												</td>
+												<td>
+													<div class="col-sm-12" style="margin-top: 20px;">
+														<textarea maxlength="200" style="height: 70px !important"
+															ng-trim="false" title={{safetyTopic.topicdesc}}
+															ng-focus="hideError('safetyTopics')"
+															ng-model="safetyTopic.topicdesc" type="text"
+															class="form-control"></textarea>
+														<div class="char-left">Characters left:
+															{{max200Length - safetyTopic.topicdesc.length}}</div>
+														<div ng-if="safetyTopicsRequiredError" class="text-error">This
+															field is required</div>
+													</div>
+												</td>
+												<td style="text-align: center; vertical-align: middle"
+													width="8% !important">
+													<button ng-click="deleteSafetyTopic($index)" type="button"
+														class="btn btn-danger btn-xs btn-rounded">
+														<i class="fa fa-minus"></i>
+													</button>
+												</td>
+											</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row header_collapse" data-toggle="collapse"
+								data-target="#safety_d">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="revisionsCirculars">D. KLQSMS Revisions, Circulars &
+								Information from company on safety, health & environmental
+								matters<span style="color: red"><span style="color: red">*</span></span>
+								<a class="pull-right"><i class="fa fa-chevron-right"></i>
+							</a>
+							</label>
+						</div>
+						<div class="row collapse" id="safety_d">
+							<div class="col-sm-12">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width: 3% !important";>S.No</th>
+											<th>Information<span style="color: red"><span
+													style="color: red">*</span></span></th>
+											<th>
+												<button ng-click="addrevisionsCirculars()" type="button"
+													class="btn btn-success btn-xs btn-rounded">
+													<i class="fa fa-plus"></i>
+												</button>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr
+											ng-repeat="revisionsCircular in revisionsCirculars track by $index">
+											<td>{{$index+1}}</td>
+											<td>
+												<div class="col-sm-12" style="margin-top: 20px;">
+													<textarea maxlength="200" ng-trim="false"
+														style="height: 70px !important"
+														title={{revisionsCircular.information}}
+														ng-focus="hideError('revisionsCirculars')"
+														ng-model="revisionsCircular.information" type="text"
+														class="form-control"></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - revisionsCircular.information.length}}</div>
+													<div ng-if="revisionsCircularsRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+											</td>
+											<td style="vertical-align: middle; text-align: center"
+												width="3% !important">
+												<button ng-click="deleterevisionsCirculars($index)"
+													type="button" class="btn btn-danger btn-xs btn-rounded">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+						<div class="form-group row header_collapse"
+								data-toggle="collapse" data-target="#safety_e">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="testingDate">E. Result of testing &ldquo;residual
+								hypochlorite&rdquo; in drinking water:<span style="color: red"><span
+									style="color: red">*</span></span> <a class="pull-right"><i
+									class="fa fa-chevron-right"></i> </a>
+							</label>
+						</div>
+						<div class="form-group row collapse" id="safety_e">
+							<label class="col-sm-1 form-control-label">Date<span
+								style="color: red"><span style="color: red">*</span></span>
+							</label>
+							<div class="col-sm-3">
+								<div>
+									<input ng-focus="hideError('residualDate')" kendo-date-picker
+										k-options="restrictFutureDate" ng-model="testingDate"
+										ng-blur="validateDate('testingDate','testingDate','residualDateValidationErrorMsg','residualDateValidationError','date')"
+										style="width: 100%" />
+								</div>
+								<div ng-if="residualDateRequiredError" class="text-error">This
+									field is required</div>
+								<div ng-if="residualDateValidationError" class="text-error">{{residualDateValidationErrorMsg}}</div>
+								<div ng-if="residualDateRootError" class="text-error">Future Date Cannot be allowed</div>
+							</div>
+							<label class="col-sm-1 form-control-label">PPM<span
+								style="color: red"><span style="color: red">*</span></span>
+							</label>
+							<div class="col-sm-2">
+								<input ng-model="ppm" valid-positive-number value={{ppm}}
+									id="ppm" ng-focus="hideError('ppm')" class="form-control ppm"
+									ng-change="calculateRisk('ppm')">
+								<div ng-if="ppmRequiredError" class="text-error">This
+									field is required</div>
+							</div>
+						</div>
+						<div class="form-group row header_collapse"
+								data-toggle="collapse" data-target="#safety_f">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="findings">F. Findings from completed safety
+								inspection checklist discussed<span style="color: red"><span
+									style="color: red">*</span></span> <a class="pull-right"><i
+									class="fa fa-chevron-right"></i> </a>
+							</label>
+						</div>
+						<div class="row collapse" id="safety_f">
+							<div class="col-sm-12">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width: 3% !important";>S.No</th>
+											<th>Findings<span style="color: red"><span
+													style="color: red">*</span></span></th>
+											<th>
+												<button ng-click="addfindings()" type="button"
+													class="btn btn-success btn-xs btn-rounded">
+													<i class="fa fa-plus"></i>
+												</button>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="finding in findings track by $index">
+											<td>{{$index+1}}</td>
+											<td>
+												<div class="col-sm-12" style="margin-top: 20px;">
+													<textarea maxlength="200" ng-trim="false"
+														title="finding.completedfinding"
+														ng-focus="hideError('findings')"
+														ng-model="finding.completedfinding" class="form-control"
+														id="textarea7" style="height: 70px !important;" cols="5"></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - finding.completedfinding.length}}</div>
+													<div ng-if="findingsRequiredError" class="text-error">This
+														field is required</div>
+												</div>
+											</td>
+											<td style="vertical-align: middle; text-align: center"
+												width="3% !important">
+												<button ng-click="deletefindings($index)" type="button"
+													class="btn btn-danger btn-xs btn-rounded">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+						<div class="form-group row header_collapse"
+								data-toggle="collapse" data-target="#safety_g">
+							<label class="col-sm-12 form-control-label sub-head">G.
+								Safety near miss and accident reports (incl. root cause &
+								preventive measures) discussed <a class="pull-right"><i
+									class="fa fa-chevron-right"></i> </a>
+							</label>
+						</div>
+						<div class="row collapse" id="safety_g">
+							<div class="col-xs-12">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th style="width: 15%;">Form Type</th>
+											<th>Serial Number</th>
+											<th>Vessel Name</th>
+											<th>Location</th>
+											<th>
+												<center>Description</center>
+											</th>
+											<th><i class="fa fa-paperclip" aria-hidden="true"></i></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr
+											ng-if="nearMissReports.length<=0">
+											<td colspan=7 class="no_data">No Data Available</td>
+										</tr>
+										<tr ng-repeat="nearMiss in nearMissReports track by $index">
+											<td>{{nearMiss.fromtype}}</td>
+											<td style="width: 20% !important;"><a  ng-if="!nearMiss.docid && nearMiss.fromtype=='Near Miss'" target="_blank"
+												href="/welcome#/NearmissForm/{{nearMiss.serialnumber}}" >{{nearMiss.serialnumber}}</a>
+												<a  ng-if="!nearMiss.docid && nearMiss.fromtype=='Accident Report'" target="_blank"
+                        href="/welcome#/AccidentForm/{{nearMiss.serialnumber}}" >{{nearMiss.serialnumber}}</a>
+												<a  ng-if="nearMiss.docid"  href="safetyreport/downloadDocument/?docId={{nearMiss.docid}}">{{nearMiss.serialnumber}}</a></td>
+											<td>{{nearMiss.vesselname}}</td>
+											<td style="width: 20% !important;">{{nearMiss.location}}</td>
+											<td>{{nearMiss.description}}</td>
+											 <td><a ng-if="nearMiss.docid"
+                        href="safetyreport/downloadDocument/?docId={{nearMiss.docid}}"><i
+                          style="font-size: 1.5em;" class="fa fa-file-pdf-o"
+                          aria-hidden="true"></i></a></td>
+											<td style="width: 3% !important">
+												<button type="button"
+													ng-click="confirmDeleteGSectionRecordsf($index)"
+													class="btn btn-danger label btn btn-danger label-rounded">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="form-group row header_collapse" data-toggle="collapse"
+								data-target="#safety_h">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="auditfindings">H. Findings from audit & inspection
+								reports (safety related) discussed<span style="color: red">*</span>
+								<a class="pull-right"><i class="fa fa-chevron-right"></i>
+							</a>
+							</label>
+
+						</div>
+						<div class="row collapse" id="safety_h">
+							<div class="col-sm-12">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width: 3% !important";>S.No</th>
+											<th>Findings<span style="color: red"><span
+													style="color: red">*</span></span></th>
+											<th>
+												<button ng-click="addauditfindings()" type="button"
+													class="btn btn-success btn-xs btn-rounded">
+													<i class="fa fa-plus"></i>
+												</button>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="auditfinding in auditfindings track by $index">
+											<td>{{$index+1}}</td>
+											<td>
+												<div class="col-sm-12" style="margin-top: 20px;">
+													<textarea maxlength="200" ng-trim="false"
+														ng-focus="hideError('auditfindings')"
+														ng-model="auditfinding.auditfinding"
+														title={{auditfinding.auditfinding}} class="form-control"
+														id="textarea7" rows="3" style="height: 70px !important;"></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - auditfinding.auditfinding.length}}</div>
+													<div ng-if="auditfindingsRequiredError" class="text-error">
+														This field is required</div>
+													</textarea>
+												</div>
+											</td>
+											<td style="vertical-align: middle; text-align: center"
+												width="3% !important">
+												<button ng-click="deleteauditfindings($index)" type="button"
+													class="btn btn-danger btn-xs btn-rounded"">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+						<div class="form-group row header_collapse" data-toggle="collapse"
+								data-target="#safety_i">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="regulations">I. New regulations or amendments
+								affecting vessel and preparation for compliance<span
+								style="color: red"><span style="color: red">*</span></span> <a
+								class="pull-right"><i class="fa fa-chevron-right"></i>
+							</a>
+							</label>
+						</div>
+						<div class="row collapse" id="safety_i">
+							<div class="col-sm-12">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width: 3% !important";>S.No</th>
+											<th>Regulations<span style="color: red"><span
+													style="color: red">*</span></span></th>
+											<th style="text-align: center;">
+												<button ng-click="addregulations()" type="button"
+													class="btn btn-success btn-xs btn-rounded">
+													<i class="fa fa-plus"></i>
+												</button>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="regulation in regulations track by $index">
+											<td>{{$index+1}}</td>
+											<td>
+												<div class="col-sm-12" style="margin-top: 20px;">
+													<textarea maxlength="200" ng-trim="false"
+														ng-focus="hideError('regulations')"
+														ng-model="regulation.regulationdesc"
+														title={{regulation.regulationdesc}} class="form-control"
+														id="textarea7" rows="3" style="height: 70px !important;"
+														cols="5">
+                                            </textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - regulation.regulationdesc.length}}</div>
+													<div ng-if="regulationsRequiredError" class="text-error">This
+														field is required</div>
+												</div>
+											</td>
+											<td style="vertical-align: middle; text-align: center"
+												width="3% !important">
+												<button ng-click="deleteregulations($index)" type="button"
+													class="btn btn-danger btn-xs btn-rounded">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+						<div class="form-group row header_collapse" data-toggle="collapse"
+								data-target="#safety_j">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="safetyConcerns">J. Safety concern/Crew Health/Crew
+								Complaints <a class="pull-right"><i class="fa fa-chevron-right"></i>
+							</a>
+							</label>
+						</div>
+
+						<div class="collapse" id="safety_j">
+							<div class="form-group form_highlight">
+
+								<div class="form-group row">
+									<label class="col-sm-12 form-control-label sub-head"
+										id="safetyConcerns"><span class="form_highlight_title">J(1).
+											Safety concerns raised and suggestions for improving safety &
+											pollution prevention standards<span style="color: red">*</span><span></label>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<div class="log_form">
+											<div class="form-group row">
+												<label class="col-sm-3 form-control-label">Safety
+													concern / suggestion<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<textarea style="width: 100%" maxlength="200"
+														ng-trim="false"
+														ng-focus="hideError('addedSafetyConcerns')"
+														ng-model="addedSafetyConcerns"
+														value={{addedSafetyConcerns[1]}} class="" rows="3"
+														cols="8" value="" placeholder="Enter your comment.."></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - addedSafetyConcerns.length}}</div>
+													<br>
+													<div ng-if="addedSafetyConcernsRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+												<label class="col-sm-2 form-control-label">Action
+													required<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-4">
+													<textarea style="width: 100%" maxlength="200"
+														ng-trim="false"
+														ng-focus="hideError('addedSafetyConcernsAction')"
+														ng-model="addedSafetyConcernsAction"
+														value={{addedSafetyConcernsAction}} class="" rows="3"
+														cols="38" value="" placeholder="Enter your comment.."></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - addedSafetyConcernsAction.length}}</div>
+													<br>
+													<div ng-if="addedSafetyConcernsActionRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 form-control-label">Rank<span
+													style="color: red"><span style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<select ng-change="fetchAssignee()"
+														ng-model="addedSafetyConcernsRank" chosen
+														class="safety-concerns-rank" id="txtrnk">
+														<option value="" disabled selected hidden>Select
+															a Rank</option>
+														<option ng-repeat="crewRank in crewRanksList"
+															value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+													</select> <label ng-if="addedSafetyConcernsRankRequiredError"
+														class="text-error">This field is required</label>
+												</div>
+												<label class="col-sm-2 form-control-label">Assigned
+													To<span style="color: red"><span style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<input type="text" class=" form-control"
+														value="{{addedSafetyConcernsAssignee[1]}}" readonly />
+												</div>
+
+											</div>
+											<div class="form-group row">
+
+												<label class="col-sm-3 form-control-label">Target
+													completion date<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<div>
+														<input kendo-date-picker
+															ng-focus="hideError('addedSafetyConcernsDate')"
+															k-options="restrictPastDate"
+															ng-model="addedSafetyConcernsDate" style="width: 100%"
+															ng-blur="validateDate('addedSafetyConcernsDate','addedSafetyConcernsDate','addedSafetyConcernsDateValidationErrorMsg','addedSafetyConcernsDateValidationError','date')"/>
+													</div>
+													<label ng-if="addedSafetyConcernsDateRequiredError"
+														class="text-error">This field is required</label> 
+												<label ng-if="addedSafetyConcernsDateRootError"
+                            class="text-error">Past date is not allowed</label>		
+														
+														<label
+														ng-if="addedSafetyConcernsDateValidationError"
+														class="text-error">{{addedSafetyConcernsDateValidationErrorMsg}}</label>
+												</div>
+
+												<label class="col-sm-2 form-control-label">Priority
+													<span style="color: red">*</span>
+												</label>
+												<div class="col-sm-3">
+													<select class="form-control"
+														ng-click="hideError('addedSafetyConcernsPriority')"
+														ng-model="addedSafetyConcernsPriority">
+														<option ng-repeat="prioritytypes in prioritys"
+															value="{{prioritytypes.prioritycode}}">{{prioritytypes.priorityname}}</option>
+													</select>
+													<div ng-if="addedSafetyConcernsPriorityRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+                      <br></br>
+												<div class="col-sm-offset-3 col-sm-2 pull-right" style="width: 242px;">
+													<a ng-if="!isUpdateSafetyConcern"
+														ng-click="addsafetyConcern()" class="btn-custom pull-left"><img
+														src="Sidebar/css/button/add.svg" /> <img
+														src="Sidebar/css/button/add_h.svg" /></a> <a
+														ng-if="isUpdateSafetyConcern"
+														ng-click="addsafetyConcern()" class="btn-custom pull-left">
+														<img src="Sidebar/css/button/updated.svg" /> <img
+														src="Sidebar/css/button/updated_h.svg" />
+													</a> <a ng-click="clearsafetyConcern()"
+														class="btn-custom pull-right"><img
+														src="Sidebar/css/button/cancel.svg" /> <img
+														src="Sidebar/css/button/cancel_h.svg" /></a>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width: 3% !important";>No</th>
+													<th>Safety concern / suggestion</th>
+													<th>Action required</th>
+													<th>Target completion date</th>
+													<th>Assigned To</th>
+													<th>Rank</th>
+													<th>Priority</th>
+													<th style="width: 7% !important">Status</th>
+													<th colspan="2"></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-if="safetyConcerns.length<=0">
+													<td colspan=9 class="no_data">No Data Available</td>
+												</tr>
+												<tr
+													ng-repeat="safetyConcern in safetyConcerns track by $index">
+													<td>{{$index+1}}</td>
+													<td>
+														<div class="col-sm-12">{{safetyConcern.safconcern}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">{{safetyConcern.actionreq}}</div>
+													</td>
+													<td style="width: 18% !important;">
+														<div class="col-sm-10">
+															<div>{{safetyConcern.targetdate 
+															| date :'dd-MM-yyyy'}}</div>
+														</div>
+													</td>
+													<td ng-init="">{{safetyConcern.assgndtocode[1]}}</td>
+													<td ng-repeat="crewRank in crewRanksList"
+														ng-if="crewRank[0] === safetyConcern.rankcode">
+														{{crewRank[1]}}</td>
+													<td ng-repeat="prioritytypes in prioritys"
+                          ng-if="prioritytypes.prioritycode === safetyConcern.prioritycode">
+                          {{prioritytypes.priorityname}}</td>
+													<td><span class="label label-warning">Open</span></td>
+													<td width="8% !important">
+														<button ng-click="editSafetyConcerns($index)"
+															type="button"
+															class="btn btn-success btn-xs btn-rounded">
+															<i class="fa fa-edit"></i>
+														</button>
+														<button ng-click="deleteSafetyConcerns($index)"
+															type="button" class="btn btn-danger btn-xs btn-rounded">
+															<i class="fa fa-minus"></i>
+														</button>
+													</td>
+												</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="form-group form_highlight">
+								<div class="form-group row">
+									<label class="col-sm-12 form-control-label sub-head "
+										id="crewHealthMeasures"><span
+										class="form_highlight_title">J(2). Review crew health &
+											measures taken to improve on board health & hygiene<span
+											style="color: red"><span style="color: red">*</span></span>
+									</span> </label>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width: 3% !important";>S.No</th>
+													<th>Measures<span style="color: red"><span
+															style="color: red">*</span></span></th>
+													<th>
+														<button ng-click="addcrewHealthMeasure()" type="button"
+															class="btn btn-success btn-xs btn-rounded">
+															<i class="fa fa-plus"></i>
+														</button>
+													</th>
+											</thead>
+											<tbody>
+												<tr
+													ng-repeat="crewHealthMeasure in crewHealthMeasures track by $index">
+													<td>{{$index+1}}</td>
+													<td>
+														<div class="col-sm-12">
+															<textarea maxlength="200" ng-trim="false"
+																ng-focus="hideError('crewHealthMeasures')"
+																ng-model="crewHealthMeasure.helthmeasure"
+																title={{crewHealthMeasure.helthmeasure}}
+																class="form-control" id="textarea7" rows="3"
+																style="height: 50px !important;" cols="5">
+                            </textarea>
+															<div class="char-left">Characters left:
+																{{max200Length - crewHealthMeasure.helthmeasure.length}}</div>
+															<div ng-if="crewHealthMeasuresRequiredError"
+																class="text-error">This field is required</div>
+														</div>
+													</td>
+													<td style="vertical-align: middle; text-align: center"
+														width="3% !important">
+														<button ng-click="deletecrewHealthMeasures($index)"
+															type="button" class="btn btn-danger btn-xs btn-rounded">
+															<i class="fa fa-minus"></i>
+														</button>
+													</td>
+												</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="form-group form_highlight">
+								<div class="form-group row">
+									<label class="col-sm-12 form-control-label sub-head"
+										id="crewComplaints"><span class="form_highlight_title">J(3).
+											Review of crew complaints<span style="color: red"><span
+												style="color: red">*</span></span>
+									</span> </label>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width: 3% !important";>S.No</th>
+													<th>Review<span style="color: red"><span
+															style="color: red">*</span></span></th>
+													<th>
+														<button ng-click="addcrewComplaint()" type="button"
+															class="btn btn-success btn-xs btn-rounded">
+															<i class="fa fa-plus"></i>
+														</button>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr
+													ng-repeat="crewComplaint in crewComplaints track by $index">
+													<td>{{$index+1}}</td>
+													<td>
+														<div class="col-sm-12">
+															<textarea maxlength="200" ng-trim="false"
+																ng-focus="hideError('crewComplaints')"
+																ng-model="crewComplaint.complaintsreview"
+																title={{crewComplaint.complaintsreview}}
+																class="form-control" id="textarea7" rows="3"
+																style="height: 50px !important;" cols="5">
+                            </textarea>
+															<div class="char-left">Characters left:
+																{{max200Length - crewComplaint.complaintsreview.length}}</div>
+															<div ng-if="crewComplaintsRequiredError"
+																class="text-error">This field is required</div>
+														</div>
+													</td>
+													<td style="vertical-align: middle; text-align: center"
+														width="3% !important">
+														<button ng-click="deletecrewComplaint($index)"
+															type="button" class="btn btn-danger btn-xs btn-rounded">
+															<i class="fa fa-minus"></i>
+														</button>
+													</td>
+												</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row header_collapse" data-toggle="collapse"
+								data-target="#safety_k">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="riskReviews">K. Review of the risk assessment
+								process on board and any risk assessments discussed<span
+								style="color: red"><span style="color: red">*</span></span> <a
+								class="pull-right"><i class="fa fa-chevron-right"></i>
+							</a>
+							</label>
+						</div>
+						<div class="form-group row collapse" id="safety_k">
+							<div class="col-sm-12">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width: 3% !important";>S.No</th>
+											<th>Review<span style="color: red"><span
+													style="color: red">*</span></span></th>
+											<th>
+												<button ng-click="addriskReview()" type="button"
+													class="btn btn-success btn-xs btn-rounded">
+													<i class="fa fa-plus"></i>
+												</button>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="riskReview in riskReviews track by $index">
+											<td>{{$index+1}}</td>
+											<td>
+												<div class="col-sm-12">
+													<textarea maxlength="200" ng-trim="false"
+														ng-focus="hideError('riskReviews')"
+														ng-model="riskReview.riskreview"
+														title={{riskReview.riskreview}} class="form-control"
+														id="textarea7" rows="3" style="height: 50px !important;"
+														cols="5">
+                            </textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - riskReview.riskreview.length}}</div>
+													<div ng-if="riskReviewsRequiredError" class="text-error">This
+														field is required</div>
+												</div>
+											</td>
+											<td style="vertical-align: middle; text-align: center"
+												width="3% !important">
+												<button ng-click="deleteriskReview($index)" type="button"
+													class="btn btn-danger btn-xs btn-rounded">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+						<div class="form-group row header_collapse" data-toggle="collapse"
+								data-target="#safety_l">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="injuries">L. Accident/Non Injury<span
+								style="color: red"></span> <a
+								class="pull-right"><i class="fa fa-chevron-right"></i>
+							</a>
+							</label>
+						</div>
+						<div class="collapse" id="safety_l">
+
+							<div class="form-group form_highlight">
+							  <div class="pull-right" style="color: cadetblue;">
+							     <span class="mand-ques-saf">Make this section mandatory?</span>
+                  <label class="c-input c-radio"> <input
+                      ng-model="mandSectionL1"
+                      value="Y" type="radio"><span
+                      class="c-indicator c-indicator-warning"></span> <span
+                      class="c-input-text"> Yes </span>
+                   </label>
+                   <label class="c-input c-radio"> <input
+                      ng-model="mandSectionL1"
+                      value="N" type="radio"><span
+                      class="c-indicator c-indicator-warning"></span> <span
+                      class="c-input-text"> No </span>
+                   </label>
+                </div>
+								<div class="form-group row">
+									<label class="col-sm-12 form-control-label sub-head"
+										id="injuries"><span class="form_highlight_title">L(1).
+											Record of all accidental injuries and FAC (First Aid Case)<span ng-if="mandSectionL1 == 'Y'" 
+											style="color: red">*</span>
+									</span> </label>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<div class="log_form">
+											<div class="form-group row">
+												<label class="col-sm-3 form-control-label">Rank<span
+													style="color: red"><span style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+
+													<select ng-change="fetchAssignee2()"
+														ng-model="addedInjuryRank"
+														class="injury-rank form-control" id="txtrnk">
+														<option value="" disabled selected hidden>Select
+															a Rank</option>
+														<option ng-repeat="crewRank in crewRanksList"
+															value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+													</select>
+													<div ng-if="addedInjuryRankRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+												<label class="col-sm-2 form-control-label">Name<span
+													style="color: red"><span style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<input type="text" class=" form-control"
+														value=" {{addedInjuryName[1]}}" readonly />
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 form-control-label">Details
+													of injury<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<textarea style="width: 100%" maxlength="200"
+														ng-trim="false" ng-focus="hideError('addedInjuryDetails')"
+														ng-model="addedInjuryDetails" value={{addedInjuryDetails}}
+														class="" rows="3" cols="38" value=""
+														placeholder="Enter your comment.."></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - addedInjuryDetails.length}}</div>
+													<div ng-if="addedInjuryDetailsRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+												<label class="col-sm-2 form-control-label">Treatment
+													/ Remark<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+
+
+												<div class="col-sm-4">
+													<textarea style="width: 100%" maxlength="200"
+														ng-model="addedInjuryRemark" ng-trim="false"
+														ng-focus="hideError('addedInjuryRemark')"
+														value={{addedInjuryRemark}} class="" rows="3" cols="38"
+														value="" placeholder="Enter your comment.."></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - addedInjuryRemark.length}}</div>
+													<div ng-if="addedInjuryRemarkRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 form-control-label">Date<span
+													style="color: red"><span style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<div>
+														<input kendo-date-picker
+															ng-focus="hideError('addedInjuryDate')"
+															k-options="restrictFutureDate" ng-model="addedInjuryDate"
+															style="width: 100%"
+															ng-blur="validateDate('addedInjuryDate','addedInjuryDate','addedInjuryDateValidationErrorMsg','addedInjuryDateValidationError','date')" />
+													</div>
+													<div ng-if="addedInjuryDateRequiredError"
+														class="text-error">This field is required</div>
+													<div ng-if="addedInjuryDateRootError"
+                            class="text-error">Future date is not allowed</div> 	
+													<div ng-if="addedInjuryDateValidationError"
+														class="text-error">{{addedInjuryDateValidationErrorMsg}}</div>
+												</div>
+												<label class="col-sm-2 form-control-label">Lost Time
+													Injury (LTI)(Hrs)<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-2">
+													<label class="c-input c-radio"> <input
+														focus-me="{{focusMe}}"
+														ng-click="hideError('addedInjuryWorktimeLoss')"
+														ng-model="addedInjuryWorktimeLoss" name="radio-stacked3"
+														value="Y" type="radio"><span
+														class="c-indicator c-indicator-warning"></span> <span
+														class="c-input-text"> Yes </span>
+													</label> <label class="c-input c-radio"> <input
+														ng-click="hideError('addedInjuryWorktimeLoss')"
+														ng-model="addedInjuryWorktimeLoss" name="radio-stacked3"
+														value="N" type="radio"><span
+														class="c-indicator c-indicator-warning"></span> <span
+														class="c-input-text"> No </span>
+													</label>
+													<div ng-if="addedInjuryWorktimeLossRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+												<div ng-show="addedInjuryWorktimeLoss==='Y'"
+													class="col-sm-1">
+													<div id="l1textid">
+														<input placeholder="Hours" min="0" max="24"
+															class="form-control"
+															ng-focus="hideError('addedInjuryWorktimeLossHours')"
+															ng-model="addedInjuryWorktimeLossHours"
+															value={{addedInjuryWorktimeLossHours}}
+															valid-positive-number>
+														<div ng-if="addedInjuryWorktimeLossHoursRequiredError"
+															class="text-error">This field is required</div>
+														<label ng-if="addedInjuryWorktimeLossHoursRootError"
+															class="text-error">Hours must be in range 0-250</label>
+													</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-sm-offset-9 col-sm-2" style="width: 242px;">
+													<a ng-if="!isUpdateInjury" ng-click="addinjury()"
+														class="btn-custom pull-left"><img
+														src="Sidebar/css/button/add.svg" /> <img
+														src="Sidebar/css/button/add_h.svg" /></a> <a
+														ng-if="isUpdateInjury" ng-click="addinjury()"
+														class="btn-custom pull-left"> <img
+														src="Sidebar/css/button/updated.svg" /> <img
+														src="Sidebar/css/button/updated_h.svg" />
+													</a> <a ng-click="clearinjury()" class="btn-custom pull-right"><img
+														src="Sidebar/css/button/cancel.svg" /> <img
+														src="Sidebar/css/button/cancel_h.svg" /></a>
+												</div>
+											</div>
+										</div>
+										<!-- log_form -->
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0">
+											<thead>
+												<tr>
+													<th>S.No</th>
+													<th>Date</th>
+													<th>Name</th>
+													<th>Rank</th>
+													<th>Details of injury</th>
+													<th>Treatment / Remark</th>
+													<th colspan="2">Lost Time Injury (LTI)(Hrs)</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-if="injuries.length<=0">
+													<td colspan=9 class="no_data">No Data Available</td>
+												</tr>
+												<tr ng-repeat="injury in injuries track by $index">
+													<td>{{$index+1}}</td>
+													<td>
+														<div class="input-group date">{{injury.injurydate 
+														| date :'dd-MM-yyyy'}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">{{injury.empcode[1]}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12"
+															ng-repeat="crewRank in crewRanksList"
+															ng-if="crewRank[0] === injury.rankcode">
+															{{crewRank[1]}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">{{injury.injurydetail}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">{{injury.remark}}</div>
+													</td>
+													<td>
+                            <div class="col-sm-12">{{injury.islot}}</div>
+                          </td>
+													<td>
+														<div class="col-sm-12">{{injury.lothrs}}</div>
+													</td>
+													<td width="8% !important">
+														<button ng-click="editInjury($index)" type="button"
+															class="btn btn-success label btn btn-success label-rounded">
+															<i class="fa fa-edit"></i>
+														</button>
+
+														<button ng-click="deleteInjuries($index)" type="button"
+															class="btn btn-danger label btn btn-danger label-rounded">
+															<i class="fa fa-minus"></i>
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="form-group form_highlight">
+							    <div class="pull-right" style="color: cadetblue;">
+                   <span class="mand-ques-saf">Make this section mandatory?</span>
+                  <label class="c-input c-radio"> <input
+                      ng-model="mandSectionL2"
+                      value="Y" type="radio"><span
+                      class="c-indicator c-indicator-warning"></span> <span
+                      class="c-input-text"> Yes </span>
+                   </label>
+                   <label class="c-input c-radio"> <input
+                      ng-model="mandSectionL2"
+                      value="N" type="radio"><span
+                      class="c-indicator c-indicator-warning"></span> <span
+                      class="c-input-text"> No </span>
+                   </label>
+                </div>
+								<div class="form-group row">
+									<label class="col-sm-12 form-control-label sub-head"
+										id="nonInjuries"><span class="form_highlight_title">L(2).
+											Non-Injury related record of all onboard illness with loss of
+											work time. Also includes doctor visits, hospitalisation &
+											repartiation<span style="color: red" ng-if="mandSectionL2 == 'Y'">*</span>
+									</span> </label>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<div class="log_form">
+											<div class="form-group row">
+												<label class="col-sm-3 form-control-label">Rank<span
+													style="color: red"><span style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<select ng-change="fetchAssignee3()"
+														ng-model="addedNonInjuryRank"
+														class="chosen-select non-injury-rank form-control"
+														id="txtrnk">
+														<option value="" disabled selected hidden>Select
+															a Rank</option>
+														<option ng-repeat="crewRank in crewRanksList"
+															value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+													</select>
+													<div ng-if="addedNonInjuryRankRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+												<label class="col-sm-2 form-control-label">Name<span
+													style="color: red"><span style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<input type="text" class=" form-control"
+														value=" {{addedNonInjuryName[1]}}" readonly />
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 form-control-label">Details
+													of illness<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<textarea style="width: 100%" maxlength="200"
+														ng-trim="false"
+														ng-focus="hideError('addedNonInjuryDetails')"
+														ng-model="addedNonInjuryDetails"
+														value={{addedNonInjuryDetails}} class="" rows="3"
+														cols="38" value="" placeholder="Enter your comment.."></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - addedNonInjuryDetails.length}}</div>
+													<div ng-if="addedNonInjuryDetailsRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+												<label class="col-sm-2 form-control-label">Treatment
+													/ Remark<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-4">
+													<textarea style="width: 100%" maxlength="200"
+														ng-model="addedNonInjuryRemark" ng-trim="false"
+														ng-focus="hideError('addedNonInjuryRemark')"
+														value={{addedNonInjuryRemark}} class="" rows="3" cols="38"
+														value="" placeholder="Enter your comment.."></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - addedNonInjuryRemark.length}}</div>
+													<div ng-if="addedNonInjuryRemarkRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 form-control-label">Date<span
+													style="color: red"><span style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-3">
+													<div>
+														<input kendo-date-picker
+															ng-focus="hideError('addedNonInjuryDate')"
+															k-options="restrictFutureDate"
+															ng-model="addedNonInjuryDate" style="width: 100%" />
+													</div>
+													<div ng-if="addedNonInjuryDateRequiredError"
+														class="text-error">This field is required</div>
+												  <div ng-if="addedNonInjuryDateRootError"
+                            class="text-error">Future date is not allowed</div> 		
+														
+												</div>
+												<label class="col-sm-2 form-control-label">Loss of
+													Work Time (Hrs)<span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+												<div class="col-sm-2">
+													<label class="c-input c-radio"> <input
+														ng-click="hideError('addedNonInjuryWorktimeLoss')"
+														ng-model="addedNonInjuryWorktimeLoss"
+														name="radio-stacked3" value="Y" type="radio"><span
+														class="c-indicator c-indicator-warning"></span> <span
+														class="c-input-text"> Yes </span>
+													</label> <label class="c-input c-radio"> <input
+														ng-click="hideError('addedNonInjuryWorktimeLoss')"
+														ng-model="addedNonInjuryWorktimeLoss"
+														name="radio-stacked3" value="N" type="radio"><span
+														class="c-indicator c-indicator-warning"></span> <span
+														class="c-input-text"> No </span>
+													</label>
+													<div ng-if="addedNonInjuryWorktimeLossRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+												<div ng-show="addedNonInjuryWorktimeLoss==='Y'"
+													class="col-sm-1">
+													<div margin-left: -70px" id="l2textid">
+														<input placeholder="Hours" min="0" max="24"
+															ng-focus="hideError('addedNonInjuryWorktimeLossHours')"
+															ng-model="addedNonInjuryWorktimeLossHours"
+															value={{addedNonInjuryWorktimeLossHours}}
+															valid-positive-number class="form-control"> <label
+															ng-if="addedNonInjuryWorktimeLossHoursRequiredError"
+															class="text-error">This field is required</label> <label
+															ng-if="addedNonInjuryWorktimeLossHoursRootError"
+															class="text-error">Hours must be in range 0-250</label>
+													</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-sm-offset-9 col-sm-2" style="width: 242px;">
+													<a ng-if="!isUpdateNonInjury" ng-click="addNonInjury()"
+														class="btn-custom pull-left"><img
+														src="Sidebar/css/button/add.svg" /> <img
+														src="Sidebar/css/button/add_h.svg" /></a> <a
+														ng-if="isUpdateNonInjury" ng-click="addNonInjury()"
+														class="btn-custom pull-left"> <img
+														src="Sidebar/css/button/updated.svg" /> <img
+														src="Sidebar/css/button/updated_h.svg" />
+													</a> <a ng-click="clearNonInjury()"
+														class="btn-custom pull-right"><img
+														src="Sidebar/css/button/cancel.svg" /> <img
+														src="Sidebar/css/button/cancel_h.svg" /></a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- log_form -->
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0">
+											<thead>
+												<tr>
+													<th>S.No</th>
+													<th>Date</th>
+													<th>Name</th>
+													<th>Rank</th>
+													<th>Details of illness</th>
+													<th>Treatment / Remark</th>
+													<th style="width: 23%" colspan="2">Loss of Work Time
+														(Hrs)</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-if="nonInjuries.length<=0">
+													<td colspan=9 class="no_data">No Data Available</td>
+												</tr>
+												<tr ng-repeat="nonInjury in nonInjuries track by $index">
+													<td>1</td>
+													<td>
+														<div class="input-group date">{{nonInjury.injurydate
+															| date :'dd-MM-yyyy'}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">{{nonInjury.empcode[1]}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12"
+															ng-repeat="crewRank in crewRanksList"
+															ng-if="crewRank[0] === nonInjury.rankcode">
+															{{crewRank[1]}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">{{nonInjury.injurydetail}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">{{nonInjury.remark}}</div>
+													</td>
+													<td>
+                            <div class="col-sm-12">{{nonInjury.islot}}</div>
+                          </td>
+													<td>
+														<div class="col-sm-12">{{nonInjury.lothrs}}</div>
+													</td>
+													<td width="8% !important">
+														<button ng-click="editNonInjury($index)" type="button"
+															class="btn btn-success label btn btn-success label-rounded">
+															<i class="fa fa-edit"></i>
+														</button>
+
+														<button ng-click="deleteNonInjury($index)" type="button"
+															class="btn btn-danger label btn btn-danger label-rounded">
+															<i class="fa fa-minus"></i>
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="form-group form_highlight">
+							 <div class="pull-right" style="color: cadetblue;">
+                   <span class="mand-ques-saf">Make this section mandatory?</span>
+                  <label class="c-input c-radio"> <input
+                      ng-model="mandSectionL3"
+                      value="Y" type="radio"><span
+                      class="c-indicator c-indicator-warning"></span> <span
+                      class="c-input-text"> Yes </span>
+                   </label>
+                   <label class="c-input c-radio"> <input
+                      ng-model="mandSectionL3"
+                      value="N" type="radio"><span
+                      class="c-indicator c-indicator-warning"></span> <span
+                      class="c-input-text"> No </span>
+                   </label>
+                </div>
+								<div class="form-group row">
+									<label class="col-sm-12 form-control-label sub-head"
+										id="nonInjuriesDental"><span
+										class="form_highlight_title">L(3). Non-injury related
+											record of all on board (dental treatment cases) with loss of
+											work time. Also includes doctor visits,hospitalisation &
+											repartiation if any<span style="color: red" ng-if="mandSectionL3 == 'Y'">*</span>
+									</span> </label>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label">Rank<span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<select ng-change="fetchAssignee4()"
+													ng-model="addedNonInjuryRankDental"
+													class="chosen-select non-injury-dental-rank form-control"
+													id="txtrnk">
+													<option value="" disabled selected hidden>Select a
+														Rank</option>
+													<option ng-repeat="crewRank in crewRanksList"
+														value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+												</select>
+												<div ng-if="addedNonInjuryRankDentalRequiredError"
+													class="text-error">This field is required</div>
+											</div>
+											<label class="col-sm-2 form-control-label">Name<span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input type="text" class=" form-control"
+													value=" {{addedNonInjuryNameDental[1]}}" readonly />
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label">Details of
+												dental problem<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<textarea style="width: 100%" maxlength="200"
+													ng-trim="false"
+													ng-focus="hideError('addedNonInjuryDetailsDental')"
+													ng-model="addedNonInjuryDetailsDental"
+													value={{addedNonInjuryDetailsDental}} class="" rows="3"
+													cols="38" value="" placeholder="Enter your comment.."></textarea>
+												<div class="char-left">Characters left: {{max200Length
+													- addedNonInjuryDetailsDental.length}}</div>
+												<div ng-if="addedNonInjuryDetailsDentalRequiredError"
+													class="text-error">This field is required</div>
+											</div>
+											<label class="col-sm-2 form-control-label">Treatment
+												/ Remark<span style="color: red">*</span>
+											</label>
+
+											<div class="col-sm-4">
+												<textarea style="width: 100%" maxlength="200"
+													ng-trim="false"
+													ng-focus="hideError('addedNonInjuryRemarkDental')"
+													ng-model="addedNonInjuryRemarkDental"
+													value={{addedNonInjuryRemarkDental}} class="" rows="3"
+													cols="38" value="" placeholder="Enter your comment.."></textarea>
+												<div class="char-left">Characters left: {{max200Length
+													- addedNonInjuryRemarkDental.length}}</div>
+												<div ng-if="addedNonInjuryRemarkDentalRequiredError"
+													class="text-error">This field is required</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label">Date<span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<div>
+													<input kendo-date-picker
+														ng-focus="hideError('addedNonInjuryDateDental')"
+														k-options="restrictFutureDate"
+														ng-model="addedNonInjuryDateDental" style="width: 100%" />
+												</div>
+												<div ng-if="addedNonInjuryDateDentalRequiredError"
+													class="text-error">This field is required</div>
+											  <div ng-if="addedNonInjuryDateDentalRootError"
+                            class="text-error">Future date is not allowed</div> 		
+											</div>
+											<label class="col-sm-2 form-control-label">Loss of
+												Work Time(Hrs)<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-2">
+												<label class="c-input c-radio"> <input
+													ng-click="hideError('addedNonInjuryWorktimeLossDental')"
+													ng-model="addedNonInjuryWorktimeLossDental"
+													name="radio-stacked3" value="Y" type="radio"><span
+													class="c-indicator c-indicator-warning"></span> <span
+													class="c-input-text"> Yes </span>
+												</label> <label class="c-input c-radio"> <input
+													ng-click="hideError('addedNonInjuryWorktimeLossDental')"
+													ng-model="addedNonInjuryWorktimeLossDental"
+													name="radio-stacked3" value="N" type="radio"><span
+													class="c-indicator c-indicator-warning"></span> <span
+													class="c-input-text"> No </span>
+												</label>
+												<div ng-if="addedNonInjuryWorktimeLossDentalRequiredError"
+													class="text-error">This field is required</div>
+											</div>
+											<div ng-show="addedNonInjuryWorktimeLossDental==='Y'"
+												class="col-sm-1">
+												<div margin-left: -70px" id="l3textid">
+													<input placeholder="Hours" min="0" max="24"
+														ng-focus="hideError('addedNonInjuryWorktimeLossDentalHours')"
+														ng-model="addedNonInjuryWorktimeLossDentalHours"
+														value={{addedNonInjuryWorktimeLossDentalHours}}
+														valid-positive-number class="form-control">
+													<div
+														ng-if="addedNonInjuryWorktimeLossDentalHoursRequiredError"
+														class="text-error">This field is required</div>
+													<label
+														ng-if="addedNonInjuryWorktimeLossDentalHoursRootError"
+														class="text-error">Hours must be in range 0-250</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-offset-9 col-sm-2" style="width: 242px;">
+												<a ng-if="!isUpdateNonInjuryDental"
+													ng-click="addNonInjuryDental()"
+													class="btn-custom pull-left"><img
+													src="Sidebar/css/button/add.svg" /> <img
+													src="Sidebar/css/button/add_h.svg" /></a> <a
+													ng-if="isUpdateNonInjuryDental"
+													ng-click="addNonInjuryDental()"
+													class="btn-custom pull-left"> <img
+													src="Sidebar/css/button/updated.svg" /> <img
+													src="Sidebar/css/button/updated_h.svg" />
+												</a> <a ng-click="clearNonInjuryDental()"
+													class="btn-custom pull-right"><img
+													src="Sidebar/css/button/cancel.svg" /> <img
+													src="Sidebar/css/button/cancel_h.svg" /></a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-sm-12">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0">
+											<thead>
+												<tr>
+													<th>S.No</th>
+													<th>Date</th>
+													<th>Name</th>
+													<th>Rank</th>
+													<th style="width: 16%">Details of dental problem</th>
+													<th style="width: 14%">Treatment / Remark</th>
+													<th style="width: 23%" colspan="2">Loss of Work
+														Time(Hrs)</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-if="nonInjuriesDental.length<=0">
+													<td colspan=9 class="no_data">No Data Available</td>
+												</tr>
+
+												<tr
+													ng-repeat="nonInjuryDental in nonInjuriesDental track by $index">
+													<td>{{$index+1}}</td>
+													<td>
+														<div class="input-group">
+															{{nonInjuryDental.injurydate | date :'dd-MM-yyyy'}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">
+															{{nonInjuryDental.empcode[1]}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12"
+															ng-repeat="crewRank in crewRanksList"
+															ng-if="crewRank[0]===nonInjuryDental.rankcode">
+															{{crewRank[1]}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">
+															{{nonInjuryDental.injurydetail}}</div>
+													</td>
+													<td>
+														<div class="col-sm-12">{{nonInjuryDental.remark}}</div>
+													</td>
+													<td>
+                            <div class="col-sm-12">{{nonInjuryDental.islot}}</div>
+                          </td>
+													<td>
+														<div class="col-sm-12">{{nonInjuryDental.lothrs}}</div>
+													</td>
+													<td width="8% !important">
+														<button ng-click="editNonInjuryDental($index)"
+															type="button"
+															class="btn btn-success label btn btn-success label-rounded">
+															<i class="fa fa-edit"></i>
+														</button>
+
+														<button ng-click="deleteNonInjuryDental($index)"
+															type="button"
+															class="btn btn-danger label btn btn-danger label-rounded">
+															<i class="fa fa-minus"></i>
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group row header_collapse" data-toggle="collapse"
+								data-target="#safety_m">
+							<label class="col-sm-12 form-control-label sub-head">M.
+								Record of emergency drills; the latest record of all drills
+								should be entered<span style="color: red">*</span> <a
+								class="pull-right"><i class="fa fa-chevron-right"></i>
+							</a>
+							</label>
+						</div>
+
+
+						<div class="collapse" id="safety_m">
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<table class="table table-hover table-striped table-bordered"
+										cellspacing="0">
+										<thead>
+											<tr>
+												<th>S.No</th>
+												<th>Drill ID</th>
+												<th>Name of drill</th>
+												<th>Date & Time</th>
+												<th>Location</th>
+												<th></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-if="drillReportSectionData.length<=0">
+												<td colspan=7 class="no_data">No Data Available</td>
+											</tr>
+											<tr
+												ng-repeat="drillData in drillReportSectionData track by $index">
+												<td>{{$index+1}}</td>
+												<td>
+													<div>
+														<a target="_blank"
+															href="welcome#/DrillReport/{{drillData.drlid}}">{{drillData.drlid}}</a>
+													</div>
+												</td>
+												<td>
+													<div>{{drillData.drillTypeDesc}}</div>
+												</td>
+												<td>
+													<div>{{drillData.drilldatetime | date : dateFormat}}</div>
+												</td>
+												<td>
+													<div>
+														<label class="c-input c-radio"> <input disabled
+															ng-model="drillData.shipposition" value="At Port"
+															type="radio"><span
+															class="c-indicator c-indicator-warning"></span> <span
+															class="c-input-text">Port</span>
+														</label> <br> <label class="c-input c-radio"> <input
+															disabled ng-model="drillData.shipposition" value="At Sea"
+															type="radio"><span
+															class="c-indicator c-indicator-warning"></span> <span
+															class="c-input-text">At Sea</span>
+														</label>
+													</div> <br> <label ng-if="emergencyDrillRequiredError"
+													class="text-error">This field is required</label>
+												</td>
+												<td style="text-align: left">
+
+													<div ng-show="drillData.shipposition==='At Port'">
+														<div>
+															<b>Portcode:</b> {{drillData.portcode}}
+
+														</div>
+														<br>
+														<div>
+															<b>Portname:</b> {{drillData.portname}}
+														</div>
+													</div>
+
+													<div ng-show="drillData.shipposition==='At Sea'">
+														<div style="width: 90%">
+															<p style="font-size: .8em">Latitude</p>
+															<latitude data="drillData.latitude" validation
+																component-disabled="true"></latitude>
+														</div>
+														<div style="width: 90%">
+															<p style="font-size: .8em">Longitude</p>
+															<longitude data="drillData.longitude" validation
+																component-disabled="true"></longitude>
+														</div>
+													</div>
+
+												</td>
+											<td style="vertical-align: middle; text-align: center"
+                        width="3% !important">
+                        <button ng-click="confirmDeleteMSectionRecordsf($index)" type="button"
+                          class="btn btn-danger btn-xs btn-rounded">
+                          <i class="fa fa-minus"></i>
+                        </button>
+                      </td>
+											</tr>
+									</table>
+								</div>
+							</div>
+
+							<div class="workflow_wrapper">
+								<div class="form-group row">
+									<label class="col-sm-12 form-control-label">Launching/Maneuvering
+										of Port Side Lifeboat </label>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-1 form-control-label" id="launchDatePSL">Date
+									</label>
+									<div class="col-sm-3">
+										<div>
+											<input kendo-date-picker
+												ng-focus="hideError('launchDatePSL')"
+												k-options="restrictFutureDate" ng-model="launchDatePSL"
+												style="width: 100%"
+												ng-blur="validateDate('launchDatePSL','launchDatePSL','LaunchingDate1Msg','LaunchingDate1','date')" />
+											<label ng-if="LaunchingDate1" class="text-error">{{LaunchingDate1Msg}}</label>
+											<label ng-if="launchDatePSLRootError" class="text-error">Future date is not allowed</label>
+										</div>
+									</div>
+									<label class="col-sm-1 form-control-label"></label> <label
+										class="col-sm-2 form-control-label" id="portPSL">Port
+										Name </label>
+									<div class="col-sm-1">
+										<input type="text" class="form-control" valid-alpha
+											ng-focus="hideError('portPSL')" ng-blur="getPSLPortName()" ng-model="portPSL"
+											value={{portPSL}}
+											>
+									</div>
+									<div class="col-sm-2">
+										<input type="text" class="col-sm-4 form-control"
+											readonly="true" ng-model="portPSLName" value={{portPSLName}}>
+									</div>
+									<button type="button" class="btn btn-primary fa fa-search"
+										ng-show="portPSL.length >= 2"
+										ng-click="btnPortCodeActionPerformedPSL()"></button>
+									<modal class="" visible="showPortModalPSL"
+										on-sown="modalOneShown()" on-hide="modalOneHide()"> <modal-header
+										title="Port Selection"></modal-header> <modal-body
+										title1="Port Code" title2="Port Name" data="portPSLList"
+										searchdesc1="Search Port Code" searchdesc2="Search Port Name"
+										searchdesc3="Search on both" keymodelid="m1" valuemodelid="m2"
+										callback-fn="setValuePSL(arg1,arg2)" hide-fn="hide()" status="showPortModalPSL"></modal-body>
+									</modal>
+									<div></div>
+								</div>
+								<div class="form-group row">
+									<label id="ssl" class="col-sm-12 form-control-label">Launching/Maneuvering
+										of Starboard Side Lifeboat </label>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-1 form-control-label" style="top: 5px;"
+										id="launchDateSSL">Date </label>
+									<div class="col-sm-3">
+										<div>
+											<input kendo-date-picker
+												ng-focus="hideError('launchDateSSL')"
+												k-options="restrictFutureDate" ng-model="launchDateSSL"
+												style="width: 100%"
+												ng-blur="validateDate('launchDateSSL','launchDateSSL','LaunchingDate2Msg','LaunchingDate2','date')" />
+											<label ng-if="LaunchingDate2" class="text-error">{{LaunchingDate2Msg}}</label>
+											<label ng-if="launchDateSSLRootError" class="text-error">Future date is not allowed</label>
+										</div>
+									</div>
+									<label class="col-sm-1 form-control-label" style="top: 8px;"></label>
+									<label class="col-sm-2 form-control-label" id="portSSL">Port
+										Name </label>
+									<div class="col-sm-1">
+										<input type="text" class="form-control" valid-alpha
+											ng-focus="hideError('portSSL')" ng-blur="getSSLPortName()" ng-model="portSSL"
+											value={{portSSL}}>
+											
+									</div>
+									<div class="col-sm-2">
+										<input type="text" class="col-sm-4 form-control"
+											placeholder="" readonly="true" ng-model="portSSLName"
+											value={{portSSLName}}>
+									</div>
+									
+								
+                      <button type="button" class="btn btn-primary fa fa-search"
+                        ng-show="portSSL.length >= 2" style="height: 34px;"
+                        allowed="write" mdlcode="SAF"
+                        ng-click="btnPortCodeActionPerformedSSL()"></button>
+                      <modal class="" visible="showPortModalSSL"
+                        on-sown="modalOneShown()" on-hide="modalOneHide()">
+                      <modal-header title="Port Selection"></modal-header> <modal-body
+                        title1="Port Code" title2="Port Name"
+                        data="portSSLList" searchdesc1="Search Port Code"
+                        searchdesc2="Search Port Name" searchdesc3="Search on both"
+                        keymodelid="m1" valuemodelid="m2"
+                        callback-fn="setValueSSL(arg1,arg2)" hide-fn="hideSSL()" status="showPortModalSSL">
+                      </modal-body> </modal>
+                    
+								</div>
+								<div></div>
+							</div>
+						</div>
+
+						<div class="form-group row header_collapse"
+								data-toggle="collapse" data-target="#safety_n">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="trainingConducts">N. Record of on board training
+								conducted<span style="color: red">*</span> <a class="pull-right"><i
+									class="fa fa-chevron-right"></i> </a>
+							</label>
+						</div>
+						<div class="form-group row collapse" id="safety_n">
+							<div class="col-sm-12">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th>Date & Time<span style="color: red">*</span></th>
+											<th>Training<span style="color: red">*</span></th>
+											<th style="text-align: center;">
+												<button ng-click="addTrainingConduct()" type="button"
+													class="btn btn-success btn-xs btn-rounded">
+													<i class="fa fa-plus"></i>
+												</button>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									  <tr colspan="3" 
+                           ><span ng-if="trainingConductsRootError" class="text-error">Future date is not allowed</span></tr> 
+										<tr
+											ng-repeat="trainingConduct in trainingConducts track by $index">
+											<td style="width: 30%;">
+												<div class="col-sm-12">
+													<input kendo-date-time-picker
+														k-options="restrictFutureDate" k-ng-model="obj"
+														ng-focus="hideError('trainingConducts')"
+														ng-model="trainingConduct.trainingdate"
+														style="width: 100%;"
+														ng-blur="validateDateDynamic('trainingConducts', $index, 'trainingdate','trainingConductsValidationErrorMsg', 'errorIndex')" />
+													<div ng-if="trainingConductsRequiredError"
+														class="pull-left text-error">This field is required</div>
+													<div ng-if="errorIndex==$index"
+														class="pull-left text-error">{{trainingConductsValidationErrorMsg}}</div>
+												</div>
+											</td>
+											<td>
+												<div class="col-sm-12" style="margin-top: 20px">
+													<textarea maxlength="200"
+														style="width: 100%; height: 70px !important"
+														ng-trim="false" title={{trainingConduct.trainingname}}
+														ng-focus="hideError('trainingConducts')"
+														ng-model="trainingConduct.trainingname" type="text"
+														class="form-control"></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - trainingConduct.trainingname.length}}</div>
+													<div ng-if="trainingConductsRequiredError"
+														class="text-error">This field is required</div>
+												</div>
+											</td>
+											<td width="6% !important">
+												<button ng-click="deleteTrainingConduct($index)"
+													type="button" class="btn btn-danger btn-xs btn-rounded">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+						<div class="form-group row header_collapse" data-toggle="collapse"
+								data-target="#safety_o">
+							<label class="col-sm-12 form-control-label sub-head"
+								id="videoTrainings">O. Record of safety video training
+								and/or computer based training conducted<span style="color: red">*</span>
+								<a class="pull-right"><i class="fa fa-chevron-right"></i>
+							</a>
+							</label>
+						</div>
+						<div class="form-group row collapse" id="safety_o">
+							<div class="col-sm-12">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0">
+									<thead>
+										<tr>
+											<th>Date & Time<span style="color: red">*</span></th>
+											<th>Training<span style="color: red">*</span></th>
+											<th style="text-align: center;">
+												<button ng-click="addvideoTrainings()" type="button"
+													class="btn btn-success btn-xs btn-rounded">
+													<i class="fa fa-plus"></i>
+												</button>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+									<tr colspan="3"><span ng-if="videoTrainingsRootError" class="text-error">Future date is not allowed</span></tr> 
+										<tr
+											ng-repeat="videoTraining in videoTrainings track by $index">
+											<td style="width: 30%">
+												<div class="col-sm-12">
+													<input kendo-date-time-picker
+														k-options="restrictFutureDate"
+														ng-focus="hideError('videoTrainings')" k-ng-model="obj1"
+														ng-model="videoTraining.trainingdate" id="223sdas"
+														style="width: 100%;"
+														ng-blur="validateDateDynamic('videoTrainings', $index, 'trainingdate','videoTrainingsValidationErrorMsg', 'errorIndex1')" />
+													<div ng-if="videoTrainingsRequiredError"
+														class="pull-left text-error">This field is required</div>
+													<div ng-if="errorIndex1==$index"
+														class="pull-left text-error">{{videoTrainingsValidationErrorMsg}}</div>
+												</div>
+											</td>
+											<td>
+												<div class="col-sm-12" style="margin-top: 20px;">
+													<textarea maxlength="200" style="height: 70px !important;"
+														title={{videoTraining.trainingname}}
+														ng-focus="hideError('videoTrainings')" ng-trim="false"
+														ng-model="videoTraining.trainingname" type="text"
+														class="form-control"></textarea>
+													<div class="char-left">Characters left:
+														{{max200Length - videoTraining.trainingname.length}}</div>
+													<div ng-if="videoTrainingsRequiredError" class="text-error">This
+														field is required</div>
+												</div>
+											</td>
+											<td width="6% !important">
+												<button ng-click="deletevideoTraining($index)" type="button"
+													class="btn btn-danger btn-xs btn-rounded">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+
+
+
+						<!--File Attachment Component Start-->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="section_header_top"
+									style="height: 3px; left: 15px !important;" id="showfields2"></div>
+								<div class="section_header col-lg-12" id="showfields2">Attachments</div>
+								<div>
+									<div class="row">
+										<div class=" col-lg-12">
+											<table>
+												<tr ng-repeat="file in myFile track by $index">
+													<td style="padding: 6px; border-bottom: 1px solid grey;">{{$index
+														+ 1}}</td>
+													<td
+														style="font-weight: 700; color: #238E68; padding: 6px; border-bottom: 1px solid grey;">{{file._file.name}}</td>
+													<td
+														style="font-size: .8em; padding: 6px; border-bottom: 1px solid grey;">{{file._file.size}}
+														bytes</td>
+													<td
+														style="font-size: .8em; padding: 3px 6px; border-bottom: 1px solid grey;">
+														<i ng-click="removeFile($index)"
+														style="cursor: pointer; color: red" class="fa fa-close"></i>
+													</td>
+												</tr>
+											</table>
+											<a ng-if="myFile.length > 0" class="btn-custom btn-upload"
+												ng-click="uploadFile()"> <img
+												src="Sidebar/css/button/upload.svg" /> <img
+												src="Sidebar/css/button/upload_h.svg" />
+											</a>
+											<label ng-hide="actionFormHide" ng-if="(actionrights == 'SUB' && defaultaction=='Y') || (actionrights == 'APR' && defaultaction=='Y')"
+                        for="file-upload" class="pull-right"
+                        style="cursor: pointer; padding-right: 10px; vertical-align: middle"
+                        class="fileinput-button" style="border-radius: 0px;">
+                        <span 
+                        allowed="write" mdlcode="ART" style="font-size: 18px;"></span><b>Attach</b><i
+                          class="fa fa-plus-circle btn-attach"> </i>
+                      </label> <input  multiple type="file"
+													file-model="myFile" id="file-upload" />
+												<div class="text-error">{{filemsg_error}}</div>
+
+										
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="table-responsive upload_table">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>S.No.</th>
+												<th>File Name</th>
+												<th>File Size</th>
+												<th>Uploaded Date & Time</th>
+												<th>Uploaded by</th>
+												<th>Action</th>
+												<th>Removed Date & Time</th>
+												<th>Removed by</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-if="filesData.length<=0">
+												<td colspan=8 class="no_data">No Data Available</td>
+											</tr>
+											<tr ng-class="{'inactive-file': data.docstatus === 'V'}"
+												ng-repeat="data in filesData | orderBy : 'docstatus'">
+												<td>{{$index + 1}}</td>
+												<td>{{data.filename}}</td>
+												<td>{{(data.filesize/fileSizeConversionFactor) |
+													number:fileSizeRoundOffFactor}} {{fileSizeUnit}}</td>
+												<td>{{data.uploaddate | date : dateFormat}}</td>
+												<td>{{data.uploadusername}}</td>
+												<td><a
+													ng-if="data.filetype === 'jpg' || data.filetype === 'png' || data.filetype === 'jpeg'"
+													ng-click="previewFile(data.docid, data.filename)"><i
+														class="fa fa-eye"></i></a> <a
+													ng-click="confirmDelete(data.docid)"
+													ng-if="data.docstatus === 'A' && activeStatus != 'APR' && activeStatus != 'CLO'"><i
+														class="fa fa-trash"></i></a> <a
+													href="/safetyreport/downloadDocument/?docId={{data.docid}}"><i
+														class="fa fa-download"></i></a></td>
+												<td>{{data.removedate | date : dateFormat}}</td>
+												<td>{{data.removeusername}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<br />
+						<!--File Attachment Component End-->
+
+						<div class="workflow_wrapper" style="padding-bottom: 20px;">
+							<div class="workflow_wrapper_title">Signature</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="col-sm-3">
+										<div id="sig1main"
+											style="height: 65px; border: 1px solid #c0c0c0; background: #ebebe4;">
+											<signature callback-fn="digitalSignatures(arg1, arg2, arg3)"
+												image-name="sig.png" active="{{active}}" sig-id="sig1"
+												sig-id2="sig1main" value="{{existingSignatures[0]}}"></signature>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div id="sig2main"
+											style="height: 65px; border: 1px solid #c0c0c0; background: #ebebe4;">
+											<signature callback-fn="digitalSignatures(arg1, arg2, arg3)"
+												image-name="sig.png" active="{{active}}" sig-id="sig2"
+												sig-id2="sig2main" value="{{existingSignatures[1]}}"></signature>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div id="sig3main"
+											style="height: 65px; border: 1px solid #c0c0c0; background: #ebebe4;">
+											<signature callback-fn="digitalSignatures(arg1, arg2, arg3)"
+												image-name="sig.png" active="{{active}}" sig-id="sig3"
+												sig-id2="sig3main" value="{{existingSignatures[2]}}"></signature>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div id="sig4main"
+											style="height: 65px; border: 1px solid #c0c0c0; background: #ebebe4;">
+											<signature callback-fn="digitalSignatures(arg1, arg2, arg3)"
+												image-name="sig.png" active="{{active}}" sig-id="sig4"
+												sig-id2="sig4main" value="{{existingSignatures[3]}}"></signature>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="col-sm-3" ng-model="rankHolderOne"
+										value={{rankHolderOne}}>
+										<label>{{rankHolderOne[1]}}</label>
+									</div>
+									<div class="col-sm-3" ng-model="rankHolderTwo"
+										value={{rankHolderTwo}}>
+										<label>{{rankHolderTwo[1]}}</label>
+									</div>
+									<div class="col-sm-3" ng-model="rankHolderThree"
+										value={{rankHolderThree}}>
+										<label>{{rankHolderThree[1]}}</label>
+									</div>
+									<div class="col-sm-3" ng-model="rankHolderFour"
+										value={{rankHolderFour}}>
+										<label>{{rankHolderFour[1]}}</label>
+									</div>
+								</div>
+								<div class="col-sm-12" style="margin-top: 5px;">
+									<div class="col-sm-3">
+										<select
+											ng-change="fetchPersonWithDesignation(addedDesignationOne, 'rankHolderOne')"
+											ng-model="addedDesignationOne"
+											class="chosen-select non-injury-dental-rank form-control"
+											id="txtrnk">
+											<option value="" disabled hidden>Select a Rank</option>
+											<option ng-repeat="crewRank in crewRanksList track by $index"
+												value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<select
+											ng-change="fetchPersonWithDesignation(addedDesignationTwo, 'rankHolderTwo')"
+											ng-model="addedDesignationTwo"
+											class="chosen-select non-injury-dental-rank form-control"
+											id="txtrnk">
+											<option value="" disabled selected hidden>Select a
+												Rank</option>
+											<option ng-repeat="crewRank in crewRanksList track by $index"
+												value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<select
+											ng-change="fetchPersonWithDesignation(addedDesignationThree, 'rankHolderThree')"
+											ng-model="addedDesignationThree"
+											class="chosen-select non-injury-dental-rank form-control"
+											id="txtrnk">
+											<option value="" disabled selected hidden>Select a
+												Rank</option>
+											<option ng-repeat="crewRank in crewRanksList track by $index"
+												value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<select
+											ng-change="fetchPersonWithDesignation(addedDesignationFour, 'rankHolderFour')"
+											ng-model="addedDesignationFour"
+											class="chosen-select non-injury-dental-rank form-control"
+											id="txtrnk">
+											<option value="" disabled selected hidden>Select a
+												Rank</option>
+											<option ng-repeat="crewRank in crewRanksList track by $index"
+												value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<br></br>
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<div class="col-sm-3">
+										<div id="sig5main"
+											style="height: 65px; border: 1px solid #c0c0c0; background: #ebebe4;">
+											<signature callback-fn="digitalSignatures(arg1, arg2, arg3)"
+												image-name="sig.png" active="{{active}}" sig-id="sig5"
+												sig-id2="sig5main" value="{{existingSignatures[5]}}"></signature>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div id="sig6main"
+											style="height: 65px; border: 1px solid #c0c0c0; background: #ebebe4;">
+											<signature callback-fn="digitalSignatures(arg1, arg2, arg3)"
+												image-name="sig.png" active="{{active}}" sig-id="sig6"
+												sig-id2="sig6main" value="{{existingSignatures[6]}}"></signature>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div id="sig7main"
+											style="height: 65px; border: 1px solid #c0c0c0; background: #ebebe4;">
+											<signature callback-fn="digitalSignatures(arg1, arg2, arg3)"
+												image-name="sig.png" active="{{active}}" sig-id="sig7"
+												sig-id2="sig7main" value="{{existingSignatures[7]}}"></signature>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div id="sig8main"
+											style="height: 65px; border: 1px solid #c0c0c0; background: #ebebe4;">
+											<signature callback-fn="digitalSignatures(arg1, arg2, arg3)"
+												image-name="sig.png" active="{{active}}" sig-id="sig8"
+												sig-id2="sig8main" value="{{existingSignatures[8]}}"></signature>
+										</div>
+										</signature>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="col-sm-3" ng-model="rankHolderFive"
+										value={{rankHolderFive}}>
+										<label>{{rankHolderFive[1]}}</label>
+									</div>
+									<div class="col-sm-3" ng-model="rankHolderSix"
+										value={{rankHolderSix}}>
+										<label>{{rankHolderSix[1]}}</label>
+									</div>
+									<div class="col-sm-3" ng-model="rankHolderSeven"
+										value={{rankHolderSeven}}>
+										<label>{{rankHolderSeven[1]}}</label>
+									</div>
+									<div class="col-sm-3" ng-model="rankHolderEight"
+										value={{rankHolderEight}}>
+										<label>{{rankHolderEight[1]}}</label>
+									</div>
+								</div>
+								<div class="col-sm-12" style="margin-top: 5px;">
+									<div class="col-sm-3">
+										<select
+											ng-change="fetchPersonWithDesignation(addedDesignationFive, 'rankHolderFive')"
+											ng-model="addedDesignationFive"
+											class="chosen-select non-injury-dental-rank form-control"
+											id="txtrnk">
+											<option value="" disabled selected hidden>Select a
+												Rank</option>
+											<option ng-repeat="crewRank in crewRanksList track by $index"
+												value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<select
+											ng-change="fetchPersonWithDesignation(addedDesignationSix, 'rankHolderSix')"
+											ng-model="addedDesignationSix"
+											class="chosen-select non-injury-dental-rank form-control"
+											id="txtrnk">
+											<option value="" disabled selected hidden>Select a
+												Rank</option>
+											<option ng-repeat="crewRank in crewRanksList track by $index"
+												value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<select
+											ng-change="fetchPersonWithDesignation(addedDesignationSeven, 'rankHolderSeven')"
+											ng-model="addedDesignationSeven"
+											class="chosen-select non-injury-dental-rank form-control"
+											id="txtrnk">
+											<option value="" disabled selected hidden>Select a
+												Rank</option>
+											<option ng-repeat="crewRank in crewRanksList track by $index"
+												value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+										</select>
+									</div>
+									<div class="col-sm-3">
+										<select
+											ng-change="fetchPersonWithDesignation(addedDesignationEight, 'rankHolderEight')"
+											ng-model="addedDesignationEight"
+											class="chosen-select non-injury-dental-rank form-control"
+											id="txtrnk">
+											<option value="" disabled selected hidden>Select a
+												Rank</option>
+											<option ng-repeat="crewRank in crewRanksList track by $index"
+												value="{{crewRank[0]}}">{{crewRank[1]}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<br />
+						<div class="row">
+							<div class="col-xs-12">
+								<a type="button" class="btn-custom"
+									ng-click="showModal('#myModal123')"><img
+									style="width: 170px" src="Sidebar/css/button/achln.svg" /> <img
+									style="width: 170px" src="Sidebar/css/button/achln_h.svg" /></a>
+							</div>
+						</div>
+
+						<br />
+						<div ng-if="crewHealthIds.length > 0">
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<div class="table-responsive">
+										<table class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th style="text-align: center">Crew Health Id</th>
+													<th style="text-align: center">Crew Health Date</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="crewHealth in crewHealthIds track by $index">
+													<td class="text-center"><a target="_blank"
+														href="welcome#/CrewHealthReport/{{crewHealth.id}}">{{crewHealth.id}}</a></td>
+													<td class="text-center">{{crewHealth.date | date :
+														dateFormat}}</td>
+													<td style="text-align: center" ng-hide="deletebuttonfollow">
+														<button ng-click="deleteCrewHealthId($index)"
+															type="button" class="btn btn-danger btn-xs btn-round">
+															<i class="fa fa-minus"></i>
+														</button>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						
+						<!-- Error Dialog Boxes here -->
+						<kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+							title="Safety Meeting" name="systemvalidationdialog"
+							custom-options="errorActions" error-type="warning"
+							error-message="dataerror" error-status="{{geterrorstatuscode}}"
+							detail-error-message="{{detailerrormessages}}"
+							showexception="showexception" error-details="errordetails"
+							error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+
+						<div kendo-dialog="dialog" k-title="'Safety Meeting'"
+							k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="actions" k-modal="true">
+							<img src="img/warning -dialog.png">
+							<p ng-repeat="errors in dataerror">{{errors[0]}}</p>
+						</div>
+
+						<div kendo-dialog="previewDialog" k-on-open="dialogVisible = true"
+							k-width="500" class="preview-box"
+							k-on-close="dialogVisible = false" k-rebind="previewObj"
+							k-options="previewObj" k-modal="true">
+							<img src="{{imagetest}}" class="preview-img">
+						</div>
+						
+						<div kendo-dialog="confirmDeleteMSectionRecords"
+              k-title="'Safety Meeting'" k-on-open="dialogVisible = true"
+              k-on-close="dialogVisible = false" k-width="300" k-height="150"
+              k-actions="deleteActionsMSectionRecords" k-modal="true">
+              <img src="img/delete-icon.png">
+              <p>{{deleteDialogMsg}}</p>
+            </div>
+
+            <div kendo-dialog="confirmDeleteGSectionRecords"
+              k-title="'Safety Meeting'" k-on-open="dialogVisible = true"
+              k-on-close="dialogVisible = false" k-width="300" k-height="150"
+              k-actions="deleteActionsGSectionRecords" k-modal="true">
+              <img src="img/delete-icon.png">
+              <p>{{deleteDialogMsg}}</p>
+            </div>
+
+						<div kendo-dialog="confirmDeleteDialog"
+							k-title="'Safety Meeting'" k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="deleteActions" k-modal="true">
+							<img src="img/delete-icon.png">
+							<p>{{deleteDialogMsg}}</p>
+						</div>
+
+						<div kendo-dialog="duplicateSigdialog"
+							k-title="'Safety Meeting'" k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="actions" k-modal="true">
+							<img src="img/warning -dialog.png">
+							<p>{{duplicateSigDialogMsg}}</p>
+						</div>
+						
+						<div kendo-dialog="updateCrewSectionInfo"
+              k-title="'Safety Meeting'" k-on-open="dialogVisible = true"
+              k-on-close="dialogVisible = false" k-width="300" k-height="150"
+              k-actions="actions" k-modal="true">
+              <img src="img/warning -dialog.png">
+              <p>{{updateCrewSectionInfoMsg}}</p>
+            </div>
+
+						<div kendo-dialog="exceededRowsdialog" k-title="'Safety Meeting'"
+							k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="actions" k-modal="true">
+							<img src="img/warning -dialog.png">
+							<p>{{exceededRowsDialogMsg}}</p>
+						</div>
+
+						<div kendo-dialog="exceededFileSizedialog"
+							k-title="'Safety Meeting'" k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="actions" k-modal="true">
+							<img src="img/fileuploadError.png" class="file-error"> <img
+								src="img/attach.png">
+							<p>{{fileSizeExceededDialogMsg}}</p>
+						</div>
+
+						<div kendo-dialog="exceededFileCountDialog"
+							k-title="'Safety Meeting'" k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="actions" k-modal="true">
+							<img src="img/fileuploadError.png" class="file-error"> <img
+								src="img/attach.png">
+							<p>{{exceededFileCountDialogMsg}}</p>
+						</div>
+             
+             <div kendo-dialog="reAssignDialog" k-title="'Safety Meeting'"
+              k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+              k-width="300" k-height="150" k-actions="reassignActions" k-modal="true">
+              <img src="img/reassign_icon.png">
+              <p>{{reAssignConf + mdlname + " ?"}}</p>
+            </div>
+            
+            <div kendo-dialog="duplicateRecordsConfirm" k-title="'Safety Meeting'"
+              k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+              k-width="300" k-height="150" k-actions="reassignActions" k-modal="true">
+              <img src="img/warning -dialog.png">
+              
+            </div>
+            
+						<!-- ------------------------------------ -->
+
+						<div class="modal fade" id="myModal123" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content" tabindex="-1">
+									<div class="modal-header" tabindex="-1">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Add Crew Health Reports</h4>
+									</div>
+									<div class="modal-body" tabindex="-1" style="padding: 0;margin-bottom: -20px;">
+										<table class="table table-bordered table-fixedheader-3col">
+											<thead>
+												<tr>
+													<th width= "40%"><input
+														class="form-control" placeholder="Search Crew Health ID"
+														type="text" ng-model="searchparticular[3]" /></th>
+													<th width="40%"><input
+														class="form-control" placeholder="Search Crew Health Date"
+														type="text" ng-model="searchparticular[1]" /></th>
+													<th width="20%"
+																style="padding-top: 14px; padding-bottom: 14px; text-align: center;">Action</th>
+												</tr>
+											</thead>
+											<tbody>
+											<tr ng-if="crewHealthReports.length<=0">
+                        <td colspan="5" style="width: 100% !important;" class="no_data">No Data Available</td>
+                      </tr>
+												<tr
+													ng-repeat="crewHealthReport in crewHealthReports | filter:searchparticular[3] | filter:searchparticular[1] | filter:search"
+													ng-dblclick="getTableData()">
+													<td width="40%" style="padding: 10px">{{crewHealthReport[0]}}</td>
+													<td width="40%" style="padding: 10px">{{crewHealthReport[1]
+														| date : dateFormat}}</td>
+													<td width="20%"style="padding: 9px;"><span
+														ng-if="toggleCrewHealthLabel(crewHealthReport[0], crewHealthReport[1])=='Select'">
+															<button class="btn btn-default btn-xs"
+																ng-click="toggleCrewHealthSelect(crewHealthReport[0], crewHealthReport[1])">Select</button>
+													</span> <span
+														ng-if="toggleCrewHealthLabel(crewHealthReport[0], crewHealthReport[1])=='Selected'">
+															<button class="btn btn-primary btn-xs"
+																ng-click="toggleCrewHealthSelect(crewHealthReport[0], crewHealthReport[1])">Selected</button>
+													</span></td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<th style="width: 600px"><input
+														class="form-control" type="text" ng-model="search"
+														placeholder="search for both" /></th>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<div allowed="write" mdlcode="SAF" ng-hide="actionFormHide">
+								
+								<a allowed="delete" mdlcode="SAF" type="button" class="btn_wrapper pull-right"
+                 ng-show="deleteAction"
+                 ng-click="deleteActionPerformed()">
+                 <span>Delete</span>
+                 <img src="Sidebar/css/icons/delete.svg" />
+                </a>
+								
+									<a style="margin-left: 10px;"
+										ng-if="reassignrights == 'RSN' && defaultaction=='Y'"
+										type="button" allowed="write" mdlcode="SAF"
+										class="btn-custom pull-right"
+										ng-click="reAssignDialogClick('#reAssign')"> <img
+										src="Sidebar/css/button/re-assign.svg" /> <img
+										src="Sidebar/css/button/re-assign_h.svg" />
+									</a> <a style="margin-left: 10px;"
+										ng-click="preApproving('Approved')" type="button"
+										ng-if="actionrights == 'APR' && defaultaction=='Y'"
+										class="btn-custom pull-right"><img
+										src="Sidebar/css/button/approved.svg" /> <img
+										src="Sidebar/css/button/approved_h.svg" /></a></a> <a
+										 style="margin-left: 10px;"
+										ng-click="saveFormData('Send')" type="button"
+										ng-if="actionrights == 'SUB' && defaultaction=='Y'"
+										class="btn-custom pull-right"><img
+										src="Sidebar/css/button/send.svg" /> <img
+										src="Sidebar/css/button/send_h.svg" /></a> <a
+										 style="margin-left: 10px;"
+										ng-click="saveFormData('Save')" type="button"
+										ng-if="(actionrights == 'SUB' && defaultaction=='Y') || (actionrights == 'APR' && defaultaction=='Y')"
+										class="btn-custom pull-right"><img
+										src="Sidebar/css/button/save.svg" /> <img
+										src="Sidebar/css/button/save_h.svg" /></a>
+								</div>
+							</div>
+						</div>
+						<div class="modal fade" id="reAssign" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Remarks</h4>
+									</div>
+									<div class="modal-body">
+										<textarea style="width:100% !important" ng-model="remarks" maxlength="100" ng-trim="false"
+											ng-focus="hideError('remarksMessage')" rows="4" cols="68"></textarea>
+										  <div class="char-left">Characters left: {{100-remarks.length}}</div>
+									<div class="text-error" ng-if="remarksMessageRequiredError" >This field is required</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" ng-click="okAction('#reAssign')"
+											class="btn btn-success">OK</button>
+										<button type="button" class="btn btn-danger"
+											data-dismiss="modal">Cancel</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-- office use -->
+					<div class="for_office">For Office Use Only</div>
+
+					<div class="form_table" style="margin-top: -20px;">
+						<div class="workflow_wrapper">
+							<div class="workflow_wrapper_title">Office Workflow</div>
+							<div class="no-workflow" ng-if="!displayShoreWorkflow"
+								class="row" style="padding-left: 15px">Work Flow Not Yet
+								Started</div>
+							<div ng-if="displayShoreWorkflow"
+								class="row workflow_wrapper_content">
+								<div class="col-xs-12 col-sm-1">
+									<div class="ship-stage pull-right">
+										<img src="img/shore-stage.svg" />
+									</div>
+								</div>
+								<div class="col-sm-11">
+									<div class="btn-stage-container"
+										ng-repeat="wrkflowstatusdetails in wrkflowstatus"
+										ng-if="wrkflowstatusdetails.cntrltype=='CNT001'">
+										<div class="stage-head">{{wrkflowstatusdetails.stageid}}</div>
+										<div class="stage-neck"></div>
+										<div class="stage-body">
+											<p>{{ wrkflowstatusdetails.username}}</p>
+											<p>{{ wrkflowstatusdetails.rankname}}</p>
+											 <p ng-if="wrkflowstatusdetails.upddate==null">{{ wrkflowstatusdetails.senddate 
+                      | date:dateFormat}}</p>
+                      <p ng-if="wrkflowstatusdetails.upddate!=null">{{ wrkflowstatusdetails.upddate 
+                      | date:dateFormat}}</p>
+											<span class="stage-body-footer">{{wrkflowstatusdetails.formstatusname}}</span>
+										</div>
+										<div class="stage-tail"></div>
+										<div class="dropdown-content dropdown-menu-arrow"
+											ng-if="wrkflowstatusdetails.remarks!=null">
+											<div class="label label-primary">Remarks</div>
+											<div class="dropdown-content-desc">{{wrkflowstatusdetails.remarks}}</div>
+											<div class="dropdown-content-footer">{{wrkflowstatusdetails.senddate
+												| date:dateFormat }}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="form-group row">
+							<div class="col-xs-12">
+								<label class="form-control-label">General Safety, Health
+									& Environmental measures & concerns<span style="color: red">*</span>
+								</label>
+								<textarea disabled maxlength="100" ng-model="healthMeasures"
+									title={{healthMeasures}} value={{healthMeasures}}
+									class="form-control" id="textarea1" rows="2" cols="5"></textarea>
+							</div>
+							<div class="col-xs-12">
+								<label class="form-control-label">Feedback on Drills<span
+									style="color: red">*</span>
+								</label>
+								<textarea disabled maxlength="100" ng-model="drillFeedbacks"
+									title={{drillFeedbacks}} value={{drillFeedbacks}}
+									class="form-control" id="textarea1" rows="2" cols="5"></textarea>
+							</div>
+							<div class="col-xs-12">
+								<label class="form-control-label">Health issues (Eg. for
+									crew members BMI >26.5, abnormal blood pressure, etc)<span
+									style="color: red">*</span>
+								</label>
+								<textarea disabled maxlength="100" ng-model="healthIssues"
+									title={{healthIssues}} value={{healthIssues}}
+									class="form-control" id="textarea1" rows="2" cols="5"></textarea>
+							</div>
+							<div class="col-xs-12">
+								<label class="form-control-label">Crew complaints issues<span
+									style="color: red">*</span>
+								</label>
+								<textarea disabled maxlength="100" ng-model="complaintIssues"
+									title={{complaintIssues}} value={{complaintIssues}}
+									class="form-control" id="textarea1" rows="2" cols="5"></textarea>
+							</div>
+							</td>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 form-control-label">Date reviewed<span
+								style="color: red">*</span></label>
+							<div class="col-sm-3">
+								<div>
+									<input kendo-date-picker disabled ng-model="dateReviewed"
+										style="width: 100%" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="revision_content">
+								<b>Revision No : </b> {{actRevno}} | <b>Date:</b>{{reviseddate |
+								date: dateFormat }}                <span class="pull-right"> <b>S.No :</b>
+                  {{safetyrecordid}}
+                </span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal content-->
+            <div class="modal fade" id="dupRecords" role="dialog">
+              <div class="modal-dialog" style="width:43em">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                      aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="large-modalLabel">Safety Meeting</h4>
+                  </div>
+
+ <div class="modal-body" >                   
+<div class="alert alert-info">The below Refids are already reported in other safety meetings, 
+you can either <span style="color:red">Proceed with Approval</span> or <span style="color:red">Review</span> the form 
+in case you want to remove the duplicates.</div>            
+ 
+  <table class="table table-bordered" id="myTable">
+    <thead>
+      <tr>
+        <th width="200">Safety Meeting S No</th>
+        <th width="80">Safety Meeting Status</th>
+         <th width="100">Form Name</th>
+          <th width="200">Serial No</th>
+      </tr>
+    </thead>
+    <tbody >
+            <tr>
+            <td colspan="4" style="padding: 0;">
+        <div class="scrollit" style=" max-height:150px; overflow-y:scroll;">
+            <table>
+      <tr ng-repeat="duplicateEntry in  duplicateEntries" >
+        <td style="padding: .5em; text-align: left;" width="222">{{duplicateEntry[0]}}</td>
+        <td style="padding: .5em; text-align: left;" width="90">{{duplicateEntry[1]}}</td>
+        <td style="padding: .5em; text-align: left;" width="110">{{duplicateEntry[2]}}</td>
+         <td style="padding: .5em; text-align: left;" width="208">{{duplicateEntry[3]}}</td>
+      </tr>
+      
+      </table>
+      </div>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  
+             <div class="modal-footer">
+                  <a style="margin-left: 10px;"
+                    type="button" data-dismiss="modal"
+                    class="btn-custom pull-right"
+                    > <img
+                    src="Sidebar/css/button/review.svg" /> <img
+                    src="Sidebar/css/button/review_h.svg" />
+                  </a>
+                  
+                  <a
+                    type="button" ng-click="saveFormData('Approved')" data-dismiss="modal"
+                    class="btn-custom pull-right"
+                    > <img style=" width: 178px;"
+                    src="Sidebar/css/button/pwa.svg" /> <img style=" width: 178px;"
+                    src="Sidebar/css/button/pwa_h.svg" />
+                  </a>
+                  
+            </div>
+  
+  
+  
+
+ </div>
+</div>
+
+</div>
+            </div>
+
+
+
+
+
+
+               </div>
+
+
+<script>
+//collpase icon for the headings
+$('.header_collapse').click(function() {
+	$("i", this).toggleClass('fa-chevron-right fa-chevron-down')
+});
+</script>
+

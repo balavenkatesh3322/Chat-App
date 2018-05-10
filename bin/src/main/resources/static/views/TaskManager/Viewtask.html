@@ -1,0 +1,154 @@
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="VTM"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="VTM">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Taskmanager">Task Manager</a></li>
+					<li><b>Task List</b></li>
+
+				</ul>
+				<div class="tab_head"
+					style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important;">
+					<div class="pull-left" style="font-size: 21px;">Task List
+					</div>
+					<div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top: 15px !important;">
+					<div class="form_table">
+						<div class="row">
+              <div class="col-sm-6">
+                <div class="navbar-drawer hidden-lg-down">
+                  <form class="form-inline navbar-form ">
+
+                      <label class="pull-left" style="margin-left:-14px"><strong>Items per
+                          page</strong>
+
+                      </label>  <select style="margin-left: 10px; width: 60px" class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+
+
+
+
+                  </form>
+                </div>
+                </div>
+
+              <div class="col-sm-6" style="margin-top:10px">
+                <a class="btn btn-default btn-sm pull-right"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="Settings" ng-click="openLayoutDialog()" style="margin-top: 2px;">  <i
+                  class="fa fa-cogs" aria-hidden="true"></i>
+                </a>
+                <a allowed="write" mdlcode="VTM" href="#/CreateTask"
+                  class="btn-custom pull-right" ></i>
+                  <img src="Sidebar/css/button/new.svg" style="margin-right: 10px;"> <img
+                  src="Sidebar/css/button/new_h.svg" style="margin-right: 10px";> </a>
+              </div>
+            </div>
+
+
+
+								<!-- Our Due starts-->
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="table-responsive">
+                  <table class="table table-hover table-striped table-bordered"
+                         cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                      <th style="width:12%" ng-repeat="column in ordered_columns">{{
+                        column.title }} <a ng-if="column.key!='activeStatus'"
+                                           href="" ng-click="sort(column.key)" class="sortDir"
+                                           ng-class="{ active: isSorted(column.key) }">&#x25B2;</a> <a
+                          ng-if="column.key!='activeStatus'" href=""
+                          ng-click="sort('-'+column.key)" class="sortDir"
+                          ng-class="{ active: isSorted('-'+column.key) }">&#x25BC;</a>
+                      </th>
+                      <th style="width:12%; text-align: center">Action</th>
+                    </tr>
+                    <tr>
+                      <th ng-repeat="column in ordered_columns" id="search-cell">
+                        <input
+                          ng-if="column.key!='assignedtoname' && column.key!='targetdate' && column.key!='completeddate' && column.key!='assigneddate'  "
+                          class="form-control" placeholder="Search"
+                          ng-model="search[column.key]"
+                          style="width: 100%; font-size: .9em" delete-if-empty />
+                      </th>
+                      <th></th>
+                    <tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                      dir-paginate="data in Taskmanagerdata | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize">
+                      <td ng-repeat="column in ordered_columns"><span
+                        ng-if="column.key!='assignedtoname' && column.key!='targetdate' && column.key!='completeddate' && column.key!='assigneddate' && column.key!='status' && column.key!='reference' ">
+														{{ data[column.key] }} </span>
+                        <span ng-if="column.key=='reference'"><a href="" class="dropdown-item animated fadeIn"> <i
+                          class="zmdi zmdi-power"></i> <span ng-click="referenceClicked(data.mdlcode,data.reference)" class="dropdown-text">{{data.reference}}</span>
+                        </a>
+                      </span>
+                        <span
+                          ng-if="column.key=='assignedtoname'">
+														 <select>
+                                <option ng-repeat="Taskassignee in data.assignedtoname"
+                                >{{Taskassignee}}</option>
+                            </select> </span> <span
+                          ng-if="column.key=='assigneddate'">
+														{{data[column.key] | date: data.Uidateformat}} </span> <span
+                          ng-if="column.key=='targetdate'">
+														{{data[column.key] | date: data.Uidateformat}} </span> <span
+                          ng-if="column.key=='completeddate'">
+														{{data[column.key] | date: data.Uidateformat}} </span> <span
+                          ng-if="column.key=='status'"> <span
+                          class="label"
+                          ng-class="{'label-success': data.status == 'Closed','label-danger': data.status == 'Open','review-status': data.status == 'In progess'}">
+															{{data.status}}</span>
+												</span></td>
+                      <td><a href="#/ViewTask/019834/{{data.taskid}}"
+                             class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pull-right" style="margin-top: -20px">
+                  <dir-pagination-controls max-size="5" direction-links="true"
+                                           boundary-links="true"></dir-pagination-controls>
+                </div>
+                <div ng-if="!Taskmanagerdata.length" class="no_data">
+                  <img src="img/crying.png" style="margin: 1em 0;">
+                  <p>Can't find what you are looking for.</p>
+                </div>
+              </div>
+            </div>
+							</div>
+						</div>
+					</div>
+					<!-- row -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Missed something!" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+<div kendo-dialog="layoutdialog" k-title="'Task List'"
+     k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+     k-width="300" k-actions="layoutactions" k-modal="true">
+  <div ng-repeat="names in fieldNames" style="text-align: left">
+    <label> <input type="checkbox" ng-model="names.checked">
+      {{ names.title }}
+    </label>
+  </div>
+</div>

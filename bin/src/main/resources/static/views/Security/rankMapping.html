@@ -1,0 +1,117 @@
+<div class="main" id="main">
+			    <div ng-show="haspermission" allowed="unauthorized" mdlcode="RNK" callback-fn="unauthorize(arg1)" id="unauthorized"></div> 					
+ 				<div allowed="read" mdlcode="RNK">
+				<div class="sticky_header">
+					<div class="tab_head_sticky">
+					<ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+   <li><a href="#/Security">Security</a></li>
+  <li><b>Vessel-Rank Mapping</b></li>
+   <!-- <span class="pull-right"><img src="Sidebar/assets/faces/Shore.svg"/>You are in <strong>SVM Shore</strong></span> -->
+</ul>
+					
+						<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">Vessel-Rank Mapping</div>
+         </div>
+						
+						
+						
+					</div>
+				</div>
+    
+       <div class="form_table_wrapper" style="margin-top: -18px;">
+        <div class="form_table">
+         <div class="row">
+          <div class="col-xs-12" style="margin-top: 0px;">
+
+
+						<div class="navbar-drawer  hidden-lg-down">
+							<form class="form-inline navbar-form ">
+								<label style="margin-left: -13px"><strong>Items	per page</strong></label> 
+								
+								<select style="margin-left: 10px; width: 60px" class="form-control" ng-model="pageSize" ng-selected="pageSize"
+                                  ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+							</form>
+						</div>
+
+						
+														<div class="table-responsive">
+									<table class="table table-hover table-striped table-bordered"
+										cellspacing="0">
+										<thead>
+											<tr>
+												<th style="text-align: left;">S.No </th>
+												<th style="text-align: left;">Rank Code<a href="" ng-click="sort('rankcode')" class="sortDir" ng-class="{ active: isSorted('rankcode') }">&#x25B2;</a><a href="" ng-click="sort('-rankcode')" class="sortDir" ng-class="{ active: isSorted('-rankcode' ) }">&#x25BC;</a> </th>
+												<th style="text-align: left;">Rank Name<a href="" ng-click="sort('rankname')" class="sortDir" ng-class="{ active: isSorted('rankname') }">&#x25B2;</a><a href="" ng-click="sort('-rankname')" class="sortDir" ng-class="{ active: isSorted('-rankname' ) }">&#x25BC;</a> </th>
+													<th style="text-align: left;">Department Name<a href="" ng-click="sort('depname')" class="sortDir" ng-class="{ active: isSorted('depname') }">&#x25B2;</a><a href="" ng-click="sort('-depname')" class="sortDir" ng-class="{ active: isSorted('-depname' ) }">&#x25BC;</a> </th>
+													<th style="text-align: left;">Role Name<a href="" ng-click="sort('rolename')" class="sortDir" ng-class="{ active: isSorted('rolename') }">&#x25B2;</a><a href="" ng-click="sort('-rolename')" class="sortDir" ng-class="{ active: isSorted('-rolename' ) }">&#x25BC;</a> </th>
+												<th style="text-align: center;">Status<a href="" ng-click="sort('statusDesc')" class="sortDir"	ng-class="{ active: isSorted('statusDesc') }">&#x25B2;</a><a href="" ng-click="sort('-statusDesc')" class="sortDir" ng-class="{ active: isSorted('-statusDesc' ) }">&#x25BC;</a> </th>
+												
+											</tr>
+
+											<tr>
+												<th></th>
+										<th><input placeholder="Search" class="form-control"
+											100%;" ng-model="search['rankcode']"></th>
+										<th><input placeholder="Search" class="form-control"
+											ng-model="search['rankname']"></th>
+										<th><input placeholder="Search" class="form-control"
+											ng-model="search['depname']"></th>
+										<th><input placeholder="Search" class="form-control"
+											ng-model="search['rolename']"></th>
+										<th><input placeholder="Search" class="form-control"
+											ng-model="search['statusDesc']"></th>
+
+									</tr>
+										</thead>
+										<tbody>
+											<tr style="text-align: center;" ng-style="set_colorrank(z)"
+											dir-paginate="z in ranks1 = (ranks | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)" current-page="currentPage">
+												<!-- dir-paginate="z in ranks |  orderBy:predicate:reverse  | filter:search | itemsPerPage:pageSize | filter:{'rankcode':searchRankCode} 
+													| filter:{'rankname':searchRankName} | filter:{'depname' :searchDepartmentName} | filter:{'rolename':searchRoleName} | filter:{'statusDesc':searchStatus}:startsWith" current-page="currentPage"> -->
+<!-- 												<td style="text-align: left;">{{$index + 1}}</td> -->
+												<td style="text-align:left">{{($index+1) + (currentPage -1) * pageSize }}</td>
+												<td style="text-align: left;">{{z.rankcode}}</td>
+												<td style="text-align: left;">{{z.rankname}}</td>
+												<td style="text-align: left;">{{z.depname}}</td>
+												<td style="text-align: left;">{{z.rolename}}</td>
+												<td style="text-align: center;"> 
+													<span class="label" ng-class="{'label-success': z.statusDesc == 'Active','label-danger': z.statusDesc == 'Inactive'}">{{z.statusDesc}}</span>
+												</td>
+												<td style="display: none">{{ z.cruser }}</td>
+												<td style="display: none">{{ z.id }}</td>
+												<td style="display: none">{{ z.crdate }}</td>
+												<td style="display: none">{{ z.upduser }}</td>
+												<td style="display: none">{{ z.upddate }}</td>
+											
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="pull-right">
+									<dir-pagination-controls max-size="10" direction-links="true"
+										boundary-links="true" default-page-number="1">
+									</dir-pagination-controls>
+								</div>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+			</div>
+</div></div></div>
+
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+
+
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Missed something!" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+
+                   <div kendo-dialog="dialog" k-title="'Missed something!'" k-on-open="dialogVisible = true"
+            k-on-close="dialogVisible = false" k-width="300" k-height="150"
+            k-actions="actions" k-modal="true" >
+            <img src="img/warning-dialog.png">
+            <p ng-repeat="errors in dataerror">{{errors[0]}}</p>
+          </div>

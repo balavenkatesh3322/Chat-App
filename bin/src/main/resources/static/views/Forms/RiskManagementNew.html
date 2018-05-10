@@ -1,0 +1,1323 @@
+<div class="main" id="main" ng-hide="hidebody">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="RSK"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="RSK">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Forms">Safety Management</a></li>
+					<li><a href="#/RiskMgntMain">Risk Assessment - Reports</a></li>
+					<li><b>Risk Assessment</b></li>
+				</ul>
+
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">Risk
+						Assessment</div>
+					<div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+						<span ng-if="rskrfid.length > 0"
+              style="display: inline-block; border-right: 2px solid #fff; padding-right: 20px;">Ref.Id :
+              {{rskrfid}}</span>	
+							
+							<span
+							style="display: inline-block; padding-left: 18px;">Form
+							No: {{formNo}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top: 15px !important;">
+					<div class="form_table">
+						<div class="row">
+							<div ng-if="activeStatus === 'CLO'" class="col-xs-12">
+								<a type="button" id="risk" class="btn-custom pull-right"
+									mdlcode="RSK" style="margin-left: 10px"
+									ng-click="exportexcel()"> <img
+									src="Sidebar/css/button/export_ex.svg" /> <img
+									src="Sidebar/css/button/export_ex_h.svg" />
+								</a> <a type="button" style="padding: 0"
+									ng-click="saveAsPDFDocument()" allowed="read" mdlcode="RSK"
+									class="btn btn-custom pull-right"><img
+									src="Sidebar/css/button/pdf.svg" /><img
+									src="Sidebar/css/button/pdf_h.svg" /></a>
+							</div>
+						</div>
+
+						<!-- Error Dialog Boxes here -->
+
+						<div kendo-dialog="reAssignDialog" k-title="'Risk Assessment'"
+							k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="reassignActions" k-modal="true">
+							<img src="img/reassign_icon.png">
+							<p>{{reAssignConf + mdlname + " ?"}}</p>
+						</div>
+
+						<kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+							title="Risk Assessment" name="systemvalidationdialog"
+							custom-options="errorActions" error-type="warning"
+							error-message="dataerror" error-status="{{geterrorstatuscode}}"
+							detail-error-message="{{detailerrormessages}}"
+							showexception="showexception" error-details="errordetails"
+							error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+
+
+						<toaster-container
+							toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+						<toaster-container
+							toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+
+
+						<div kendo-dialog="addMeasuresDialog" k-title="'Risk Assessment'"
+							k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="actions" k-modal="true">
+
+							<img src="img/warning -dialog.png">
+							<p>{{addMeasuresValidationDialogMsg}}</p>
+
+						</div>
+
+						<div kendo-dialog="previewDialog" k-on-open="dialogVisible = true"
+							k-width="500" class="preview-box" k-rebind="previewObj"
+							k-options="previewObj" k-on-close="dialogVisible = false"
+							k-modal="true">
+							<img src="{{imagetest}}" class="preview-img">
+						</div>
+
+						<div kendo-dialog="exceededFileSizedialog"
+							k-title="'Risk Assessment'" k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="actions" k-modal="true">
+							<img src="img/fileuploadError.png" class="file-error"> <img
+								src="img/attach.png">
+							<p>{{fileSizeExceededDialogMsg}}</p>
+						</div>
+
+						<div kendo-dialog="exceededFileCountDialog"
+							k-title="'Risk Assessment'" k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="actions" k-modal="true">
+							<img src="img/fileuploadError.png" class="file-error"> <img
+								src="img/attach.png">
+							<p>{{exceededFileCountDialogMsg}}</p>
+						</div>
+
+						<div kendo-dialog="confirmDeleteDialog"
+							k-title="'Risk Assessment'" k-on-open="dialogVisible = true"
+							k-on-close="dialogVisible = false" k-width="300" k-height="150"
+							k-actions="deleteActions" k-modal="true">
+							<img src="img/delete-icon.png">
+							<p>{{deleteDialogMsg}}</p>
+						</div>
+
+						<!--------------------------------------------------------------->
+						<div class="workflow_wrapper" style="margin-top: 10px;">
+							<div class="workflow_wrapper_title">Vessel Workflow</div>
+							<div class="no-workflow" ng-if="!displayShipWorkflow">Work
+								Flow Not Yet Started</div>
+							<div ng-if="displayShipWorkflow"
+								class="row workflow_wrapper_content">
+								<div class="col-xs-12 col-sm-1">
+									<div class="ship-stage pull-right">
+										<img src="img/ship-stage.svg" />
+									</div>
+								</div>
+								<div class="col-sm-11">
+									<div class="btn-stage-container"
+										ng-repeat="wrkflowstatusdetails in wrkflowstatus"
+										ng-if="wrkflowstatusdetails.cntrltype=='CNT002'">
+										<div class="stage-head">{{wrkflowstatusdetails.stageid}}</div>
+										<div class="stage-neck"></div>
+										<div class="stage-body">
+											<p>{{ wrkflowstatusdetails.username}}</p>
+											<p>{{ wrkflowstatusdetails.rankname}}</p>
+											<p ng-if="wrkflowstatusdetails.upddate">{{
+												wrkflowstatusdetails.upddate | date: dateFormat}}</p>
+											<p ng-if="!wrkflowstatusdetails.upddate">{{assessDate |
+												date:'dd-MM-yyyy h:mm a'}}</p>
+											<span class="stage-body-footer">{{wrkflowstatusdetails.formstatusname}}</span>
+										</div>
+										<div class="stage-tail"></div>
+										<div class="dropdown-content dropdown-menu-arrow"
+											ng-if="wrkflowstatusdetails.remarks!=null">
+											<div class="label label-primary">Remarks</div>
+											<div class="dropdown-content-desc">{{wrkflowstatusdetails.remarks}}</div>
+											<div class="dropdown-content-footer">{{wrkflowstatusdetails.senddate
+												| date:dateFormat}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="row"
+							style="padding-top: 11px; margin-top: 10px; margin-left: 5px;">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Vessel Name</label>
+									<div class="col-sm-6">
+										<input type="text" class=" form-control" ng-model="vesselName"
+											value="{{vesselCode}}" readonly />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Date of
+										Assessment </label>
+									<div class="col-sm-6">
+										<label class=" form-control" disabled ng-model="assessDate">{{assessDate
+											| date : dateFormat}}</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label id="taskrsk" class="col-sm-6 form-control-label">Task<span
+										style="color: red">*</span>
+									</label>
+									<div class="col-sm-6">
+										<div ng-show="!isTemplate">
+											<textarea ng-disabled="actionRights[0] !='SUB' "
+												maxlength="100" title="{{task}}" ng-model="task"
+												ng-trim="false" type="text" ng-focus="hideError('task')"
+												class="form-control"
+												ng-change="validateFreeText('task', 'task_error')"></textarea>
+											<div class="char-left">Characters left: {{max100Length
+												- task.length}}</div>
+											<div ng-if="taskRequiredError" class="text-error">{{validationError}}</div>
+											<div class="text-error">{{task_error}}</div>
+										</div>
+
+										<div ng-show="isTemplate" class="">
+											<textarea maxlength="100" ng-model="task" type="text"
+												title="{{task}}"
+												ng-change="validateFreeText('task', 'task_error')"
+												ng-disabled="actionRights[0] !='SUB'" class="form-control"
+												ng-focus="hideError('task')"></textarea>
+											<button ng-disabled="actionRights[0] !='SUB'"
+												style="width: 100%; margin-top: 5px; font-size: 14px;"
+												type="button" data-toggle="modal" data-target="#myModal"
+												class="btn btn-primary btn-sm" ng-click="selectTemplate()">Choose
+												Template</button>
+										</div>
+									</div>
+
+
+								</div>
+								<div ng-if="showTemplateDialog" id="myModal" class="modal fade"
+									role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Add template</h4>
+											</div>
+											<div class="modal-body">
+												<table class="table table-bordered table-fixedheader-3col">
+													<thead>
+														<tr>
+															<th style="width: 40%;"><input class="form-control"
+																placeholder="Risk Assessment ID" type="text"
+																ng-model="searchparticular[3]" /></th>
+															<th style="width: 40%;"><input class="form-control"
+																placeholder="Task" type="text"
+																ng-model="searchparticular[1]" /></th>
+																<th width="20%" style="padding-top: 14px; padding-bottom: 14px;">Status</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr
+															ng-repeat="template in templates| filter:searchparticular[3] | filter:searchparticular[1] | filter:search">
+															<td style="width: 41%; padding: 10px;">{{template.rskid}}</td>
+															<td style="width: 41%; padding: 10px;"><span>{{template.taskname}}</span>
+																<span
+																ng-if="template.taskname === null || template.taskname === '' "
+																style="color: darkgray">Task yet not added</span></td>
+															<td width="18%"><button
+																	ng-click="populateTemplate(template.rskid)"
+																	data-dismiss="modal" class="btn btn-primary btn-xs">
+																	Select</button></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label id="categoryrsk" class="col-sm-6 form-control-label">Category<span
+										style="color: red">*</span>
+									</label>
+									<div class="col-sm-6">
+										<select class="form-control" ng-model="cateogory"
+											ng-disabled="actionRights[0] !='SUB'"
+											ng-click="hideError('category')">
+											<option disabled value="">Select a Category</option>
+											<option
+												ng-repeat="category in categoryList | orderBy: 'categoryname'"
+												value="{{category.catcode}}">
+												{{category.categoryname}}</option>
+										</select>
+										<div ng-if="categoryRequiredError" class="text-error">{{validationError}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label id="locationrsk"  class="col-sm-6 form-control-label">Location<span
+										style="color: red">*</span>
+									</label>
+									<div class="col-sm-6">
+										<select class="form-control" ng-model="location"
+											ng-disabled="actionRights[0] !='SUB'"
+											ng-click="hideError('location')">
+											<option disabled value="">Select a location</option>
+											<option
+												ng-repeat="location in locationList | orderBy: 'locname'"
+												value="{{location.loccode}}">{{location.locname}}</option>
+										</select>
+										<div ng-if="locationRequiredError" class="text-error">{{validationError}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label  class="col-sm-6 form-control-label">Permit(s) to
+										Work </label>
+									<div class="col-sm-6">
+										<select kendo-multi-select k-options="selectOptions"
+											ng-disabled="actionRights[0] !='SUB'" ng-model="workPermit"></select>
+									</div>
+
+								</div>
+								<div class="form-group row">
+									<label id="eqprsk" class="col-sm-6 form-control-label">Equipment
+										Used <span style="color: red">*</span>
+									</label>
+									<div class="col-sm-6">
+										<textarea ng-disabled="actionRights[0] !='SUB'"
+											maxlength="200" ng-model="equipment" type="text"
+											ng-trim="false" title="{{equipment}}" class="form-control"
+											ng-focus="hideError('equipment')"
+											ng-change="validateFreeText('equipment', 'equipment_error')"></textarea>
+										<div class="char-left">Characters left: {{max200Length -
+											equipment.length}}</div>
+										<div ng-if="equipmentRequiredError" class="text-error">{{validationError}}</div>
+										<div class="text-error">{{equipment_error}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label id="persondoingworkrsk" class="col-sm-6 form-control-label">Person(s)
+										doing work<span style="color: red">*</span>
+									</label>
+									<div class="col-sm-6">
+										<select kendo-multi-select
+											ng-disabled="actionRights[0] !='SUB'"
+											k-options="selectPersonsListOptions" ng-model="workingPerson"
+											ng-click="hideError('workingPerson')"></select>
+										<div ng-if="workingPersonRequiredError" class="text-error">{{validationError}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label id="hodrsk" class="col-sm-6 form-control-label">Head of the
+										Department <span style="color: red">*</span>
+									</label>
+									<div class="col-sm-6">
+										<select class="form-control" ng-model="departmentHead"
+											ng-disabled="actionRights[0] !='SUB'"
+											ng-click="hideError('departmentHead')">
+											<option disabled value="">Select a rank</option>
+											<option ng-repeat="person in hodsList | orderBy: 'rankname'"
+												value="{{person.rankcode}}">{{person.rankname}}</option>
+										</select>
+										<div ng-if="departmentHeadRequiredError" class="text-error">{{validationError}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Total No of
+										Hazards Identified</label>
+									<div class="col-sm-6">
+										<input class="form-control" disabled value={{hazardsCount}}>
+									</div>
+								</div>
+							</div>
+							<!-- Communication part ---------------------------------------------------------------------------------------------------------------------------->
+							<div class="col-xs-12 col-sm-offset-1 col-sm-5" allowed="write"
+								mdlcode="CMW">
+								<div class="card">
+									<div class="card-header danger-color-dark white-text commbtnbg">
+										<label>&nbsp;&nbsp; <i class="fa fa-comments-o"
+											style="color: white; font-size: 24px !important;"></i>
+											&nbsp;&nbsp;&nbsp; Communication Window
+										</label>
+									</div>
+									<div class="card-block">
+										<div class="m-b-6">
+											<div class="activity-widget-5 scroller"
+												id="communication-window"
+												style="height: 419px; overflow-y: scroll;">
+												<div class="container"
+													style="width: 380px; padding-top: 15px;"
+													ng-repeat="accdata in chatdata">
+													<div class='row' ng-if="accdata.senderId == loginuser">
+														<div class="left-name">
+															<span class="emp-name">{{accdata.empName}}</span> <span
+																class="rank-name">{{accdata.rankname}}</span>
+														</div>
+														<div class='left-msg'>{{accdata.message}}</div>
+														<div>
+															<img class='left-img' src="images/chat_logo.png" />
+														</div>
+														<div class="msg-time">
+															<span>{{accdata.createdOn | date: dateFormat}}</span>
+														</div>
+													</div>
+													<div class='row' ng-if="accdata.senderId != loginuser">
+														<div class="right-name">
+															<span class="emp-name">{{accdata.empName}}</span> <span
+																class="rank-name">{{accdata.rankname}}</span>
+														</div>
+														<div class='right-msg'>{{accdata.message}}</div>
+														<div>
+															<img class='right-img' src="assets/faces/user-icon-6.png" />
+														</div>
+														<div class="msg-time">{{accdata.createdOn | date:
+															dateFormat}}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="input-group" allowed="write" mdlcode="CMW" ng-show="deleteAction">
+										<div class="form-group  has-feedback">
+											<input type="text" class="form-control commbtn" ng-disabled="voidStatus"
+												id="inputSuccess5" ng-model="msg" ng-enter="updateChat()">
+										</div>
+										<span class="input-group-btn">
+											<button class="btn btn-success" type="button"
+												ng-click="updateChat()">Send</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--/ Communication part ---------------------------------------------------------------------------------------------------------------------------->
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="section_header_top" style="height: 3px !important"></div>
+								<div class="section_header" id="section1Section2">
+									Risk Control <span style="color: red">*</span>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3 form-control-label">Hazard No</label>
+									<div class="col-sm-3">
+										<input class="form-control" disabled value={{hazardNo}} />
+									</div>
+
+									<label class="col-sm-3 form-control-label">Activity<span
+										style="color: red">*</span>
+									</label>
+									<div class="col-sm-3">
+										<textarea ng-disabled="actionRights[0] !='SUB'"
+											maxlength="100" title="{{activity}}" ng-model="activity"
+											type="text" class="form-control"
+											ng-focus="hideError('activity')" ng-trim="false"
+											ng-change="validateFreeText('activity', 'activity_error')"></textarea>
+										<div class="char-left">Characters left: {{max100Length -
+											activity.length}}</div>
+										<div ng-if="activityRequiredError" class="text-error">{{validationError}}</div>
+										<div class="text-error">{{activity_error}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-3 form-control-label">Hazard<span
+										style="color: red">*</span>
+									</label>
+									<div class="col-sm-3">
+										<select ng-disabled="actionRights[0] !='SUB'"
+											class="form-control" ng-model="hazard"
+											ng-change="isOtherHazardChosen()">
+											<option disabled value="">Select a Hazard</option>
+											<option
+												ng-repeat="hazard in hazardList"
+												value="{{hazard.hazardcode}}">{{hazard.hazardname}}</option>
+										</select> <label ng-if="hazardRequiredError" class="text-error">{{validationError}}</label>
+										<div ng-show="isOtherHazard">
+											<input ng-disabled="actionRights[0] !='SUB'"
+												ng-focus="hideError('otherHazard')" maxlength="200"
+												ng-model="otherHazard" style="margin-top: 1em"
+												class="form-control" placeholder="Enter Hazard" /> <label
+												ng-if="otherHazardRequiredError" class="text-error">{{validationError}}</label>
+										</div>
+									</div>
+
+
+									<label class="col-sm-3 form-control-label">Effects of
+										Hazard <span style="color: red">*</span>
+									</label>
+									<div class="col-sm-3">
+										<select ng-disabled="actionRights[0] !='SUB'"
+											class="form-control" ng-model="hazardEffect"
+											ng-change="isOtherHazardEffectChosen()">
+											<option disabled value="">Select a Hazard Effect</option>
+											<option
+												ng-repeat="hazardEffect in hazardEffectList"
+												value="{{hazardEffect.effhazardcode}}">
+												{{hazardEffect.effectname}}</option>
+										</select> <label ng-if="hazardEffectRequiredError" class="text-error">{{validationError}}</label>
+										<div ng-show="isOtherHazardEffect">
+											<input ng-focus="hideError('otherHazardEffect')"
+												maxlength="200" ng-model="otherHazardEffect"
+												style="margin-top: 1em" class="form-control"
+												placeholder="Enter Hazard Effect" /> <label
+												ng-if="otherHazardEffectRequiredError" class="text-error">{{validationError}}</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="section_header_top"
+									style="height: 3px !important; margin-right: 0px;"></div>
+								<div class="section_header">
+									SECTION 1 : Initial Risk Assessment <span style="color: red">*</span>
+								</div>
+
+
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<button class="accordion">
+											Existing control Measures<span style="color: red">*</span>
+										</button>
+										<div class="accordianpanel">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<tbody>
+													<center>
+														<tr>
+															<td>S.No</td>
+															<td>Control Measures</td>
+															<td>
+																<button ng-disabled="actionRights[0] !='SUB'"
+																	ng-click="addExistingControlMeasure()" type="button"
+																	class="btn btn-success btn-xs btn-rounded">
+																	<i class="fa fa-plus"></i>
+																</button>
+															</td>
+														</tr>
+														<tr
+															ng-repeat="measure in initialControlMeasure track by $index">
+															<td>{{$index + 1}}</td>
+															<td><textarea ng-disabled="actionRights[0] !='SUB'"
+																	maxlength="250" title={{measure.measure}}
+																	ng-trim="false" ng-model="measure.measure" type="text"
+																	ng-focus="hideError('initialControlMeasure')"
+																	class="form-control"></textarea>
+																<div class="char-left">Characters left:
+																	{{max250Length - measure.measure.length}}</div></td>
+															<td>
+																<button ng-click="deleteExistingControlMeasure($index)"
+																	type="button" class="btn btn-danger btn-xs btn-rounded">
+																	<i class="fa fa-minus"></i>
+																</button>
+															</td>
+														</tr>
+													</center>
+												</tbody>
+											</table>
+										</div>
+										<label ng-if="initialControlMeasureRequiredError"
+											class="text-error">{{validationError}}</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Frequency
+										(F)<span style="color: red">*</span>
+									</label>
+									<div class="col-sm-6">
+										<select ng-disabled="actionRights[0] !='SUB'"
+											ng-change="calculateInitialRisk()" ng-model="iniFre"
+											ng-click="hideError('iniFre')" class="form-control">
+											<option>N/A</option>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+										</select> <label ng-if="iniFreRequiredError" class="text-error">{{validationError}}</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Consequences
+										(C) <span style="color: red">*</span>
+									</label>
+									<div class="col-sm-6">
+										<select ng-disabled="actionRights[0] !='SUB'"
+											ng-model="iniCons" ng-change="calculateInitialRisk()"
+											ng-click="hideError('iniCons')" class="form-control">
+											<option>N/A</option>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+										</select>
+										<div ng-if="iniConsRequiredError" class="text-error">{{validationError}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Initial Risk
+										Level (F*C)</label>
+									<div class="col-sm-6">
+										<input id="riskLevel" ng-model="riskLevel" readonly="true"
+											class="form-control">
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6">
+								<div class="section_header_top" style="height: 3px !important;"></div>
+								<div class="section_header" style="margin-left: 0px;">
+									SECTION 2 : Risk Control / Mitigation Plan <a
+										href="#/riskManagementGuide" target="_blank"><i
+										class="fa fa-question-circle question_mark" aria-hidden="true"></i></a>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<button class="accordion">Ships additional control
+											measures</button>
+										<div class="accordianpanel">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<tbody>
+													<tr>
+														<td>S.No</td>
+														<td>Control Measures</td>
+														<td>
+															<button ng-disabled="actionRights[0] !='SUB'"
+																ng-click="addAdditionalControlMeasure()" type="button"
+																class="btn btn-success btn-xs btn-rounded">
+																<i class="fa fa-plus"></i>
+															</button>
+														</td>
+													</tr>
+													<tr
+														ng-repeat="measure in additionalControlMeasure track by $index">
+														<td>{{$index + 1}}</td>
+														<td><textarea ng-disabled="actionRights[0] !='SUB'"
+																title="{{measure.measure}}" maxlength="250"
+																ng-model="measure.measure" ng-trim="false" type="text"
+																ng-focus="hideError('additionalControlMeasure')"
+																class="form-control"></textarea>
+															<div class="char-left">Characters left:
+																{{max250Length - measure.measure.length}}</div></td>
+														<td>
+															<button ng-click="deleteAdditionalControlMeasure($index)"
+																type="button" class="btn btn-danger btn-xs btn-rounded">
+																<i class="fa fa-minus"></i>
+															</button>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div ng-if="additionalControlMeasureRequiredError"
+											class="text-error">{{validationError}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Frequency
+										(F)</label>
+									<div class="col-sm-6">
+										<select ng-disabled="actionRights[0] !='SUB'"
+											ng-model="addFre" class="form-control"
+											ng-click="hideError('addFre')"
+											ng-change="calculateAdditionalRisk()">
+											<option>N/A</option>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+										</select>
+										<div ng-if="addFreRequiredError" class="text-error">{{validationError}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Consequences
+										(C) </label>
+									<div class="col-sm-6">
+										<select ng-disabled="actionRights[0] !='SUB'"
+											ng-model="addCons" class="form-control"
+											ng-click="hideError('addCons')"
+											ng-change="calculateAdditionalRisk()"">
+											<option>N/A</option>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+										</select>
+										<div ng-if="addConsRequiredError" class="text-error">{{validationError}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label">Evaluated
+										Risk Level (F)*(C)</label>
+									<div class="col-sm-6">
+										<input id="addRiskLevel" type="text"
+											ng-model="additionalRiskLevel" readonly="true"
+											class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<div class="col-xs-12" allowed="write" mdlcode="RSK">
+								<a ng-if="!editdisabled" ng-click="cancelEdit()" type="button"
+									style="width: 8% !important" class="btn-custom pull-right">
+									<img src="Sidebar/css/button/cancel.svg" /> <img
+									src="Sidebar/css/button/cancel_h.svg" />
+								</a> <a style="margin-right: 10px" ng-if="!editdisabled"
+									ng-click="update()" type="button" class="btn-custom pull-right">
+									<img src="Sidebar/css/button/updated.svg" /> <img
+									src="Sidebar/css/button/updated_h.svg" />
+								</a> <a ng-if="editdisabled" ng-click="addRiskAssessment()"
+									type="button" class="btn-custom pull-right"> <img
+									src="Sidebar/css/button/add.svg" /> <img
+									src="Sidebar/css/button/add_h.svg" />
+								</a>
+							</div>
+						</div>
+
+						<div ng-if="initialRskListObjerror"
+							style="font-size: -1.2em; padding-left: 89%; color: red">{{validationError}}</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="table-responsive">
+									<table class="table table-hover table-striped table-bordered">
+										<thead>
+											<th>Hazard No</th>
+											<th>Activity</th>
+											<th>Hazard</th>
+											<th style="width: 20%">Existing Control Measures</th>
+											<th>Initial Risk Level</th>
+											<th style="width: 20%">Ships Additional Control Measures</th>
+											<th>Evaluated Risk Level</th>
+											<th colspan="2" style="width: 8%; text-align: center;">Action</th>
+										</thead>
+										<tr
+											ng-repeat="(hazardNo1, data) in initialRskListObj track by $index">
+											<td>{{hazardNo1}}</td>
+											<td>{{data.activity}}</td>
+											<td ng-repeat="hazard in hazardList"
+												ng-if="hazard.hazardcode===data.hazardcode">{{hazard.hazardname}}</td>
+											<td style="width: 20%">{{data.existingControlMeasures[0].controlmeasure}}</td>
+											<td>{{data.existingControlMeasures[0].risklevel}}</td>
+											<td style="width: 20%">{{data.additionalControlMeasures[0].controlmeasure}}</td>
+											<td>{{data.additionalControlMeasures[0].risklevel}}</td>
+											<td colspan="2" style="text-align: center;">
+												<button class="btn btn-success btn-xs btn-rounded"
+													ng-click="editRiskAssessment(hazardNo1)">
+													<a href="javascript:void(0);"> <i class="fa fa-edit"></i>
+														<span class="text-muted"></span>
+													</a>
+												</button>
+												<button ng-if="(hazardNo1 != hazardNo)"
+													ng-click="deleteRiskAssessment(hazardNo1)" type="button"
+													class="btn btn-danger btn-xs btn-rounded">
+													<i class="fa fa-minus"></i>
+												</button>
+											</td>
+										</tr>
+										</center>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="job-completion-wrapper">
+									After completion of Job <span ng-if="task">({{task}})</span>
+								</div>
+								<div class="job-completion-container">
+									<div class="form-group row" id="idreject1">
+										<label class="col-sm-3 form-control-label">Time of
+											Commencement </label>
+										<div class="input-group date col-sm-3" id="reportdate1"
+											style="padding-left: 17px">
+											<input ng-model="jobcommencedate" k-max="maxDate"
+												k-rebind="maxDate" k-on-change="fromDateChanged()"
+												ng-disabled="isCloseOutStage" kendo-date-time-picker
+												ng-click="hideError('jobcommencedate')"
+												k-ng-model="fromDateObject"> <label
+												ng-if="jobcommencedateRequiredError" class="text-error">{{validationError}}</label>
+											<div ng-if="jobcommencedateValError" class="text-error">{{valError}}</div>
+										</div>
+									</div>
+									<div class="form-group row" id="idreject4">
+										<label class="col-sm-3 form-control-label">Time of
+											Completion </label>
+										<div class="input-group date col-sm-3" id="reportdate1"
+											style="padding-left: 17px">
+											<input ng-model="jobcompleteddate" k-ng-model="toDateObject"
+												k-on-change="toDateChanged()" k-min="minDate"
+												k-rebind="minDate" ng-click="hideError('jobcompleteddate')"
+												kendo-date-time-picker ng-disabled="isCloseOutStage">
+											<div ng-if="jobcompleteddateRequiredError"
+												class="text-error">{{validationError}}</div> <div
+												ng-if="jobcompleteddateValError" class="text-error">{{val2Error}}</div>
+										</div>
+									</div>
+									<div id="idreject2" class="form-group row">
+										<label class="col-sm-3 form-control-label" align="left">Were
+											the Risk Control measures adequate?</label>
+										<div class="col-sm-2">
+											<label class="c-input c-radio"> <input value="Y"
+												ng-disabled="isCloseOutStage" type="radio"
+												ng-model="isAdequate" ng-click="hideError('isAdequate')"><span
+												class="c-indicator c-indicator-warning"></span> <span
+												class="c-input-text"> Yes </span>
+											</label> <label class="c-input c-radio"> <input value="N"
+												ng-disabled="isCloseOutStage" type="radio"
+												ng-model="isAdequate" ng-click="hideError('isAdequate')"><span
+												class="c-indicator c-indicator-danger"></span> <span
+												class="c-input-text"> No </span>
+											</label> <div ng-if="isAdequateRequiredError"
+												class="text-error">{{validationError}}</div>
+										</div>
+
+									</div>
+									<div id="idreject3" class="form-group row">
+										<div class="col-xs-12">
+											<label class="form-control-label">Comments</label>
+											<textarea maxlength="500" ng-model="jobComments"
+												ng-change="validateFreeText('jobComments', 'comments_error')"
+												ng-trim="false" ng-disabled="isCloseOutStage"
+												class="form-control" id="exampleTextarea" rows="2"
+												style="height: 66px !important;" cols="10"
+												ng-click="hideError('jobComments')"></textarea>
+											<div class="char-left">Characters left: {{max500Length
+												- jobComments.length}}</div>
+											<div ng-if="jobCommentsRequiredError"
+												class="text-error">{{validationError}}</div> <div
+												class="text-error">{{comments_error}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!--File Attachment Component Start-->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="section_header_top"
+									style="height: 3px; left: 15px !important;" id="showfields2"></div>
+								<div class="section_header col-lg-12" id="showfields2">Attachments</div>
+								<div allowed="write" mdlcode="RSK">
+									<div class="row">
+										<div class="col-sm-12">
+											<table>
+												<tr ng-repeat="file in myFile track by $index">
+													<td style="padding: 6px; border-bottom: 1px solid grey;">{{$index
+														+ 1}}</td>
+													<td
+														style="font-weight: 700; color: #238E68; padding: 6px; border-bottom: 1px solid grey;">{{file._file.name}}</td>
+													<td
+														style="font-size: .8em; padding: 6px; border-bottom: 1px solid grey;">{{file._file.size}}
+														bytes</td>
+													<td
+														style="font-size: .8em; padding: 3px 6px; border-bottom: 1px solid grey;">
+														<i ng-click="removeFile($index)"
+														style="cursor: pointer; color: red" class="fa  fa-close"></i>
+													</td>
+												</tr>
+											</table>
+											<a ng-if="myFile.length > 0" class="btn-custom btn-upload"
+												ng-click="uploadFile()"> <img
+												src="Sidebar/css/button/upload.svg" /> <img
+												src="Sidebar/css/button/upload_h.svg" />
+											</a>
+											<div ng-hide="actionFormHide" >
+												 <label for="file-upload"
+													class="pull-right"
+													style="cursor: pointer; padding-right: 10px; vertical-align: middle"
+													class="fileinput-button" style="border-radius: 0px;">
+													<span style="font-size: 18px;"><b>Attach</b><i
+														class="fa fa-plus-circle btn-attach"> </i>
+												</label> <input multiple type="file" file-model="myFile"
+													id="file-upload" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="table-responsive upload_table">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>S.No.</th>
+												<th>File Name</th>
+												<th>File Size</th>
+												<th>Uploaded Date & Time</th>
+												<th>Uploaded by</th>
+												<th>Action</th>
+												<th>Removed Date & Time</th>
+												<th>Removed by</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-if="filesData.length<=0">
+												<td colspan=8 class="no_data">No Data Available</td>
+											</tr>
+											<tr ng-class="{'inactive-file': data.docstatus === 'V'}"
+												ng-repeat="data in filesData | orderBy : 'docstatus'">
+												<td>{{$index + 1}}</td>
+												<td>{{data.filename}}</td>
+												<td>{{(data.filesize/fileSizeConversionFactor) |
+													number:fileSizeRoundOffFactor}} {{fileSizeUnit}}</td>
+												<td>{{data.uploaddate | date : dateFormat}}</td>
+												<td>{{data.uploadusername}}</td>
+												<td><a
+													ng-show="data.filetype === 'jpg' || data.filetype === 'png' || data.filetype === 'jpeg'"
+													ng-click="previewFile(data.docid, data.filename)"><i
+														class="fa fa-eye"></i></a> <a
+													ng-click="confirmDelete(data.docid)"
+													ng-if="data.docstatus === 'A' && activeStatus != 'CLO' && activeStatus != 'APR'"><i
+														class="fa fa-trash"></i></a> <a
+													href="/riskassessment/downloadDocument/?docId={{data.docid}}"><i
+														class="fa fa-download"></i></a></td>
+												<td>{{data.removedate | date : dateFormat}}</td>
+												<td>{{data.removeusername}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+						<br />
+						<div class="row" allowed="write" mdlcode="RSK"
+							ng-hide="actionFormHide">
+							<div class="col-sm-12" style="padding-right: 30px !important;">
+							
+							 <a allowed="delete" mdlcode="RSK" type="button" style="width: 8% !important; margin-left: 30px" class="btn_wrapper pull-right"
+                 ng-show="deleteAction"
+                 ng-click="deleteActionPerformed()">
+                 <span>Delete</span>
+                 <img src="Sidebar/css/icons/delete.svg" />
+                </a>
+                
+								<a a-disabled="isuploading"
+									style="width: 8% !important; margin-left: 30px"
+									ng-if="actionRights[3] == 'RSN' && actionRights[0] !='CLO'"
+									type="button" allowed="write" mdlcode="RSK"
+									class="btn-custom pull-right"
+									ng-click="showReassignModal('#reAssign')"> <img
+									src="Sidebar/css/button/re-assign.svg" /> <img
+									src="Sidebar/css/button/re-assign_h.svg" />
+								</a> <a ng-if="actionRights[0] =='CLO'"
+									ng-click="saveFormData( 'Close')" type="button"
+									style="width: 8% !important; margin-left: 30px"
+									id="sendbuttonon" class="btn-custom  pull-right"> <img
+									src="Sidebar/css/button/closeout.svg" /> <img
+									src="Sidebar/css/button/closeout_h.svg" />
+								</a> <a a-disabled="isuploading" ng-click="saveFormData( 'Approve')"
+									ng-if="toggleApprove && showApproveBtn" type="button"
+									style="width: 8% !important; margin-left: 30px"
+									id="sendbuttonon" class="btn-custom  pull-right"> <img
+									src="Sidebar/css/button/approved.svg" /> <img
+									src="Sidebar/css/button/approved_h.svg" />
+								</a> <a a-disabled="isuploading" ng-click="saveFormData('Send')"
+									ng-if="(actionRights[0] =='SUB' && !showApproveBtn )"
+									type="button" style="width: 8% !important; margin-left: 30px"
+									id="sendbuttonon" class="btn-custom  pull-right"> <img
+									src="Sidebar/css/button/send.svg" /> <img
+									src="Sidebar/css/button/send_h.svg" />
+								</a> <a a-disabled="isuploading" ng-click="saveFormData('Save')"
+									ng-if="actionRights[0] =='SUB' || actionRights[0] =='CLO'"
+									type="button" style="width: 8% !important; margin-left: 30px"
+									class="btn-custom pull-right"> <img
+									src="Sidebar/css/button/save.svg" /> <img
+									src="Sidebar/css/button/save_h.svg" />
+								</a> <img ng-if="isuploading" style="width: 35px;"
+									src="img/loader.gif" class="pull-right" />
+							</div>
+						</div>
+
+						<div class="modal fade" id="reAssign" role="dialog">
+							<div class="modal-dialog">
+
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">Remarks</h4>
+									</div>
+									<div class="modal-body">
+										<textarea ng-model="remarks" maxlength="200" ng-trim="false"
+											style="width: 100%;" ng-focus="hideError('reassignRemarks')"
+											rows="4" cols="68"></textarea>
+										<div class="char-left">Characters left: {{max200Length -
+											remarks.length}}</div>
+										<label class="text-error" ng-if="reassignRemarksRequiredError">{{validationError}}</label>
+									</div>
+									<div class="modal-footer">
+										<a type="button" ng-click="okAction('#reAssign')"
+											class="btn-custom">
+											<img src="Sidebar/css/button/ok.svg" /> <img
+												src="Sidebar/css/button/ok_h.svg" />
+										</a>
+										<a type="button" class="btn-custom" data-dismiss="modal">
+											<img src="Sidebar/css/button/cancel.svg" /> <img
+												src="Sidebar/css/button/cancel_h.svg" />
+										</a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="for_office">For Office Use Only</div>
+
+					<div class="form_table" style="margin-top: -20px;">
+
+						<div class="workflow_wrapper">
+							<div class="workflow_wrapper_title">Office Workflow</div>
+							<div class="no-workflow" ng-if="!displayShoreWorkflow"
+								class="row" style="padding-left: 15px">Work Flow Not Yet
+								Started</div>
+							<div ng-if="displayShoreWorkflow"
+								class="row workflow_wrapper_content">
+								<div class="col-xs-12 col-sm-1">
+									<div class="ship-stage pull-right">
+										<img src="img/shore-stage.svg" />
+									</div>
+								</div>
+								<div class="col-sm-11">
+									<div class="btn-stage-container"
+										ng-repeat="wrkflowstatusdetails in wrkflowstatus"
+										ng-if="wrkflowstatusdetails.cntrltype=='CNT001'">
+										<div class="stage-head">{{wrkflowstatusdetails.stageid}}</div>
+										<div class="stage-neck"></div>
+										<div class="stage-body">
+											<p>{{ wrkflowstatusdetails.username}}</p>
+											<p>{{ wrkflowstatusdetails.rankname}}</p>
+											<p>{{ wrkflowstatusdetails.upddate | date: dateFormat}}</p>
+											<span class="stage-body-footer">{{wrkflowstatusdetails.formstatusname}}</span>
+										</div>
+										<div class="stage-tail"></div>
+										<div class="dropdown-content dropdown-menu-arrow"
+											ng-if="wrkflowstatusdetails.remarks!=null">
+											<div class="label label-primary">Remarks</div>
+											<div class="dropdown-content-desc">{{wrkflowstatusdetails.remarks}}</div>
+											<div class="dropdown-content-footer">{{wrkflowstatusdetails.senddate
+												| date:dateFormat}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="section_header_top"
+									style="height: 3px; left: 15px !important;" id="showfields2"></div>
+								<div class="section_header" id="showfields">SECTION 3 :
+									Company's Risk Assessment Review</div>
+
+								<div class="form-group row">
+									<center>
+										<div class="col-sm-12">
+											<table class="table table-hover table-striped table-bordered">
+												<thead>
+													<tr>
+														<th>Hazard No</th>
+														<th>Company's Additional Control Measures</th>
+														<th colspan="3" style="text-align: center;">Residual Risk</th>
+													</tr>
+													<tr>
+														<th></th>
+														<th></th>
+														<th style="color: #fff">Frequency (F)</th>
+														<th style="color: #fff">Consequences (C)</th>
+														<th style="color: #fff; text-align: left">Risk Level (F)*(C)</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="companyAddCtrl in companyAddCtrlList">
+														<td>{{companyAddCtrl.hazardno}}</td>
+														<td><input disabled
+															ng-model="companyAddCtrl['controlmeasure']" type="text"
+															class="form-control"></td>
+														<td><select disabled
+															ng-model="companyAddCtrl['frequency']"
+															class="form-control"
+															ng-change="calculateCompanyAddRisk(companyAddCtrl['frequency'], companyAddCtrl['consequence'], companyAddCtrl['hazardno'])">
+																<option>N/A</option>
+																<option>1</option>
+																<option>2</option>
+																<option>3</option>
+																<option>4</option>
+														</select></td>
+														<td><select disabled
+															ng-model="companyAddCtrl['consequence']"
+															class="form-control"
+															ng-change="calculateCompanyAddRisk(companyAddCtrl['frequency'], companyAddCtrl['consequence'], companyAddCtrl['hazardno'])">
+																<option>N/A</option>
+																<option>1</option>
+																<option>2</option>
+																<option>3</option>
+														</select></td>
+														<td><input disabled id="{{companyAddCtrl.hazardno}}"
+															ng-model="companyAddCtrl['risklevel']"
+															value="{{companyAddCtrl.risklevel}}" type="text" disabled
+															id="residualRiskLevel" class="form-control"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</center>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="section_header_top"
+									style="height: 3px; left: 15px !important;" id="showfields2"></div>
+								<div style="width: 700px;" class="section_header"
+									id="showfields2"">SECTION 4: Company's Comment and/or
+									instruction for the reduction of Risk of Hazard</div>
+								<div class="form-group row" id="showfields3">
+									<div class="col-xs-12">
+										<label class="form-control-label">Comments: </label>
+										<textarea disabled ng-model="companyComment"
+											class="form-control" id="exampleTextarea"
+											style="height: 66px !important" rows="2" cols="5"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="section_header_top"
+									style="height: 3px; left: 15px !important;" id="showfields2"></div>
+								<div class="section_header" id="showfields2"">SECTION 5:
+									Approval/Review Process</div>
+								<div class="form-group" id="reviewprocess">
+									<div class="form-group row">
+										<div class="col-sm-3">
+											<label class="form-control-label">Reviewer Name: </label>
+										</div>
+										<div class="col-sm-3">
+											<input value={{approvalName}} type="text" readonly
+												class="form-control">
+										</div>
+
+										<div class="col-sm-3">
+											<label class="form-control-label">Reviewer Rank: </label>
+										</div>
+										<div class="col-sm-3">
+											<input value={{approvalRank}} type="text" readonly
+												class="form-control">
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-3">
+											<label class="form-control-label">Reviewed Date: </label>
+										</div>
+										<div class="col-sm-3">{{approvalDate | date:dateFormat
+											}}</div>
+									</div>
+
+									<div class="form-group row">
+										<div class="col-sm-3">
+											<label class="form-control-label">Approver Name: </label>
+										</div>
+										<div class="col-sm-3">
+											<input value={{closerName}} type="text" readonly
+												class="form-control">
+										</div>
+
+										<div class="col-sm-3">
+											<label class="form-control-label">Approver Rank: </label>
+										</div>
+										<div class="col-sm-3">
+											<input value={{closerRank}} type="text" readonly
+												class="form-control">
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-3">
+											<label class="form-control-label">Approved Date: </label>
+										</div>
+										<div class="col-sm-3">{{closerDate | date:dateFormat }}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="revision_content">
+								<b>Revision No : </b> {{revNo}} | <b>Date:</b> {{reviseddate |
+								date : dateFormat}}
+								 <span class="pull-right"> <b>S.No :</b>
+                  {{rskId}}
+                </span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="modal fade" id="nearmismodal" tabindex="-1"
+						role="dialog" aria-labelledby="large-modalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="large-modalLabel">The
+										potential severity of harm</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group row">
+										<div class="col-sm-12">
+											<table class="table table-hover table-striped table-bordered"
+												id="modaltable" cellspacing="0"
+												style="border-color: #216a6d;">
+												<tbody>
+													<tr>
+														<td rowspan="7"
+															style="background-color: #216a6d; color: white;">CONSEQUENCES
+															/ IMPACT</td>
+														<td style="background-color: #216a6d; color: white;">Factor</td>
+														<td style="background-color: #216a6d; color: white;">Slight
+															harm 1</td>
+														<td style="background-color: #216a6d; color: white;">Moderate
+															harm 2</td>
+														<td style="background-color: #216a6d; color: white;">Extreme
+															harm 3</td>
+													</tr>
+													<tr>
+														<td style="border-color: #216a6d;">Health</td>
+														<td style="border-color: #216a6d;">Nuisance and
+															irritation, temporary ill health leading to discomfort</td>
+														<td style="border-color: #216a6d;">Deafness;
+															dermatitis, asthma; work related upper limb disorders;
+															ill-health leading to permanent minor disability.</td>
+														<td style="border-color: #216a6d;">Occupational
+															cancer; severe life shortening diseases, acute fatal
+															disease; permanent substantial disability.</td>
+													</tr>
+													<tr>
+														<td style="border-color: #216a6d;">Safety</td>
+														<td style="border-color: #216a6d;">Superficial
+															injuries; minor cuts & bruises; eye irritation from dust,
+															Requires first aid but able to resume work next day.</td>
+														<td style="border-color: #216a6d;">Lacerations;
+															burns; concussion; serious sprains; or working
+															environment that can cause permanent minor disabilities.
+															Unable to return to work 3 days or requires repatriation.</td>
+														<td style="border-color: #216a6d;">Amputations, major
+															fractures; poisonings; multiple injuries; fatal injuries.
+															Unable to resume sea-going employment.</td>
+													</tr>
+													<tr>
+														<td style="border-color: #216a6d;">Environ-ment</td>
+														<td style="border-color: #216a6d;">Minor impact on
+															environment</td>
+														<td style="border-color: #216a6d;">Medium short-term
+															impact on environment</td>
+														<td style="border-color: #216a6d;">Major long-term
+															impact on the environment (eg. Overboard spills)</td>
+													</tr>
+													<tr>
+														<td style="border-color: #216a6d;">Property</td>
+														<td style="border-color: #216a6d;">Minor financial
+															loss about <US> $1,000> 
+														</td>
+														<td style="border-color: #216a6d;">Medium financial
+															loss about US$1,000 ? US$100K</td>
+														<td style="border-color: #216a6d;">Major financial
+															loss about >US$100K</td>
+													</tr>
+													<tr>
+														<td style="border-color: #216a6d;">Reputation</td>
+														<td style="border-color: #216a6d;">Minor or no local
+															public reaction</td>
+														<td style="border-color: #216a6d;">Major local public
+															reaction or Minor national media coverage</td>
+														<td style="border-color: #216a6d;">Major
+															international media coverage</td>
+													</tr>
+											</table>
+										</div>
+									</div>
+									<div class="row marginalign alert bg-warning"
+										style="padding: 4px;">The likelyhood of occurrances of
+										harm</div>
+									<div class="form-group row">
+										<div class="col-sm-12">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<thead>
+													<tr>
+														<th>Probability</th>
+														<th>Factor</th>
+														<th>Projected Frequency</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Very likely</td>
+														<td>4</td>
+														<td>Typically experienced at least once every six
+															months by an individual</td>
+													</tr>
+													<tr>
+														<td>Likely</td>
+														<td>3</td>
+														<td>Typically experienced once every 5 years by an
+															individual.</td>
+													</tr>
+													<tr>
+														<td>Unlikely</td>
+														<td>2</td>
+														<td>Typically experienced once during the working
+															lifetime of an individual.</td>
+													</tr>
+													<tr>
+														<td>Very unlikely</td>
+														<td>1</td>
+														<td>Less than 1% chance of being experienced by an
+															individual during his working lifetime.</td>
+													</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	//accordion
+	var acc = document.getElementsByClassName("accordion");
+	var i;
+	for (i = 0; i < acc.length; i++) {
+		acc[i].onclick = function() {
+			this.classList.toggle("active");
+			this.nextElementSibling.classList.toggle("show");
+		}
+	}
+</script>

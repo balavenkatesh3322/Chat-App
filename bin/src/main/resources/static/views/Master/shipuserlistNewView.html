@@ -1,0 +1,290 @@
+<div class="col-xs-12 main" id="main">
+			<div>
+
+            <div class="sticky_header">
+					<div class="tab_head_sticky">
+					<ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+  <li><a href="#/Master">Config Master</a></li>
+  <li><a href="#/crewlistall">User List</a></li>
+  <li><b>User Creation </b></li>
+</ul>
+						<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">User Creation</div>
+         </div>
+	
+					</div>
+				</div>
+				
+       <div class="form_table_wrapper" style="margin-top: -18px;">
+        <div class="form_table">
+                            <div class="col-sm-4" > 
+                       <img src="{{selectedUserProfile}}" style="height: 10em; width: 10em;"/>
+                       <button ng-if="fetchedUserCode === usercode" type="button" class="upload-btns upload-btn-pos" data-toggle="modal" data-target="#myModal">Update photo</button>
+                      </div>
+          
+			<div class="row col-sm-12 form_table1" style="margin-top: 50px;">
+				<div class="row bs-nav-tabs nav-tabs-success"> 
+				
+                    <div class="tab-content"  style="padding-right: -1px; margin-top: -52px; margin-left: 30px;"> 
+      <!--               <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+                <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container> -->
+							<div role="tabpanel" class="tab-pane active" id="nav-pills-squared-1" aria-expanded="false">
+                    		<div class="form-group row ">
+                                <label class="col-sm-2 form-control-label">Emp Code</label>  
+                                <div class="col-sm-3" >
+                                    <input valid-alphanumeric ng-model="empcode" ng-focus="focusClear('empcode')" ng-disabled="true" class="col-sm-4 form-control"> 
+                                    <label ng-if="empCodeRequiredError" style="color:red">This field is required.</label>               
+                                </div>
+								<label class="col-sm-2 form-control-label"></label>
+                               <label class="col-sm-2 form-control-label">Control Type</label>  
+                                <div class="col-sm-3" >
+									<label class="c-input c-radio">
+									<input name="radio-stacked1" id="cnttype" ng-click="ShipChange('Y')"   ng-disabled="true" ng-model="cnttype" value="Vessel" type="radio" ><span class="c-indicator c-indicator-warning"></span>  <span class="c-input-text"> Vessel </span>
+									<input type="text" ng-hide="true" id="cnt" ng-model="cntshiptype" class="col-sm-4 form-control"> 
+									</label>
+									<label class="c-input c-radio">
+										<input name="radio-stacked1" id="cnttype1" ng-click="ShoreChange('N')"  ng-disabled="true"  ng-model="cnttype" value="Office" type="radio" ><span class="c-indicator c-indicator-danger"></span>  <span class="c-input-text"> Office </span>
+										<input type="text" ng-hide="true" id="cnt1" ng-model="cntshoretype" class="col-sm-4 form-control"> 
+									</label>
+									<label ng-if="cntrlTypeRequiredError" style="color:red">This field is required.</label> 
+								</div>							
+								 
+                            </div>							
+                            	<div class="form-group row ">
+                               								
+								<label class="col-sm-2 form-control-label">Given Name</label>  
+                                <div class="col-sm-3" >
+                                    <input numbers-only id="gvnname" ng-model="gvnname" ng-focus="focusClear('givenname')"  ng-disabled="true"  class="col-sm-4 form-control"> 
+                                    <label ng-if="givenNameRequiredError" style="color:red">This field is required.</label>                
+                                </div>
+																<label class="col-sm-2 form-control-label"></label>  
+								<label class="col-sm-2 form-control-label">Family Name</label>  
+                                <div class="col-sm-3" >
+                                    <input numbers-only id="fmname" ng-model="fmname"  ng-focus="focusClear('familyname')"  ng-disabled="true" class="col-sm-4 form-control"> 
+                                    <label ng-if="familyNameRequiredError" style="color:red">This field is required.</label>                
+                                </div>
+                            </div>
+							<div class="form-group row ">
+								<label class="col-sm-2 form-control-label">Gender</label>  
+                                <div class="col-sm-3" >
+									<label class="c-input c-radio">
+									 <input name="radio-stacked2" id="gender"  ng-click="focusClear('gender')" ng-model="gender"  ng-disabled="true"  value="M" type="radio" ><span class="c-indicator c-indicator-warning"></span>  <span class="c-input-text"> Male </span> 
+									</label>
+									<label class="c-input c-radio">
+										<input name="radio-stacked2" id="gender1"  ng-click="focusClear('gender')" ng-model="gender"  ng-disabled="true"  value="F" type="radio" ><span class="c-indicator c-indicator-danger"></span>  <span class="c-input-text"> Female </span> 
+									</label>
+									<label ng-if="genderRequiredError" style="color:red">This field is required.</label> 
+								</div>	
+								<label class="col-sm-2 form-control-label"></label>   
+								<label class="col-sm-2 form-control-label">Company Code</label>  
+                                <div class="col-sm-3" >
+                                	<select id="compcode" class="form-control" ng-model="comps"   ng-disabled="true"  ng-click="focusClear('companycode')">
+								     	<option ng-repeat="comp in compdetails" value="{{comp.shorecode}}">{{comp.shorename}}</option>
+									</select>
+<!--                                     <input type="text" id="compcode" ng-model="compcode" class="col-sm-4 form-control">  -->
+                                    <label ng-if="companyCodeRequiredError" style="color:red">This field is required.</label>                
+                                </div>
+                            </div>
+							<div class="form-group row ">
+								<label class="col-sm-2 form-control-label">Date of Birth</label>  
+                                <div class="col-sm-3" >
+                                    <input kendo-date-picker  ng-model="dob" ng-click="focusClear('dob')"  ng-disabled="true" >  
+                                    <label ng-if="dobRequiredError" style="color:red">This field is required.</label>     
+                                </div>
+								<label class="col-sm-2 form-control-label"></label> 
+                                <label class="col-sm-2 form-control-label">Place of Birth</label>  
+                                <div class="col-sm-3" >
+                                    <input valid-alpha id="pob" ng-model="pob" class="col-sm-4 form-control"  ng-disabled="true"   ng-click="focusClear('pob')"> 
+                                    <label ng-if="pobRequiredError" style="color:red">This field is required.</label>                
+                                </div>
+                            </div>
+							<div class="form-group row ">  
+								<label class="col-sm-2 form-control-label">Date of Joining</label>  
+                                <div class="col-sm-3" >
+                                    <input kendo-date-picker  ng-model="doj"  ng-click="focusClear('doj')"  ng-disabled="true" >
+                                    <label ng-if="dojRequiredError" style="color:red">This field is required.</label>                        
+                                </div>
+								<label class="col-sm-2 form-control-label"></label> 
+								<label class="col-sm-2 form-control-label">Email</label> 
+                                <div class="col-sm-3" >
+                                    <input type="text" id="email" ng-model="email" class="col-sm-4 form-control"   ng-disabled="true"  ng-click="focusClear('email')">   
+                                    <label ng-if="emailRequiredError" style="color:red">This field is required.</label> 									
+                                </div>
+                            </div>
+							<div class="form-group row ">
+								<label class="col-sm-2 form-control-label">Nationality</label>                                                                 
+                                <div class="col-sm-1">
+									<input numbers-only ng-model="natcode" id="natcode" ng-disabled="true" class="form-control" placeholder="Code">
+									<label ng-if="countryCodeRequiredError" style="color:red">This field is required.</label> 
+								</div>
+								<div class="col-sm-1">
+									<input type="text" ng-model="natName" id="natName" ng-disabled="true" class="form-control" placeholder="Name"  style="
+    width: 255%;
+">
+								</div>
+								<div class="col-sm-1">
+<!-- 									<button class="btn btn-primary btn-sm fa fa-search"	ng-click="showModal = true"style="margin-left: 68px;margin-top: 3px;"> -->
+<!-- 									</button> -->
+<!-- 										<modal class=""  visible="showModal" on-sown="modalOneShown()" -->
+<!-- 											on-hide="modalOneHide()"> <modal-header -->
+<!-- 											title="Country Selection"></modal-header> <modal-body -->
+<!-- 											title1="Country Code" title2="Country Name" -->
+<!-- 											data="nationListData" searchdesc1="Search Country Code" -->
+<!-- 											searchdesc2="Search Country Name" searchdesc3="Seach on both" -->
+<!-- 											keymodelid="m1" valuemodelid="m2" -->
+<!-- 											callback-fn="setValue(arg1,arg2)" hide-fn="hide()"></modal-body> -->
+<!-- 										</modal> -->
+							   </div>
+								
+								<label class="col-sm-2 form-control-label"></label> 
+								 <label class="col-sm-2 form-control-label">Language</label>  
+                                <div class="col-sm-3" >
+                                    <input numbers-only id="language" ng-model="language"  ng-focus="focusClear('language')"  ng-disabled="true"  class="col-sm-4 form-control" > 
+                                    <label ng-if="languageRequiredError" style="color:red">This field is required.</label>                
+                                </div>
+								</div>
+								
+								<div class="form-group row ">
+															
+								<label class="col-sm-2 form-control-label">Role</label> 
+								
+                                <div class="col-sm-3">
+	                                <select id="role" class="form-control" ng-model="roles" ng-change="RankName()"  ng-disabled="true" >
+									     <option ng-repeat="role in roledetails" value="{{role.rolecode}}">{{role.rolename}}</option>
+									</select>
+									<label ng-if="roleCodeRequiredError" style="color:red">This field is required.</label> 
+                                </div>
+                                
+								<label class="col-sm-2 form-control-label"></label> 
+								<label class="col-sm-2 form-control-label">Rank</label>
+                                <div class="col-sm-3">
+                                
+                                <select id="rank" class="form-control" ng-model="ranks" ng-change="DepName()"  ng-disabled="true" >
+								     <option ng-repeat="rank in rankdetails" value="{{rank.rankcode}}">{{rank.rankname}}</option>
+								</select> 
+								<label ng-if="rankCodeRequiredError" style="color:red">This field is required.</label> 
+                                </div>
+                            </div>
+                            
+								<div class="form-group row ">
+															
+								<label class="col-sm-2 form-control-label">Department</label>  
+                                <div class="col-sm-3">
+                                <select id="dep" class="form-control" ng-model="deps"  ng-click="focusClear('department')"  ng-disabled="true" >
+								     <option ng-repeat="dep in depdetails" value="{{dep.depcode}}">{{dep.depname}}</option> 
+								</select>
+								<label ng-if="deptCodeRequiredError" style="color:red">This field is required.</label>
+                                               
+                                </div>
+								<label class="col-sm-2 form-control-label"></label> 
+								<label class="col-sm-2 form-control-label">Passport Number</label>  
+                                <div class="col-sm-3" >
+                                    <input id="passnum" ng-model="passnum" type="text" class="col-sm-4 form-control"   ng-disabled="true"  ng-focus="focusClear('passportnumber')"> 
+                                    <label ng-if="passnumRequiredError" style="color:red">This field is required.</label>                
+                                </div>
+                            </div>
+							
+									
+							<div class="form-group row ">
+                                <label class="col-sm-2 form-control-label">Passport Expiry</label>  
+                                <div class="col-sm-3" >
+                                 <input kendo-date-picker  ng-model="passexp"  ng-click="focusClear('passportexpiry')"  ng-disabled="true" >   
+                                        <label ng-if="passexpRequiredError" style="color:red">This field is required.</label>                
+                                </div>
+                                
+								<label class="col-sm-2 form-control-label"></label>  
+								<label class="col-sm-2 form-control-label">Is Permanent</label>
+                                <div class="col-sm-3" >
+                                        <label class="c-input c-radio">
+							<input name="radio-stacked3" id="isperm" ng-model="isperm" value="Y" type="radio"   ng-disabled="true" ng-click="focusClear('ispermnent')"><span class="c-indicator c-indicator-warning"></span>  <span class="c-input-text"> Yes </span> 
+							</label>
+							
+							<label class="c-input c-radio">
+							<input name="radio-stacked3" id="isperm1" ng-model="isperm" value="N" type="radio"  ng-click="focusClear('ispermnent')"><span class="c-indicator c-indicator-warning"></span>  <span class="c-input-text"> No </span> 
+							</label> 
+							<label ng-if="ispermRequiredError" style="color:red">This field is required.</label>          
+                                </div>
+                                 
+                            </div>
+                            <div class="form-group row " nf-if="previousempcode.length > 0">
+								<label class="col-sm-2 form-control-label">Previous Emp Code</label>  
+                                <div class="col-sm-3" >
+                                    <input id="passnum" ng-disabled="true" ng-model="previousempcode" type="text" class="col-sm-4 form-control"  ng-focus="focusClear('passportnumber')"> 
+                                 </div>
+								<label class="col-sm-2 form-control-label"></label> 
+								<label class="col-sm-2 form-control-label">Registered Date</label>  
+                                <div class="col-sm-3" >
+                                   <input kendo-date-picker ng-disabled="true"  ng-model="registereddate" >             
+                                </div>
+                            </div>
+                             <div class="form-group row " ng-if="empcodechgdate.length > 0">
+								<label class="col-sm-2 form-control-label">Changed Date</label>  
+                                <div class="col-sm-3" >
+                                   <input kendo-date-picker  ng-disabled="true" ng-model="empcodechgdate">         
+                                </div>
+                            </div>
+								<div class="section_hr"></div>	
+								<h4><b>Login Details</b></h4>
+								
+								<div class="form-group row ">
+								<label class="col-sm-2 form-control-label">Login ID</label>  
+                                <div class="col-sm-3" >
+                                        <input type="text" id="logid" ng-model="logid" class="col-sm-4 form-control" disabled>             
+                                </div>
+								<label class="col-sm-2 form-control-label"></label> 
+								 <label class="col-sm-2 form-control-label">Admin Access</label>  
+		                                <input type="checkbox" ng-model="adminAccess" ng-true-value="'Y'" ng-false-value="'N'"style="
+    margin-left: 15px;">
+								</div>
+                            <div class="form-group row ">
+								<label class="col-sm-2 form-control-label">Password</label>  
+                                <div class="col-sm-3" >
+                                        <input type="password" ng-disabled="radDisabled" id="pwd" ng-model="pwd" class="col-sm-4 form-control" >  
+                                        <label ng-if="passwordRequiredError" style="color:red">This field is required.</label>            
+                                </div>
+								<label class="col-sm-2 form-control-label"></label> 
+								 <label class="col-sm-2 form-control-label">Confirm Password</label>  
+                                <div class="col-sm-3" >
+                                    <input type="password" id="cpwd" ng-model="cpwd" class="col-sm-4 form-control" >  
+                                    <label ng-if="confpwdRequiredError" style="color:red">This field is required.</label>               
+                                </div></div>
+								<div class="form-group row ">
+<!-- 										<label class="col-sm-2 form-control-label">Admin Access</label>   -->
+<!-- 		                                <input type="checkbox" ng-model="adminAccess" ng-true-value="'Y'" ng-false-value="'N'"style=" -->
+<!--     margin-left: 15px;"> -->
+									</div>					 
+							<div class="form-group row "> 
+							<img ng-if="isLoadImg" style="width:35px; "src="/img/loader.gif " class="pull-right "/>
+							</div>
+                        </div> 
+                                            
+                    </div> 
+                </div>			
+			</div>	
+        </div>
+        </div>
+  </div>
+  </div>
+  
+            <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-lg" style="width: 33.5em;">
+            <div class="modal-content">
+              <div class="modal-header" style="background:none">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Profile Picture</h4>
+              </div>
+              <div class="modal-body" style="text-align: center;">
+                    <label for="fileInput" style="cursor:pointer" class="upload-btns">Upload Photo</label>
+                       <div><input type="file" id="fileInput" style="display:none"/></div>
+                        <div class="cropArea ng-image-crop">
+                          <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+                        </div>                
+              </div>
+              <div class="modal-footer">
+                  <button ng-if="diplaySave" ng-click="setDP()" class="upload-btns save-uplaod-btn">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>

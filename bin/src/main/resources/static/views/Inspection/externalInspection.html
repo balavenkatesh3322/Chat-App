@@ -1,0 +1,1230 @@
+<style>
+.option-disabled {
+  color: #bbbbbb;
+}
+</style>
+
+<div class="main" id="main" ng-hide="hidebody">
+
+
+  <div ng-show="haspermission" allowed="unauthorized" mdlcode="EXT"
+    callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+  <div allowed="read" mdlcode="EXT">
+
+    <div class="sticky_header">
+
+      <div class="tab_head_sticky">
+        <ul class="breadcrumb">
+          <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+          <li><a href="#/Inspection">Inspections</a></li>
+          <li><a href="#/ExternalInspectionMain">External Inspection</a></li>
+          <li><b>External Inspection-Details</b></li>
+        </ul>
+
+        <div class="tab_head">
+          <div class="pull-left" style="font-size: 21px;">External
+            Inspection</div>
+          <div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+            <span ng-if="extrfid.length > 0"
+              style="display: inline-block; border-right: 2px solid #fff; padding-right: 20px;">Ref.Id :
+              {{extrfid}}</span> <span
+              style="display: inline-block; padding-left: 18px;">Form
+              No: {{formNo.actFormno}}</span>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form_table_wrapper" style="margin-top: 15px !important;">
+          <div class="form_table">
+            <div class="row">
+              <div class="col-sm-12" ng-if="formActiveStatus=='APR'">
+
+                <a type="button" id="risk" class="btn-custom pull-right"
+                  ng-click="exportexcelEI()" style="margin-left: 10px"> <img
+                  src="Sidebar/css/button/export_ex.svg" /> <img
+                  src="Sidebar/css/button/export_ex_h.svg" />
+                </a> <a type="button" ng-click="saveAsPDFDocument()"
+                  style="margin-left: 10px; margin-bottom: 10px" allowed="read"
+                  mdlcode="EXT" class="btn-custom pull-right"><img
+                  src="Sidebar/css/button/pdf.svg" /> <img
+                  src="Sidebar/css/button/pdf_h.svg" /></a>
+                    <a type="button" style="margin-left: 20px" ng-if="flag=='Panama' &&(typeOfInspection == 'INS002' || typeOfInspection =='INS001')" 
+                      ng-click="exportexcel()" class="btn-custom pull-right"> <img
+                      src="Sidebar/css/button/panama.svg" /> <img
+                      src="Sidebar/css/button/panama_h.svg" />
+                    </a>
+              </div>
+            </div>
+
+            <!--    <div class="row">
+              <div class="col-xs-12">
+                <a type="button" class="btn-custom pull-right" allowed="read" mdlcode="EXT"
+                  ng-click="exportexcel()"> <img
+                  src="Sidebar/css/button/export_ex.svg" /> <img
+                  src="Sidebar/css/button/export_ex_h.svg" />
+                </a>
+              </div>
+            </div> -->
+            <!--------------------------------------------------------------->
+            <div class="workflow_wrapper">
+              <div class="workflow_wrapper_title">Vessel Workflow</div>
+              <div class="no-workflow" ng-if="!displayShipWorkflow">Work
+                Flow Not Yet Started</div>
+              <div ng-if="displayShipWorkflow"
+                class="row workflow_wrapper_content">
+                <div class="col-xs-12 col-sm-1">
+                  <div class="ship-stage pull-right">
+                    <img src="img/ship-stage.svg" />
+                  </div>
+                </div>
+                <div class="col-sm-11">
+                  <div class="btn-stage-container"
+                    ng-repeat="wrkflowstatusdetails in wrkflowstatus"
+                    ng-if="wrkflowstatusdetails.cntrltype=='CNT002'">
+                    <div class="stage-head">{{wrkflowstatusdetails.stageid}}</div>
+                    <div class="stage-neck"></div>
+                    <div class="stage-body">
+                      <p>{{ wrkflowstatusdetails.username}}</p>
+                      <p>{{ wrkflowstatusdetails.rankname}}</p>
+                      <p ng-if="wrkflowstatusdetails.upddate">{{ wrkflowstatusdetails.upddate | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+                      <p ng-if="!wrkflowstatusdetails.upddate">{{formCrDate| date:'yyyy-MM-dd HH:mm:ss' }}</p>
+                      
+                      <span class="stage-body-footer">{{wrkflowstatusdetails.formstatusname}}</span>
+                    </div>
+                    <div class="stage-tail"></div>
+                    <div class="dropdown-content dropdown-menu-arrow"
+                      ng-if="wrkflowstatusdetails.remarks!=null">
+                      <div class="label label-primary">Remarks</div>
+                      <div class="dropdown-content-desc">{{wrkflowstatusdetails.remarks}}</div>
+                      <div class="dropdown-content-footer">{{wrkflowstatusdetails.senddate
+                        | date:'dd-MM-yyyy'}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label">Vessel Name</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="col-sm-6 form-control" disabled
+                      ng-model="shipName" title="{{shipName}}">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label">Name of the Captain</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" disabled
+                      ng-model="captainName" title="{{captainName}}">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label">Name of the Chief
+                      Engineer</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" disabled
+                      ng-model="chiefEngineerName" title="{{chiefEngineerName}}">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label">Flag</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" disabled
+                      ng-model="flag" title="{{flag}}">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label">Fleet</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="col-sm-6 form-control" disabled
+                      ng-model="fleet" title="{{fleet}}">
+                  </div>
+                </div>
+
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label" id="typeofinspection">Type of Inspection <span
+                      style="color: red"><span style="color: red">*</span></span></label>
+                  </div>
+                  <div class="col-sm-6">
+                    <select class="form-control" ng-model="typeOfInspection"
+                      ng-disabled="formActiveStatus=='APR'"
+                      ng-change="onInspectionTypeChange()">
+                      <option
+                        ng-repeat="type in typesOfInspection | orderBy: 'inspectionname'"
+                        ng-click="test8()" title="{{type.inspectionname}}"
+                        value="{{type.inspectioncode}}">{{type.inspectionname}}</option>
+                    </select>
+                    <div ng-show="isCountryBased==0" class="text-error">{{typeOfInspection_error}}</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label" id="authority">Authority <span
+                      ng-if="authorityMandatory" style="color: red"><span
+                        style="color: red">*</span></span></label>
+                  </div>
+                  <div class="col-sm-6">
+                    <select class="form-control"
+                      ng-disabled="inspectionAuthorities.length<=0 || formActiveStatus=='APR'"
+                      ng-show="isCountryBased==0" ng-model="inspectionAuthority"
+                      ng-change="hideError('authority_error')">
+                      <option
+                        ng-repeat="authority in inspectionAuthorities | orderBy: 'authorityname'"
+                        value="{{authority.authorityCode}}"
+                        title="{{authority.authorityname}}">{{authority.authorityname}}</option>
+                    </select>
+                    <div ng-show="isCountryBased==0" class="text-error">{{authority_error}}</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <select class="form-control" ng-show="isCountryBased==1"
+                      ng-model="inspectionAuthorityCountry">
+                      <option
+                        ng-repeat="authority in inspectionAuthoritiesCountry | orderBy: 'countryname'"
+                        value="{{authority.countrycode}}"
+                        title="{{authority.countryname}}">{{authority.countryname}}</option>
+                    </select>
+                    <div ng-show="isCountryBased==1" class="text-error">{{authority_error}}</div>
+                  </div>
+                </div>
+
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label">Total No of Findings</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" disabled
+                      ng-model="noOfDeficiencies" title="{{noOfDeficiencies}}">
+                  </div>
+                </div>
+
+
+
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label class="form-control-label">Detention/Rejection</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <input name="detention" value="Y" type="radio"
+                      ng-model="detention" ng-change="saveDetention()" title="Yes"><span
+                      class="c-input-text">Yes</span> <input name="detention"
+                      value="N" type="radio" ng-model="detention"
+                      ng-change="saveDetention()" title="No"><span
+                      class="c-input-text">No</span>
+                  </div>
+                </div>
+
+                <!-- Error Dialog Boxes here -->
+
+
+                <div kendo-dialog="previewDialog"
+                  k-on-open="dialogVisible = true" class="preview-box"
+                  k-width="500" k-height="200" k-on-close="dialogVisible = false"
+                  k-modal="true" title="External Inspection">
+                  <img src="{{imagetest}}" class="preview-img">
+                </div>
+                <div kendo-dialog="confirmDialog"
+                  k-on-open="dialogVisible = true" class="preview-box"
+                  k-width="300" k-height="150" k-on-close="dialogVisible = false"
+                  k-modal="true" k-actions="deleteInputFieldActions" title="External Inspection">
+                  <img src="img/warning.svg">
+                  <p>Input fields contains data, do you want to remove it.</p>
+                </div>
+
+                <div kendo-dialog="confirmDeleteDialog"
+                  k-title="'External Inspection'" k-on-open="dialogVisible = true"
+                  k-on-close="dialogVisible = false" k-width="300" k-height="150"
+                  k-actions="deleteActions" k-modal="true">
+                  <img src="img/warning.svg">
+                  <p>{{deleteDialogMsg}}</p>
+                </div>
+                <div kendo-dialog="confirmDetailDeleteDialog"
+                  k-title="'External Inspection'"
+                  k-on-open="dialogVisible = true"
+                  k-on-close="dialogVisible = false" k-width="300" k-height="150"
+                  k-actions="deleteDetailActions" k-modal="true">
+                  <img src="img/warning.svg">
+                  <p>{{deleteDialogMsg}}</p>
+                </div>
+
+                <div kendo-dialog="exceededFileSizedialog"
+                  k-title="'External Inspection'"
+                  k-on-open="dialogVisible = true"
+                  k-on-close="dialogVisible = false" k-width="300" k-height="150"
+                  k-actions="actions" k-modal="true">
+                   <img
+                    src="img/error_information.svg">
+                  <p>{{fileSizeExceededDialogMsg}}</p>
+                </div>
+                <div kendo-dialog="reAssignDialog" k-title="'External Inspection'"
+                  k-on-open="dialogVisible = true"
+                  k-on-close="dialogVisible = false" k-width="300" k-height="150"
+                  k-actions="reassignActions" k-modal="true">
+                  <img src="img/reassign_icon.png">
+                  <p>{{reAssignConf + mdlname + " ?"}}</p>
+                </div>
+                <div kendo-dialog="exceededFileCountDialog"
+                  k-title="'External Inspection'"
+                  k-on-open="dialogVisible = true"
+                  k-on-close="dialogVisible = false" k-width="300" k-height="150"
+                  k-actions="actions" k-modal="true">
+                  <img src="img/fileuploadError.png" class="file-error"> <img
+                    src="img/attach.png">
+                  <p>{{exceededFileCountDialogMsg}}</p>
+                </div>
+              </div>
+
+              <!-- ------------------------------------ -->
+
+
+
+
+
+              <!-- Communication part ---------------------------------------------------------------------------------------------------------------------------->
+              <div class="col-xs-12 col-sm-offset-1 col-sm-5">
+                <div class="card">
+                  <div class="card-header danger-color-dark white-text commbtnbg">
+                    <label>&nbsp;&nbsp; <i class="fa fa-comments-o fa-2x"
+                      style="color: white"></i> &nbsp;&nbsp;&nbsp; Communication
+                      Window
+                    </label>
+                  </div>
+                  <div class="card-block">
+                    <div class="m-b-6">
+                      <div class="activity-widget-5" id="communication-window"
+                        style="height: 344px; overflow: scroll;">
+
+                        <div class="container"
+                          style="width: 380px; padding-top: 15px;"
+                          ng-repeat="extdata in chatdata">
+                          <div class='row' ng-if="accdata.senderId == loginuser">
+                            <div class="right-name">
+                              <span class="emp-name">{{extdata.empName}}</span> <span
+                                class="rank-name">{{extdata.rankname}}</span>
+                            </div>
+                            <div class='right-msg'>{{extdata.message}}</div>
+                            <div>
+                              <img class='right-img' src="assets/faces/user-icon-6.png" />
+                            </div>
+                            <div class="msg-time">
+                              <span>{{extdata.createdOn | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+                            </div>
+                          </div>
+
+                          <div class='row' ng-if="accdata.senderId != loginuser">
+                            <div class="left-name">
+                              <span class="emp-name">{{extdata.empName}}</span> <span
+                                class="rank-name">{{extdata.rankname}}</span>
+                            </div>
+                            <div class='left-msg'>{{extdata.message}}</div>
+                            <div>
+                              <img class='left-img' src="assets/faces/user-icon-6.png" />
+                            </div>
+                            <div class="msg-time">{{extdata.createdOn | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                          </div>
+                        </div>
+
+
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group"  allowed="write" mdlcode="CMW">
+                    <div class="form-group  has-feedback">
+                      <input type="text" ng-disabled="voidstatus" class="form-control commbtn"
+                        id="inputSuccess5" ng-model="msg" title="{{msg}}"
+                        ng-enter="updateChat()">
+                    </div>
+                    <span class="input-group-btn">
+                      <button class="btn btn-success" type="button"
+                        ng-click="updateChat()">Send</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label class="form-control-label" id="country">Country <span
+                      style="color: red"><span style="color: red">*</span></span></label>
+                  </div>
+                  <div class="col-sm-3">
+                    <select class="form-control" ng-model="inspectionCountry"
+                      ng-change="countryChange()"
+                      ng-disabled="formActiveStatus=='APR'">
+                      <option
+                        ng-repeat="country in countries | orderBy: 'countryname'"
+                        title="{{country.countryname}}"
+                        value="{{country.countrycode}}">{{country.countryname}}</option>
+                    </select>
+                    <div class="text-error">{{inspectionCountry_error}}</div>
+                  </div>
+
+
+                  <div class="col-sm-3">
+                    <label class="form-control-label" id="placeOfInspection">Place of Inspection
+                      <span style="color: red"><span style="color: red">*</span></span>
+                    </label>
+                  </div>
+                  <div class="col-sm-3">
+
+                    <input name="inspectionPlace" value="port" type="radio"
+                      ng-model="inspectionPlace" ng-change="fetchInspectionPlace()"
+                      ng-disabled="formActiveStatus=='APR' || typeOfInspection == terminalInspectionCode"
+                      title="Port"> <span class="c-input-text"> Port</span>
+                    <input name="inspectionPlace" value="terminal" type="radio"
+                      ng-model="inspectionPlace" ng-change="fetchInspectionPlace()"
+                      ng-disabled="typeOfInspection != terminalInspectionCode || formActiveStatus=='APR'"
+                      title="Terminal"> <span class="c-input-text">
+                      Terminal</span>
+                    <div class="text-error">{{inspectionPlace_error}}</div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div ng-show="inspectionPlace=='port'">
+                      <select class="form-control" ng-model="inspectionPort"
+                        ng-change="hideError('inspectionTerminalPort_error')"
+                        ng-disabled="formActiveStatus=='APR'">
+                        <option ng-repeat="terminalAndPort in terminalsAndPorts"
+                          value="{{terminalAndPort.portcode}}">{{terminalAndPort.portname}}</option>
+                      </select>
+                      <div class="text-error">{{inspectionTerminalPort_error}}</div>
+                    </div>
+                    <div ng-show="inspectionPlace=='terminal'">
+                      <select class="form-control" ng-model="inspectionTerminal"
+                        ng-change="hideError('inspectionTerminalPort_error')"
+                        ng-disabled="formActiveStatus=='APR'">
+                        <option ng-repeat="terminalAndPort in terminalsAndPorts"
+                          value="{{terminalAndPort.terminalcode}}">{{terminalAndPort.terminalname}}</option>
+                      </select>
+                      <div class="text-error">{{inspectionTerminalPort_error}}</div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label class="form-control-label" id="dateOfInspection">Date of Inspection<span
+                      style="color: red"><span style="color: red">*</span></span></label>
+                  </div>
+                  <div class="col-sm-3">
+                    <input id="inspectionDate" kendo-date-picker
+                      k-options="restrictFutureDate" k-ng-model="d1"
+                      ng-model="inspectionDate" style="width: 100%;"
+                      ng-disabled="formActiveStatus=='APR'"
+                      ng-blur="validateDateOnly('inspectionDate', 'inspectionDate_error')"
+                      title="{{inspectionDate}}" />
+                    <div class="text-error">{{inspectionDate_error}}</div>
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="form-control-label" id="auditorName">Auditor/Inpector
+                      Name <span style="color: red"><span style="color: red">*</span></span>
+                    </label>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <select kendo-multi-select k-options="auditorsOption"
+                      k-rebind="auditorsOption" k-ng-model="auditorName"
+                      ng-enter="addNewAuditor()"
+                      ng-disabled="formActiveStatus=='APR'"></select>
+                    <div class="text-error">{{auditorName_error}}</div>
+                    <span class="pull-right">(Max 3)</span>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <label class="form-control-label">Select
+                      without-Nc/obs/def</label>
+                  </div>
+                  <div class="col-sm-3">
+                    <input name="euResident" id="euResidentNo" value="No"
+                      type="checkbox" ng-model="isnon_nc_obs_def"
+                      ng-true-value="'Y'" ng-false-value="'N'"
+                      ng-change="confirmInputFieldsDelete(isnon_nc_obs_def)"
+                      ng-disabled="formActiveStatus=='APR'" /> <span
+                      class="c-input-text" style="padding-right: 10px"> </span>
+                  </div>
+
+
+                  <div class="col-sm-3">
+                    <label class="form-control-label" id="comments">Comments
+                      (Description of the Inspection) <span style="color: red"><span
+                        style="color: red">*</span>
+                    </label>
+                  </div>
+                  <div class="col-sm-3">
+                    <textarea class="form-control"
+                      style="height: 66px !important;" id="exampleTextarea"
+                      rows="6" cols="5" ng-model="inspectionComments"
+                      maxlength="200" ng-trim="false"
+                      ng-focus="hideError('inspectionComments_error')"
+                      ng-disabled="formActiveStatus=='APR'"
+                      title="{{inspectionComments}}"
+                      ng-change="validateFreeText('inspectionComments', 'inspectionComments_error')"></textarea>
+                    <div class="char-left" style="padding-right: 15px">Characters
+                      left: {{max200Length - inspectionComments.length}}</div>
+                    <div class="text-error">{{inspectionComments_error}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" allowed="write" mdlcode="EXT">
+              <div class="col-xs-12">
+                <div class="section_header_top"></div>
+                <div class="section_header" id="showfields">External
+                  Inspection Report</div>
+                <div style="float: right; margin-top: 20px;">
+                  <a ng-hide="inputfieldbutton || formActiveStatus=='APR'"
+                    href="javascript:void(0);" data-toggle="modal"
+                    data-target="#nearmismodal" ng-click="fetchFormModelFields()"
+                    type="button" href=""
+                    class="btn-custom text-right text-success"> <img
+                    src="Sidebar/css/button/inputfield.svg" /> <img
+                    src="Sidebar/css/button/inputfield_h.svg" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- 
+                <div class="row marginalign ng-cloak" allowed="write"
+                  mdlcode="EXT">
+
+                  
+
+                  <a ng-hide="inputfieldbutton || formActiveStatus=='APR'"
+                    href="javascript:void(0);" data-toggle="modal"
+                    data-target="#nearmismodal" ng-click="fetchFormModelFields()"
+                    type="button" href=""
+                    class="btn-custom text-right text-success col-sm-4 pull-right">
+                    <img src="Sidebar/css/button/inputfield.svg" /> <img
+                    src="Sidebar/css/button/inputfield_h.svg" />
+                  </a>
+                </div>
+ -->
+
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="table-responsive">
+                  <table id="example-2"
+                    class="table table-hover table-striped table-bordered"
+                    cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>SNo</th>
+                        <th>Nature of Findings</th>
+                        <th>Finding</th>
+                        <th>Category</th>
+                        <th>Planned Completion Date</th>
+                        <th>Actual Completion Date</th>
+                        <th>Status</th>
+                        <th colspan="2" style="width: 10%;text-align: center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-if="existingReportData.length<=0">
+                        <td colspan=9 class="no_data">No Data Available</td>
+                      </tr>
+                      <tr
+                        ng-repeat="reportData in existingReportData track by $index">
+                        <td>{{$index+1}}</td>
+                        <td><span ng-repeat="findings in natureOfFindings"
+                          ng-show="findings.naturedeficode==reportData.naturedeficode">{{findings.definame}}</span></td>
+                        <td>{{reportData.deficiencydetail}}</td>
+                        <td><span ng-repeat="category in mainCategories"
+                          ng-show="category.categoryid==reportData.categorycode">{{category.categoryname}}</span>
+                        </td>
+                        <td>{{reportData.plancompletedate| date: format:
+                          dateFormat}}</td>
+                        <td>{{reportData.actualcompledate| date: format:
+                          dateFormat}}</td>
+                        <td>{{statusCodeMapping[reportData.findingstatus]}}</td>
+                        <td style="text-align: center;"><a
+                          href="javascript:void(0);" data-toggle="modal"
+                          data-placement="bottom" title="Edit" allowed="write"
+                          mdlcode="EXT"
+                          ng-click="editExternalInspectionReport($index)"
+                          data-target="#nearmismodal" class="btn btn-info btn-sm">
+                            <i class="fa fa-edit " style="color: #F44336;"></i> <span
+                            class="text-muted"></span>
+                        </a>
+                          <button type="button" allowed="delete" test="134"
+                            mdlcode="EXT" ng-click="deleteExistingReportData($index)"
+                            class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash-o"></i>
+                          </button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- table-responsive -->
+            </div>
+
+
+            <div class="row">
+              <div class="col-sm-12" allowed="write" mdlcode="EXT">
+
+                <!--File Attachment Component Start-->
+                <div class="section_header_top"
+                  style="height: 3px; left: 15px !important;" id="showfields2"></div>
+                <div class="section_header col-lg-12" id="showfields2"">Attachments</div>
+                <div allowed="write" mdlcode="EXT">
+                  <div class="row">
+                    <div class=" col-lg-12">
+                      <table>
+                        <tr ng-repeat="file in myFile track by $index">
+                          <td style="padding: 6px; border-bottom: 1px solid grey;">{{$index
+                            + 1}}</td>
+                          <td
+                            style="font-weight: 700; color: #238E68; padding: 6px; border-bottom: 1px solid grey;">{{file._file.name}}</td>
+                          <td
+                            style="font-size: .8em; padding: 6px; border-bottom: 1px solid grey;">{{file._file.size}}
+                            bytes</td>
+                          <td
+                            style="font-size: .8em; padding: 3px 6px; border-bottom: 1px solid grey;">
+                            <i ng-click="removeFile($index)"
+                            style="cursor: pointer; color: red" class="fa fa-close"></i>
+                          </td>
+                        </tr>
+                      </table>
+                      <a ng-if="myFile.length> 0" class="btn-custom btn-upload"
+                        ng-click="uploadFile()"> <img
+                        src="Sidebar/css/button/upload.svg" /> <img
+                        src="Sidebar/css/button/upload_h.svg" />
+                      </a><label  ng-hide="actionFormHide"  ng-if="(actionrights == 'SUB' && defaultaction=='Y') || (actionrights == 'APR' && defaultaction=='Y')"
+                        allowed="write" mdlcode="EXT" 
+                        for="file-upload" class="pull-right"
+                        style="cursor: pointer; padding-right: 10px; vertical-align: middle"
+                        class="fileinput-button" style="border-radius: 0px;">
+                        <span style="font-size: 18px; font-weight: 100"><b>Attach</b><i
+                          class="fa fa-plus-circle btn-attach"> </i>
+                      </label> <input  multiple type="file"
+                        file-model="myFile" id="file-upload" />
+                     <div class="text-error">{{filemsg_error}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive upload_table">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>S.No.</th>
+                        <th>File Name</th>
+                        <th>File Size</th>
+                        <th>Uploaded Date & Time</th>
+                        <th>Uploaded by</th>
+                        <th>ACTION</th>
+                        <th>Removed Date & Time</th>
+                        <th>Removed by</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-class="{'inactive-file': data.docstatus === 'V'}"
+                        ng-repeat="data in filesData | orderBy : 'docstatus'">
+                        <td>{{$index + 1}}</td>
+                        <td>{{data.filename}}</td>
+                        <td>{{(data.filesize/fileSizeConversionFactor) |
+                          number:fileSizeRoundOffFactor}} {{fileSizeUnit}}</td>
+                        <td>{{data.uploaddate | date :"yyyy-MM-dd HH:mm:ss"}}</td>
+                        <td>{{data.uploadusername}}</td>
+                        <td><a
+                          ng-if="data.filetype === 'jpg' || data.filetype === 'png' || data.filetype === 'jpeg'"
+                          ng-click="previewFile(data.docid)"><i class="fa fa-eye"></i></a>
+                          <a ng-click="confirmDelete(data.docid)"
+                          ng-show="data.docstatus === 'A' && ((actionrights == 'SUB' && defaultaction=='Y') || (actionrights == 'APR' && defaultaction=='Y'))"><i class="fa fa-trash"></i></a>
+                          <a
+                          href="/external-inspection/downloadDocument/?docId={{data.docid}}"><i
+                            class="fa fa-download"></i></a></td>
+                        <td>{{data.removedate | date :"yyyy-MM-dd HH:mm:ss"}}</td>
+                        <td>{{data.removeusername}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--File Attachment Component End-->
+
+            <div ng-hide="actionFormHide">
+              <div class="row">
+                <div class="col-sm-12" allowed="write" mdlcode="EXT" allowed="write"
+                  mdlcode="EXT">
+                  <!--   <div class="col-sm-12"> -->
+
+                  <div class="" style="padding: 0px;">
+	                  <a type="button" class="btn_wrapper pull-right" allowed="delete" mdlcode="EXT"
+	                 ng-show="deleteAction"
+	                 ng-click="deleteActionPerformed()">
+	                 <span>Delete</span>
+	                 <img src="Sidebar/css/icons/delete.svg" />
+	                </a>
+                </div>
+                  <div class="" style="padding: 0px;"
+                    ng-if="reassignrights == 'RSN' && defaultaction=='Y'">
+                    <a type="button" a-disabled="isProcessing" allowed="write"
+                      mdlcode="EXT" class="btn-custom pull-right"
+                      ng-click="showReassignModal('#reAssign')"> <img
+                      src="Sidebar/css/button/re-assign.svg" /> <img
+                      src="Sidebar/css/button/re-assign_h.svg" />
+                    </a>
+                  </div>
+                  <div class="" style="padding: 0px;"
+                    ng-if="actionrights == 'APR' && defaultaction=='Y'">
+                    <a type="button" a-disabled="isProcessing" href=""
+                      style="margin-right: 15px"
+                      ng-click="saveExternalInspectionReport('approve')"
+                      class="btn-custom pull-right"> <img
+                      src="Sidebar/css/button/approved.svg" /> <img
+                      src="Sidebar/css/button/approved_h.svg" />
+                    </a>
+                  </div>
+                  <div class="" style="padding: 0px;"
+                    ng-if="actionrights == 'SUB' && defaultaction=='Y'">
+                    <a type="button" a-disabled="isProcessing"
+                      class="btn-custom pull-right"
+                      ng-click="saveExternalInspectionReport('send')"> <img
+                      src="Sidebar/css/button/send.svg" /> <img
+                      src="Sidebar/css/button/send_h.svg" />
+                    </a>
+                  </div>
+
+
+
+
+
+                  <div class="" style="padding: 0px;"
+                    ng-if="(actionrights == 'SUB' && defaultaction=='Y') || (actionrights == 'APR' && defaultaction=='Y')">
+                    <a a-disabled="isProcessing" type="button"
+                      style="margin-left: 10px; margin-right: 10px;"
+                      ng-click="saveExternalInspectionReport('save')"
+                      class="btn-custom pull-right"> <img
+                      src="Sidebar/css/button/save.svg" /> <img
+                      src="Sidebar/css/button/save_h.svg" />
+                    </a>
+                  </div>
+                  
+                </div>
+
+              </div>
+
+            </div>
+
+
+
+
+
+            <div class="modal fade" id="nearmismodal" tabindex="-1"
+              role="dialog" aria-labelledby="large-modalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                      aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="large-modalLabel">External
+                      Inspection Report Input Fields</h4>
+                  </div>
+                  <div class="modal-body">
+
+
+                    <div class="row">
+                      <div class="col-sm-12">
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 form-control-label"
+                            ng-show="!isSIRE && typeOfInspection!=inspectionPSCCode" id="reference">Reference
+                            <span style="color: red"><span style="color: red">*</span></span>
+                          </label> <label class="col-sm-2 form-control-label"
+                            ng-show="typeOfInspection==inspectionPSCCode" id="deficiency">Deficiency
+                            Code<span style="color: red"><span
+                              style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4"
+                            ng-show="!isSIRE && typeOfInspection!=inspectionPSCCode">
+                            <input type="text" class="form-control"
+                              ng-disabled="formActiveStatus=='APR'"
+                              ng-model="reference"
+                              ng-focus="hideError('reference_error')"
+                              ng-change="validateFreeText('reference', 'reference_error')" maxlength="20">
+                              <div class="char-left">Characters left:
+                              {{20 - reference.length}}</div>
+                            <div class="text-error">{{reference_error}}</div>
+                          </div>
+                          <div class="col-sm-4"
+                            ng-show="typeOfInspection==inspectionPSCCode">
+                            <select class="col-sm-8 form-control" style="width: 100%"
+                              ng-model="deficiencycode"
+                              ng-disabled="formActiveStatus=='APR'"
+                              ng-change="hideError('deficiencycount_error')">
+                              <option ng-repeat="defcode in deficiencycodes"
+                                value="{{defcode.deficiencyCode}}">{{defcode.deficiencyCode}}-{{defcode.deficiencyDesc}}</option>
+                            </select>
+                            <div class="text-error">{{deficiencycount_error}}</div>
+                          </div>
+
+
+                          <label class="col-sm-2 form-control-label" ng-show="isSIRE" id="viq">VIQ
+                            <span style="color: red"><span style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4" ng-show="isSIRE">
+                            <div>
+                              <select class="col-sm-8 form-control" style="width: 100%"
+                                ng-model="viqnum" ng-disabled="formActiveStatus=='APR'"
+                                ng-change="hideError('viqnumbers_error')">
+                                <option
+                                  ng-repeat="viq in viqnumbers | orderBy: 'viqNumber'"
+                                  value="{{viq.viqId}}">{{viq.viqNumber}} -
+                                  {{viq.chapterName}}</option>
+                              </select>
+                            </div>
+                            <div class="text-error">{{viqnumbers_error}}</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-2 form-control-label"
+                            ng-show="typeOfInspection==inspectionPSCCode" id="action">Action
+                            Code <span style="color: red"><span
+                              style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4"
+                            ng-show="typeOfInspection==inspectionPSCCode">
+                            <select class="form-control" ng-model="actionCode"
+                              ng-disabled="formActiveStatus=='APR'"
+                              ng-change="hideError('actionCode_error')">
+                              <option ng-repeat="code in inspectionActionCodes"
+                                value="{{code.actioncode}}">{{code.actionname}}</option>
+                            </select>
+                            <div class="text-error">{{actionCode_error}}</div>
+                          </div>
+
+
+                          <label class="col-sm-2 form-control-label" id="nature">Nature
+                            of Findings <span style="color: red"><span
+                              style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4">
+                            <select class="form-control" ng-model="natureOfFinding"
+                              ng-disabled="formActiveStatus=='APR'"
+                              ng-change="hideError('natureOfFinding_error')">
+                              <option ng-repeat="findings in natureOfFindings | orderBy: 'definame'" 
+                              value="{{findings.naturedeficode}}" ng-if="findings.naturedeficode=='DEF001' && typeOfInspection!='INS003' && typeOfInspection!='INS004' && typeOfInspection!='INS024' && typeOfInspection!='INS025'">{{findings.definame}}</option>
+                              <option
+                                ng-repeat="findings in natureOfFindings | orderBy: 'definame'" ng-if="findings.naturedeficode!='DEF001' && (typeOfInspection=='INS003' || typeOfInspection=='INS004' || typeOfInspection=='INS024' || typeOfInspection=='INS025')"
+                                value="{{findings.naturedeficode}}">{{findings.definame}}</option>
+                            </select>
+                            <div class="text-error">{{natureOfFinding_error}}</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-2 form-control-label" id="findings">Finding
+                            <span style="color: red"><span style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4">
+                            <textarea class="form-control"
+                              style="height: 66px !important;" id="" rows="2" cols="5"
+                              ng-model="findings" maxlength="200"
+                              ng-disabled="formActiveStatus=='APR'" ng-trim="false"
+                              ng-focus="hideError('findings_error')"
+                              ng-change="validateFreeText('findings', 'findings_error')"></textarea>
+                            <div class="char-left">Characters left:
+                              {{max200Length - findings.length}}</div>
+                            <div class="text-error">{{findings_error}}</div>
+                          </div>
+
+
+                          <label class="col-sm-2 form-control-label" id="root">Root
+                            Cause <span style="color: red"><span
+                              style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4">
+                            <select class="form-control" ng-model="rootCause"
+                              ng-disabled="formActiveStatus=='APR'"
+                              ng-click="hideError('rootCause_error')">
+                              <option
+                                ng-repeat="causes in inspectionRootCauses"
+                                value="{{causes.rootid}}">{{causes.rootcause}}</option>
+                            </select>
+                            <div class="text-error">{{rootCause_error}}</div>
+                          </div>
+
+                        </div>
+
+
+                        <div class="form-group row">
+                          <label class="col-sm-2 form-control-label" id="immediate">Immediate
+                            Correction <span style="color: red"><span
+                              style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4">
+                            <textarea class="form-control"
+                              style="height: 66px !important;" id="" rows="2" cols="5"
+                              ng-model="immediateCorrections" maxlength="200"
+                              ng-disabled="formActiveStatus=='APR'" ng-trim="false"
+                              ng-focus="hideError('immediateCorrections_error')" ng-change="validateFreeText('immediateCorrections', 'immediateCorrections_error')"></textarea>
+                            <div class="char-left">Characters left:
+                              {{max200Length - immediateCorrections.length}}</div>
+                            <div class="text-error">{{immediateCorrections_error}}</div>
+                          </div>
+
+                          <label class="col-sm-2 form-control-label" style="font-size: 0.95em;" id="longterm">Long
+                            Term Corrective Action <span style="color: red"><span
+                              style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4">
+                            <textarea class="form-control"
+                              style="height: 66px !important;" id="" rows="2" cols="5"
+                              ng-model="longTermCorrectiveAction" maxlength="200"
+                              ng-disabled="formActiveStatus=='APR'" ng-trim="false"
+                              ng-focus="hideError('longTermCorrectiveAction_error')" ng-change="validateFreeText('longTermCorrectiveAction', 'longTermCorrectiveAction_error')"></textarea>
+                            <div class="char-left">Characters left:
+                              {{max200Length - longTermCorrectiveAction.length}}</div>
+                            <div class="text-error">{{longTermCorrectiveAction_error}}</div>
+                          </div>
+                        </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 form-control-label" id="vesseloffice">Vessel/Office
+                          <span style="color: red"><span style="color: red">*</span></span>
+                        </label>
+                        <div class="col-sm-4">
+                          <label class="c-input c-radio"> <input
+                            name="inspectionPlace" value="ship" ng-model="shipShore"
+                            type="radio" ng-disabled="formActiveStatus=='APR'"
+                            ng-change="hideError('actionBy_error')"><span
+                            class="c-indicator c-indicator-warning"></span> <span
+                            class="c-input-text"> Vessel </span>
+                          </label> <label class="c-input c-radio"> <input
+                            name="inspectionPlace" value="shore" ng-model="shipShore"
+                            type="radio" ng-disabled="formActiveStatus=='APR'"
+                            ng-change="hideError('actionBy_error')"><span
+                            class="c-indicator c-indicator-danger"></span> <span
+                            class="c-input-text"> Office </span>
+                          </label>
+                          <div class="text-error">{{actionBy_error}}</div>
+                        </div>
+
+
+                          <label class="col-sm-2 form-control-label" id="maincategory">Main
+                            Category <span style="color: red"><span
+                              style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4">
+                            <select class="form-control" ng-model="mainCategory"
+                              ng-change="fetchSubCategory1()" id="mainCategory"
+                              ng-disabled="formActiveStatus=='APR'">
+                              <option
+                                ng-repeat="category in mainCategories | orderBy: 'categoryname'"
+                                value="{{category.categoryid}}">{{category.categoryname}}</option>
+                            </select>
+                            <div class="text-error">{{mainCategory_error}}</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-2 form-control-label" id="subcategory1">1st Sub
+                            Category<span ng-if="subCategories1.length!=0" style="color: red">*</span></label>
+                          <div class="col-sm-4">
+                            <select class="form-control" ng-model="subCategory1"
+                              ng-change="fetchSubCategory2()" id="subCategory1"
+                              ng-disabled="formActiveStatus=='APR' || subCategories1.length==0">
+                              <option
+                                ng-repeat="category in subCategories1 | orderBy: 'categoryname'"
+                                value="{{category.categoryid}}">{{category.categoryname}}</option>
+                              <option value="" selected
+                                ng-if="subCategories1.length==0">Not Applicable</option>
+                            </select>
+
+                            <div class="text-error">{{subCategory1_error}}</div>
+                          </div>
+
+
+                          <label class="col-sm-2 form-control-label" id="subcategory2">2nd Sub
+                            Category<span ng-if="subCategories2.length!=0" style="color: red">*</span></label>
+                          <div class="col-sm-4">
+                            <select class="form-control" ng-model="subCategory2"
+                              id="subCategory2"
+                              ng-disabled="formActiveStatus=='APR' || subCategories2.length==0"
+                              ng-change="hideError('subCategory2_error')">
+                              <option
+                                ng-repeat="category in subCategories2 | orderBy: 'categoryname'"
+                                value="{{category.categoryid}}">{{category.categoryname}}</option>
+                              <option value="" selected
+                                ng-if="subCategories2.length==0">Not Applicable</option>
+                            </select>
+                            <div class="text-error">{{subCategory2_error}}</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+
+                          <label class="col-sm-2 form-control-label" id="plannedCompletion">Planned
+                            Completion Date<span style="color: red"><span
+                              style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4">
+                            <input kendo-date-picker
+                              k-options="restrictPlannedCompletionDate"
+                              k-rebind="restrictPlannedCompletionDate"
+                              ng-disabled="formActiveStatus=='APR'"
+                              ng-model="plannedCompletionDate" style="width: 100%"
+                              ng-focus="hideError('plannedCompletionDate_error')"
+                              ng-blur="validateDateOnly('plannedCompletionDate', 'plannedCompletionDate_error')" />
+                            <label class="text-error">{{plannedCompletionDate_error}}</label>
+
+                          </div>
+
+                          <label class="col-sm-2 form-control-label">Actual
+                            Completion Date</label>
+                          <div class="col-sm-4">
+                            <input kendo-date-picker
+                              k-options="restrictActualCompletionDate"
+                              k-rebind="restrictActualCompletionDate"
+                              ng-disabled="detailStatus[modalIndex]"
+                              ng-model="actualCompletionDate" style="width: 100%"
+                              ng-focus="hideError('actualCompletionDate_error')"
+                              ng-blur="validateDateOnly('actualCompletionDate', 'actualCompletionDate_error')" />
+                            <!--                              <input type="date" class="form-control" -->
+                            <!--                                value="{{actualCompletionDate | date:'yyyy-MM-dd'}}" -->
+                            <!--                                ng-model="actualCompletionDate" ng-disabled="detailStatus[modalIndex]"> -->
+                            <div class="text-error">{{actualCompletionDate_error}}</div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-2 form-control-label" id="status">Status <span
+                            style="color: red"><span style="color: red">*</span></span>
+                          </label>
+                          <div class="col-sm-4">
+                            <label class="c-input c-radio"> <input
+                              name="inspectionStatus" value="O" ng-model="status"
+                              type="radio" ng-disabled="detailStatus[modalIndex]"
+                              ng-change="hideError('inspectionStatus_error')"><span
+                              class="c-indicator c-indicator-danger"></span> <span
+                              class="c-input-text"> Open </span>
+                            </label> <label class="c-input c-radio"> <input
+                              name="inspectionStatus" value="C" ng-model="status"
+                              type="radio" ng-disabled="detailStatus[modalIndex]"
+                              ng-change="hideError('inspectionStatus_error')"><span
+                              class="c-indicator c-indicator-success"></span> <span
+                              class="c-input-text"> Close </span>
+                            </label>
+                            <div class="text-error">{{inspectionStatus_error}}</div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row m-b-20">
+                      <div class="col-xs-12">
+
+
+                        <!--File Attachment Component Start-->
+                        <div class="col-sm-12">
+                          <div class="section_header_top"
+                            style="height: 3px; left: 15px !important;"
+                            id="showfields2"></div>
+                          <div class="section_header col-lg-12" id="showfields"">Attachments</div>
+                          <div allowed="write" mdlcode="EXT">
+                            <div style="position: absolute; right: 0; top: 1.5em;">
+                              <img ng-if="isDetailuploading" style="width: 35px;"
+                                src="img/loader.gif" class="pull-right" /> <label
+                                for="file-upload1" ng-if="(actionrights == 'SUB' && defaultaction=='Y') || (actionrights == 'APR' && defaultaction=='Y')"
+                                style="cursor: pointer; padding-right: 10px; vertical-align: middle"
+                                class="fileinput-button" style="border-radius: 0px;">
+                                <span style="font-size: 18px; font-weight: 100">Attach<i
+                                  style="font-size: 1em; color: #66CD00; font-size: 1.5em; padding-left: .4em; vertical-align: middle; padding-right: 10px;"
+                                  class="fa fa-plus-circle"> </i>
+                              </label> <input
+                                ng-disabled="isDetailuploading || (formActiveStatus=='APR')"
+                                multiple type="file" file-model="myFileDetail"
+                                id="file-upload1" />
+                            </div>
+                            <div class=" col-lg-12">
+                              <table>
+                                <tr ng-repeat="file in myFileDetail track by $index">
+                                  <td
+                                    style="padding: 6px; border-bottom: 1px solid grey;">{{$index
+                                    + 1}}</td>
+                                  <td
+                                    style="font-weight: 700; color: #238E68; padding: 6px; border-bottom: 1px solid grey;">{{file._file.name}}</td>
+                                  <td
+                                    style="font-size: .8em; padding: 6px; border-bottom: 1px solid grey;">{{file._file.size}}
+                                    bytes</td>
+                                  <td
+                                    style="font-size: .8em; padding: 3px 6px; border-bottom: 1px solid grey;">
+                                    <i ng-click="removeDetailFile($index)"
+                                    style="cursor: pointer; color: red"
+                                    class="fa fa-close"></i>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                            
+                            <div class=" col-lg-12">
+                              <a ng-if="myFileDetail.length> 0"
+                                class="btn-custom btn-upload"
+                                ng-click="uploadDetailFiles()"> <img
+                                src="Sidebar/css/button/upload.svg" /> <img
+                                src="Sidebar/css/button/upload_h.svg" />
+                              </a>
+                             <div class="text-error">{{detailfilemsg_error}}</div>    
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="table-responsive upload_table">
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>S.No.</th>
+                                      <th>File Name</th>
+                                      <th>File Size</th>
+                                      <th>Uploaded Date & Time</th>
+                                      <th>Uploaded by</th>
+                                      <th>ACTION</th>
+                                      <th>Removed Date & Time</th>
+                                      <th>Removed by</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr
+                                      ng-class="{'inactive-file': data.docstatus === 'V'}"
+                                      ng-repeat="data in tempFiles">
+                                      <td>{{$index + 1}}</td>
+                                      <td>{{data.name}}</td>
+                                      <td>{{(data.size/fileSizeConversionFactor) |
+                                        number:fileSizeRoundOffFactor }} {{fileSizeUnit}}</td>
+                                      <td>{{data.uploaddate | date :"yyyy-MM-dd HH:mm:ss"}}</td>
+                                      <td>{{data.uploadusername}} {{data.filetype}}</td>
+                                      <td><a
+                                        ng-if="data.type === 'jpg' || data.filetype === 'jpg' || data.type === 'png' ||data.filetype === 'png' || data.type === 'jpeg' ||data.filetype === 'jpeg'"
+                                        ng-click="previewDetailFile($index)"><i
+                                          class="fa fa-eye"></i></a> <a
+                                        ng-click="confirmDetailDelete($index)"
+                                        ng-show="data.docstatus === 'A' && ((actionrights == 'SUB' && defaultaction=='Y') || (actionrights == 'APR' && defaultaction=='Y'))"><i
+                                          class="fa fa-trash"></i></a> <a
+                                        href="/external-inspection/downloadDocument/?docId={{data.docid}}"
+                                        ng-if="data.docstatus === 'A'"><i
+                                          class="fa fa-download"></i></a></td>
+                                      <td>{{data.removedate | date :"yyyy-MM-dd HH:mm:ss"}}</td>
+                                      <td>{{data.removeusername}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--File Attachment Component End-->
+                        <div class="text-error" style="padding-left:14px;">Note: File attachment remaining details will be populated once the form is saved.</div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <a type="button" ng-hide="formActiveStatus=='APR' || editFlag!=-1" href=""
+                      allowed="write" mdlcode="EXT"
+                      ng-click="addExternalInspectionReport()"
+                      class="btn-custom pull-right"> <img
+                      src="Sidebar/css/button/add.svg" /> <img
+                      src="Sidebar/css/button/add_h.svg" />
+                    </a> <a type="button" ng-show="formActiveStatus=='APR' || editFlag!=-1" href=""
+                      allowed="write" mdlcode="EXT"
+                      ng-click="addExternalInspectionReport()"
+                      class="btn-custom pull-right"> <img
+                      src="Sidebar/css/button/updated.svg" /> <img
+                      src="Sidebar/css/button/updated_h.svg" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!--        <div kendo-dialog="dialog" k-title="'Missed something!'" k-on-open="dialogVisible = true" -->
+          <!--             k-on-close="dialogVisible = false" k-width="300" k-height="150" -->
+          <!--             k-actions="actions" k-modal="true" > -->
+          <!--             <img src="img/warning-dialog.png"> -->
+          <!--             <p ng-repeat="errors in dataerror">{{errors[0]}}</p> -->
+          <!--           </div> -->
+          <kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+            title="External Inspection" name="systemvalidationdialog"
+            custom-options="actions" error-type="error"
+            error-message="dataerror" error-status="{{geterrorstatuscode}}"
+            detail-error-message="{{detailerrormessages}}"
+            showexception="showexception" error-details="errordetails"
+            error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+
+          <div class="modal fade" id="reAssign" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Remarks</h4>
+                </div>
+                <div class="modal-body">
+                  <textarea ng-model="remarks" maxlength="100" ng-trim="false"
+                    rows="4" cols="68"></textarea>
+                  <div class="char-left">Characters left: {{max200Length -
+                    remarks.length}}</div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" ng-click="okAction()"
+                    data-dismiss="modal" class="btn btn-success">OK</button>
+                  <button type="button" class="btn btn-danger"
+                    data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="revision_content">
+                <b>Revision No : </b> {{formNo.actRevno}} | <b>Date:</b>{{formNo.reviseddate
+                | date : "yyyy-MM-dd HH:mm:ss"}}
+                <span class="pull-right"> <b>S.No :</b>
+                  {{extInsid.extinsid}}
+                </span>
+              </div>
+            </div>
+          </div>

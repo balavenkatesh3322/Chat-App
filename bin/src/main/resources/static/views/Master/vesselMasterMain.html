@@ -1,0 +1,137 @@
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="SPS" callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+			<div  allowed="read" mdlcode="SPS">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+			 <ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+  <li><a href="#/Master">Config Master</a></li>
+  <li ><b>Vessel Particulars</b></li>
+  <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span>
+</ul>
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">Vessel Particulars</div>
+				</div>
+			</div>
+		</div>
+
+<div class="row">
+					<div class="col-xs-12">
+		<div class="form_table_wrapper">
+			<div class="form_table">
+				
+
+						<form style="margin-bottom: 2rem;" action="" method="post"
+							enctype="multipart/form-data">
+							<!--                         <input type="file" id="upload-photo" name="files[]" multiple="multiple" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /> -->
+							<!--                         <label id="upload-photo-label" class=" btn btn-info btn-sm m-r-10 m-b-10 pull-right" for="upload-photo">Import Excel</label> -->
+							<!-- 							<a allowed="write" mdlcode="SPS" target="_self" type="button" href="vesselMaster.html" -->
+							<!-- 								class=" btn btn-custom pull-right"><img src="Sidebar/css/button/new.svg" /><img src="Sidebar/css/button/new_h.svg" /></a> -->
+						</form>
+
+
+					<div class="navbar-drawer  hidden-lg-down" style="margin-top: -15px;">
+						<form class="form-inline navbar-form ">
+							<label style="margin-left: -15px"><strong>Items
+									per page</strong></label> <select class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit" style="margin-left: 10px; width: 60px">{{pageSize}}</select>
+						</form>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<table class="table table-hover table-striped table-bordered"
+								cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>S.No</th>
+										<th>Vessel Code <a href=""
+											ng-click="sort('vesselcode')" class="sortDir"
+											ng-class="{ active: isSorted('vesselcode') }">&#x25B2;</a><a
+											href="" ng-click="sort('-vesselcode')" class="sortDir"
+											ng-class="{ active: isSorted('-vesselcode' ) }">&#x25BC;</a>
+										</th>
+										<th>Vessel Name <a href=""
+											ng-click="sort('vesselname')" class="sortDir"
+											ng-class="{ active: isSorted('vesselname') }">&#x25B2;</a><a
+											href="" ng-click="sort('-vesselname')" class="sortDir"
+											ng-class="{ active: isSorted('-vesselname' ) }">&#x25BC;</a>
+										</th>
+										<th>Fleet Group <a href=""
+											ng-click="sort('fleetname')" class="sortDir"
+											ng-class="{ active: isSorted('fleetname') }">&#x25B2;</a><a
+											href="" ng-click="sort('-fleetname')" class="sortDir"
+											ng-class="{ active: isSorted('-fleetname' ) }">&#x25BC;</a>
+										</th>
+										<th>Flag <a href=""
+											ng-click="sort('countryname')" class="sortDir"
+											ng-class="{ active: isSorted('countryname') }">&#x25B2;</a><a
+											href="" ng-click="sort('-countryname')" class="sortDir"
+											ng-class="{ active: isSorted('-countryname' ) }">&#x25BC;</a>
+										</th>
+										<th>Type Of Vessel <a
+											href="" ng-click="sort('vesselType[1]')" class="sortDir"
+											ng-class="{ active: isSorted('vesselType[1]') }">&#x25B2;</a><a
+											href="" ng-click="sort('-vesselType[1]')" class="sortDir"
+											ng-class="{ active: isSorted('-vesselType[1]' ) }">&#x25BC;</a>
+										</th>
+										<th style="text-align: center;">Status</th>
+										<th style="text-align: center;">Action</th>
+									</tr>
+
+									<tr>
+										<th></th>
+										<th><input class="form-control" placeholder="Search"
+											ng-model="search['vesselcode']"></th>
+										<th><input class="form-control" placeholder="Search "
+											ng-model="search['vesselname']"></th>
+										<th><input class="form-control" placeholder="Search "
+											ng-model="search['fleetname']"></th>
+										<th><input class="form-control" placeholder="Search "
+											ng-model="search['countryname']"></th>
+										<th><input class="form-control" placeholder="Search "
+											ng-model="search['vsltypedesc']"></th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr class="vessel-master-data"
+									dir-paginate="vesselMasterFormData in vesselMasterFormsList1 = (vesselMasterFormsList | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)"> 
+<!-- 										dir-paginate="vesselMasterFormData in vesselMasterFormsList |  orderBy:predicate:reverse  |  itemsPerPage:pageSize | filter:search | filter:vesselType[0]  -->
+<!-- 												 | filter:countryname | filter:fleetname"> -->
+										<td>{{$index+1}}</td>
+										<td>{{vesselMasterFormData.vesselcode}}</td>
+
+										<td>{{vesselMasterFormData.vesselname}}</td>
+
+										<td>{{vesselMasterFormData.fleetname}}</td>
+
+										<td>{{vesselMasterFormData.countryname}}</td>
+
+										<td>{{vesselMasterFormData.vsltypedesc}}</td>
+
+										<td style="text-align: center;" ng-if="vesselMasterFormData.activeStatus == 'A'"><span
+											class="label label-success">Active</span></td>
+
+										<td style="text-align: center;" ng-if="vesselMasterFormData.activeStatus == 'V'"><span
+											class="label label-danger">Inactive</span></td>
+											
+										<td><a allowed="read" mdlcode="SPS" class="btn btn-info btn-sm" href="#/vesselMaster/{{vesselMasterFormData.vesselcode}}">
+										<i class="fa fa-eye"></i></a></td>
+									</tr>
+							</table>
+						</div>
+						<div style="margin-top: -20px;" class="pull-right">
+							<dir-pagination-controls max-size="10" direction-links="true"
+								boundary-links="true"></dir-pagination-controls>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+

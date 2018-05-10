@@ -1,0 +1,1113 @@
+body {background: #deded7; background-attachment: fixed; margin: 0; padding: 0}
+h1, h2, h3, p, ul, ol, li, h4, input, form, blockquote, dl, dt, dd {margin: 0; padding: 0}
+ul, ol {list-style: none}
+a img {border: 0}
+img.btn {padding: 0; background: none}
+a:hover img.btn {background: none}
+a:hover img.hot, a:visited img.hot, a:active img.hot a img.hot {background: #aad975}
+:focus {outline: none}
+body {font: small/1.4em "Lucida Grande", "Lucida Sans", "Lucida", sans-serif}
+body #IEroot {font-family: "Arial", sans-serif}
+.wrapper, .wrapper-masthead {font-size: 95%}
+#IEroot .wrapper, #IEroot .wrapper-masthead {font-size: 90%}
+h1, h2, h3, h4 {font-family: "Helvetica Neue", "Helvetica", "Arial", Sans-serif; margin: 0 0 .6em 0}
+h1 {font-size: 30px; color: black; font-weight: bold}
+h1,h2 {font-size: 22px; color: #f63293; font-weight: normal; line-height: normal}
+h3 {font-size: 16px; color: #f63293; font-weight: normal}
+#IEroot h3 {font-weight: bold;}
+h4 {font-size: 14px; color: black}
+p {margin: 0 0 1em 0}
+ul.default-list {margin: 10px; list-style: disc}
+ul.default-list li {margin-left: 14px}
+.title h1 span, .title h2 span {font-size: 22px}
+.title {position: relative; padding: 0 210px 14px 0; line-height: normal}
+.title h1, .title h2 {margin: 0; font-size: 30px; color: black}
+#IE6root .title h2 {font-weight: normal}
+.widget-link {position: absolute; left: 700px; top: -11px; font-size: 9px; width: 220px; text-align: right}
+.widget-link img {padding: 0 0 2px 0}
+a, a:link, a:visited {color: #008fc4; text-decoration: none}
+a:active {outline: none}
+a:hover {color: #37c1f4}
+.dim, a.dim, a.dim:visited {color: #898980}
+a.dim:hover {color: #51514b}
+.white, a.white, a.white:visited {color: white}
+a.white:hover {color: white}
+a.edit, a.edit:visited {font-size: 11px; font-weight: normal; font-family: "Lucida Grande", "Lucida Sans", "Lucida", sans-serif}
+a.spot-icon {padding-left: 18px; background: url(/images/icons/spot_add.gif) no-repeat 0 50%}
+a.check {padding: 4px 0 2px 0; padding-left: 24px; background: url(/images/icons/check_green.png) no-repeat 0 50%}
+a.spotit img, a.addit img {display: block; float: left; margin-left: 10px; background: none; padding: 0}
+a.addit img {width: 78px}
+a.staffbug, a.staffbug:visited {width: 38px; height: 1em; padding: 0 17px; background: url(/images/icons/staffbug_v3.gif) no-repeat 0 4px}
+a.editorbug, a.editorbug:visited {width: 44px; height: 1em; padding: 0 17px; background: url(/images/icons/editorbug.gif) no-repeat 0 4px}
+a.vsbutton, a.vsbutton:visited, a.vsbutton:link {width: 74px; height: 23px; display: block; float: left; background: url(/images/content/button_viewspot.gif) no-repeat 0 -23px; text-indent: -9999px}
+a.vsbutton:hover {background-position: -74px -23px}
+a.pink-btn, a.pink-btn:visited, a.gray-btn, a.gray-btn:visited, a.disabled-btn, a.disabled-btn:visited, a.ajax-btn, a.ajax-btn:visited {display: block; color: white; float: left; font: normal 14px "Helvetica Neue","Helvetica", "Arial", "Sans-serif"; height: 28px; padding-left: 5px; text-decoration: none; background-repeat: no-repeat; background-image: url(/images/tool/stdButton.png)}
+#IEroot a.pink-btn, #IEroot a.gray-btn, #IEroot a.disabled-btn, #IEroot a.ajax-btn {font-weight: bold}
+a.pink-btn span, a.gray-btn span, a.disabled-btn span, a.ajax-btn span {display: block; line-height: 18px; padding: 5px 12px 5px 7px; background-repeat: no-repeat; background-color: transparent; background-image: url(/images/tool/stdButton.png)}
+a.pink-btn {background-position: 0 -93px}
+a.gray-btn {background-position: 0 -155px}
+a.disabled-btn, a.ajax-btn {cursor: default; background-position: 0 -124px}
+a.pink-btn span {background-position: right 0}
+a.gray-btn span {background-position: right -62px}
+a.disabled-btn span, a.ajax-btn span {color: #939393; background-position: right -31px}
+a.ajax-btn span {padding-left: 25px; color: #939393}
+a.ajax-btn em {display: block; float: left; width: 10px; height: 28px; padding: 0 5px; background: url(/images/icons/loaders/circleball_button.gif) no-repeat right 5px}
+.button, .button:visited, .button:active, a.button, a.button:visited, a.button:active {background-image: url(/images/packages/signup/overlay.png); background-repeat: repeat-x; background-color: #f63293; color: white; display: inline-block; padding: 8px 14px 7px; font-size: 1.0em; font-weight: normal; text-decoration: none; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.1), inset 0 -1px 0 rgba(255,255,255,.25); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.1), inset 0 -1px 0 rgba(255,255,255,.25); -o-box-shadow: 0 1px 2px rgba(0,0,0,0.1), inset 0 -1px 0 rgba(255,255,255,.25); box-shadow: 0 1px 2px rgba(0,0,0,0.1), inset 0 -1px 0 rgba(255,255,255,.25); text-shadow: 0 1px 0 rgba(0,0,0,0.3); border: 0; border-bottom: 1px solid rgba(0,0,0,0.25); position: relative; cursor: pointer; width: auto; -webkit-transition: background-color .15s; -o-transition: background-color .15s; -moz-transition: background-color .15s; transition: background-color .15s}
+.button:hover, a.button:hover {background-color: #ff5bac; color: white}
+#toolbox .button {margin-bottom: 5px}
+.subhead-actions {position: absolute; top: 5px; right: 8px; font-size: 11px; color: #a7a79b}
+.subhead-actions a, .subhead-actions a:visited {color: #f63293}
+.subhead-actions a:hover {color: #f63293}
+a.h-fan-add, a.h-fan-add:visited {padding-left: 16px; background: url(/images/icons/tool_heart3.gif) no-repeat 0 1px; color: #f63293}
+a.h-fan-remove, a.h-fan-remove:visited {padding-left: 16px; background: url(/images/icons/tool_heart3.gif) no-repeat 0 1px; color: #f63293}
+a.h-fan-add:hover, a.h-fan-remove:hover {color: #f63293}
+a.heavy, a.heavy:visited {font-weight: bold}
+a.add-profile, a.add-profile:visited, a.add-spot, a.add-spot:visited, a.add-spot-tag, a.add-spot-tag:visited {color: white; float: left; font: bold 11px "Lucida Grande","Lucida", "Arial", "Sans-serif"; height: 28px; padding-left: 28px; text-decoration: none; background-repeat: no-repeat; background-image: url(/images/tool/stdButton.png)}
+a.add-profile span, a.add-spot span, a.add-spot-tag span {display: block; float: left; line-height: 18px; padding: 5px 10px 5px 3px; background-repeat: no-repeat; background-image: url(/images/tool/stdButton.png)}
+a.add-profile {background-position: 0 -281px}
+a.add-profile span {background-position: right -219px}
+a.add-spot {background-position: 0 -312px}
+a.add-spot span {background-position: right -250px}
+a.add-spot-tag {background-position: 0 -343px}
+a.add-spot-tag span {background-position: right -250px}
+.help {position: absolute; right: 15px; top: 8px; z-index: 101; text-align: right; font-size: 11px}
+a.helpicon, a.closeicon, a.helpicon:visited, a.closeicon:visited {text-align: right; background: url(/images/icons/input_matrix.gif) no-repeat right -327px; display: block; padding: 0 27px 0 0; line-height: 14px; height: 16px; width: 45px; color: #afafa4}
+a.helpicon:hover {color: #01b0f0; background-position: right -353px}
+a.closeicon {background-position: right -5px}
+a.closeicon:hover {color: #01b0f0; background-position: right -31px}
+.help-note {position: absolute; right: 0px; top: -7px; z-index: 102; background: url(/images/content/note_bg_bottom.gif) no-repeat 0 bottom; padding: 0 0 5px 0; width: 356px; text-align: left; font-size: 11px; line-height: 1.3em}
+.help-note-inner {background: url(/images/content/note_bg_top.gif) no-repeat 0 0; padding: 15px}
+input[type="text"], input[type="password"], textarea, select {font: 12px/1.3em "Lucida Grande", "Lucida Sans", "Lucida", sans-serif; border: 2px solid #EDEDE3; padding: 5px}
+input.radio {border: 0; padding: 0; background: none}
+select {padding: 0;}
+option {padding: 2px 5px 1px 4px;}
+span.form-btn, span.form-btn-gray, span.form-btn-disabled, span.form-btn-ajax {float: left; height: 28px; line-height: 28px; padding-left: 6px; display: inline; background-repeat: no-repeat; background-image: url(/images/tool/stdButton.png)}
+span.form-btn input, span.form-btn-gray input, span.form-btn-disabled input, span.form-btn-ajax input {font: normal 14px "Helvetica Neue","Helvetica", "Arial", "Sans-serif"; color: white; height: 28px; line-height: 28px; padding: 0 9px 2px 3px; border: 0; cursor: pointer; width: auto; background-repeat: no-repeat; background-color: transparent; background-image: url(/images/tool/stdButton.png)}
+span.form-btn {background-position: 0 -93px}
+span.form-btn-gray {background-position: 0 -155px}
+span.form-btn-ajax {background-position: 0 -124px}
+span.form-btn-disabled {background-position: 0 -124px}
+span.form-btn input {background-position: right 0}
+span.form-btn-gray input {background-position: right -62px}
+span.form-btn-ajax input {color: #939393; cursor: default; background-position: right -31px}
+span.form-btn-disabled input {color: #bbb; cursor: default; background-position: right -31px}
+span.form-btn em, span.form-btn-disabled em {display: none; background: url(/images/icons/loaders/circleball_button.gif) no-repeat right 5px}
+span.form-btn-ajax em {display: inline-block; float: left; width: 10px; height: 28px; padding: 0 5px; background: url(/images/icons/loaders/circleball_button.gif) no-repeat right 5px}
+#IEroot span.form-btn input, #IEroot span.form-btn-gray input, #IEroot span.form-btn-disabled input, #IEroot span.form-btn-ajax input {font-weight: bold; width: 1%; overflow: visible}
+.form-alt {float: left; padding: 5px 0 0 6px; font-size: 11px}
+.field-error {background: url(/images/icons/input_matrix.gif) no-repeat right -53px}
+.field-success {background: url(/images/icons/input_matrix.gif) no-repeat right -79px}
+.field-lock {background: url(/images/icons/input_matrix.gif) no-repeat right -131px; color: #AAA}
+.field-new {background: url(/images/icons/input_matrix.gif) no-repeat right -105px}
+.field-loading {background: url(/images/icons/loaders/mainsearch_ac.gif) no-repeat 96% 4px}
+.cs-selector-row {padding-bottom: 8px}
+.cs-selector-row span {float: left; padding: 5px 5px 0 0}
+#IE6root .cs-selector-row span {padding-top: 4px}
+.cs-selector-container {position: relative; float: left; z-index: 999}
+.cs-selector {border: 2px solid #edede3; position: relative; line-height: 14px; height: 14px; padding: 5px 29px 5px 5px; color: #008fc4; background: url(/images/icons/input_matrix.gif) no-repeat right -210px; overflow: hidden; cursor: pointer}
+.cs-drop {border: 2px solid #edede3; border-top: 0; padding: 2px; position: absolute; z-index: 999; background: #FCFCF9}
+.cs-drop li {width: 100%}
+.cs-drop li a, .cs-drop li a:visited {display: block; padding: 2px 0; width: 100%; text-indent: 3px}
+.cs-drop li a.selected, .cs-drop li a:hover {background: #edede3; color: #01b0f0}
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
+.clearfix{ display: inline-block; display: block}
+#IEroot .clearfix {height: 1%}
+.clear {overflow: hidden; width: 100%}
+a.bug, a.bug:visited {position: relative}
+a.bug img {display: block}
+a.bug:hover img.bug-image {background: none}
+a.bug img.bug-image {position: absolute; left: 3px; top: 3px; background: none; display: inline}
+.wrapper {background-color: #DEDED7; width: 972px; margin: 0 auto 15px}
+.wau {padding: 10px 0 14px 0; text-align: center; background: url(/images/shell/wau_bg.png) no-repeat 0 bottom}
+.wau-inner {text-align: center}
+.container {background: white url(/images/shell/main_bg_mid.png) repeat-y}
+.top {background: url(/images/shell/main_bg_top.gif) no-repeat; width: 972px; height: 70px; z-index: 1301; position: relative; margin-top: 20px}
+#hv2 .top {background: url(/images/shell/main_bg_top2.png) no-repeat}
+.top h2.logo, .top h2.logo-season {width: 361px; height: 85px; position: absolute; left: 17px; top: -17px; margin: 0}
+#hv2 .top h2.logo{ width: 280px; height: 69px; top: -7px}
+#hv2 .top h2.logo-season {width: 280px; height: 84px; top: -22px}
+.top h2.logo a, .top h2.logo-season a, .top h2.logo-xmas a, .top h2.logo-thanksgiving a {cursor: pointer; display: block; float: left; width: 329px; height: 79px; text-indent: -9999px}
+#hv2 .top h2.logo a {width: 280px; height: 69px}
+#hv2 .top h2.logo-season a {width: 280px; height: 84px}
+.top h2[class="logo"] a {background: url(/images/shell/coolspotters_logo2_blue_beta_bg.png) no-repeat 0 0}
+#hv2 .top h2[class="logo"] a {background: url(/images/shell/coolspotters_logo3_blue_bg.png) no-repeat 0 0}
+#hv2 .top h2[class="logo-season"] a {background: url(/images/shell/coolspotters_logo_valentinesday.png) no-repeat 0 0}
+#hv2 .top h2.logo-thanksgiving a {background: url(/images/shell/coolspotters_logo_thanksgiving.png) no-repeat 0 0}
+#hv2 .top h2.logo-xmas {width: 268px; height: 75px; top: -13px}
+#hv2 .top h2.logo-xmas a {background: url(/images/shell/coolspotters_logo_xmas2010.png) no-repeat 0 0}
+.bottom {background: url(/images/shell/main_bg_bot.png) no-repeat; width: 972px; height: 13px; font-size: .1em; position: relative; top: 8px; margin: 0 0 25px 0}
+#content {padding: 25px 26px 15px 26px}
+#base {padding: 0; position: relative}
+.rail1, .rail2, .rail3 {float: left}
+.rail1 {width: 308px}
+.rail2 {width: 208px}
+.rail3 {width: 163px}
+.widefull {margin:0 auto; float: none; width: 750px}
+.wide1, .wide2, .wide3 {float: left}
+.wide1 {width: 594px; padding-left: 18px}
+.wide2 {width: 694px; padding-left: 18px}
+.wide2 .center2 {float: left; width: 468px; padding: 0 18px 0 0}
+.wide2 .rail2 {float: right}
+.wide3 {width: 739px; padding-left: 18px}
+.wide3 .center3 {float: left; width: 558px; padding: 0 18px 0 0}
+.wide3 .rail3 {float: right}
+.flip .rail1, .flip .rail2, .flip .rail3 {float: right}
+.flip .wide1, .flip .wide2, .flip .wide3 {float: left; padding: 0 18px 0 0}
+#left, #wide, #wide-alt {width: 594px; float: left}
+#center {float: left; width: 468px}
+#IEroot #center {}
+#rail-opp {float: right; width: 170px}
+#right, #rail, #rail-alt #rail-alt2 {width: 308px; float: right; padding: 0 0 0 18px}
+#rail-alt {width: 170px}
+#rail-alt2 {width: 208px}
+#wide-alt {width: 732px}
+#IEroot #wide-alt {margin-right: -3px; margin-left: -3px}
+.flip #left, .flip #wide, .flip #wide-alt {float: right; padding: 0 0 0 18px}
+.flip #right, .flip #rail, .flip #rail-alt, .flip #rail-alt2 {float: left; padding: 0}
+#sub_footer {margin: 84px 0 0 0; padding: 10px 0px 0; font-size: 11px; color: #c5c5b9}
+#sub_footer div {float: left}
+#sub_footer img {padding: 0; float: right}
+#footer {margin: 15px 0 0 0; padding: 10px 0px 0; border-top: 1px solid #ebebeb; color: #a6a69a}
+#footer div {float: left}
+.footer-sub {font-size: 11px}
+.footer-sub a, .footer-sub a:visited {padding: 0 0px}
+.footer-sub a:hover {color: #5e5e58}
+#footer img {padding: 0; float: right}
+.cs2 {background: url(/images/shell/mastbg.png) repeat-x 0 0}
+.mast {height: 285px; position: relative; margin: 0 30px}
+.bannerunit {width: 728px; height: 90px; padding: 9px 96px; background: black url(/images/shell/mast_adbg.png)}
+.cs-logo {position: absolute; width: 293px; height: 67px; top: 150px; left: 0}
+.cs-logo a {display: block; height: 67px; background: url(/images/shell/mastlogo.png) no-repeat 0 0; text-indent: -9999px}
+.cs-search {position: absolute; width: 600px; left: 346px; top: 170px}
+.cs-search p {color: white; font-size: 10px; padding: 2px 0 0 12px}
+.cs-search-field {font: normal 19px "Helvetica Nueue","Helvetica","Arial",Sans-serif; color: #c0c0be; line-height: 19px; background: url(/images/shell/searchfield5_bg.png) no-repeat 0 0; width: 477px; height: 19px; padding: 9px 6px 6px 9px; border: 0; margin-right: 6px; float: left}
+.cs-search-btn {text-indent: -9999px; width: 75px; height: 34px; background: url(/images/shell/searchbutton4_bg.png) no-repeat 0 0; border: 0; padding: 0; cursor: pointer; float: left}
+.cs-nav {height: 26px; width: 920px; position: absolute; bottom: 0; left: 0}
+#IE6root .cs-nav {bottom: -1px}
+.cs-nav li {float: left; margin-right: 1px}
+.cs-nav a {display: block; font: normal 15px "Helvetica Nueue","Helvetica","Arial",Sans-serif; line-height: 15px; background: url(/images/shell/tabsprite.png) no-repeat right -26px; padding: 0 10px 0 0; color: white}
+#IE6root .cs-nav a {font-weight: bold}
+.cs-nav a:visited {color: white}
+.cs-nav span {display: block; padding: 6px 0 5px 10px; background: url(/images/shell/tabsprite.png) no-repeat left -26px}
+.cs-nav a:hover {background-position: right -52px}
+.cs-nav a:hover span {background-position: left -52px}
+.cs-nav li.active a, .cs-nav li.active a:visited, .cs-nav li.active a:hover {background-position: right 0; color: black}
+.cs-nav li.active a:hover span, .cs-nav li.active span {background-position: left 0}
+.cs-nav li.outlier {float: right}
+.cs-nav li.outlier a, .cs-nav li.outlier a:visited, .cs-nav li.outlier a:hover {background-position: right -78px; color: #008fc4}
+.cs-nav li.outlier a span, .cs-nav li.outlier a:hover span {background-position: left -78px}
+.cs-userbar {padding: 7px 0 0 0}
+.cs-userbar li {float: left; font-size: 11px; color: #cddee5; line-height: 11px; margin-right: 15px}
+.cs-userbar a, .cs-userbar a:visited {font-size: 11px; color: white; line-height: 11px; cursor: pointer}
+.cs-userbar i {display: block; float: left; font-style: normal; padding: 2px 3px 2px 0}
+.cs-userbar em {display: block; float: left; background: url(/images/shell/tabsprite.png) no-repeat right -130px; padding: 0 5px 0 0; font-style: normal}
+.cs-userbar span {display: block; background: url(/images/shell/tabsprite.png) no-repeat left -130px; padding: 2px 0 2px 5px; color: white}
+.cs-footer {background: url(/images/shell/footbg.png) repeat-x 0 0; padding: 20px 0 90px}
+.cs-footer-inner {width: 920px; margin: 0 auto; color: white; font-size: 11px; line-height: 1.3em}
+.footer-ad {width: 728px; margin: 0 auto; padding: 0 0 30px 0}
+.f-column {width: 210px; padding: 0 10px; float: left}
+.f-column h4 {color: white; font-weight: normal}
+.f-column h3 {padding-bottom: 8px; border-bottom: 1px solid #29353a}
+.footer-action {font: normal 19px "Helvetica Nueue","Helvetica","Arial",Sans-serif}
+.bau, .bau-flag {background: url(/images/content/ad_bg.png) no-repeat 0 bottom; padding: 0 0 4px 0}
+.bau-inner {background: url(/images/content/ad_bg.png) no-repeat 0 0; padding: 20px 4px 0 4px; text-align: center}
+.bau-flag .bau-inner {background-position: -691px 0}
+.bau-footer {text-align: center; padding: 20px 0 4px 0}
+.au-200 {background: url(/images/content/subhead_rail_208_body.gif) no-repeat 0 bottom; padding-bottom: 9px; margin-bottom: 15px}
+.au-200-inner {background: url(/images/content/subhead_rail_208_body.gif) no-repeat 0 0; padding: 18px 4px 4px 4px}
+.sau {padding: 19px 48px; background: url(/images/content/plate_thumb_matrix.png) no-repeat -357px 0}
+.cau {margin: 18px 0}
+.cau-inner {}
+.ad-160 {padding: 23px 0 0 0; text-align: center}
+.ad-160-inner {padding: 0 0 20px 0}
+.search {padding: 20px 20px 0 0; position: absolute; left: 416px; top: 0}
+#hv2 .search {left: 624px}
+.search input.search-field {border: 0; width: 360px; font-family: "Helvetica Neue", "Helvetica","Arial",Sans-serif; font-size: 16px; line-height: 16px; padding: 8px 34px 8px 26px; background: url(/images/shell/searchfield2_bg.gif) no-repeat 0 -50px}
+#hv2 .search input.search-field {width: 208px; font-size: 14px; line-height: 14px; padding: 7px 10px 8px 26px; background: url(/images/shell/searchfield3_bg.png) no-repeat 0 -50px}
+#hv2 .search input.search-field.highlight {background: url(/images/shell/searchfield3_bg.png) no-repeat 0 0}
+#IEroot .search input.search-field {font-weight: bold; letter-spacing: -.05em}
+.search input.find-it {position: relative; background: url(/images/shell/searchbutton2_bg.gif) no-repeat; border: 0 none; color: #FFFFFF; cursor: pointer; font-family: "Helvetica Neue", "Helvetica","Arial",Sans-serif; font-size: 16px; line-height: 16px; font-weight: normal; margin: 0 0 0 9px; padding: 4px 0 5px; width: 97px; height: 33px}
+#hv2 .search input.find-it {margin: 0 0 0 3px; font-size: 14px; line-height: 14px; padding: 3px 0 4px; width: 70px; height: 29px; top: -1px; background: url(/images/shell/searchbutton3_bg.png) no-repeat}
+#IEroot .search input.find-it {top: -2px; font-weight: bold; padding: 6px 0 4px 0}
+p.hot-searches {font-size: 11px; padding: 0 0 0 17px; color: #afafa4; margin: 0}
+p.hot-searches a, p.hot-searches a:visited {font-weight: normal; margin-left: 3px}
+.ac-loading, .ac-control {position: absolute; left: 221px; top: 27px; width: 16px; height: 16px}
+.ac-loading {overflow: hidden; text-indent: -9999px; font-size: 1px; background: url(/images/icons/loaders/mainsearch_ac.gif) no-repeat 0 0}
+.ac-control a {display: block; width: 16px; height: 16px; background: url(/images/icons/x-icon_search.gif) no-repeat 0 0; text-indent: -9999px; line-height: .1em}
+.ac-control a:hover {background-position: 0 -16px}
+#search_autocomplete {padding: 0 0 0 6px}
+#IE6root #search_autocomplete {padding: 0 0 0 11px}
+.searchdrop-outer {background: url(/images/shell/searchdrop3_top.png) no-repeat 0 0; padding-top: 20px; width: 378px}
+#IE6root .searchdrop-outer {background-image: url(/images/shell/searchdrop3_top.gif); padding-top: 20px; width: 378px}
+.searchdrop-inner {background: url(/images/shell/searchdrop3_bot.png) no-repeat 0 bottom; padding: 5px 14px 0 14px}
+#IE6root .searchdrop-inner {background-image: url(/images/shell/searchdrop3_bot.gif); padding: 0 14px}
+.searchdrop-inner h3 {margin: 0; padding-bottom: 4px}
+.searchdrop-inner p {text-align: right; border-top: 1px solid #ddd; margin: 0 5px; padding: 3px 0 12px; font-size: 11px}
+ul.searchlist {padding-bottom: 7px}
+ul.searchlist li {padding: 5px; height: 37px; cursor: pointer}
+ul.searchlist li a {color: white; font: 15px/1.3em "Helvetica Neue","Helvetica","Arial",Sans-serif}
+ul.searchlist li img {float: left; background: url(/images/shell/searchdrop_mugbg.gif) no-repeat 0 -37px; padding: 3px}
+ul.searchlist li div {float: right; width: 286px; font-size: 11px; line-height: 1.1em}
+ul.searchlist li div strong {color: #008fc4}
+ul.searchlist li div span {color: #a0a094; padding-top: 2px; display: block; font-size: 10px}
+ul.searchlist li div {color: #777}
+ul.searchlist li.selected {background: blue; background: url(/images/shell/searchdrop3_selected.gif) no-repeat 0 0}
+ul.searchlist li.selected img {background-position: 0px 0px}
+ul.searchlist li.selected div {color: #5e5e58}
+ul.searchlist li.selected div span {color: #8d8d82}
+.nav-row {margin: 0 26px; border-bottom: 1px solid #ebebeb; padding: 0 0 11px 0; position: relative; background: white; z-index: 1200}
+.navgroup1 {float: left}
+.navgroup2 {float: right}
+.main-nav {position: relative; z-index: 10}
+.nav-tweet {float: left; padding: 3px 0 0 12px}
+.nav-tweet a, .nav-tweet a:visited {font-size: 11px; font-weight: bold; display: block; line-height: 22px; padding: 2px 0 2px 26px; background: url(/images/icons/twitter_t.png) no-repeat 0 50%}
+.nav-giftguide {float: left}
+.nav-giftguide a, .nav-giftguide a:visited {margin-top: 1px; margin-left: 2px; display: block; height: 29px; text-indent: -9999px; line-height: 29px; width: 154px; background: url(/images/packages/giftguide2010/navbutton.png) no-repeat 0 -38px}
+.nav-giftguide a:hover {background-position: 0 0}
+.main-nav li {position: relative; float: left; margin: 0 5px 0 0; font: bold 13px/14px "Helvetica Neue","Helvetica","Arial",Sans-serif}
+.nav-wp {float: left}
+.nav-wp a {font: bold 13px "Helvetica Neue","Helvetica","Arial",Sans-serif; display: block; height: 29px; margin: 0 0 0 14px; line-height: 13px; padding: 8px 0 8px 20px; background: url(/images/icons/cp.png) no-repeat 0 0}
+#IEroot .main-nav li {}
+.main-nav li a {font-size: 13px; height: 29px; margin: 1px 0 1px 0; color: black; position: relative; display: block; float: left; padding: 0 21px 0 6px; cursor: pointer; background: url(/images/shell/nav_matrix.png) no-repeat 0 0}
+.main-nav li a:visited {color: black}
+.main-nav li a.over, .main-nav li a:hover, .main-nav li a.active, .main-nav li a.active:visited {color: #f63293; z-index: 22; background: url(/images/shell/nav_matrix.png) no-repeat -236px -340px}
+.main-nav li a.over, .main-nav li a.over:hover, .main-nav li a.over:visited {color: #f63293; background-position: -236px -106px}
+.main-nav li a span {padding: 7px 0 8px 0; line-height: 14px; display: block; white-space: nowrap}
+.main-nav li a em {text-indent: -9999px; position: absolute; padding: 7px 0 8px 0; line-height: 14px; overflow: hidden; display: block; background: url(/images/shell/nav_matrix.png) no-repeat right -60px; width: 18px; right: 0; top: 0}
+#IE6root .main-nav li a em {right: -1px }
+.main-nav li a.over em, .main-nav li a:hover em, .main-nav li a.active em, .main-nav li a.active:visited em {background: url(/images/shell/nav_matrix.png) no-repeat right -340px}
+.main-nav li a.over em, .main-nav li a.over:hover em, .main-nav li a.over:visited em {background-position: right -106px}
+.main-nav li.dropdown a span {margin-right: 15px}
+.main-nav li.create {margin-right: 0}
+.main-nav li.create a, .main-nav li.create a:visited {color: #008fc4; background-position: -236px -155px; padding-right: 0}
+.main-nav li.create a span {background: url(/images/shell/nav_matrix.png) no-repeat right -205px; background-position: right -155px}
+.main-nav li.create a.over, .main-nav li.create a:hover{ color: #01b0f0; background-position: -236px -205px}
+.main-nav li.create a.over span, .main-nav li.create a:hover span {background-position: right -205px}
+.main-nav li.create li a, .main-nav li.create li a:visited {color: #008fc4}
+.main-nav li.create li a:hover {color: #01b0f0}
+.d-container {position: absolute; z-index: 21; left: 0; top: 28px; padding: 0 0 0 9px; background: url(/images/shell/drop_bg_left.gif) no-repeat 0 0}
+.navgroup2 .d-container{ background-image: url(/images/shell/drop_bg_left_alt.gif)}
+.d-top {padding: 9px 0 0 0; margin: 0; background: url(/images/shell/drop_bg_right.png) no-repeat right 0}
+.navgroup2 .d-top {background-image: url(/images/shell/drop_bg_right_alt.png)}
+.d-content {margin: 0 0 0 -9px; padding: 0 0 0 9px; border-width: 0 2px; border-color: #dbdbd2; border-style: solid; background: #fbfbf7}
+.d-bot {padding: 0 0 0 9px; margin: 0 0 0 -9px; background: url(/images/shell/drop_bg_left.gif) no-repeat 0 bottom}
+.navgroup2 .d-bot {background-image: url(/images/shell/drop_bg_left_alt.gif)}
+.d-bot-inner {height: 9px; padding: 0 9px 0 0; background: url(/images/shell/drop_bg_right.png) no-repeat right bottom}
+.navgroup2 .d-bot-inner {background-image: url(/images/shell/drop_bg_right_alt.png)}
+.main-drop {width: 240px}
+.main-drop li {float: left; width: 115px}
+.main-drop li a, .main-drop li a:visited {background: none; font: bold 11px/1.2em "Lucida Grande","Lucida","Arial",Sans-serif; height: auto; padding: 3px 0; float: none; display: block}
+.main-drop li a:hover {background: none}
+.navgroup2 .main-drop li {text-align: right}
+.user-p {padding: 15px 0 0 330px; font: bold 12px "Helvetica Neue","Helvetica","Arial",Sans-serif; z-index: 999; position: relative}
+.upn {position: relative; z-index: 10}
+.upn li {line-height: 12px; float: left; position: relative; margin: 0 2px 4px 0}
+.joinline {color: #a0a094; font: bold 11px "Lucida Grande","Lucida","Arial",Sans-serif}
+li.user-drop {margin-top: 6px}
+.user-drop a, .user-drop a:visited {height: 29px; font-size: 12px; padding: 0 18px 0 5px; float: left; position: relative; cursor: pointer; display: block; z-index: 22; background: url(/images/shell/nav_matrix.png) no-repeat -236px 100px}
+.user-drop a:hover, .user-drop a.active {background-position: -236px 0}
+.user-drop a.over, .user-drop a.over:hover, .user-drop a.over:visited {background-position: -236px -29px}
+.user-drop a span {padding: 7px 0 8px 0; line-height: 12px; display: block}
+.user-drop a em {text-indent: -9999px; position: absolute; padding: 7px 0 8px 0; line-height: 12px; overflow: hidden; cursor: pointer; display: block; background: url(/images/shell/nav_matrix.png) no-repeat right -287px; width: 17px; right: 0; top: 0}
+.user-drop a:hover em, .user-drop a.active em {background-position: right 0}
+.user-drop a.over em, .user-drop a.over:hover em, .user-drop a.over:visited em {background-position: right -29px}
+.signout a, .signout a:visited, .signout a span {background: none}
+.upn li.mug {padding: 0}
+.upn li.mug img {padding: 3px; background: url(/images/content/plate_thumb_matrix.png) no-repeat -318px 0}
+.user-drop .message.highlight {background: url(/images/icons/tool_email2.gif) no-repeat 0 2px}
+.user-drop .message {background: url(/images/icons/tool_email2_hi.gif) no-repeat 0 2px; text-indent: -9999px; display:inline; padding: 0 11px 0 0}
+.step-nav {position: absolute; top: 61px; right: 0px; z-index: 1}
+.step-nav a, .step-nav a:visited {color: #97978A; font-size: 11px}
+.step-nav a.s-bk {background: url(/images/content/steparrow_back.gif) no-repeat 0 1px; padding: 0 0 0 16px; margin: 0 8px 0 0}
+.step-nav a.s-fwd {background: url(/images/content/steparrow_forward.gif) no-repeat right 1px; padding: 0 16px 0 0; margin: 0 0 0 8px}
+.step-nav a.s-bk:hover {color: black; background-position: 0 -23px}
+.step-nav a.s-fwd:hover {color: black; background-position: right -23px}
+.subnav {padding: 6px 0; margin: 0 26px; border-bottom: 1px solid #ebebeb}
+.subnav ul {}
+.subnav ul.cluster {float: left; width: 110px}
+.subnav ul li {font: bold 10px "Lucida Grande","Lucida","Arial",Sans-serif; float: left; display: block; margin: 0 15px 0 0}
+.subnav ul.cluster li {float: none; margin: 0 5px 0 0}
+.subnav ul li a, .subnav ul li a:visited, h3.master-tag {color: #777; height: 24px; margin: 1px 0 1px 0; float: left; display: block; padding-left: 5px}
+.subnav ul.cluster li a, .subnav ul.cluster li a:visited {float: none}
+h3.master-tag {font: bold 11px "Lucida Grande","Lucida","Arial",Sans-serif; background: url(/images/shell/bc_root_right_end_carrot.gif) no-repeat right 0; display: block; float: left; height: 24px; padding: 0 30px 0 0; margin-right: 10px}
+.subnav ul li.active a, .subnav ul li a:hover {background: url(/images/shell/bc_root_left.gif) no-repeat 0 0}
+.subnav ul li.active a, .subnav ul li.active a:visited {color: #f63293; font-weight: bold}
+.subnav ul li a:hover, .subnav ul li.active a:hover {color: #f63293}
+.subnav ul li a span, .subnav h3.master-tag span {padding: 5px 4px 5px 0px; line-height: 14px; display: block}
+.subnav ul li.active a span, .subnav ul li a:hover span {background: url(/images/shell/bc_root_right_end.gif) no-repeat right 0}
+.subnav h3.master-tag span {color: #f63293; display: block; font-weight: bold; padding-left: 8px; background: url(/images/shell/bc_root_left.gif) no-repeat 0 0}
+h1.bc, .bc {font: bold 11px "Lucida Grande","Lucida","Arial",Sans-serif; margin: 10px 26px 0; padding: 0 0 10px 0; border-bottom: 1px solid #EBEBEB}
+h1.bc a, h1.bc a:visited, .bc a, .bc a:visited {background: #e1e1d6; display: block; color: #f63293; float: left; height: 23px; padding-left: 5px; text-decoration: none}
+h1.bc a:hover, .bc a:hover {color: #f63293}
+h1.bc a span, .bc a span {background: transparent url(/images/shell/bc_segment_right.png) no-repeat scroll top right; display: block; line-height: 13px; padding: 5px 17px 5px 6px}
+h1.bc a.root, h1.bc a.root:visited, h1.bc a.root-single, h1.bc a.root-single:visited, .bc a.root, .bc a.root:visited, .bc a.root-single, .bc a.root-single:visited {background: transparent url(/images/shell/bc_root_left.gif) no-repeat scroll top left}
+h1.bc a.root-single span, .bc a.root-single span {background: transparent url(/images/shell/bc_segment_right_end.png) no-repeat top right; padding-right: 14px}
+h1.bc a.root span, .bc a.root span {background: transparent url(/images/shell/bc_segment_right.png) no-repeat top right}
+h1.bc a.parent span, .bc a.parent span {background: transparent url(/images/shell/bc_segment_right_end.png) no-repeat top right}
+h1.bc a.end, h1.bc a.end:visited, .bc a.end, .bc a.end:visited {background: none}
+h1.bc a.end:hover, .bc a.end:hover {color: black; cursor: default}
+h1.bc a.end span, .bc a.end span {background: none; color: black}
+.boxnav, .boxnav-reverse {background: url(/images/content/boxnav_bg_top.gif) no-repeat 0 0; padding-top: 4px; width: 163px}
+.boxnav-inner {background: url(/images/content/boxnav_bg_bottom.gif) no-repeat 0 bottom}
+.boxnav-reverse {background-position: right 0}
+.boxnav-reverse .boxnav-inner {background-position: right bottom}
+.boxnav ul, .boxnav-reverse ul {width: 163px; padding-bottom: 8px}
+.boxnav ul li, .boxnav-reverse ul li {padding: 2px 0 5px 0}
+.boxnav ul li a, .boxnav-reverse ul li a {padding: 6px 10px 1px 10px; line-height: 1.2em; display: block}
+.boxnav-reverse ul li a {padding: 6px 10px 1px 14px}
+.boxnav ul li.selected {background: url(/images/content/boxnav_selected_bottom2.gif) no-repeat 0 bottom; padding: 2px 0 5px 0}
+.boxnav ul li.selected a {cursor: default; background: url(/images/content/boxnav_selected_top2.gif) no-repeat 0 0; color: white; font-weight: bold}
+.boxnav-reverse ul li.selected {background: url(/images/content/boxnav_selected_reverse_bottom.gif) no-repeat 0 bottom; padding: 2px 0 5px 0}
+.boxnav-reverse ul li.selected a {cursor: default; background: url(/images/content/boxnav_selected_reverse_top.gif) no-repeat 0 0; color: white}
+p.sub-filter {font-size: 11px; margin-top: 10px; border-top: 1px solid #EBEBEB; text-align: right; padding: 0 14px 10px 0}
+p.sub-filter span {margin-right: 7px}
+p.sub-filter a {margin: 0 7px}
+p.sub-filter a.selected {cursor: default; color: black; font-weight: bold}
+a.view-grid, a.view-grid:visited {background: url(/images/icons/view_grid2.gif) no-repeat 0 0; padding-left: 18px; margin: 0 10px}
+a.view-list, a.view-list:visited {background: url(/images/icons/view_list2.gif) no-repeat 0 0; padding-left: 18px; margin: 0 10px}
+.view-toggle a.selected, .view-toggle a.selected:visited {color: black; background-position: 0 -20px; cursor: default}
+ul.list-nav-std li {margin: 6px 0}
+ul.list-nav-std li.selected a, ul.list-nav-std li.selected a:visited {font-weight: bold; color: black; cursor: default}
+.fs {margin: 0 4px 15px; background: url(/images/content/featurespot_bg_green.png) no-repeat 0 bottom; position: relative; width: 300px}
+.fs a.fs-photo, .fs a.fs-photo:visited {display: block; padding-top: 200px; width: 300px; background-repeat: no-repeat; background-position: 0 0; font: normal 25px/1.1em "Helvetica Neue","Helvetica","Arial",Sans-serif; color: white}
+.fs a.fs-photo em {display: block; background: #7fbe38; font-style: normal; padding: 10px}
+.fs .corners {position: absolute; top: 0; left: 0; height: 6px; width: 300px; background: url(/images/content/featurespot_corners.png) no-repeat 0 0}
+#IEroot .fs .corners {background-image: url(/images/content/featurespot_corners.gif); height: 4px}
+.fs em {font: normal 25px/1.1em "Helvetica Neue","Helvetica","Arial",Sans-serif; display: block; padding: 6px 6px 0 9px}
+.fs em a, .fs em a:visited {color: white}
+.fs em a:hover {color: black}
+.fs em span {font-size: 20px}
+.fs .usercred {padding: 40px 10px 10px}
+.fs a.mug {padding: 3px; display: block; float: left; background: url(/images/content/featurespot_mugbg_green.gif) no-repeat 0 0}
+.fs p {float: left; padding: 3px 9px 0; width: 220px; color: #dbecc9; font-size: 11px; line-height: 1.1em; margin: 0}
+.fs p a, .fs p a:visited {color: white}
+.fs p a:hover {color: black}
+.fs-blue {background-image: url(/images/content/featurespot_bg_blue.gif)}
+.fs-blue a.fs-photo em {background: #467f9c}
+.fs-blue p {color: #c4e0ee}
+.fs-blue a.mug {background-image: url(/images/content/featurespot_mugbg_blue.gif)}
+.fs-blue em a, .fs-blue em a:visited {color: white}
+.fs-blue em a:hover {color: black}
+.fs-black {background-image: url(/images/content/featurespot_bg_black.gif)}
+.fs-black a.fs-photo, .fs-black a.fs-photo:visited {color: #d210b4}
+.fs-black a.fs-photo:hover em {color: white}
+.fs-black a.fs-photo em {background: black}
+.fs-black p {color: #aaa}
+.fs-black p a, .fs-black p a:visited {color: #f63293}
+.fs-black p a:hover {}
+.fs-black a.mug {background-image: url(/images/content/featurespot_mugbg_black.gif)}
+.fs-black em span {color: white}
+.fs-black em a, .fs-black em a:visited {color: #f63293}
+.fs-black em a:hover {color: white}
+.ajaxload1 {background: white url(/images/icons/loaders/formbox.gif) no-repeat 0 0}
+.upload-badge {color: #7b9f00; font-size: 10px; font-weight: bold; margin: 0; padding: 3px 0 0 0}
+.progress {background: white; padding: 1px; border: 1px solid #ccccbf; width: 200px}
+.progress div {height: 7px; line-height: .1em; font-size: .1em; background: white url(/images/icons/loaders/barbershop_beige.gif) no-repeat -300px 0px}
+.scroll-load {position: absolute; right: 55px; top: 3px; padding: 8px 9px; display: block; background: transparent url(/images/icons/loaders/circleball_button.gif) no-repeat 0 0}
+.page-dots ul li a.dotload {background: url(/images/icons/loaders/dotnav1.gif) no-repeat 0 0}
+.prototip {background: url(/images/content/tooltip_top.png) no-repeat 0 0; padding-top: 13px; font-size: 11px; width: 193px; line-height: 1.2em; position: absolute}
+#IE6root .prototip {background-image: url(/images/content/tooltip_top.gif); padding-top: 12px}
+.prototip .content {background: url(/images/content/tooltip_bot.png) no-repeat 0 bottom; padding: 0 8px 18px 12px; position: relative}
+#IE6root .prototip .content {background-image: url(/images/content/tooltip_bot.gif)}
+.prototip .content p {padding: 0; margin: 0 0 3px 0}
+.prototip .content h5 {margin: 0; padding: 2px 0 4px 0; color: #d210b4; color: black; font-size: 12px}
+.prototip .content span {font-size: 10px}
+.prototip .content a.xout {position: absolute; right: 10px; top: 0px; display: block; width: 16px; height: 18px; background: url(/images/icons/x-icon.gif) no-repeat 0 0; text-indent: -9999px}
+.prototip .content a.xout:hover {background-position: 0 -21px}
+.prototip2 {position: absolute}
+.prototip2 .content {}
+.tt {border-collapse: collapse; table-layout: fixed}
+.tt td {background-image: url(/images/tool/tooltip_bg.png); overflow: hidden; padding: 1px; border: 0}
+.helpbubble .tt td {background-image: url(/images/tool/tooltip_yellow_bg.png)}
+td.tt-topleft {height: 20px; width: 18px}
+td.tt-topright {height: 20px; width: 18px; background-position: right top}
+td.tt-bottomleft {height: 20px; width: 18px; background-position: left bottom}
+td.tt-bottomright {height: 20px; width: 18px; background-position: right bottom}
+td.tt-top {height: 20px; background-position: -50px 0}
+td.tt-right {width: 18px; background-position: right -50px}
+td.tt-bottom {height: 20px; background-position: -50px bottom}
+td.tt-left {width: 18px; background-position: left -50px}
+table.tt td.tt-center {background: white}
+.helpbubble table.tt td.tt-center {background: #fffcd7}
+.tt-content {position: relative; padding-right: 24px}
+.carrot-tl td.tt-top {background-position: -25px 0}
+.carrot-lt td.tt-left {background-position: left -25px}
+.carrot-bl td.tt-bottom {background-position: -25px bottom}
+.carrot-rt td.tt-right {background-position: right -25px}
+.tt a.xout {position: absolute; right: -3px; top: 0px; display: block; width: 26px; height: 18px; background: url(/images/icons/input_matrix.gif) no-repeat right -5px; text-indent: -9999px}
+.tt a.xout:hover {background-position: right -31px}
+.helpbubble .tt a.xout {background-position: right -405px}
+.helpbubble .tt a.xout:hover {background-position: right -431px}
+.user-tip {margin: 0; padding: 0; color: #a0a094; line-height: 1.3em}
+.user-tip #toolbox {margin: 0; padding: 0; font-size: 11px}
+.user-tip .starbox {padding-left: 0}
+.user-tip ul.actions li {margin: 4px 0}
+a.helpbubble-icon {display: block; width: 16px; height: 17px; text-indent: -9999px; background: url(/images/icons/input_matrix.gif) no-repeat -13px -509px}
+a.helpbubble-icon:hover {background-position: -13px -534px}
+ul.share {font-size: 11px; line-height: 1.2em}
+ul.share li {padding: 1px 0}
+ul.share li a {display: block; padding: 2px 0 2px 20px}
+ul.share li.delicious a {background: url(/images/icons/share_delicious.gif) no-repeat 0 0}
+ul.share li.digg a {background: url(/images/icons/share_digg.gif) no-repeat 0 0}
+ul.share li.fb a {background: url(/images/icons/share_facebook.gif) no-repeat 0 0}
+ul.share li.newsvine a {background: url(/images/icons/share_newsvine.gif) no-repeat 0 0}
+ul.share li.permalink a {background: url(/images/icons/share_permalink.gif) no-repeat 0 0}
+ul.share li.stumbleupon {background: url(/images/icons/share_stumbleupon.gif) no-repeat 0 0}
+ul.share li.reddit {background: url(/images/icons/share_reddit.png) no-repeat 0 0}
+#toolbox {position: relative; margin: 0 0 0 0; padding: 10px 6px 0 10px}
+ul.actions {position: relative}
+ul.actions li {font-weight: bold; margin: 8px 0; padding: 0 0 0 19px; line-height: 1.1em; color: #a0a094; background-image: url(/images/icons/toolicons.png); background-repeat: no-repeat; position: relative; border: 0}
+ul.actions li.action-widget {background-position: 0 -325px}
+ul.actions li.action-share {background-position: 0 -123px}
+ul.actions li.action-addtolist {background-position: 0 -43px}
+ul.actions li.action-email {background-position: 0 -244px}
+ul.actions li.action-buy {background-position: 0 -203px}
+ul.actions li.action-comment {background-position: 0 -83px}
+ul.actions li.action-love {background-position: 0 -4px}
+ul.actions li.action-edit {background-position: 0 -283px}
+ul.actions li.action-follow {background-position: 0 -323px}
+ul.actions li.user-follow {background-position: 0 -4px}
+ul.actions li.return {background-position: 0 -364px}
+ul.actions li.action-delete {background: none}
+ul.actions li.flag-inapp {background-position: 0 -404px; font-size: 11px}
+ul.actions li.action-media {background-position: 0 -445px}
+ul.actions li.action-spots {background-position: 0 -484px}
+ul.actions li.flag-fp {background-position: 0 -444px}
+ul.actions li.divider {background: none; border-top: 1px solid #d7d7cb}
+ul.actions li a, ul.actions li a:visited {color: #f63293; font-weight: normal}
+ul.actions li a:hover {color: #ce2b7c}
+ul.actions li a.heavy, ul.actions li a.heavy:visited {font-weight: bold}
+ul.actions li.flag-inapp a, ul.actions li.flag-inapp a:visited {color: #a6a69a}
+ul.actions li.action-delete a, ul.actions li.action-delete a:visited {color: #A6A69A}
+ul.actions li.flag-inapp a:hover {color: #5e5e58}
+ul.actions li.action-delete a:hover {color: #5e5e58}
+ul.actions li.flag-fp a, ul.actions li.flag-fp a:visited, ul.actions li.flag-fp a:hover {color: #8bb300}
+.buyit-container {width: 184px; float: right}
+a.buyit, a.buyit:visited {display: block; float: right; color: #f63293; font-size: 9px; font-weight: bold; height: 39px; padding-left: 5px; background: url(/images/tool/stdButton.gif) no-repeat 0 -446px; margin-right: 7px; cursor: pointer; color: #f63293}
+a.buyit:hover {color: #01b0f0}
+a.buyit em {display: block; line-height: 11px; padding: 0 12px 5px 7px; background: url(/images/tool/stdButton.gif) no-repeat right -403px; font-style: normal}
+a.buyit em span {display: block; padding: 23px 0 0 0; min-width: 55px; width: auto; text-align: center; background: url(/images/icons/buyit.gif) no-repeat 50% 7px}
+#IE6root a.buyit em span {width: 55px}
+a.buy-sponsor, a.buy-sponsor:visited {display: block; height: 31px; float: left; font: bold 11px "Helvetica Neue","Helvetica",Arial,Sans-serif; color: white; margin: 0 0 4px 0}
+a.buy-sponsor span, a.buy-sponsor:visited span {line-height: 11px; display: block; float: left; background: url(/images/content/button.buyvendor.v2.png) no-repeat left 0}
+a.buy-sponsor:hover span {background-position: left -31px; color: white; cursor: pointer}
+a.buy-sponsor-alt span, a.buy-sponsor-alt:visited span {background-position: left -62px}
+a.buy-sponsor-alt:hover span {background-position: left -93px}
+a.buy-sponsor span em, a.buy-sponsor:visited span em {display: block; float: left; line-height: 11px; padding: 10px 2px 10px 0; width: 47px; text-align: center; font-style: normal}
+a.buy-sponsor span strong, a.buy-sponsor:visited span strong {line-height: 11px; padding: 10px 12px 10px 5px; display: block; float: left; background: url(/images/content/button.buyvendor.v2.png) no-repeat right 0}
+a.buy-sponsor:hover span strong {background-position: right -31px}
+a.buy-sponsor-alt span strong, a.buy-sponsor-alt:visited span strong {background-position: right -62px}
+a.buy-sponsor-alt:hover span strong {background-position: right -93px}
+.seeall-spots {float: left; display: block; margin: 5px 0 0 14px}
+.share-panel {margin: 16px 0; position: relative}
+.share-tools {margin: 1em 0}
+.twitter-share-button {}
+a.pin-it-button, a.twitter-share-button {visibility: hidden}
+.featured-spots {padding: 0 0 2px 7px; position: relative; z-index: 10}
+.featured-spots h4 {padding: 0 0 1.5em 0}
+.featured-spots h3 {color: black}
+.featured-spots-mask {width: 586px; overflow: hidden; position: relative}
+.featured-spots ul.featured-thumbs li {margin: 0 14px 15px 0; float: left}
+.featured-spots-foot {text-align: right; padding: 0 15px 15px; font: bold 14px "Helvetica Neue","Helvetica","Arial",Sans-serif}
+.featured-spots-foot a {background: url(/images/icons/viewall.grid.png) no-repeat 0 1px; padding: 0 0 0 20px}
+.prospotplate, .prospotplate-new, .prospotplate-updated {width: 95px; height: 159px; padding: 18px 4px 4px 4px; background: url(/images/content/plate_medium_alt2.gif) no-repeat 0 0; font-size: 9px; font-weight: bold; position: relative; overflow: hidden; text-align: center}
+.prospotplate-new {background: url(/images/content/plate_medium_new_alt2.gif) no-repeat 0 0}
+.prospotplate-updated {background: url(/images/content/plate_medium_updated_alt2.gif) no-repeat 0 0}
+div.prospotplate-mug {color: #363632; text-align: center; display: block; width: 95px; line-height: 1.2em}
+div.prospotplate-mug span.profile-type, a.proplate-mug span.profile-type {color: #9f9f96; display: block}
+a.prospotplate-mug-desc {text-align: center}
+a.prospotplate-mug-desc span, a.proplate-mug-desc span.profile-type {color: #9f9f96; display: block; text-align: center; line-height: 1.2em}
+div.prospotplate-mug .spotimage {position: absolute; top: 18px; left: 4px; width: 95px; height: 95px}
+div.prospotplate-mug .spotimage a {display: block}
+div.prospotplate-mug .spotinfo {position: absolute; top: 18px; left: 4px; width: 85px; height: 85px; display: block; background: white; padding: 5px; font-size: 9px; font-weight: bold; text-align: center}
+.spotinfo a, .spotinfo a:visited {display: block; width: 85px; height: 85px}
+div.addp:hover {background: url(/images/content/add_item_95w_hi.gif) no-repeat 0 0; cursor: pointer}
+div.addp:hover img {visibility: hidden}
+.overlay {position: absolute; left: 70px; top: 70px}
+div.prospotplate-mug p {position: absolute; top: 18px; left: 4px; width: 85px; height: 85px; text-align: center; padding: 5px; background: white}
+div.prospotplate-mug img, a.proplate-mug img {padding: 0 0 5px 0}
+div.prospotplate-mug img.p-mug {width: 95px; height: 95px}
+#IE6root div.prospotplate-mug img, #IE6root a.proplate-mug img {padding: 0 0 2px 0}
+a.proplate-mug:hover {color: #01b0f0}
+a.viewspot, a.viewspot:visited {background: url(/images/content/plate_medium_alt2_vs_lo.gif); color: #008fc4; display: block; width: 75px; height: 20px; padding-left: 20px; position: absolute; bottom: 4px; left: 4px}
+a.viewspot:hover {background: url(/images/content/plate_medium_alt2_vs_hi.gif); color: white}
+a.viewprofile, a.viewprofile:visited {background: url(/images/content/plate_medium_alt2_traybg.gif) no-repeat 0 0; color: #008fc4; display: block; width: 71px; height: 20px; position: absolute; bottom: 4px; left: 4px; text-indent: -9999px}
+a.viewprofile:hover {background-position: 0 -22px}
+a.viewinfo, a.viewinfo:visited, a.viewinfo-dim {background: url(/images/content/plate_medium_alt2_traybg.gif) no-repeat -75px 0; display: block; width: 20px; height: 20px; position: absolute; left: 79px; bottom: 4px; text-indent: -9999px}
+a.viewinfo-over, a.viewinfo-over:visited, a.viewinfo:hover {background-position: -75px -22px}
+a.viewinfo-dim, a.viewinfo-dim:hover {cursor: default; background-position: -75px -44px}
+.proplate, .proplate-new, .proplate-updated, .proplate-top10, .proplate-drop {width: 75px; height: 127px; padding: 18px 4px 4px 4px; background: url(/images/content/plate_75_matrix.gif) no-repeat 0 -150px; font-size: 9px; font-weight: bold; position: relative}
+.proplate-new {background-position: -84px -150px}
+.proplate-updated {background-position: -168px -150px}
+.proplate-top10 {background-position: -252px -150px}
+.proplate-drop {background-position: -336px -150px}
+a.proplate-mug, a.proplate-mug:visited {color: #363632; text-align: center; display: block; width: 75px; line-height: 1.2em}
+a.proplate-mug:hover {color: #01b0f0}
+.miniprofile-box, .miniprofile-box-updated, .miniprofile-box-new {background: url(/images/content/plate_150w_bot.gif) no-repeat 0 bottom; padding: 0 0 10px 0}
+.miniprofile-box-inner {width: 150px}
+.p-wrapper {width: 100%; background: white; text-align: center}
+.miniprofile-box .miniprofile-box-inner, .miniprofile-box-updated .miniprofile-box-inner, .miniprofile-box-new .miniprofile-box-inner {background: url(/images/content/plate_150w_top2.gif) no-repeat 0 top; padding: 18px 4px 4px}
+.miniprofile-box-updated .miniprofile-box-inner {background-position: -318px 0; padding: 18px 4px 4px}
+.miniprofile-box-new .miniprofile-box-inner {background-position: -159px 0; padding: 18px 4px 4px}
+.miniprofile-box-inner h3 {padding: 7px 0 0 7px; margin: 0}
+.miniprofile-box-inner h3 a, .miniprofile-box-inner h3 a:visited {font-weight: inherit; color: #f63293}
+.miniprofile-box-inner h3 a:hover {color: #870B74}
+.miniprofile-box-inner h4 {padding: 5px 0 0 7px}
+.miniprofile-box-inner #toolbox {padding: 0 7px; margin: 5px 0 0 0}
+.thumb-container {width: 60px; padding: 4px; margin-right: 8px; float: left; position: relative; background: url(/images/content/plate_thumb_matrix.png) no-repeat -190px 0}
+.thumb-container a {position: relative; display: block; width: 60px; height: 60px; overflow: hidden}
+.thumb-container a img {position: relative; top: -7px; left: -7px}
+.add75 a img:hover {left: -82px}
+.thumb-container em {position: absolute; display: block; width: 26px; height: 26px; left: 22px; top: 21px}
+.thumb-container em a {display: block; width: 27px; height: 26px}
+.thumb-container em a img {top: 0; left: 0}
+.thumb-container em.spotbug {text-indent: -9999px; background: url(/images/icons/thumb_spotmarker2.png) no-repeat 0 4px; top: 52px; left: 23px}
+#IE6root .thumb-container em.spotbug {background: url(/images/icons/thumb_spotmarker2.gif) no-repeat 0 0}
+.miniprofile-box-inner .thumb-container {margin: 0 4px 10px 0}
+.t95 {width: 95px; background-position: 0 0}
+.t95 a {width: 95px; height: 95px}
+.t95 a img {left: 0; top: 0}
+.t95 em {width: 48px; height: 48px; left: 28px; top: 26px}
+.t95 em.spotbug {text-indent: -9999px; background: url(/images/icons/thumb_spotmarker2.png) no-repeat 0 0; top: 92px; left: 39px}
+.t95 em a {width: 48px; height: 48px}
+.t75 {width: 75px; background-position: -105px 0}
+.t75 a {width: 75px; height: 75px}
+.t75 a img {left: 0; top: 0}
+.t75 em {width: 52px; height: 52px; left: 26px; top: 24px}
+.t75 em a {width: 52px; height: 52px}
+.t50 {width: 50px; background-position: -260px 0; padding: 3px}
+.t50 a {width: 50px; height: 50px}
+.t50 a img {left: 0; top: 0}
+.plate {float: left; display: inline; background: url(/images/content/plate_univ_left_beige.gif) no-repeat bottom left}
+.plate-br {background: url(/images/content/plate_univ_right_beige.gif) no-repeat bottom right; padding: 0 0 4px 0}
+.plate-tr {background: url(/images/content/plate_univ_right_beige.gif) no-repeat top right; padding: 0 4px 0 0}
+.plate-tl {background: url(/images/content/plate_univ_left_beige.gif) no-repeat top left; padding: 4px 0 0 4px}
+.messagebox {background: url(/images/content/corner_tl.png) no-repeat 0 0; background-color: #c5f2f8}
+.mb-tr {background: url(/images/content/corner_tr.png) no-repeat right 0}
+.mb-br {background: url(/images/content/corner_br.png) no-repeat right 100%}
+.mb-bl {background: url(/images/content/corner_bl.png) no-repeat 0 100%; padding: 0 0 0 0}
+.mb-icon {background: url(/images/icons/sysnote_icons.gif) no-repeat 0 0; padding: 5px 0 10px 80px}
+.mb-content {background-color: #c5f2f8; padding-right: 10px}
+.mb-content h4 {color: #27495b; font-size: 17px}
+.mb-content p {margin: 0; padding-bottom: 1em}
+.messagebox a.closeicon, .messagebox a.closeicon:visited {color: #91c2cd; background-position: right -161px}
+.messagebox a.closeicon:hover {color: #01b0f0; background-position: right -187px}
+.m-arrow .mb-icon {background-position: -560px 0}
+.m-favs .mb-icon {background-position: -320px 0}
+.m-lists .mb-icon {background-position: -400px 0}
+.m-xmas .mb-icon {background-position: -640px 0}
+.m-spot .mb-icon {background-position: -160px 0}
+.m-spot .mb-content {padding-top: 6px}
+.m-systemnote {background-color: #fffcd7}
+.m-systemnote a.closeicon, .m-systemnote a.closeicon:visited {background-position: right -405px; color: #beb9b0}
+.m-systemnote a.closeicon:hover {background-position: right -431px}
+.m-systemnote .mb-icon {background-image: url(/images/icons/systemmsg.gif); background-position: 12px 0}
+.m-systemnote .mb-content {background-color: #fffcd7}
+.m-systemnote .mb-content h4 {color: #f59c00}
+.m-errornote {background-color: #f59c00}
+.m-errornote a.closeicon, .m-errornote a.closeicon:visited {background-position: right -405px; color: #beb9b0}
+.m-errornote a.closeicon:hover {background-position: right -431px}
+.m-errornote .mb-icon {background-position: -480px 0}
+.m-errornote .mb-content {background-color: #f59c00}
+.m-errornote .mb-content h4 {color: white; padding-top: 3px}
+.m-errornote .mb-content p {color: white}
+p.upgrade-note {border-top: 1px solid #e7e7de; line-height: 1.4em; margin: 8px 0 0 0; padding-top: 7px; font-size: 10px}
+.upgrade-bar {position: relative; border-bottom: 1px solid #b8d6da; height: 23px; text-align: center; color: #27495b; padding: 4px 0 0 0; background: #c5f2f8; font-size: 11px; font-weight: bold; line-height: 18px}
+.ubc {position: absolute; right: 10px; top: 4px; font-size: 10px; font-weight: normal}
+.browsermsg{padding:20px;border-bottom:1px solid #bdbca8;background:#f5f1be url(/images/icons/browsermsg.shadow.gif) repeat-x 0 bottom;}
+.msghead{font:bold 22px "Helvetica Neue","Helvetica","Arial",Sans-serif;margin:0 0 5px 0;}
+.msg{font-size:11px;line-height:normal;}
+.msgtiny{font-size:10px;color:#76756a;}
+.msgbrowsers{}
+.msgbrowsers li{width:70px;float:left;padding:0 5px;}
+.msgbrowsers a, .msgbrowsers a:visited{display:block;text-align:center;font-size:11px;line-height:normal;}
+.msgbrowsers span{display:block;}
+.upgrade-cta{text-align:center;border-bottom:1px solid #dfdcb4;font-size:11px;padding:4px 0;margin:0 0 5px 0;}
+a.closeicon, a.closeicon:visited {background-position: right -405px;}
+a.closeicon:hover {background-position: right -431px;}
+.starbox .stars {background: #c9c9c1}
+.starbox .rated .stars {background: #c9c9c1}
+.starbox .rated .hover .stars {background: #c9c9c1}
+.starbox .colorbar {background: #989891}
+.starbox .hover .colorbar {background: #f63293}
+.starbox .rated .colorbar {background: #f63293}
+.starbox .rated .hover .colorbar {background: #f63293}
+.starbox .ghost {background: #989891}
+.starbox .indicator {clear: both}
+.starbox .dotted .stars, .starbox .dotted .hover .stars, .starbox .dotted .rated .stars, .starbox .dotted .rated .hover .stars {background: url(/images/starbox/background_dotted.gif) top left repeat-x}
+.starbox .dotted .colorbar, .starbox .dotted .hover .colorbar, .starbox .dotted .rated .colorbar, .starbox .dotted .rated .hover .colorbar {background: green}
+.starbox .dotted .ghost {background: green}
+.starbox .pointy .colorbar {background: #ffcc1c}
+.starbox .pointy .hover .colorbar {background: #ff9231}
+.starbox .inverse .stars {float: right}
+.starbox .inverse .indicator {clear: both; display: block; text-align: right}
+.un_starbox .stars {background: #c9c9c1}
+.un_starbox .rated .stars {background: #c9c9c1}
+.un_starbox .rated .hover .stars {background: #c9c9c1}
+.un_starbox .colorbar {background: #989891}
+.un_starbox .hover .colorbar {background: #f63293}
+.un_starbox .rated .colorbar {background: #989891}
+.un_starbox .rated .hover .colorbar {background: #f63293}
+.un_starbox .ghost {background: #c9c9c1}
+.un_starbox .indicator {clear: both}
+.indicator {color: #6a6a64; font-size: 11px}
+.pane {overflow: hidden}
+.subhead-main {position: relative; background: url(/images/content/subhead_left_beige.png) no-repeat 0 0; margin: 10px 0 2px 0; width: 100%; padding: 0 0 6px 0}
+.subhead-main h1, .subhead-main h2, .subhead-main h3 {background: url(/images/content/subhead_right_beige.gif) no-repeat right 0; color: #f63293; padding: 5px 9px 14px; font-size: 17px; margin-bottom: 0}
+.subhead-main h1 span, .subhead-main h2 span, .subhead-main h3 span {margin-left: 1px; font-size: 13px}
+#IEroot .subhead-main h2 {font-weight: bold}
+.subhead-main h1 em, .subhead-main h2 em, .subhead-main h3 em {font-size: .5em; color: #e7e7de}
+.subhead-main form {position: absolute; right: 6px; top: 5px}
+.subhead-main form select {width: 140px; font: bold 11px/11px "Lucida Grande","Lucida","Verdana",Sans-serif; border: 1px solid #d7d7ca; padding: 1px; color: #f63293}
+.subhead-main form select option {padding: 1px}
+#IEroot .subhead-main ul {top: 10px}
+.subhead-main ul li {float: left}
+.subhead-main ul li a img {position: relative; top: -2px; margin: 0 4px 0 0; background: none}
+.subhead-rail {position: relative; background: url(/images/content/subhead_left_beige.png) no-repeat 0 0}
+.subhead-rail h3 {color: white; background: url(/images/content/subhead_right_beige.gif) no-repeat right 0; color: #f63293; padding: 6px 0 16px 9px; margin: 0}
+.subhead-rail h3 span {margin-left: 7px; font-family: "Lucida Grande","Lucida","Arial",Sans-serif; font-size: 11px}
+.subhead-rail ul {position: absolute; right: 8px; top: 6px; font-size: x-small}
+#IEroot .subhead-rail ul {top: 7px}
+.subhead-rail ul li {float: left}
+.subhead-rail ul li a, .subhead-rail ul li a:visited {color: white}
+.subhead-rail ul li a img {position: relative; top: -2px; margin: 0 4px 0 0; background: none}
+.rail-container {background: url(/images/content/subhead_rail_body.png) no-repeat 0 bottom; margin-bottom: 15px; margin-top: 10px}
+.rail-container-half {width: 148px; margin: 15px 0 10px 0}
+.rail-container-inner {padding: 2px 10px 10px 10px}
+.rail-container h4 span a, .rail-container h4 span a:visited {font-size: small; font-weight: normal; color: #99998b}
+.rail-container h4 span a:hover {color: black}
+.slide-footer {border-top: 1px solid #E6E6DB; padding: 3px 8px 0 0}
+.slidenav-footer ul {padding-right: 5px}
+.slidenav-footer ul li {margin: 0 4px 0 20px; float: right}
+.scrollers {position: absolute; right: 5px; top: 5px}
+a.scroll-left, a.scroll-right, a.scroll-up, a.scroll-down, a.scroll-left-dim, a.scroll-right-dim, a.scroll-up-dim, a.scroll-down-dim {width: 25px; height: 22px; display: block; float: left; overflow: hidden; text-indent: -9999px; background: url(/images/content/scroller3_bg.png) no-repeat}
+a.scroll-left {background-position: 0 0}
+a.scroll-right {background-position: -25px 0}
+a.scroll-left:hover {background-position: 0 -22px}
+a.scroll-right:hover {background-position: -25px -22px}
+a.scroll-left-dim {background-position: 0 -44px; cursor: default}
+a.scroll-right-dim {background-position: -25px -44px; cursor: default}
+a.scroll-up {background-position: 0 -66px}
+a.scroll-down {background-position: -25px -66px}
+a.scroll-up:hover {background-position: 0 -88px}
+a.scroll-down:hover {background-position: -25px -88px}
+a.scroll-up-dim {background-position: 0 -110px; cursor: default}
+a.scroll-down-dim {background-position: -25px -110px; cursor: default}
+.page-dots {position: absolute; right: 60px; top: 5px}
+.page-dots ul li {float: left; margin-right: 5px}
+.page-dots ul li a {display: block; float: left; overflow: hidden; width: 16px; height: 15px; text-indent: -9999px; background: url(/images/icons/dots_pink.gif) no-repeat 0 0}
+.page-dots ul li a.active {background-position: 0 -15px}
+ul li#dotnav img {background: none; position: relative; top: 1px}
+#IEroot ul li#dotnav img {position: relative; top: 2px}
+.slidenav-footer ul li a.scroll-top {padding-left: 10px; background: url("/images/icons/scroll_top.gif") no-repeat 0 50%}
+.slidenav-footer ul li a.scroll-bottom {padding-left: 10px; background: url("/images/icons/scroll_bottom.gif") no-repeat 0 50%}
+.slidenav-footer ul li a.scroll-first {padding-left: 10px; background: url("/images/icons/scroll_first.gif") no-repeat 0 50%}
+.slidenav-footer ul li a.scroll-last {padding-right: 10px; background: url("/images/icons/scroll_last.gif") no-repeat 100% 50%}
+ul.filters {padding: 2px 0 0 0}
+ul.filters li {float: left}
+ul.filters li.filter-type {font-size: 11px; margin-right: 10px; line-height: 11px; font-weight: bold; margin-top: 1px; padding: 1px 0 3px 0}
+ul.filters li a {font-size: 11px; display: block; float: left; height: 15px; margin: 1px 10px 1px 0}
+ul.filters li a.selected {background: transparent url("/images/content/header_option_bg_right.gif") no-repeat scroll top right; color: white; display: block; float: left; font-size: 11px; padding-right: 7px}
+ul.filters a span {padding: 1px 0 3px 0; line-height: 11px; display: block; white-space: nowrap}
+ul.filters a.selected span {background: transparent url("/images/content/header_option_bg_left.gif") no-repeat; padding: 1px 0 3px 8px}
+#IEroot ul.filters li.filter-type, #IEroot ul.filters li a, #IEroot ul.filters li a.selected {font-size: 10px}
+.spot-unit {border-bottom: 1px solid #E6E6DB; float: left; padding: 0 0 10px 5px; margin: 0 0 10px 0}
+.su-actions {float: right; width: 204px; padding: 0 0 4px 0; line-height: 1.3em; color: #afafa4}
+.su-actions .actions li {font: normal 11px/1.2em "Lucida Grande", "Lucida Sans", "Lucida", sans-serif; margin: 1px 0}
+.su-actions #rating {padding: 2px 0}
+.su-actions p {font-size: 10px; margin: 0}
+#activity-feed-mask {position: relative}
+ul.af {font-size: 11px}
+ul.af li {margin: 0 0 5px 0; padding: 8px 0 6px 0; border-bottom: 1px solid #e6e6dc}
+ul.af li em.ts {font-size: xx-small; color: #BBB; font-style: normal; display: block; text-align: right}
+ul.index-af li div.feed-item {height: 110px}
+ul.index-af li em.ts {position:absolute; bottom:0px; right: 0px}
+ul.af li p.event {line-height: 1.3em; margin: 0 0 4px 0}
+ul.af li ul.profile-media li {margin: 5px 0 0 0}
+ul.af li .detail {margin: 8px 0 0 0; padding: 0 10px 0 25px}
+ul.af li .detail .note {padding-top: 5px; font-size: 11px; line-height: 1.3em; color: #858581; overflow: hidden}
+.feed-item {position: relative; width: 100%; line-height: 1.3em}
+.feed-item .indicator {font-size: 11px; color: #888}
+.feed-user-mug, .feed-user-mug:visited {position: absolute; top: 0; left: 0; display: block; width: 31px; height: 31px; background: url(/images/content/plate_thumb_matrix.png) no-repeat -318px -105px; padding: 3px}
+.feed-user-mug a {display: block; height: 31px; width: 31px; text-indent: -9999px; background-repeat: no-repeat}
+.feed-user-info {margin-left: 49px; padding-top: 1px}
+.feed-user-info blockquote {line-height: 1.2em; color: #a0a094; padding-bottom: 3px}
+.feed-user-info p {line-height: 1.2em; padding-bottom: 4px; margin: 0; color: #a0a094}
+.feed-detail {padding: 6px 0 0 0; color: #a0a094}
+.feed-detail img.staticstars {vertical-align: bottom; padding: 0 0 4px 0}
+.bundle .feed-detail {border-top: 1px dashed #ebebe3; padding: 4px 0 3px 0; margin-top: 5px}
+.bundle .thumb-container {margin-bottom: 7px}
+.bundle cite em.spotbug {position: absolute; top: 25px; left: 7px}
+.bundle cite em.spotbug a {text-indent: 0; width: 22px; height: 20px}
+span.action {color: #a0a094}
+span.action a, span.action a:visited {color: #f63293}
+span.action a.action-fan {padding-left: 17px; background: url(/images/icons/tool_heart3.gif) no-repeat 0pt 2px}
+ul.af .mini {color: #888888; font-size: 10px}
+ul.af .mini cite {display: none}
+ul.af .mini .feed-user-info {margin: 0 0 0 3px}
+.textile {padding: 10px 0 12px 10px; position: relative}
+.textile ul {margin: 1.3em 10px 1.3em 10px; list-style-type: disc}
+.textile ul li, .textile ol li {margin: .5em 0 .5em 14px}
+.textile ol {margin: 1.3em 10px 1.3em 10px; list-style-type: decimal}
+.textile h1 {font: 18px "Helvetica Neue","Helvetica","Arial",sans-serif; font-weight: normal}
+.textile h2 {color: black; font-size: 14px; font-weight: bold}
+.textile blockquote {margin: 0 0 1.3em 24px}
+ul.fans {padding-left: 6px}
+ul.fans li {float: left; margin: 0 0 10px; width: 31px; height: 31px; background: url(/images/content/plate_thumb_matrix.png) no-repeat -318px -105px; padding: 3px; margin: 0 10px 10px 0; display: inline}
+ul.fans li a {display: block; text-indent: -9999px; width: 31px; height: 31px}
+#discussion_holder {margin-top: 10px}
+.post {padding: 0 0 15px 0}
+.poster-container {float: left; width: 100px; text-align: center}
+.poster-container cite {padding: 3px 0; display: block; font-style: normal; font-size: 11px; background: url(/images/content/plate_tiny.gif) no-repeat 50% 0; width: 100%; overflow: hidden}
+.poster-staff, .poster-editor {position: relative}
+.poster-staff cite {background: url(/images/content/plate_tiny_staff.gif) no-repeat 50% 0}
+.poster-editor cite {background: url(/images/content/plate_tiny_editor.gif) no-repeat 50% 0}
+.poster-staff img {position: absolute; top: -16px; left: 34px}
+.poster-editor img {position: absolute; top: -16px; left: 32px}
+.poster-container cite a {display: block; text-align: center; width: 100%; background-position: 50% 0; background-repeat: no-repeat; padding: 37px 0 0 0; line-height: 1.1em}
+.poster-container cite a img {}
+.quote-container {float: left; width: 494px}
+.quote-container em {display: block; padding: 3px 25px; font-size: 10px; font-style: normal; color: #afafa4}
+.quote-container em.post-footer-left {float: left}
+.quote-container em.post-footer-right {float: right}
+.quote {background: url(/images/content/commentBubble_tier1_top.gif) no-repeat right 0}
+.quote blockquote {background: url(/images/content/commentBubble_tier1_bottom.gif) no-repeat right bottom; padding: 15px 15px 5px 25px; overflow: hidden}
+.post-action {padding: 10px 0 0 22px}
+p.post-cancel {padding: 5px 0 5px 16px; display: block; float: left; font-size: 11px}
+.post .note {font-style: normal; width: 107px; height: 35px; padding: 14px 0 0 20px; background: url(/images/content/comment_note_bg.gif) no-repeat 0 0; color: white; float: left; margin-left: 7px}
+.tier2 {padding-left: 40px}
+.tier2 .quote-container {width: 454px}
+.tier2 .quote {background: url(/images/content/commentBubble_tier2_top.gif) no-repeat right 0}
+.tier2 .quote blockquote {background: url(/images/content/commentBubble_tier2_bottom.gif) no-repeat right bottom}
+.tier2 .quote-container textarea {width: 410px}
+.wall .quote-container {width: 366px}
+.wall .quote {background: url(/images/content/commentBubble_wall_top.gif) no-repeat right 0}
+.wall .quote blockquote {background: url(/images/content/commentBubble_wall_bottom.gif) no-repeat right bottom}
+.wall .quote-container textarea {width: 322px}
+p.post-new {font: 15px/1.3em "Helvetica Neue","Helvetica","Aria",sans-serif; padding: .5em 10px 1.3em 115px}
+.quote-container textarea {width: 450px; background-color: white; border: 0; padding: 0; font: 12px/1.3em "Lucida Grande","Lucida","Verdana",Sans-serif}
+.quote-container textarea.loading {background: white url(/images/icons/ajax-loader-lime.gif) no-repeat 50% 50%}
+.quote blockquote p {margin: 0px 0px 0.7em}
+#comment-errors {background: url(/images/icons/caution.gif) no-repeat scroll 0 0 transparent; color: #F09800; display: block; font-style: normal; font-weight: normal; padding: 0 4px 14px 40px; margin-left: 75px}
+.link-flagger {font-size: 11px; border-top: 1px solid #f1f1e8; padding: 10px; margin-top: 5px}
+.link-flagger p {line-height: 1.3em}
+.link-flagger fieldset {border: 0}
+.link-flagger fieldset input {background: none; border: 0}
+.link-flagger a {margin-left: 5px}
+.comments-nav {text-align: right; color: #f63293; width: 594px}
+.comments-nav span {color: #CCCCBF}
+.comments-nav a.page, .comments-nav a.page:visited {color: #afafa4; margin: 4px 0; padding: 0 4px}
+.comments-nav a.page:hover {background: #E5E5DA; color: #AFAFA4}
+.comments-nav a.selected, .comments-nav a.selected:visited {background: #f63293; font-size: 16px; color: white}
+.paginator {text-align: right; color: #ccccbf; line-height: 16px; padding: 8px 20px 10px 0}
+.paginator a {font-size: 11px; padding: 0 3px}
+.paginator a.selected {cursor: default; color: white; border-bottom: 1px solid #008fc4; border-top: 1px solid #008fc4; background: #008fc4; font-weight: bold}
+.paginator em img {vertical-align: bottom}
+.paginator em.active {display: inline}
+.sponsored-links-main {padding: 10px 0 20px 10px}
+.sponsored-links-rail {padding: 0}
+.sponsored-links-main h3, .sponsored-links-rail h3 {padding: 0; font-size: 11px; color: #bbb}
+.sponsored-links-main div {float: left; width: 275px; padding: 0 15px 0 0}
+.sponsored-links-rail div {width: 165px; overflow: hidden; padding: 10px 0}
+.sponsored-links-main p, .sponsored-links-rail p {margin: 0; font-size: 11px}
+.sponsored-links-main div a {display: block}
+.created-by {color: #ccccbf; font-size: x-small; padding: 0}
+.created-by a, .created-by a:visited {color: #ccccbf; font-weight: bold}
+.created-by a:hover {color: #5e5e58}
+.errorbubble {background: url(/images/content/errorbubble.gif) no-repeat 0 bottom; padding: 0 0 16px 0; width: 559px}
+.errorbubble-inner {background: url(/images/content/errorbubble.gif) no-repeat 0 0; padding: 20px 20px 10px 20px}
+.errorbubble p {font: 16px "Helvetica Neue","Helvetica","Arial",Sans-serif}
+.error-mug-info {padding: 4px 0 0 0; float: left; font-size: 11px; line-height: 1.2em; color: #a0a094}
+.error-mug-info span {display: block; color: #a6a69a}
+.update-note p {background: #efffb9 url(/images/icons/check_green2.gif) no-repeat 7px 5px; padding: 6px 0 6px 40px; line-height: 1.5em; color: #7b9f00}
+.error-note p {background: #ffedcd url(/images/icons/error_note.gif) no-repeat 8px 5px; padding: 6px 0 6px 40px; line-height: 1.5em; color: #e99400}
+.error-inpage .error-note p {background-color: #fffcd7; background-position: 8px 8px}
+.error-inpage .error-note span {display: block; padding: 0 0 12px 0; font: 19px "Helvetica Neue","Helvetica","Arial",Sans-serif; color: #e99400}
+.error-inpage .error-note p {}
+.metafooter {padding: 8px 20px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; margin: 0 -10px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ebebeb), to(#dedede)); background-image: -moz-linear-gradient(19% 75% 90deg,#f3f3f3,#ebebeb); margin-bottom: 20px; color: #999999}
+.metafooter a, .metafooter a:visited {color: #777777; text-decoration: underline}
+.metafooter h4 {color: #777777; text-shadow: 0 1px 1px rgba(255,255,255,1)}
+.mf-col {float: left; width: 290px; margin: 0 10px 0 0}
+a.join-button, a.join-button:visited {float: left; display: block; width: 128px; height: 45px; text-indent: -9999px; background: url(/images/content/staticbuttons.gif) no-repeat -3px -41px; margin: 0 auto}
+.csbutton, .csbutton:visited {font-family: Helvetica, Arial, Sans-serif; background: #222 url(/images/content/csbuttonoverlay.png) repeat-x; display: inline-block; padding: 5px 10px 6px; color: #fff; text-decoration: none; -moz-border-radius: 6px; -webkit-border-radius: 6px; -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.6); -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.6); text-shadow: 0 -1px 1px rgba(0,0,0,0.25); border-bottom: 1px solid rgba(0,0,0,0.25); position: relative; cursor: pointer; line-height: 1}
+.big.csbutton, .big.csbutton:visited {font-size: 23px; color: white; padding: 10px 17px 6px; background-color: #f63293}
+.big.csbutton:hover {background-color: #ff4fa6}
+a.join-button:hover {background-position: -134px -41px}
+.global-promo {padding: 8px 10px 8px 10px; background: #dbeef5; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; margin: 0 -10px; background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eaf3f7), to(#D2EAF3)); background-image: -moz-linear-gradient(19% 75% 90deg,#4a5355,#1c1c1c); margin-bottom: 20px}
+.alt.global-promo {background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eaf3f7), to(#D2EAF3)); background-image: -moz-linear-gradient(19% 75% 90deg,#c9e0e9,#eaf3f7)}
+.alt.global-promo a {}
+.global-promo a {color: #f85daa}
+.gp-inner {background: url(/images/content/bg.globalpromo1.png) no-repeat 153px 120px; padding: 10px}
+.global-promo h3 {color: white; font-size: 28px; text-shadow:1px 1px 0px #000000}
+.alt.global-promo h3 {color: #444; text-shadow:1px 1px 0px #FFF}
+.global-promo h4 {color: white; font-weight: normal; font-size: 18px; text-shadow:1px 1px 0px #000000; margin-bottom: .1em; line-height: normal}
+.alt.global-promo h4 {font-size: 14px; color: #444; text-shadow:1px 1px 0px #FFF}
+.adlabel {font-size: 10px; font-style: normal; color: #AAA; display: block; text-align: center}
+.team-mug {background: url(/images/content/plate_thumb_matrix.png) no-repeat -357px -105px; text-align: center; padding: 3px; width: 50px; float: left; margin: 0 10px 0 0; font-size: 11px; height: 72px}
+.team-mug img {display: block}
+.team-mug a, .team-mug a:visited {color: #5e5e58}
+.team-mug a:hover {color: #01b0f0}
+.about-nav {padding-right: 20px; padding-bottom: 100px; border-right: 1px solid #e7e7de}
+.about-nav li {margin: .2em 0; padding: 3px}
+.about-nav li a {display: block}
+.about-nav li.active {background: #e9f2f5; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px}
+.about-nav li.active a {color: black; font-weight: bold}
+.faq-topic {margin-bottom: 14px}
+.faq-question {}
+.faq-question h3 {}
+.adquote {padding: 0 0 0 32px; background: url(/images/icons/quote2_open.gif) no-repeat 0 0; font-family: "Helvetica Neue","Helvetica","Arial",Sans-serif; font-size: 15px; margin: 0 0 25px 0; line-height: 1.3em}
+.adquote span {margin: 6px 0 0 17px; display: block; font-size: 11px; font-family: "Lucida Grande","Lucida","Verdana",Sans-serif; background-position: 0 0; background-repeat: no-repeat; height: 35px; font-weight: bold}
+.adquote span img {vertical-align: middle; padding: 0 5px 0 0}
+.adquote .endquote {float: none; border: 0; padding: 0 0 0 3px; vertical-align: bottom}
+.adquote .quotelogo {border: 0; float: none; display: block; margin: 8px 0 0 20px; padding: 0}
+#IEroot, #IE6root {width:972px; margin:0 auto}
+.app-promo {margin: 0 4px 15px; position: relative; width: 300px; background: url(/images/content/featurespot_bg_green.png) no-repeat 0 bottom}
+.app-promo a.app-promo-photo, .app-promo a.app-promo-photo:visited {border: 3px solid #000; display: block; padding-top: 225px; width: 294px; background-repeat: no-repeat; background-position: 0 0; font: normal 25px/1.1em "Helvetica Neue","Helvetica","Arial",Sans-serif; color: white}
+.app-promo a.app-promo-photo em {display: block; background: #7fbe38; font-style: normal; padding: 10px}
+.app-promo .corners {position: absolute; top: 0; left: 0; height: 6px; width: 300px; background: url(/images/content/featurespot_corners.png) no-repeat 0 0}
+#IEroot .app-promo .corners {background-image: url(/images/content/featurespot_corners.gif); height: 4px}
+.app-promo em {font: normal 18px/1.1em "Helvetica Neue","Helvetica","Arial",Sans-serif; display: block; padding: 16px 6px 12px 9px; text-align: center}
+.app-promo em, .app-promo em {color: white}
+.app-promo em span {font-style: italic}
+.app-promo .subpromo {padding-top: 0px; padding-bottom: 10px; text-align: center}
+.app-promo a.mug {padding: 3px; display: block; float: left; background: url(/images/content/featurespot_mugbg_green.gif) no-repeat 0 0}
+.app-promo p {float: left; padding: 3px 9px 0; width: 282px; color: lightgray ; font-size: 11px; line-height: 1.1em; margin: 0}
+.app-promo p a, .app-promo p a:visited {color: white}
+.app-promo p a:hover {color: black}
+.app-promo-black {background-image: url(/images/content/featurespot_bg_black.gif)}
+.app-promo-black a.app-promo-photo, .app-promo-black a.app-promo-photo:visited {color: #d210b4}
+.app-promo-black a.app-promo-photo:hover em {color: white}
+.app-promo-black a.app-promo-photo em {background: black}
+.app-promo-black .subpromo p {color: #aaa}
+.app-promo-black p {color: #f63293}
+.app-promo-black a.mug {background-image: url(/images/content/featurespot_mugbg_black.gif)}
+.app-promo-black em span {color: white}
+.app-promo-black em {color: #f63293}
+.app-promo-black em a:hover {color: white}
+.rail-container-inner .app-promo, .rail-container-inner .app-promo-black {background: none}
+.rail-container-inner .app-promo a.app-promo-photo, .rail-container-inner .app-promo a.app-promo-photo:visited {border: 1px solid lightgray}
+.rail-container-inner .app-promo em span {color: #f63293}
+.search_counts {font-size: 16px; font-weight: bold; margin: 15px 0px 25px 0px; color: black}
+.search_results_header {border-bottom: 1px solid #ddd; padding: 0px; margin: 15px 0px}
+.search_result {position: relative; margin: 2px 0px; clear: both; min-height: 46px; line-height: normal}
+.search_description {color: #ccc}
+dl.entry-form {margin: 20px 0 20px 0; position: relative; width: 494px}
+dl.entry-form dt {clear: both; float:left; width: 120px; padding: 4px 0 2px 0; text-align: left}
+dl.entry-form dd {float: left; width: 364px; margin: 0 0 15px 0; padding-left: 6px}
+div#beta-feedback {margin: 20px 0 10px 0}
+div.feedback-comment {border-bottom: 1px solid #ccccbf; margin: 5px 0 5px 0}
+.meta {color: #A5A5A7; font-size: x-small}
+ul#user_fans_list {margin: 20px 0 20px 0; width: 550px}
+ul#user_fans_list li {text-align: center; margin: 10px; float: left; width: 110px}
+div.fan_detail {font-size: x-small}
+ul.default-list {list-style: disc}
+ul.default-list li {margin-left: 20px; margin: .5em 0 .5em 20px}
+ul.lettered-list {list-style: lower-alpha}
+ul.lettered-list li {margin-left: 20px; line-height: 1.5em}
+#admin_left {width: 150px; float: left}
+#admin_right {width: 750px; float: right; padding: 0 0 0 20px}
+a.scroll-left-off, a.scroll-right-off, a.scroll-up-off, a.scroll-down-off {width: 25px; height: 22px; display: block; float: left; overflow: hidden; text-indent: -9999px; background: url(/images/content/scroller_bg.png) no-repeat}
+a.scroll-left-off {background-position: 0 0px}
+a.scroll-right-off {background-position: -25px 0px}
+a.scroll-up-off {background-position: 0 -44px}
+a.scroll-down-off {background-position: -25px -44px}
+.fanzter img {padding: 0; margin: 0}
+p.flag-footer {padding: 1em 0 0 0; font-size: xx-small; color: #94948a; text-align: center}
+span.highlight {background-color: #ffc}
+ul.news-feed {}
+ul.news-feed li {margin: 0 0 8px 0; padding: 8px 0 0 0; border-top: 1px solid #e6e6dc}
+ul.news-feed li.header {font-size: medium}
+ul.news-feed li em.ts {font-size: xx-small; color: #BBB; font-style: normal}
+ul.news-feed li p.event {line-height: 1.3em; margin: 0}
+ul.news-feed li.first {border-top: 0}
+.feed-thumb {padding: 5px 0 2px 18px}
+ul.news-feed li ul.profile-media li {margin: 5px 0 0 0}
+.pink_loading_text_pink_text {color: #e6a1da; font-size: 11px; font-weight: bold; font-family: "Lucida Grande","Lucida Sans","Lucida",sans-serif}
+.add-footer em {float: left; font-style: normal; font-weight: bold; padding: 5px 10px 0 0; display: block}
+.blue-alert {margin-top: 0em; padding: .5em; background-color: #ecf3fe; border: 1px solid #c6dcfe; font-size: 10px}
+.red-alert {margin-top: 0em; padding: .5em; background-color: #ffebe8; border: 1px solid #dd3c10}
+.blue2-alert {margin-top: 2em; padding: .5em; background-color: #aee4f7; border: 1px solid #01b0f0}
+.yellow-alert {margin-top: 2em; padding: .5em; background-color: #ffffee; border: 1px solid #eeee00}
+.default_image_profile {height: 400px; width: 275px}
+.default_image_profile_medium {height: 210px; width: 150px}
+.default_image_landscape {width: 73px; height: 53px}
+.default_image_biglandscape {width: 83px; height: 62px}
+.default_image_small {width: 60px; height: 60px}
+.default_image_medium {width: 75px; height: 75px}
+.default_image_large {width: 150px; height: 150px}
+.default_image_mini {width: 75px; height: 75px}
+.default_image_square {width: 100px; height: 100px}
+.tool-container {position: relative; color: black; text-align: left}
+.tool-outer {position: relative; z-index: 800; width: 381px; background: url(/images/tool/tool_bg_bot.gif) no-repeat 0 100%; padding: 0 0 8px 0}
+.twide .tool-outer {width: 660px; background: url(/images/tool/toolwide_bg_bot.gif) no-repeat 0 100%}
+.twide .foot {border-color: #e7e7de}
+.twider .tool-outer {width: 730px; background: url(/images/tool/toolwide2_bg_bot.gif) no-repeat 0 100%}
+.twider .foot {border-color: white}
+.tag .tool-outer {width: 283px; background: url(/images/tool/tagtool_bg_bot.gif) no-repeat 0 100%}
+.tool-inner {background: url(/images/tool/tool_bg_top2.gif) no-repeat 0 0; padding: 8px 8px 0 8px}
+.twide .tool-inner {background: url(/images/tool/toolwide_bg_top.gif) no-repeat 0 0}
+.twider .tool-inner {background: url(/images/tool/toolwide2_bg_top.gif) no-repeat 0 0}
+.tag .tool-inner {background: url(/images/tool/tagtool_bg_top.gif) no-repeat 0 0}
+.tool-title {position: relative; background: url(/images/tool/tool_titlebar2.gif) no-repeat 0 0; height: 39px}
+.twide .tool-title, .twider .tool-title {background: url(/images/tool/logo_modal3.gif) no-repeat 0 0; height: 52px; display: block; border-bottom: 1px solid #d4d4cc; margin: 0 5px; padding: 3px 0}
+.twider .tool-title {background-image: url(/images/tool/logo_modal3.gif)}
+.tag .tool-title {background: url(/images/tool/tagtool_titlebar2.gif) no-repeat 0 0}
+.tool-title h2 {font-weight: bold; color: white; font-size: 16px; padding: 6px 0 0 10px}
+.twide .tool-inner h2, .twider .tool-inner h2 {text-indent: -9999px}
+.tool-title a, .tool-title a:link, .tool-title a:visited {position: absolute; right: 14px; top: 6px; color: white}
+.twide .tool-title a, .twide .tool-title a:link, .twide .tool-title a:visited, .twider .tool-title a, .twider .tool-title a:link, .twider .tool-title a:visited {top: 22px; color: #898980}
+.twide .tool-title a:hover, .twider .tool-title a:hover {color: #51514b}
+.tool-content {padding: 10px 10px 0; line-height: normal}
+.tool-content h2 {font-size: 20px; line-height: 2.3em; padding: 0 0 0 60px; background: url(/images/icons/radar_medium.gif) no-repeat 0 50%}
+.tool-content h3 {color: black; padding: .4em 0 .7em 0; margin: 0}
+.tool-content h3.complete-msg, .tool-content p.complete-msg {padding-left: 60px}
+.tool-content h3 span {font-size: 14px}
+.tool-content .complete-micro {padding: 3px; background: url(/images/content/plate_thumb_matrix.png) no-repeat -318px 0}
+.tool-content h5 {margin: 0; font-size: 11px; color: #999; font-weight: normal}
+.tool-content ul.media-fork {padding: 0 0 10px 0}
+.tool-content ul.media-fork li {float: left; width: 170px; padding: .5em 0}
+.tool-content p {margin: .3em 0 .7em 0}
+.tool-content .img-container-wrapper {height: 220px}
+.tool-content .img-container {width: 100%}
+.tool-content .img-container td {text-align: center}
+.tool-content .img-container td img {background: white; border: 3px solid white; padding: 2px}
+.tool-content .img-container td.selected img {border: 3px solid #f63293}
+#IEroot .tool-content h3 {font-weight: bold}
+.tool-content img.p-photo {float: left}
+.tool-content .p-photo-thumb {font-size: 11px; float: right; width: 176px}
+.tag .tool-content .p-photo-thumb {width: 76px}
+.tool-content em.tool-error {background: url(/images/icons/caution.gif) no-repeat 0 0; color: #f09800; font-weight: normal; padding: 0 4px 14px 40px; font-style: normal; display: block}
+.tool-content em.tool-error a, .tool-content em.tool-error a:visited {}
+.tool-content em.tool-error a:hover {}
+.foot {margin: 14px 0 0 0; padding: 0 10px; border-top: 1px solid #DDD}
+.foot span.form-btn, .foot span.form-btn-disabled, .foot span.form-btn-ajax {margin: 10px 0}
+.foot a.back {float: right; display: block; margin: 10px 10px 10px 0; padding: 0 3px; height: 25px; line-height: 25px; color: #AAA}
+.foot a.back:hover {color: #222}
+.foot span.form-btn, .foot span.form-btn-disabled, .foot span.form-btn-ajax {float: right}
+.imgbrowser li {float: left; width: 78px; height: 78px; padding: 3px; text-align: center}
+.tag .imgbrowser li {width: 115px}
+.imgbrowser li img {border: 3px solid white; padding: 1px }
+.imgbrowser li.selected img {border: 3px solid #01b0f0}
+.small {font-size: .9em}
+.warmgray {color: #444}
+.tool-toggle {float: left; padding: 0 0 7px 0}
+.tool-toggle li{ float: left; margin-right: 5px}
+.tool-toggle li a, .tool-toggle li a:visited {display: block; padding: 5px 8px; color: #555; -moz-border-radius: 12px; -webkit-border-radius: 12px; border-radius: 12px; background: #DFDFDF; text-shadow: 1px 1px 0 #EEE}
+.tool-toggle li a:hover {color: white; text-shadow: 1px 1px 0 #0096cd;; background: #EEE; background: #01b0f0}
+.tool-toggle li.selected a, .tool-toggle li.selected a:visited, .tool-toggle li.selected a:hover {color: white; background: #01b0f0; color: white; text-shadow: 1px 1px 0 #0096cd}
+.tool-content form {position: relative}
+.tool-content input[type="text"], .tool-content input[type="password"], .tool-content textarea {font-family: "Lucida Grande", "Lucida Sans", "Verdana", sans-serif; font-size: 12px; padding: 5px 35px 4px 4px; border: 2px solid #e7e7e0; width: 300px}
+.tag input, .tag textarea {width: 200px}
+.tool-content input.radio, .tool-content input.checkbox {border: 0; padding: 0; background: none; width: auto}
+.tool-content input.upload-path {padding-right: 4px; margin-bottom: 5px; width: 240px; float: left}
+.tool-content input.url-path {padding-right: 4px; margin-bottom: 5px}
+.tool-content .vid-description {float: left; width: 235px}
+.tool-content .vid-description textarea {width: 90%}
+#IEroot .tool-content .vid-description {width: 220px}
+.tool-content .vid-thumb {width: 97px; height: 70px; overflow: hidden; float: left; border: 3px solid #e7e7de}
+.tool-content .vid-thumb img {padding: 0; background: none}
+.tool-content .loading {background: white url(/images/icons/loaders/mainsearch_ac.gif) no-repeat 50% 50%}
+.tool-content select {font-family: "Lucida Grande", "Lucida Sans", "Verdana", sans-serif; font-size: 12px; width: 220px}
+.tool-content select option {padding: 2px}
+.tool-content input.loading {background: white url(/images/icons/loaders/mainsearch_ac.gif) no-repeat 99% 50%}
+.tool-content input.new {background: white url(/images/icons/ajax-new.gif) no-repeat 99% 50%}
+.tool-content input.match {background: white url(/images/icons/ajax-match.gif) no-repeat 99% 50%}
+.tool-content textarea {padding-right: 4px; width: 331px}
+.tag .tool-content textarea {width: 235px}
+.tool-content input.cb {border: 0; padding: 0; margin: 9px 8px 0 1px; float: left; display: inline; width: auto}
+.tool-content p.disclaimer {margin-top: 8px; padding: 0; float: left; width: 85%; line-height: 1.3em; font-size: 11px; color: #444}
+.tool-content p.example {padding: .3em 0 .3em 4px; line-height: normal; font-size: xx-small; color: #919186}
+.tool-content p.feedback {padding: .3em 0 .3em 40px; line-height: normal; font-size: x-small; color: #919186}
+.tool-content div.profile-matches {font-size: 11px; background: #daf3f6; padding: 8px; margin: 10px 0 0 0}
+.tool-content div.profile-matches ul {padding-bottom: 5px}
+.tool-content div.profile-matches ul li {padding: 2px 0}
+.tool-content div.profile-matches p {}
+.tool-content p.spot-note {padding: 0 0 .4em 0; color: #484844}
+span.form-btn-gray, span.form-btn-disabled {float: left; display: inline; margin: 0 0 0 8px; position: relative; top: -1px}
+#IEroot span.form-btn-gray {position: static}
+.tag span.form-btn-gray {margin: 0}
+dl.assoc {background-color: #e7e7de; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; padding: 4px; margin: 0 0 4px 5px; font-size: 11px}
+dl.assoc select {font-size: 11px}
+dl.assoc dt {float: left; width: 21px; padding: 0 4px 0 0}
+dl.assoc img {width: 20px; height: 20px}
+dl.assoc dt input {width: auto; border: 0}
+dl.assoc dd {float: left; width: 170px}
+dl.assoc dd.assoc-edit {float: right; width: 30px; text-align: right}
+#IEroot dl.assoc dd {padding-top: 1px}
+p.edit-note {font-size: 10px; color: #919186;}
+span.alert-note {font-weight: bold; color: red}
+input.upload-file-display {width: 230px}
+div.file-input-wrapper {position: relative}
+div.styled-file-input {position:absolute; top:0; left:0px; z-index:1; width:350px}
+div.styled-file-input.small {width:260px}
+div.styled-file-input input {width: 240px; padding:5px; float:left; border: none; font-size: 11px; color: #919186}
+div.styled-file-input.small input {width: 160px}
+div.styled-file-input .file-browse {background:url(/images/tool/swfuploader_buttons.gif) no-repeat 0 0; height: 27px; width: 70px; float: left; text-indent: -9999px}
+div.styled-file-input .file-browse.clicked {background-position: 0 -54px}
+.drawer {position: absolute; top: 20px; z-index: 700}
+.drawer .tool-content {padding-right: 0}
+.tag .drawer .tool-content {padding-left: 0}
+.drawer .workbench-content {width: 110px; height: 270px; margin-right: 8px; float: right; overflow: auto; display: inline}
+.drawer .workbench-content img {margin: 0 0 10px 0}
+.drawer .media-content {text-align: center; width: 200px; height: 270px; float: right; overflow: auto}
+.img-preview {height: 230px}
+.img-preview img.workbench-preview {float: left; margin: 0 14px 0 0}
+.img-preview p.upload-info {font-size: 11px}
+.media-nav {padding: 7px 7px 4px 0; font-size: 11px; text-align: right}
+div.auto_complete {position: absolute; width: 250px; background-color: white; border: 2px solid #e7e7e0; margin: 1px 0 0 0; padding: 1px; height: 200px; overflow: auto}
+.tag div.auto_complete {width: 190px; overflow-x: hidden; overflow-y: auto}
+div.auto_complete ul li {padding: 4px 0 0 4px; color: #828279; height: 32px; line-height: 1em}
+div.auto_complete ul li em {font-style: normal; display: block; font-size: xx-small; color: #a6a69a}
+div.auto_complete ul li.selected em {color: #5e5e58}
+div.auto_complete ul li img {float: left; background: white; vertical-align: middle; margin: 0 5px 0 0}
+div.auto_complete ul li p {float: left; padding: 2px 0 0 0; width: 190px; margin: 0; font-size: 11px; color: #008fc4}
+.tag div.auto_complete ul li p {width: 135px}
+div.auto_complete ul li.selected {cursor: pointer; background: #e7e7de; color: #01b0f0}
+.upload-feedback {text-align: center; padding-top: 90px; line-height: 1.3em}
+.upload-feedback span {font-size: 11px; color: #888}
+.mailfields {padding-left: 0}
+p.instruct {font-size: 11px; color: #afafa4; margin: 0 0 6px 0; padding-left: 4px}
+input.mfield, textarea.mfield {border:2px solid #EDEDE3; padding:5px; width:255px}
+.tool-content .mailfields dl {position: relative}
+.tool-content .mailfields dt {font-weight: bold; clear: both; float:left; width: 65px; padding: 5px 0 2px 0; text-align: left}
+.tool-content .mailfields dd {float: left; width: 270px; margin: 0 0 8px 0; padding-left: 6px}
+.d-bubble {background: url(/images/content/dialoguebubble.gif) no-repeat 0 bottom; padding: 0 0 14px 0}
+.d-bubble-inner {background: url(/images/content/dialoguebubble.gif) no-repeat 0 0; padding: 10px}
+.d-mug {padding: 6px 0 0 20px}
+.d-mug img {float: left; padding: 3px; background: url(/images/content/plate_thumb_matrix.png) no-repeat -318px 0; margin-right: 8px}
+.d-mug a {float: left; font-size: 10px}
+.captcha-container {padding: 30px 0 0 36px; float: right}
+.se-logo {vertical-align: middle}
+.modal-login {float: left; width: 380px}
+.modal-login h3 {padding: 0 0 0 140px; margin: 0 0 13px 0; color: black; font: normal 20px/1.3em "Helvetica Neue","Helvetica","Arial",sans-serif}
+.twider .modal-login h3 {padding-left: 7px}
+.modal-login h3 span {font: normal 12px/1.3em "Lucida Grande", "Lucida Sans", "Lucida", sans-serif}
+#signup_login_holder {min-height:237px; height:auto !important; height:237px}
+input.radio {position: relative; top: 2px; margin-left: 8px}
+.checkbox {border: 0}
+dl.login-form {position: relative}
+dl.login-form dt {clear: both; float:left; width: 130px; padding: 5px 3px 1px 0; text-align: right}
+dl.login-form dt label {font-size: 12px}
+dl.login-form dd {float: left; width: 230px; height: 28px; margin: 0 0 16px 8px; display: inline; position: relative}
+dl.login-form dd.confirm {padding: 6px 3px 2px 3px; font-size: 11px; height: auto}
+dd.confirm p {line-height: 1.2em; width: 220px; margin: 0}
+span.hint {color: #d87704; font-size: 10px; position: absolute; left: 6px; top: 31px; width: 220px; display: block; line-height: 1.2em}
+input.login-field[type="text"], input.login-field[type="password"] {border: 0; width: 178px; height: 21px; padding: 3px 35px 1px 6px}
+#IEroot .login-field {padding-top: 2px}
+span.form-btn-ajax input {color: #666666}
+.field {background: url(/images/login/field_bg_alt.gif) no-repeat 0 0; padding: 2px 0 0 1px}
+.logintip {position: absolute; left: -225px; top: -26px}
+#IEroot .logintip {top: -22px}
+.m-note {background: #ffffb0; -moz-border-radius: 5px; border: 3px solid #d8d8cf; padding: 12px; text-shadow: 1px 1px 0 #ffffe6}
+.m-bubble {background: url(/images/tool/dialogue_bubble_bottom.gif) no-repeat 0 100%; padding: 0 0 16px 0}
+.m-bubble-inner {background: url(/images/tool/dialogue_bubble_top.gif) no-repeat 0 0; padding: 15px; font-size: 12px}
+.m-bubble-mug {padding: 10px 0 0 18px}
+.m-bubble-mug img {float: left; padding: 3px; margin-right: 9px; background: url(/images/tool/dialogue_mug_bg.gif) no-repeat 0 0}
+.m-bubble-mug span {font-size: 11px; display: block; color: #a0a094}
+.form-bubble {background: url(/images/tool/form_bubble_bot.gif) no-repeat 0 100%; padding: 0 0 7px 0}
+.form-bubble-inner {background: url(/images/tool/form_bubble_top.gif) no-repeat 0 0; padding: 15px 0 0 0}
+.mug-cluster {padding: 10px 0 0 0}
+.mug-cluster li {float: left; margin: 0 8px 8px 0}
+.mug-cluster img {background: url(/images/tool/cluster_mug_bg.gif) no-repeat 0 0; padding: 3px}
+.hilite-instruction {background: #fffcb4; padding: 4px; font-size: 11px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px}
+.tool-content p.charcount {float: right; font-size: 11px; padding-right: 2px; font-weight: bold; color: #b6b6af}

@@ -1,0 +1,171 @@
+<div class="main" id="main">
+			    <div ng-show="haspermission" allowed="unauthorized" mdlcode="SRK" callback-fn="unauthorize(arg1)" id="unauthorized"></div> 					
+ 				<div allowed="read" mdlcode="SRK">
+				<div class="sticky_header">
+					<div class="tab_head_sticky">
+					<ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+   <li><a href="#/Security">Security</a></li>
+  <li><b>Office-Rank</b></li>
+  <!-- <span class="pull-right"><img src="Sidebar/assets/faces/Shore.svg"/>You are in <strong>SVM Shore</strong></span> -->
+</ul>	
+						
+						<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">Office-Rank</div>
+         </div>
+					</div>
+				</div>
+   
+       <div class="form_table_wrapper" style="margin-top:15px !important;">
+        <div class="form_table">
+         <div class="row">
+          <div class="col-xs-12" style="margin-top: 0px;">
+
+						<div class="navbar-drawer  hidden-lg-down">
+							<form class="form-inline navbar-form ">
+								<label style="margin-left: -13px"><strong>Items	per page</strong></label> 
+								
+								<select style="margin-left: 10px; width: 60px" class="form-control" ng-model="pageSize" ng-selected="pageSize"
+                                  ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+							</form>
+						</div>
+
+					
+														<div class="table-responsive">
+									<table class="table table-hover table-striped table-bordered"
+										cellspacing="0">
+										<thead>
+											<tr>
+												<th style="text-align: left;">S.No </th>
+												<th style="text-align: left;">Rank Code<a href="" ng-click="sort('rankcode')" class="sortDir" ng-class="{ active: isSorted('rankcode') }">&#x25B2;</a><a href="" ng-click="sort('-rankcode')" class="sortDir" ng-class="{ active: isSorted('-rankcode' ) }">&#x25BC;</a> </th>
+												<th style="text-align: left;">Rank Name<a href="" ng-click="sort('rankname')" class="sortDir" ng-class="{ active: isSorted('rankname') }">&#x25B2;</a><a href="" ng-click="sort('-rankname')" class="sortDir" ng-class="{ active: isSorted('-rankname' ) }">&#x25BC;</a> </th>
+												<th style="text-align: center;">Status<a href="" ng-click="sort('statusDesc')" class="sortDir"	ng-class="{ active: isSorted('statusDesc') }">&#x25B2;</a><a href="" ng-click="sort('-statusDesc')" class="sortDir" ng-class="{ active: isSorted('-statusDesc' ) }">&#x25BC;</a> </th>												
+											</tr>
+
+									<tr>
+										<th></th>
+										<th><input placeholder="Search" class="form-control"
+											100%;" ng-model="search['rankcode']"></th>
+										<th><input placeholder="Search" class="form-control"
+											ng-model="search['rankname']"></th>
+										<th><input placeholder="Search" class="form-control"
+											ng-model="search['statusDesc']"></th>
+									</tr>
+								</thead>
+										<tbody>
+											<tr style="text-align: center;" ng-style="set_colorrank(z)"
+											dir-paginate="z in ranks1 = (ranks | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)" current-page="currentPage">
+												<!-- dir-paginate="z in ranks |  orderBy:predicate:reverse  | filter:search | itemsPerPage:pageSize | filter:{'rankcode':searchRankCode} 
+													| filter:{'rankname':searchRankName} 
+													| filter:{'statusDesc':searchStatus}:startsWith" current-page="currentPage"> -->
+<!-- 												<td style="text-align: left;">{{$index + 1}}</td> -->
+												<td style="text-align:left">{{($index+1) + (currentPage -1) * pageSize }}</td>
+												<td style="text-align: left;">{{z.rankcode}}</td>
+												<td style="text-align: left;">{{z.rankname}}</td>												
+												<td style="text-align: center;"> 
+													<span class="label" ng-class="{'label-success': z.statusDesc == 'Active','label-danger': z.statusDesc == 'Inactive'}">{{z.statusDesc}}</span>
+												</td>
+												<td style="display: none">{{ z.cruser }}</td>
+												<td style="display: none">{{ z.id }}</td>
+												<td style="display: none">{{ z.crdate }}</td>
+												<td style="display: none">{{ z.upduser }}</td>
+												<td style="display: none">{{ z.upddate }}</td>
+												
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="pull-right">
+									<dir-pagination-controls max-size="10" direction-links="true"
+										boundary-links="true" default-page-number="1">
+									</dir-pagination-controls>
+								</div>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+			</div>
+</div></div></div>
+
+
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+	
+	<div class="modal fade" id="default-modal" tabindex="-1" role="dialog"
+	aria-labelledby="default-modalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="default-modalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				<p>Pellentesque habitant morbi tristique senectus et netus et
+					malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
+					vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
+					amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
+					placerat eleifend leo. Quisque sit amet est et sapien ullamcorper
+					pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae,
+					ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt
+					condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac
+					dui. Donec non enim in turpis pulvinar facilisis. Ut felis.
+					Praesent dapibus, neque id cursus faucibus, tortor neque egestas
+					augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam
+					dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-warning">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="small-modal" tabindex="-1" role="dialog"
+	aria-labelledby="small-modalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="small-modalLabel">Small modal title</h4>
+			</div>
+			<div class="modal-body">
+				<p>Pellentesque habitant morbi tristique senectus et netus et
+					malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
+					vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
+					amet quam egestas semper.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-warning">Save changes</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Missed something!" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+
+
+          <div kendo-dialog="dialog" k-title="'Alert Message!'" k-on-open="dialogVisible = true"
+            k-on-close="dialogVisible = false" k-width="300" k-height="150"
+            k-actions="actions" k-modal="true" >
+            <img src="img/warning -dialog.png">
+            <p ng-repeat="errors in dataerror">{{errors[0]}}</p>
+          </div>
+
+
+
+
+
+
+

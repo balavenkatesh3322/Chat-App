@@ -1,0 +1,213 @@
+<nav class="navbar navbar-fixed-top navbar-1">
+		<a class="navbar-brand" href="#"><img style="width: 80%"
+			class="img-fluid profile-image" src="assets/faces/macklite.png"></a>
+		<ul class="nav navbar-nav pull-left toggle-layout">
+			<li class="nav-item"><a class="nav-link"
+				data-click="toggle-layout"><i class="fa fa-bars"></i></a></li>
+		</ul>
+		<ul class="nav navbar-nav pull-left toggle-fullscreen-mode">
+			<li class="nav-item"><a class="nav-link"
+				data-click="toggle-fullscreen-mode"><i class="fa fa-arrows-alt"></i></a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav pull-left hidden-lg-down" >
+			<li class="nav-item" >
+				<a class="nav-link" >{{vesselname}}</a>
+			</li>
+		</ul>
+
+		<div class="navbar-drawer pull-left hidden-lg-down">
+			<form class="form-inline navbar-form ">
+				<input class="form-control" type="text" placeholder="Search">
+			</form>
+		</div>
+		<ul class="nav navbar-nav pull-right hidden-lg-down navbar-flags">
+			<li class="nav-item dropdown dropdown-menu-right"><a
+				class="nav-link dropdown-toggle no-after" data-toggle="dropdown">
+					<span class="flag flag-icon flag-icon-gb"
+					style="padding-bottom: 10px;"></span>
+			</a>
+				<div
+					class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right">
+					<a class="dropdown-item"> <span
+						class="flag flag-icon flag-icon-gb"></span><span class="title">English</span></a>
+					<a class="dropdown-item"> <span
+						class="flag flag-icon flag-icon-jp"></span><span class="title">Japanese</span></a>
+				</div></li>
+		</ul>
+		<ul class="nav navbar-nav pull-right hidden-lg-down navbar-notifications">
+			<li class="nav-item"><a class="nav-link" 
+				data-click="toggle-right-sidebar"> <i class="fa fa-bell"
+					style="margin-top: 15px;"></i> <span
+					class="label label-rounded label-danger label-xs">{{notificationCount}}</span>
+			</a></li>
+		</ul>
+		<ul class="nav navbar-nav pull-right hidden-lg-down navbar-profile">
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle no-after" data-toggle="dropdown">
+					<img class="img-circle img-fluid profile-image"
+					src="assets/faces/user-icon-6.png">
+			</a>
+				<div
+					class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right">
+					<a href="" class="dropdown-item animated fadeIn"> <i
+						class="zmdi zmdi-power"></i> <span class="dropdown-text">{{userrank}}</span>
+					</a>
+					<a href="" class="dropdown-item animated fadeIn"> <i
+						class="zmdi zmdi-power"></i> <span class="dropdown-text">{{userrole}}</span>
+					</a>
+					<a href="shipuserlistNew.html?userCode={{usercode}}" class="dropdown-item animated fadeIn"> <i
+						class="zmdi zmdi-power"></i> <span class="dropdown-text">My Profile</span>
+					</a>
+					<a href="" class="dropdown-item animated fadeIn"> <i
+						class="zmdi zmdi-power"></i> <span class="dropdown-text">Logout</span>
+					</a>
+				</div></li>
+		</ul>
+		<ul class="nav navbar-nav pull-right hidden-lg-down">
+			<li class="nav-item">
+				<a class="nav-link" >{{username}}</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="sidebar-placeholder"></div>
+			<div class="sidebar-outer-wrapper">
+				<div class="sidebar-inner-wrapper">
+					<div class="sidebar-1 slidebarback">
+						<div class="profile">
+							<div class="profile-image" style="padding-bottom: 30px;">
+								<img style="width: 80%;" class="img-fluid"
+									src="assets/faces/kslm-logo.png">
+							</div>
+						</div>
+
+						<div class="sidebar-nav slidebarback">
+							<div class="sidebar-section account-links">
+								<div class="section-title">Account</div>
+								<ul class="list-unstyled section-content">
+									<li><a class="sideline"> <i
+											class="zmdi zmdi-account-circle md-icon pull-left"></i> <span
+											class="title">Profile</span>
+									</a></li>
+									<li><a class="sideline"> <i
+											class="zmdi zmdi-settings md-icon pull-left"></i> <span
+											class="title">Settings</span>
+									</a></li>
+									<li><a href="/logout" class="sideline"> <i
+											class="zmdi zmdi-sign-in md-icon pull-left"></i> <span
+											class="title">Logout</span>
+									</a></li>
+								</ul>
+							</div>
+							<div class="sidebar-section">
+
+								<!-- <div class="section-title"></div> -->
+
+								<ul class="l1 list-unstyled section-content">
+									<li><a class="sideline" data-id="" href="hseqdashboard.html">
+											<span class="icon_bg icon_bg_1"><i
+												class="icon_bg_top fa fa-tachometer md-icon pull-left"></i>
+												<span class="title">Dashboard</span> </span>
+									</a></li>
+								</ul>
+								<ul class="l1 list-unstyled section-content">
+									<li><a class="sideline" data-id="layouts" href="mastermodule.html"> <span
+											class="icon_bg icon_bg_2"><i
+												class="icon_bg_top fa fa-database md-icon pull-left"></i> <span
+												class="title">Masters</span> </span>
+									</a></li>
+								</ul>
+
+								<ul class="l1 list-unstyled section-content">
+									<li><a class="sideline" data-id="" href="securitymodule.html">
+											<span class="icon_bg icon_bg_3"><i
+												class="icon_bg_top fa fa-lock md-icon pull-left"></i> <span
+												class="title">Security</span> </span>
+									</a></li>
+								</ul>
+								<ul class="l1 list-unstyled section-content">
+									<li><a href="edocs.html" class="sideline" data-id="layouts"> <span
+											class="icon_bg icon_bg_4"><i
+												class="icon_bg_top fa fa-file-text-o md-icon pull-left"></i>
+												<span class="title">e-Docs</span> </span>
+									</a></li>
+								</ul>
+								<ul class="l1 list-unstyled section-content">
+									<li><a class="sideline" data-id="layouts" href="hseqmodule.html"> <span
+											class="icon_bg icon_bg_5"><i
+												class="icon_bg_top fa fa-search-plus md-icon pull-left"></i>
+												<span class="title">e-Inspect</span> </span>
+									</a></li>
+								</ul>
+
+								<ul class="l1 list-unstyled section-content">
+									<li><a class="sideline" data-id="layouts" href="mack-s_module.html"> <span
+											class="icon_bg icon_bg_6"><i
+												class="icon_bg_top fa fa-check-square-o md-icon pull-left"></i>
+												<span class="title">e-Forms</span> </span>
+									</a></li>
+								</ul>
+
+								<ul class="l1 list-unstyled section-content">
+									<li><a class="sideline" data-id="layouts" href="Taskmodule.html"> <span
+											class="icon_bg icon_bg_2"><i
+												class="icon_bg_top fa fa-desktop md-icon pull-left"></i>
+												<span class="title">System</span> </span>
+									</a></li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			<div class="right-sidebar-outer" >
+				<div class="right-sidebar-inner">
+					<div class="right-sidebar">
+						<div class="bs-nav-tabs nav-tabs-warning justified tree well">
+							<ul class="nav nav-tabs nav-animated-border-from-center">
+								<li class="nav-item"><a class="nav-link active"
+									data-toggle="tab" data-target="#rtab-left"><b>Activities</b> </a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane fade in active" id="rtab-left">
+									<h5><b>Last Three Days</b></h5>
+									<div class="timeline-widget-4">
+										<div class="row bg-odd-color" ng-repeat="list in notificationList">
+											<div ng-if="list.priority == 'Medium'" style="color: blue" class="col-xs-12 timeline timeline-info">
+												<div class="p-10">
+													<p>{{list.notifydesc}}</p>
+													<p style="color: blue" class="text-sm text-muted">{{list.assigndate | date : "MM/dd/yyyy" : timezone}}</p>
+													<p>Id : {{list.notifyid}}</p>
+												</div>
+											</div>
+											<div ng-if="list.priority == 'High'" style="color: red" class="col-xs-12 timeline timeline-danger">
+												<div class="p-10">
+													<p>{{list.notifydesc}}</p>
+													<p style="color: red" class="text-sm text-muted">{{list.assigndate | date : "MM/dd/yyyy" : timezone}}</p>
+													<p>Id : {{list.notifyid}}</p>
+												</div>
+											</div>
+											<div ng-if="list.priority == 'Low'" style="color: green" class="col-xs-12 timeline timeline-success">
+												<div class="p-10">
+													<p>{{list.notifydesc}}</p>
+													<p style="color: green" class="text-sm text-muted">{{list.assigndate | date : "MM/dd/yyyy" : timezone}}</p>
+													<p>Id : {{list.notifyid}}</p>
+												</div>
+											</div>
+										</div>										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            
+            

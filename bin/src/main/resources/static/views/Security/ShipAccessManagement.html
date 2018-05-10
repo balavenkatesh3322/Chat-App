@@ -1,0 +1,176 @@
+<!--  main section-->
+<style>
+.hightlight-red{
+  color: #e50000;
+}
+.hierarchy li::before {
+	border-left: 1px solid #999;
+	bottom: 50px;
+	top: 0;
+}
+
+.main-branch {
+	background-color: #e9e9e9;
+	width: 100%;
+}
+
+.hierarchy li::before, .hierarchy li::after {
+	content: '';
+	left: -20px;
+	position: absolute;
+	right: auto;
+}
+
+.plus {
+	color: #66CD00;
+	padding-right: 6px;
+	cursor: pointer;
+}
+
+.hierarchy {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: #fbfbfb;
+	border: 0px solid #999;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+
+.hierarchy li {
+	list-style-type: none;
+	margin: 0;
+	padding: 15px 5px 0 5px;
+	font-weight: bolder;
+	position: relative
+}
+
+.hierarchy li::before, .hierarchy li::after {
+	content: '';
+	left: -20px;
+	position: absolute;
+	right: auto
+}
+
+.hierarchy li::before {
+	border-left: 1.5px solid #999;
+	bottom: 50px;
+	top: 0;
+	width: 1px
+}
+
+.hierarchy li::after {
+	border-top: 1.5px solid #999;
+	height: 10px;
+	top: 29px;
+	width: 25px
+}
+
+.hierarchy li span {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	display: inline-block;
+	padding: 0 0 0 13px;;
+	text-decoration: none;
+	vertical-align: middle;
+}
+
+.hierarchy li.parent_li>span {
+	cursor: pointer
+}
+
+.hierarchy>ul>li::before, .hierarchy>ul>li::after {
+	border: 0
+}
+
+.hierarchy li:last-child::before {
+	height: 30px
+}
+/* .tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span
+      {
+      background: #eee;
+      border: 1px solid #94a0b4;
+      color: #000
+      } */
+.chosen-container {
+	width: 100% !important;
+}
+
+.select {
+	width: 47px !important;
+	background-color: white !important;
+}
+
+input[type="radio"] {
+	margin-left: 18px !important;
+	vertical-align: text-top !important;
+}
+</style>
+
+<div class="main" id="main">
+	<div class="sticky_header">
+		<div class="tab_head_sticky">
+			<ul class="breadcrumb">
+				<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+				<li><a href="#/Security">Security</a></li>
+				<li><b>Ship Role and Access management</b></li>
+				<!-- <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span> -->
+			</ul>
+
+			<div class="tab_head">
+				<div class="pull-left" style="font-size: 21px;">Ship Role And
+					Access Management</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form_table_wrapper" style="margin-top: -19px;">
+				<div class="row">
+					<div class="col-xs-12" style="margin-top: 0px;">
+						<div class="hierarchy">
+							<span style="font-size: 1.5em; padding-left: 40px;">{{companyName}}</span>
+							<ul>
+								<li ng-repeat="role in roles" class="margin-left:20px">
+									<div class="branch main-branch">
+										<span><i ng-click="toggleChilds(role[3]+'child')"
+											class="fa fa-plus-square plus"></i> </span> <a class={{role[3]}}
+											href="#/ShipPro-Permission/rolecode={{role[3]}}"
+											style="font-size: 1.8rem; vertical-align: middle;"
+											target="_self"> {{role[2]}} </a>
+									</div>
+									<ul class="{{role[3]}}child" style="display: none"
+										ng-repeat="rank in rolesRanksList1" ng-if="rank[2]==role[2]">
+										<li>
+											<div class="branch">
+												<span><i class="fa fa-plus-square plus"
+													ng-click="toggleLowerChilds(rank[0]+'child')"></i> </span> <a
+													href="#/ShipPro-Permission/rankcode={{rank[0]}}"
+													class={{rank[0]}} target="_self"> {{rank[1]}} </a>
+											</div>
+											<ul class="{{rank[0]}}child" style="display: none"
+												ng-repeat="crew in crews" ng-if="rank[1]==crew[1]">
+												<li>
+													<div class="branch">
+														<span> <a class={{crew[4]}}
+															href="#/ShipPro-Permission/empid={{crew[4]}}"
+															target="_self"> {{crew[5]}} </a>
+														</span>
+													</div>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

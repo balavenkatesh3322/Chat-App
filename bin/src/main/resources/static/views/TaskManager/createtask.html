@@ -1,0 +1,515 @@
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="VTM"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="VTM">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Taskmanager">Task Manager</a></li>
+					<li><a href="#/CreatedTask">Task List</a></li>
+					<li><b>Create Task</b></li>
+
+				</ul>
+				<div class="tab_head"
+					style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important; padding-top: 3px !important;">
+					<div class="pull-left" style="font-size: 21px;">Create Task</div>
+					<span class="pull-right" ng-show="taskidshow">Task Id :{{
+						taskid.taskid }}</span>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top:15px !important;">
+					<div class="form_table">
+
+						<div class="row">
+							<div class="col-xs-12">
+
+								<div class="form-group row">
+
+									<div class="col-sm-2">
+										<label class="form-control-label ">Task Name<span
+											style="color: red"><span style="color: red">*</span></span></label>
+									</div>
+									<div class="col-sm-3">
+										<input id="textinputTaskname" ng-model="Taskname" numbers-only maxlength="150" ng-change="validateFreeText('Taskname', 'Taskname_error')"
+											class="form-control">
+										<div class="text-error">{{Taskname_error}}</div>
+									</div>
+
+								</div>
+
+								<div class="form-group row">
+
+									<div class="col-sm-2">
+										<label class="form-control-label ">Reference<span
+											style="color: red"><span style="color: red">*</span></span></label>
+									</div>
+									<div class="col-sm-3">
+										<input id="textinputReference" ng-model="Reference" maxlength="150" ng-change="validateFreeText('Reference', 'Reference_error')"
+											name="textinput" type="text" class="form-control">
+										<div class="text-error">{{Reference_error}}</div>
+									</div>
+
+								</div>
+
+
+								<div class="form-group row">
+
+									<div class="col-sm-2">
+										<label class="form-control-label ">Task Description<span
+											style="color: red"><span style="color: red">*</span></span></label>
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										<textarea id="textinputtaskdescription" ng-change="validateFreeText('taskdescription', 'taskDescription_error')"
+											ng-model="taskdescription" name="textinput" type="text" maxlength="200"
+											rows="4" class="form-control"></textarea>
+										<div class="pull-right" style="font-size: .8em; color: #577A3A">Characters
+										left: {{200 - taskdescription.length}}</div>
+										<div class="text-error">{{taskDescription_error}}</div>
+									</div>
+
+								</div>
+
+								<div class="form-group row">
+
+									<label class="col-sm-2 form-control-label ">Priority<span
+										style="color: red"><span style="color: red">*</span></span></label>
+
+									<div class="col-sm-3">
+										<select id="fa_he_td1" class="form-control"
+											ng-model="priority">
+											<option ng-repeat="prioritytypes in prioritys"
+												value="{{prioritytypes.prioritycode}}">{{prioritytypes.priorityname}}</option>
+										</select>
+										<div class="text-error">{{priority_error}}</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-2">
+										<label class="form-control-label ">Target Date<span
+											style="color: red"><span style="color: red">*</span></span>
+										</label>
+									</div>
+									<div class="col-sm-3">
+										<input kendo-date-picker id="textinputtargetdate"
+											k-rebind="restrictPastDate" k-options="restrictPastDate"
+											ng-model="targetdates" style="width: 100%" />
+										<div class="text-error">{{TargetDate_error}}</div>
+									</div>
+
+								</div>
+
+
+								<div class="form-group row" ng-show="completedstaus">
+									
+										<div class="col-sm-2">
+											<label class="form-control-label">Completed
+												Date<span
+											style="color: red"><span style="color: red">*</span></span></label>
+										</div>
+										<div class="col-sm-3" >
+											<input name="textinput" type="date" ng-model="completeddate"
+												ng-disabled="true"
+												value="{{completeddate| date:'yyyy-MM-dd'}}"
+												class="form-control input-xs">
+										</div>
+								</div>
+							<div class="form-group row" ng-show="completedstaus">
+										<div class="col-sm-2">
+											<label class="form-control-label">Completed
+												By<span
+											style="color: red"><span style="color: red">*</span></span></label>
+										</div>
+										<div class="col-sm-3">
+											<input name="textinput" type="text" ng-model="completedby"
+												ng-disabled="true" class="form-control input-xs">
+										</div>
+									
+								</div>
+
+								<div class="form-group row" ng-show="percentageshow">
+
+									<div class="col-sm-2">
+										<label class="form-control-label ">Process Percentage<span
+											style="color: red"><span style="color: red">*</span></span></label>
+									</div>
+									<div class="col-sm-3">
+										<input ng-model="processpercent" ng-disabled="true"
+											type="text" class="form-control">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class=" ng-hide="assignedtobutton">
+										<div class="col-sm-2">
+											<label class="form-control-label">Assigned To<span
+												style="color: red"><span style="color: red">*</span></span></label>
+										</div>
+										<div class="col-sm-3">
+											<a type="button" allowed="write" mdlcode="VTM"
+												class="btn-custom" data-toggle="modal" ng-click="searchdata()"
+												data-target="#myModal"> <img style="width: 125px"
+												src="Sidebar/css/button/selectname.svg"/>
+												<img  style="width: 125px" src="Sidebar/css/button/selectname_h.svg"/>
+											</a>
+											<div class="text-error">{{assignedto_error}}</div>
+											<!-- 									<div class="text-error">{{assignedto_error}}</div> -->
+											<!-- 									<input id="textinputassignedrank" ng-model="assignedrank"  type="text" class="form-control input-xs" style="box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21);" placeholder="Rank Name" readonly> -->
+											<!-- 											 <select id="fa_he_td1" class="form-control" ng-model="assignedto" > -->
+											<!--                     	<option ng-repeat="ranknames in rank" value="{{ranknames.rankcode}}">{{ranknames.rankname}}</option> -->
+											<!-- 			  </select>	                   -->
+										</div>
+										<div class="col-xs-1"
+											style="position: relative; right: 22px; top: 6px; z-index: 1;">
+											<!-- 		  							<i class="fa fa-search fa-lg searchicon" aria-hidden="true" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"></i> -->
+											<!-- 											 <modal class="modal-dialog" visible="showModal" on-sown="modalOneShown()" on-hide="modalOneHide()"> -->
+											<!-- 									            <modal-header title="Search Rank"></modal-header> -->
+											<!-- 									            <modal-body title1="Rank Code" title2="Rank Name"  data="ranks" searchdesc1="Search Rank Code" searchdesc2="Search Rank Name" searchdesc3="Seach on both"  callback-fn="setValue(arg1, arg2)" hide-fn="hide()"> -->
+											<!-- 									            </modal-body> -->
+											<!-- 									        </modal> -->
+										</div>
+										<!-- 									<label class="col-xs-2 control-label" for="textinput" style="margin-left: -117px; text-align: right;padding-top: 5px">Assigned To</label>   -->
+										<!-- 									<div class="col-xs-2"><input ng-model="assignedto" id="textinput" name="textinput" type="text" class="form-control input-xs" style="width:160%;box-shadow: 2px 2px 2px #ccc; position: relative; right: 25px;" placeholder="Employee Name" readonly></div> -->
+									</div>
+								</div>
+								<div ng-show="assignedgrid"
+									style="padding-left: 15px; padding-right: 15px">
+									<div class="form-group row">
+								
+											<div class="table-responsive">
+												<table class="table table-bordered table-hover">
+													<thead>
+														<tr>
+															<th>Employee Id</th>
+															<th>Assignee Name</th>
+															<th>Rank Code</th>
+															<th>Rank Name</th>
+															<th class="text-center" ng-hide="deleteheadassign">Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-repeat="crewmasterdetails in taskassignedto">
+															<td>{{crewmasterdetails.assigneecode}}</td>
+															<td>{{crewmasterdetails.empname}}</td>
+															<td>{{crewmasterdetails.rankcode}}</td>
+															<td>{{crewmasterdetails.rankname}}</td>
+															<td ng-hide="deletebuttonassign">
+																<button type="button"
+																	class="btn btn-danger btn-xs btn-round"
+																	ng-click="deleteExistingReportassign(crewmasterdetails.assigneecode,crewmasterdetails.empname,crewmasterdetails.rankcode,crewmasterdetails.rankname)">
+																	<i class="fa fa-minus"></i>
+																</button>
+															</td>
+
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										
+									</div>
+								</div>
+								<div class="form-group row" ng-show="cancelremark">
+										<div class="col-sm-2">
+											<label class="control-label" for="textinput">Delete
+												Remark</label>
+										</div>
+										<div class="col-sm-3">
+											<input id="Cancelremarkid" ng-model="deleteremarks"
+												type="text" class="form-control input-xs"
+												style="box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21);"
+												readonly>
+											<div class="text-error">{{cancelremark_error}}</div>
+										</div>
+								</div>
+								<div class="form-group row" ng-hide="assignedtobutton">
+										<div class="col-sm-2">
+											<label class="form-control-label ">Status</label>
+										</div>
+										<div class="col-sm-3">
+											<input name="euResident" id="euResidentNo" value="No"
+												type="checkbox" ng-model="answers[item.questID]"
+												ng-change="stateChanged(item.questID)"  style="margin-top:13px;"/> <span
+												class="c-input-text">
+												Follow </span>
+										</div>
+								</div>
+								<div ng-show="followerselect">
+									<div class="form-group row">
+										<div class="col-sm-12"  style="margin-left: -15px;">
+											<div class="col-sm-2"></div>
+											<div class="col-sm-3" ng-hide="followbutton">
+												<a type="button" class="btn-custom" data-toggle="modal"
+													data-target="#followerModal"> <img
+													src="Sidebar/css/button/addfollowrname.svg"
+													style="width: 160px" /> <img
+													src="Sidebar/css/button/addfollowrname_h.svg"
+													style="width: 160px" />
+												</a>
+												<div class="text-error">{{followbutton_error}}</div>
+											</div>
+										</div>
+									</div>
+									
+									<div ng-show="followgrid"
+										style="padding-left: 15px; padding-right: 15px">
+										<div class="form-group row">
+										
+												<div class="table-responsive">
+													<table class="table table-bordered table-hover">
+														<thead>
+															<tr>
+																<th>Employee Id</th>
+																<th>Followers Name</th>
+																<th>Rank Code</th>
+																<th>Rank Name</th>
+																<th class="text-center" ng-hide="deleteheadfollow">Action</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr ng-repeat="crewmasterdetails in follow">
+																<td>{{crewmasterdetails.followercode}}</td>
+																<td>{{crewmasterdetails.empname}}</td>
+																<td>{{crewmasterdetails.rankcode}}</td>
+																<td class="text-table">{{crewmasterdetails.rankname}}</td>
+																<td ng-hide="deletebuttonfollow">
+																	<button type="button"
+																		class="btn btn-danger btn-xs btn-round"
+																		ng-click="deleteExistingReportData(crewmasterdetails.followercode,crewmasterdetails.empname,crewmasterdetails.rankcode,crewmasterdetails.rankname)">
+																		<i class="fa fa-minus"></i>
+																	</button>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+										
+										</div>
+									</div>
+
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12">
+
+										<div class="pull-right" 
+											
+												ng-show="cancelbutton" >
+											<a type="button" class="btn-custom"
+												style="margin-left: -20px" allowed="write" mdlcode="VTM"
+												ng-click="cancel()"> <img
+												src="Sidebar/css/button/cancel.svg" /> <img
+												src="Sidebar/css/button/cancel_h.svg" />
+											</a>
+										</div>
+										<div class="pull-right" style="margin-right:50px;"
+											
+												ng-show="savebutton">
+											<a type="button" class="btn-custom" allowed="write"
+												mdlcode="VTM" ng-click="saveForm()"> <img
+												src="Sidebar/css/button/assign.svg" /> <img
+												src="Sidebar/css/button/assign_h.svg" />
+											</a>
+										</div>
+										<div class="pull-right" style="
+											padding: 0px;"
+												ng-show="deletesbutton">
+											<a type="button" class="btn-custom"
+												allowed="delete" mdlcode="VTM" ng-click="showReassignModal()"><img
+												src="Sidebar/css/button/delete.svg" /> <img
+												src="Sidebar/css/button/delete_h.svg" /></a>
+										</div>
+										<div class="pull-right"
+											
+												ng-show="updatebutton">
+											<a type="button" class="btn-custom"
+												allowed="write" mdlcode="VTM" ng-click="Update()"><img
+												src="Sidebar/css/button/updated.svg" /> <img
+												src="Sidebar/css/button/updated_h.svg" /></a>
+										</div>
+
+									</div>
+								</div>
+								<!-- Modal -->
+								<div class="modal fade" id="myModal" role="dialog" tabindex="-1">
+									<div class="modal-dialog" tabindex="-1">
+
+										<!-- Modal content-->
+										<div class="modal-content" tabindex="-1">
+											<div class="modal-header" tabindex="-1">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title pull-left">Select Assigned Rank</h4>
+											</div>
+											<div class="modal-body" tabindex="-1" style="padding: 0;margin-bottom: -20px;">
+												<table class="table table-bordered table-fixedheader-3col">
+													<thead>
+														<tr>
+															<th width="40%"><input
+																placeholder="Search Rank Name" type="text" id="searchrank"
+																class="form-control" ng-model="searchparticular[3]" /></th>
+															<th width="40%"><input
+																placeholder="Search Employee Name" class="form-control" id="searchname"
+																type="text" ng-model="searchparticular[1]" /></th>
+															<th width="20%"
+																style="padding-top: 14px; padding-bottom: 14px; text-align: center;">Status</th>
+														</tr>
+
+													</thead>
+													<tbody>
+														<tr
+															ng-repeat="crewmasterdetails in crewmaster | filter:searchparticular[3] | filter:searchparticular[1]| filter:search"
+															id="item{{crewmasterdetails[0]}}">
+															<td width="40%" style="padding: 10px">{{crewmasterdetails[3]}}</td>
+															<td width="40%" style="padding: 10px">{{crewmasterdetails[1]}}</td>
+															<td ng-show="empid">{{crewmasterdetails[0]}}</td>
+															<td ng-show="rankcode">{{crewmasterdetails[2]}}</td>
+															<td width="20%"style="padding: 9px;"><span
+																ng-if="getButtonLabel(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])=='Assign'"><button
+																		class="btn btn-default btn-xs"
+																		ng-click="toggleSelect(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])">{{getButtonLabel(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])}}</button>
+															</span> <span
+																ng-if="getButtonLabel(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])=='Assigned'"><button
+																		class="btn btn-primary btn-xs"
+																		ng-click="toggleSelect(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])">{{getButtonLabel(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])}}</button>
+															</span> <!--              <input type="checkbox" ng-model="crewmasterdetails.checked"> -->
+															</td>
+														</tr>
+													</tbody>
+													<tfoot>
+														<tr>
+															<th style="width: 600px"><input type="text" id="searchassign"
+																class="form-control" ng-model="search"
+																placeholder="search for both" /></th>
+														</tr>
+														    <tr>
+                     <th style="width: 600px">
+                      <a type="button"   
+                      class="btn-custom pull-right" data-dismiss="modal"> 
+                      <img src="Sidebar/css/button/close.svg" />
+                      <img src="Sidebar/css/button/close_h.svg" /></a>
+                     </th>
+                    </tr>
+													</tfoot>
+												</table>
+											</div>
+											<!-- <div class="modal-footer">
+										
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+									</div> -->
+										</div>
+
+									</div>
+								</div>
+
+								<!-- Modal -->
+
+								<!-- Modal -->
+
+								<div class="modal fade" id="followerModal" role="dialog" tabindex="-1">
+									<div class="modal-dialog" tabindex="-1">
+
+										<!-- Modal content-->
+										<div class="modal-content" tabindex="-1">
+											<div class="modal-header" tabindex="-1">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title pull-left">Add Followers Names</h4>
+											</div>
+											<div class="modal-body" tabindex="-1" style="padding: 0;margin-bottom: -20px;">
+												<table class="table table-bordered table-fixedheader-3col">
+													<thead>
+														<tr>
+															<th width="40%"><input class="form-control"
+																placeholder="Search Rank Name" type="text" id="serachrankname"
+																ng-model="searchparticular[3]" /></th>
+															<th width="40%"><input class="form-control"
+																placeholder="Search Employee Name" type="text"
+																ng-model="searchparticular[1]" /></th>
+															<th style="padding-top: 14px; padding-bottom: 14px; text-align: center;"
+																width="20%">Status</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr
+															ng-repeat="crewmasterdetails in followdetails | filter:searchparticular[3] | filter:searchparticular[1] | filter:search"
+															ng-dblclick="gettabledate(crewmasterdetails.rankname,crewmasterdetails.empname,crewmasterdetails.empid)">
+															<td style="padding: 10px;" width="40%">{{crewmasterdetails[3]}}</td>
+															<td style="padding: 10px;" width="40%">{{crewmasterdetails[1]}}</td>
+															<td ng-show="empidshow">{{crewmasterdetails[0]}}</td>
+															<td ng-show="rankcodeshow">{{crewmasterdetails[2]}}</td>
+															<td width="20%" style="padding: 9px;"><span
+																ng-if="followerButtonLabel(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])=='Select'"><button
+																		class="btn btn-default btn-xs"
+																		ng-click="followerSelect(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])">{{followerButtonLabel(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])}}</button></span>
+																<span
+																ng-if="followerButtonLabel(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])=='Selected'"><button
+																		class="btn btn-primary btn-xs"
+																		ng-click="followerSelect(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])">{{followerButtonLabel(crewmasterdetails[0],crewmasterdetails[1],crewmasterdetails[2],crewmasterdetails[3])}}</button></span>
+															</td>
+														</tr>
+													</tbody>
+													<tfoot>
+														<tr>
+															<th style=""><input
+																class="form-control" type="text" ng-model="search" id="searchforboth"
+																placeholder="search for both" /></th>
+														</tr>
+														    <tr>
+                     <th style="width: 600px">
+                      <a type="button"   
+                      class="btn-custom pull-right" data-dismiss="modal" > 
+                      <img src="Sidebar/css/button/close.svg" />
+                      <img src="Sidebar/css/button/close_h.svg" /></a>
+                     </th>
+                    </tr>
+													</tfoot>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+	title="Missed something!" name="systemvalidationdialog"
+	custom-options="actions" error-type="warning" error-message="dataerror"
+	error-status="{{geterrorstatuscode}}"
+	detail-error-message="{{detailerrormessages}}"
+	showexception="showexception" error-details="errordetails"
+	error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+<toaster-container
+	toaster-options="{'time-out': 6000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<toaster-container
+	toaster-options="{'time-out': 6000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<div class="modal fade" id="Remarks" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Remarks</h4>
+			</div>
+			<div class="modal-body">
+				<textarea ng-model="deleteremarks" maxlength="100" rows="4"
+					cols="68"></textarea>
+				<div class="pull-right" style="font-size: .8em; color: #577A3A">Characters
+					left: {{max100Length - deleteremarks.length}}</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" ng-click="Delete()" data-dismiss="modal"
+					class="btn btn-success">OK</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>

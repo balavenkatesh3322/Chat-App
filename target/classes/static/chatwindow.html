@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/chatwindow.css">		
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+</head>
+<body ng-app="spritlechatApp" ng-controller="chatCtrl">
+<div>
+<div class="container">
+	<div class="row border-chat">
+		<div class="col-md-12 col-sm-12 col-xs-12 first-section">
+			<div class="row">
+			
+					<h1>Interesting Today</h1>
+				<a href="/logout" class=" right-first-section"><i  class="fa fa-power-off"></i> 
+                 <span class="dropdown-text">Logout</span> </a>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="container">
+	<div class="row border-chat" style='margin-top: 104px;'>
+		<div class="col-md-12 col-sm-12 col-xs-12 second-section">
+			<div class="chat-section" >
+				<ul ng-repeat="listdata in gettodaydata">
+					<li>
+						<div class="left-chat row" >
+							<div class="col-sm-12">
+								<div class="col-sm-8">
+									<span style="float:left;height:75px;width:75px;border:1px solid lightgray;"><h5 style="text-align:center;top:8px;margin-top: 26px;  font-size: 18px; font-weight: 500;">{{listdata.crusername}}</h5></span>
+								<span class="chats">{{listdata.intrestingdata}}</span>
+								</div>
+								<span ng-hide="true">{{listdata.interestingid}}</span>						
+								
+							</div>
+						</div>
+						<div class="row" >
+						<div class="col-sm-12">							
+							<div class="col-sm-6">								
+							<span class="time">{{listdata.crdate | date}}</span>
+							</div>
+							<div class="col-sm-6">
+							<span class="comments" ng-click="getusercommentsbyid(listdata.interestingid)" data-toggle="modal" data-target="#comments">Comments</span>
+							{{listdata.commentscount}}
+							<button class="likes" ng-hide="listdata.userhaslike" ng-click="saveuserlikes(listdata.interestingid)">Like</button>							
+							<button class="likes" ng-show="listdata.userhaslike" >Liked</button>
+							{{listdata.likescount}}
+							</div>
+						</div>
+						</div>
+						</div>
+					</li>					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="container">
+	<div class="row border-chat">
+		<div class="col-md-12 col-sm-12 col-xs-12 third-section">
+			<div class="text-bar">
+				<input type="text" placeholder="Write messege" ng-model="todaydata" ng-enter="savetodayintersting()" ><span>
+											<button class="btn btn-success" type="button"
+												ng-click="savetodayintersting()">Send</button>
+										</span>
+			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+
+  <div class="modal fade" id="comments" role="dialog">
+    <div class="modal-dialog">
+    
+     
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Comments</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+	<div class="row">
+		<div class="col-md-5 second-section">
+				<div class="left-chat" ng-repeat="comments in getcomments">
+						<div class="left-chat row" >
+							<div class="col-sm-12">
+								<div class="col-sm-8">
+									<span style="float:left;height:75px;width:75px;border:1px solid lightgray;"><h5 style="text-align:center;top:8px;margin-top: 26px;  font-size: 18px; font-weight: 500;">{{comments.crusername}}</h5></span>
+								<span class="chats">{{comments.usercomments}}</span>
+								</div>
+						</div>
+						</div>
+												
+						</div>
+										
+				
+			
+		</div>
+	</div>
+	</div>
+	<div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			<div>
+				<input type="text" placeholder="Write messege" ng-model="usercomments"     style="width: 404px;" ng-enter="saveusercomments()" ><span>
+											<button  type="button"
+												ng-click="saveusercomments()">Send</button>
+										</span>
+			</div>
+		</div>
+	</div>
+	</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+</body>
+
+<script src="js/controllers/angular.min.js"></script>
+<script src="js/directives/ngEnter/ngEnterDirective.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers/ChatwindowController.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</html>

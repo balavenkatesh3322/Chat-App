@@ -1,0 +1,512 @@
+<style>
+
+  .report-table { width:250px;table-layout:fixed; }
+  .report-table tr { height:1em;  }
+  td { 
+     overflow: hidden;
+     white-space: pre-wrap;  
+  } 
+  
+  #mainPage34, #mainPage32, #mainPage31 {
+    height: 260px !important;
+  }
+  
+  thead, tbody { display: block; width: 100%}
+
+tbody {
+    height: auto;
+    max-height: 15em;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+  
+  #mainPage31panel .x_panel, #mainPage32panel .x_panel, #mainPage34panel .x_panel {
+  height: 250px !important;
+}
+  .weather-container {
+    background : transparent url(img/weather.jpg) no-repeat center center;
+    color: #fff;
+    height: 13.5em;
+  }
+  
+  .username {
+    color: #ffb732;
+  }
+  
+  .forcasts {
+        display: inline-block;
+  }
+  
+  .hor {
+      height: 1em;
+    margin: 0 1em;
+  }
+  
+  .weather-wrapper {
+    background-color: rgba(0,0,0, 0.5);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    margin: 0em .5em 0 2em;
+    height: inherit;
+  }
+  
+  .forcast-wrapper {
+    display: inline-block;
+    overflow: auto;
+  }
+  
+  .forcast-day {
+    font-size: .9em;
+    color: cornflowerblue;
+    font-weight: 800;
+    font-size: .7em;
+    margin-bottom: 0;
+  }
+  
+  .forcast-img {
+    width: 70%;
+  }
+  
+  .weather-right {
+    display : inline-block;
+    padding: 1em 2em;
+  }
+  
+  .weather-icon {
+      width: 45%;
+  }
+  
+  .weather-hum-wind {
+    margin-left: 2em;
+    display: flex;
+  }
+  
+  hr {
+  }
+  
+  .weather-temp {
+    font-size: 1.8em;
+  }
+  
+  .weather-left {
+    display : inline-block;
+    padding: 1em 2em;
+  }
+  
+  .weather-desc {
+    text-transform: capitalize;
+    font-size: 1.2em;
+    color: #ffb732;
+  }
+  
+  .weather-cityname {
+    font-size: 1.3em
+  }
+ 
+   .weather-time {
+    font-size: 1.4em
+  }
+  
+    .weather-date {
+    font-size: 1em
+  } 
+  
+  
+  .report-table {
+    width: 99%;
+    background-color: #F0F0F0;
+    border: 1px solid #ffb732;
+  }
+  
+  #mainPage33panel .x_title {
+    width: 34em;
+  }
+  
+  #mainPage33panel .x_panel{
+    width: 36.4em !important;
+    height: 26em !important;
+  }
+  
+    #mainPage35panel .x_title {
+    width: 34em;
+  }
+  
+  #mainPage35panel .x_panel{
+    width: 36.4em !important;
+    height: 26em !important;
+  }
+  
+  #mainPage3chart .x_title {
+    width: 22em !important;
+  }
+  
+  #mainPage3chart .x_panel {
+    width: 23.5em !important;
+  }
+
+  #mainPage2chart  .x_panel{
+    width: 23em !important;
+  }
+  
+  #mainPage2chart .x_title {
+    width: 21.5em;
+  }
+  
+  .report-table th {
+      position: relative;
+      padding: .5em;
+      font-size: .9em;
+      border: 0 !important;
+  }
+  
+  .report-table thead tr {
+      border-bottom: 2px solid #D0D0D0 !important;
+  }
+  
+  .report-table td {
+    padding: .6em;
+  }
+  
+  .report-table tr:last-child {
+    padding: 1em;
+  }
+
+  .report-table tr {  
+    border-bottom: 1.5px solid #D3D3D3;
+  }
+  
+  .report-table tr:last-child {  
+    border-bottom: 0;
+  }  
+  
+  .filter-dashboard {
+    margin-bottom: 2em !important;
+    color: #888888 !important;
+  }
+  
+  .inspection-wrapper {
+    background-color: #F0F0F0;
+    padding: 1em;
+    margin: 2.4em 0;
+  }
+  
+   .form-control {
+   display: block;
+   width: 100%;
+   height: 34px;
+   padding: 6px 12px;
+   font-size: 14px;
+   line-height: 1.42857143;
+   color: #555;
+   background-color: #fff;
+   background-image: none;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   margin-top: 18px;
+   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+   -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow 
+   ease-in-out .15s;
+   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out 
+   .15s;
+   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+   }
+   .amcharts-export-menu .export-main>a,
+   .amcharts-export-menu .export-drawing>a,
+   .amcharts-export-menu .export-delayed-capturing>a {
+   display: block;
+   overflow: hidden;
+   text-indent: -13333337px;
+   width: 25px;
+   height: 25px;
+   padding: 0;
+   background-repeat: no-repeat;
+   background-color: #fff;
+   background-position: center;
+   margin: -15px 8px 0 10px;
+   }
+   .x_panel {
+   border: 1px solid #bdbdbd !important;
+   box-shadow: 2px 2px 4px #ccc;
+   font-size: 14px;
+   padding-left: 15px;
+   padding-right: 15px;
+   }
+   #mainPage2chart .x_panel {
+   border: 1px solid #bdbdbd !important;
+   box-shadow: 2px 2px 4px #ccc;
+   height: 350px !important;
+   margin-bottom: 10px !important;
+   background-color: #fff;
+   }
+   #mainPage1chart .x_panel {
+   border: none !important;
+   box-shadow: none !important;
+   width: 250px !important;
+   height: 270px !important;
+   margin-bottom: 10px !important;
+   }
+   #mainPage2chart .x_title {
+   border: 1px solid #ccc;
+   padding: 7px;
+   font-size: 15px;
+   border-bottom: none !important;
+   border-top-left-radius: 6px;
+   border-top-right-radius: 6px;
+   color: #fff;
+   background-color: #494949;
+   }
+   .x_title {
+   border: 1px solid #ccc;
+   padding: 7px;
+   font-size: 15px;
+   border-bottom: none !important;
+   border-top-left-radius: 6px;
+   border-top-right-radius: 6px;
+   color: #fff;
+    background-color: #494949;
+   }
+   #mainPage1chart .x_panel {
+   padding-left: 15px;
+   padding-right: 15px;
+   }
+   #mainPage1chart .x_title {
+   display: none;
+   }
+   #landingPage1,
+   #landingPage3,
+   #landingPage5,
+   #landingPage7,
+   #landingPage8,
+   #landingPage9 {
+   height: 400px !important;
+   }
+   #tableheadingcolor{
+    background-color: #ffb732;
+    color: #fff;
+    font-size: .9em;
+    padding: .6em;
+    margin-right: 10px;
+   }
+   .circle_xsh {
+   width: 10px;
+   height: 10px;
+   background: red;
+   border-radius: 50%;
+   display: inline-block;
+   margin-right: 5px;
+   }
+   .circle_xsm {
+   width: 10px;
+   height: 10px;
+   background: green;
+   border-radius: 50%;
+   display: inline-block;
+   margin-right: 5px;
+   }
+   .circle_xsl {
+   width: 10px;
+   height: 10px;
+   background: yellow;
+   border-radius: 50%;
+   display: inline-block;
+   margin-right: 5px;
+   }
+   .amcharts-export-menu-top-right {
+    top: -15px !important;
+    right: -16px !important;
+}
+   
+</style>
+<div class="main" id="main">
+   <div ng-show="haspermission"></div>
+   <div>
+   <div class="sticky_header" style="height: 50px;">
+         <div class="tab_head_sticky">
+            <ul class="breadcrumb">
+               <li>
+                  <a href="#/Dashboard">Dashboard</a>
+               </li>
+               <!-- <span class="pull-right"><img src="Sidebar/assets/faces/Shore.svg"/>You are in <strong>SVM Shore</strong></span> -->
+            </ul>
+</div>
+</div>
+      <div>
+         <div class="row">
+            <div class="col-xs-12" style="margin-top: -44px !important;">
+               <div class="form_table_wrapper" style="margin-top: -59px;">
+               
+<!--                      <div class="weather-container"> -->
+<!--                       <div class="weather-wrapper pull-left"> -->
+<!--                        <div ng-if="isConnected"> -->
+<!--                         <div> -->
+<!--                            <div class="weather-left"> -->
+<!--                              <p class="weather-cityname">{{cityname}}, {{countrycode}}</p> -->
+<!--                              <p class="weather-time">{{currdate | date:  "hh:mm a"}}</p> -->
+<!--                               <p class="weather-date">{{currdate | date:  "EEEE, d MMMM"}}</p> -->
+<!--                             </div> -->
+<!--                             <div class="weather-right"> -->
+<!--                                <img class="weather-icon" src="{{weathericon}}"/>  -->
+<!--                                <p class="weather-temp">{{currtemperature}} &deg;C</p> -->
+<!--                                <p class="weather-desc">{{weatherdes}}</p> -->
+<!--                            </div> -->
+<!--                          </div> -->
+<!--                          <div class="weather-hum-wind"> -->
+<!--                            <p>Humidity : {{currhumidity}} &#37;</p> <hr class="hor"> -->
+<!--                            <p>Wind : {{windspeed}} meter/sec</p> -->
+<!--                          </div>  -->
+<!--                         </div> -->
+<!--                         <div ng-if="!isConnected" style="padding: 3em;"> -->
+<!--                            <h1>Hello  <span class="username">{{username}}!</span></h1> -->
+<!--                            <p style="font-size: 1.5em;">How are you?</p> -->
+<!--                            <p>We are not able to make connections to the internet. Connect to internet to get weather informations. </p>  -->
+<!--                         </div>   -->
+<!--                      </div>   -->
+                      
+<!--                     <div class="forcast-wrapper pull-right"> -->
+                     
+<!--                          <div class="forcasts" ng-repeat="forcasted in weatherForcastList" > -->
+<!--                                <div style="display:block;    padding: 1.5em;text-align:center"> -->
+<!--                                <p style="font-size: .7em;">{{forcasted.dt_txt  | date:  "h a"}}</p> -->
+<!--                                <p class="forcast-day">{{forcasted.dt_txt  | date:  "EEE"}}</p> -->
+<!--                                <img class="forcast-img" src="{{forcasted.weather[0].icon}}"/>  -->
+<!--                                  <div style="display: flex;">   -->
+<!--                                    <p style="padding-right: .5em"><b>{{forcasted.main.temp_max}}&deg;</b></p> -->
+<!--                                    <p style="color: darkgrey;">{{forcasted.main.temp_min}}&deg;</p> -->
+<!--                                  </div>   -->
+<!--                                </div> -->
+<!--                          </div> -->
+<!--                       </div>  -->
+<!--                      </div> -->
+               
+                  <div class="form_table">
+                     <div class="row">
+                        <div class="col-sm-12">
+                           <div id="mainPage1chart" style="overflow: hidden; margin-top: -45px;"></div>
+                        </div>
+                     </div>
+                     
+              <div class="col-sm-12" style="margin-bottom: -45px;">       
+                <div class="section_header_top"
+                  style="height: 3px !important; width: 100%; margin-right: 0px;">
+                 </div>
+                <div class="section_header" style="margin-left: -30px;">
+                  Inspection Dashboard
+                </div>
+              </div>  
+                     <div>
+                       <div class="row">
+                        <div class="col-sm-3 pull-right" style="margin-right: 15px;">
+                           <div class="dropdown" align="right" >
+                              <select class="form-control filter-dashboard" tabindex="5" style="margin-top: 0"
+                                 data-placeholder="" ng-model="flag"  ng-change="initTab('landingPage','mainPage2',flag)"
+                                 style="width: 100% !important;">
+                                 <option disabled value="">Select an inspection</option>
+                                 <option  ng-repeat="inscode in inspectionCode" value="{{inscode.inspectioncode}}">{{inscode.inspectionname}}</option>
+                              </select>
+                           </div>
+                        </div>
+                        
+<!--                            <div class="col-sm-4 pull-left" style="    display: flex;"> -->
+<!--                            <div> -->
+<!--                               <p>From:</p> -->
+<!--                               <input id="fromDatepicker" kendo-date-picker k-options="monthSelectorOptions" ng-change="filterByDate()" -->
+<!--                                      k-format="'MMMM yyyy'" -->
+<!--                                      ng-model="fromDateString" -->
+<!--                                      k-ng-model="fromDateObject" -->
+<!--                                      k-max = "maxDate" -->
+<!--                                      k-rebind="maxDate" -->
+<!--                                      k-on-change="fromDateChanged()" /></div> -->
+<!--                              <div style="margin-left: 1em"> <p>To:</p> -->
+<!--                               <input id="toDatepicker" kendo-date-picker ng-change="filterByDate()" -->
+<!--                                      k-options="monthSelectorOptions" -->
+<!--                                      k-format="'MMMM yyyy'" -->
+<!--                                      ng-model="toDateString" -->
+<!--                                      k-ng-model="toDateObject" -->
+<!--                                      k-min = "minDate" -->
+<!--                                      k-rebind = "minDate" -->
+<!--                                      k-on-change="toDateChanged()"/></div> -->
+<!--                             </div> -->
+                        
+                     </div>                   
+                     <div class="row">
+                        <div id="mainPage2chart" ></div>
+                     </div>
+                     </div>
+         
+              <div class="col-sm-12">       
+                <div class="section_header_top"
+                  style="height: 3px !important; width: 100%; margin-right: 0px;">
+                 </div>
+                <div class="section_header" style="margin-left: -30px">
+                  Safety And Task Dashboard
+                </div>
+              </div>  
+              
+                                   <div class="row">
+                        <div class="col-sm-12" style=" margin-bottom:1em">
+                              <div class="panel-heading" id="tableheadingcolor">TASK IN PROGRESS</div>
+                                 <table class="report-table">
+                                    <thead>
+                                       <tr>
+                                          <th style="width:700px"><b>Task</b></th>
+                                          <th style="width:330px"><b>Priority</b></th>
+                                          <th style="width:370px"><b>Target Date</b></th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr  ng-if="taskmanagerdata.length<=0" style="text-align:center"><td colspan=3>No Data Available</td></tr>
+                                       <tr style="width:20%" style="width:338px" dir-paginate="Taskmanager in taskmanagerdata | orderBy:predicate:reverse  
+                                          | filter:search |itemsPerPage:pageSize 
+                                          | filter:{'taskid':search.taskid}
+                                          | filter:{'taskname':search.taskname} 
+                                          | filter:{'reference':search.reference}">
+                                          <td style="text-align: left;width:700px">{{Taskmanager.taskname}}</td>
+                                          <td style="text-align: left;width:330px" ng-if="Taskmanager.prioritycode === 'PR001'"><span class="circle_xsh"></span>Very High</td>
+                                          <td style="text-align: left;width:330px" ng-if="Taskmanager.prioritycode === 'PR002'"><span class="circle_xsl"></span>High</td>
+                                          <td style="text-align: left;width:370px">{{Taskmanager.targetdate | date : "dd-MM-y"
+                                             : timezone}}
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                        </div>
+                          
+                     </div>
+                     
+                
+                     <div class="row">
+                          <div id="mainPage4chart" ></div>
+                          <div id="mainPage41chart" ></div>
+                     </div>
+
+                     <div class="row">
+                        <div id="mainPage3chart" style="margin-top: 10px;"></div>
+                         <div class="col-sm-4" style=" margin-bottom:1em">
+                              <div class="panel-heading" id="tableheadingcolor" style="margin-right: 4px;">LTI Count</div>
+                                 <table class="report-table">
+                                    <thead>
+                                       <tr>
+                                          <th style="width:700px"><b>Vessel Name</b></th>
+                                          <th style="width:330px"><b>LTI</b></th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr  ng-if="ltiCountData.length<=0" style="text-align:center"><td colspan=3>No Data Available</td></tr>
+                                       </tr>
+                                       
+                                         <tr ng-repeat="data in ltiCountData track by $index">
+                                          <td style="text-align: left;width:700px">{{data.vessel}}</td>
+                                          <td style="text-align: left;width:330px">{{data.count}}</td>
+                                       </tr>
+                                       
+                                    </tbody>
+                                 </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

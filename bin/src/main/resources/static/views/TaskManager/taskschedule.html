@@ -1,0 +1,795 @@
+<style>
+
+/* task_tile:hover */ 
+.overdue_tile_color {
+    height: 110px !important;
+  background: #f8bc16 !important;
+}
+.today_tile_color {
+    height: 110px !important;
+  background: #452f91 !important;
+}
+.upcoming_tile_color {
+    height: 110px !important;
+  background: #0992cd !important;
+}
+.completed_tile_color {
+    height: 110px !important;
+  background: #7d3795 !important;
+}
+.follow_tile_color {
+    height: 110px !important;
+  background: #f15623 !important;
+}
+
+.rowbackground {
+  background-color: #f15623 !important;
+}
+
+ .task_tile	{
+	width: 200px;
+    height: 110px;
+    position: relative;
+    cursor: pointer;
+    }
+ 
+ .task_tile_inner	{
+	position: absolute;
+    width: 100%;
+    height: 90px;
+    transition: .2s ease-in;
+    bottom: 0;
+	background: #999;
+}
+
+.tile_content	{
+    position: absolute;
+    color: #fff;
+    font-size: 18px;
+    box-sizing: border-box;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+}	
+
+.tile_content .tile_left	{
+	height: 90px;
+	width: 40%;
+	float: left;
+}
+
+.tile_content .tile_left img	{
+	width: 45px;
+    padding-top: 30px;
+}
+
+.tile_content .tile_right	{
+	height: 90px;
+	width: 60%;
+	float: right;
+	padding-top: 5px;
+	padding-right: 10px;
+}
+
+.tile_content .tile_right span:first-child	{
+	font-size: 17px;
+}
+
+.tile_content .tile_right span:last-child	{
+	display: block;
+	font-size: 34px;
+}
+
+.tile_content 	.progress	{
+	width: 100%;
+    height: 10px;
+    margin-bottom: -20px;
+    border-radius: 0;
+}
+	
+/* task_tile:hover */	
+.task_tile:hover .overdue_tile {
+    height: 110px;
+	background: #f8bc16;
+}
+.task_tile:hover .today_tile {
+    height: 110px;
+	background: #452f91;
+}
+.task_tile:hover .upcoming_tile {
+    height: 110px;
+	background: #0992cd;
+}
+.task_tile:hover .completed_tile {
+    height: 110px;
+	background: #7d3795;
+}
+.task_tile:hover .follow_tile {
+    height: 110px;
+	background: #f15623;
+}
+/*   .x_panel {
+    border: 1px solid #ccc !important;
+    box-shadow: 2px 2px 4px #ccc;
+    width: 200px !important;
+    height: 350px !important;
+    margin-bottom: 10px !important;
+}
+
+
+.roww{
+   margin-right: -243px;
+    margin-left: -13px;
+}
+
+img {
+  width: 30%;
+}
+
+.k-dialog-titlebar {
+	font-size: .8em;
+	opacity: .8;
+	background: #5b9cd6;
+	color: #fff;
+}
+.progress { 
+  height: 1em;
+  i { line-height: 3.5em; }
+}
+
+.progress-bar { 
+  transition: width 1s ease-in-out; 
+} */
+@media only screen and (max-width: 757px) {
+	#rootwizard > div > ul	{
+		margin-left: 0 !important;
+	}
+	
+	#rootwizard > div > ul > a > div	{
+		margin-bottom: 10px;
+	} 
+}
+</style>
+<div class="main" id="main" ng-hide="hidebody" style="margin-top: -20px;">
+	<ul class="breadcrumb">
+		<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+		<li><b>Task Scheduler</b></li>
+		
+	</ul>
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="VTK"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="VTK">
+		<!-- content should flow below -->
+<br />
+
+  <div class="row" style="margin-bottom: 25px;">
+  <div class="col-xs-12 col-sm-3 col-lg-2" style="margin-right:20px;">
+    <div class="task_tile" ng-click="changestate('OD')">
+      <div ng-class="{ 'overdue_tile_color': (activeTab == 'OD')}" class="task_tile_inner overdue_tile">
+        <div class="tile_content">
+          <div class="tile_left">
+            <img src="Sidebar/css/button/overdue.svg" alt="tile_icon" />
+          </div>
+          <div class="tile_right">
+            <span>Overdue</span>
+            <span>{{overdueLength}}</span>
+          </div>  
+          <progressbar duration="0"  class="active" animate="true" value="overdueLength" max="totaltask"></progressbar>
+        <!--  <progress value="50" max="100"></progress> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-3 col-lg-2" style="margin-right:20px;">
+    <div class="task_tile" ng-click="changestate('TD')">
+      <div  ng-class="{ 'today_tile_color': activeTab == 'TD' }" class="task_tile_inner today_tile">
+        <div class="tile_content">
+          <div class="tile_left">
+            <img style="padding-top: 20px;" src="Sidebar/css/button/today.svg" alt="tile_icon" />
+          </div>
+          <div class="tile_right">
+            <span>Today</span>
+            <span>{{todayLength}}</span>
+          </div>  
+          <progressbar duration="0"  class="active" animate="true" value="todayLength" max="totaltask"></progressbar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-3 col-lg-2" style="margin-right:20px;">
+    <div  class="task_tile" ng-click="changestate('UP')">
+      <div ng-class="{ 'upcoming_tile_color':  activeTab == 'UP' }" class="task_tile_inner upcoming_tile">
+        <div class="tile_content">
+          <div class="tile_left">
+            <img src="Sidebar/css/button/upcoming.svg" alt="tile_icon" />
+          </div>
+          <div class="tile_right">
+            <span>Upcoming</span>
+            <span>{{upcomingLength}}</span>
+          </div>  
+          <progressbar duration="0"  class="active" animate="true" value="upcomingLength" max="totaltask"></progressbar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-3 col-lg-2" style="margin-right:20px;">
+    <div  class="task_tile" ng-click="changestate('CO')">
+      <div ng-class="{ 'completed_tile_color': activeTab == 'CO' }" class="task_tile_inner completed_tile">
+        <div class="tile_content">
+          <div class="tile_left">
+            <img src="Sidebar/css/button/complete.svg" alt="tile_icon" />
+          </div>
+          <div class="tile_right">
+            <span>Completed</span>
+            <span>{{completedLength}}</span>
+          </div>  
+          <progressbar duration="0"  class="active" animate="true" value="completedLength" max="totaltask"></progressbar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-3 col-lg-2" style="margin-right:20px;">
+    <div class="task_tile" ng-click="changestate('FW')" >
+      <div ng-class="{ 'follow_tile_color': activeTab == 'FW' }" class="task_tile_inner follow_tile">
+        <div class="tile_content">
+          <div class="tile_left">
+            <img src="Sidebar/css/button/followup.svg" alt="tile_icon" />
+          </div>
+          <div class="tile_right">
+            <span>Follow up</span>
+            <span>{{followLength}}</span>
+          </div>  
+          <progressbar duration="0"  class="active" animate="true" value="followLength" max="totaltask"></progressbar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+
+		<div class="form_table">
+
+			<!-- Our Due starts-->
+			<div class="row" id="ourduecontent" ng-show="overdue">
+				<div class="col-xs-12">
+
+					<div class="table-responsive">
+					 <form class="form-inline navbar-form ">
+                    
+                      <label class="pull-left" style="margin-left:-14px"><strong>Items per
+                          page</strong>
+                          
+                      </label>  <select style="margin-left: 10px; width: 60px" class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+                       
+                        <a class="btn btn-default btn-sm pull-right"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="Settings" ng-click="openLayoutDialog()" style="margin-top: 2px;">  <i
+                  class="fa fa-cogs" aria-hidden="true"></i>
+                </a>
+                      
+                    
+                  </form>
+					 <table class="table table-hover table-striped table-bordered"
+                         cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                      <th style="width:12%" ng-repeat="column in ordered_columns">{{
+                        column.title }} <a ng-if="column.key!='activeStatus'"
+                                           href="" ng-click="sort(column.key)" class="sortDir"
+                                           ng-class="{ active: isSorted(column.key) }">&#x25B2;</a> <a
+                          ng-if="column.key!='activeStatus'" href=""
+                          ng-click="sort('-'+column.key)" class="sortDir"
+                          ng-class="{ active: isSorted('-'+column.key) }">&#x25BC;</a>
+                      </th>
+                      <th style="width:12%; text-align: center">Status</th>
+                      <th style="width:12%; text-align: center">%</th>
+                      <th style="width:12%; text-align: center">Progress</th>
+                      <th style="width:12%; text-align: center">Action</th>
+                      <th style="width:12%; text-align: center">View</th>
+                    </tr>
+                    <tr>
+                      <th ng-repeat="column in ordered_columns" id="search-cell">
+                        <input
+                          ng-if="column.key!='targetdate' && column.key!='completeddate' && column.key!='assigneddate' "
+                          class="form-control" placeholder="Search"
+                          ng-model="search[column.key]"
+                          style="width: 100%; font-size: .9em" delete-if-empty />
+                      </th>
+                      <th></th>
+                       <th></th>
+                        <th></th>
+                         <th></th>
+                         <th></th>
+                    <tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                      dir-paginate="data in overduetaskstatus | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize" pagination-id="overduetaskstatus" ng-style="{'background-color':data.backgroundcolor} ">
+                      <td ng-repeat="column in ordered_columns"><span
+                        ng-if="column.key!='targetdate'  && column.key!='assigneddate' && column.key!='status' && column.key!='reference' ">
+                            {{ data[column.key] }} </span>
+                        <span ng-if="column.key=='reference'"><a href="" class="dropdown-item animated fadeIn"> <i
+                          class="zmdi zmdi-power"></i> <span ng-click="referenceClicked(data.mdlcode,data.reference,data.taskid)" class="dropdown-text">{{data.reference}}</span>
+                        </a>
+                      </span>
+                         <span
+                          ng-if="column.key=='assigneddate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span> <span
+                          ng-if="column.key=='targetdate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span>
+                        </td>
+                        <td><select
+                    ng-change='overduetaskcheck(setoverduestatus[data.taskid], $index)'
+                    ng-model="setoverduestatus[data.taskid]">
+                      <option ng-repeat="Taskstatusname in taskstatus"
+                        value="{{Taskstatusname.statuscode}}">{{Taskstatusname.statusname}}</option>
+                  </select></td>
+                        
+                        <td><input id="pro_val" type="number" min="0" ng-change="validatepercentage('overduetaskstatus',$index)"
+                    ng-model="data.processpercent"></td>
+                    <td><progressbar class="progress-striped active" animate="true" max="100" value="data.processpercent" type="success" style="margin-top:10px;"><i><span count-to="{{data.processpercent}}" duration="0" count-from="{{countFrom}}"></span>%</i></progressbar></td>
+                    <td>
+                    <button type="button"
+                      class="btn btn-success btn-sm pull-right" allowed="write"
+                      mdlcode="VTK"
+                      ng-click="savetask(data.taskid,data.taskdesc,data.depcode,data.prioritycode,data.assignedby,data.assigneddate,data.targetdate,setoverduestatus[data.taskid],data.processpercent)">
+                      <i class="fa fa-save"></i>
+                    </button>
+                  </td>
+                      <td><a href="#/ViewTask/123987/{{data.taskid}}" ng-click="changestatus(data.taskid)"
+                             class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  
+						<div style="margin-top: -20px;" class="pull-right">
+                      <dir-pagination-controls max-size="25" direction-links="true" pagination-id="overduetaskstatus"
+                        boundary-links="true"></dir-pagination-controls>
+                    </div>
+						<div ng-if="!overduetaskstatus.length" class="no_data">
+                    <img src="img/crying.png" style="margin: 1em 0;">
+                    <p>Can't find what you are looking for.</p>
+                  </div>
+					</div>
+					<!-- 									<a style="margin-top: 13px;" class="btn btn-success pull-right" ng-click="savetask()">Save</a> -->
+
+				</div>
+			</div>
+
+			<!-- our due ends here -->
+
+
+			<!-- today task starts-->
+			<div class="row" id="todaycontent" ng-show="today">
+				<div class="col-xs-12">
+					<div class="table-responsive">
+					 <form class="form-inline navbar-form ">
+                    
+                      <label class="pull-left" style="margin-left:-14px"><strong>Items per
+                          page</strong>
+                          
+                      </label>  <select style="margin-left: 10px; width: 60px" class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+                       
+                        
+                       <a class="btn btn-default btn-sm pull-right"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="Settings" ng-click="openLayoutDialog()" style="margin-top: 2px;">  <i
+                  class="fa fa-cogs" aria-hidden="true"></i>
+                </a>
+                    
+                  </form>
+						<table class="table table-hover table-striped table-bordered"
+                         cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+	                      <th style="width:12%" ng-repeat="column in ordered_columns">{{
+	                        column.title }} <a ng-if="column.key!='activeStatus'"
+	                                           href="" ng-click="sort(column.key)" class="sortDir"
+	                                           ng-class="{ active: isSorted(column.key) }">&#x25B2;</a> <a
+	                          ng-if="column.key!='activeStatus'" href=""
+	                          ng-click="sort('-'+column.key)" class="sortDir"
+	                          ng-class="{ active: isSorted('-'+column.key) }">&#x25BC;</a>
+	                      </th>
+                      <th style="width:12%; text-align: center">Status</th>
+                      <th style="width:12%; text-align: center">%</th>
+                      <th style="width:12%; text-align: center">Progress</th>
+                      <th style="width:12%; text-align: center">Action</th>
+                      <th style="width:12%; text-align: center">View</th>
+                    </tr>
+                    <tr>
+                      <th ng-repeat="column in ordered_columns" id="search-cell">
+                        <input
+                          ng-if="column.key!='targetdate' && column.key!='completeddate' && column.key!='assigneddate' "
+                          class="form-control" placeholder="Search"
+                          ng-model="search[column.key]"
+                          style="width: 100%; font-size: .9em" delete-if-empty />
+                      </th>
+                      <th></th>
+                       <th></th>
+                        <th></th>
+                         <th></th>
+                         <th></th>
+                    <tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                      dir-paginate="data in taskstatusdetails | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize" pagination-id="taskstatusdetails" ng-style="{'background-color':data.backgroundcolor}">
+                      <td ng-repeat="column in ordered_columns"><span
+                        ng-if="column.key!='targetdate'  && column.key!='assigneddate' && column.key!='status' && column.key!='reference' ">
+                            {{ data[column.key] }} </span>
+                        <span ng-if="column.key=='reference'"><a href="" class="dropdown-item animated fadeIn"> <i
+                          class="zmdi zmdi-power"></i> <span ng-click="referenceClicked(data.mdlcode,data.reference,data.taskid)" class="dropdown-text">{{data.reference}}</span>
+                        </a>
+                      </span>
+                         <span
+                          ng-if="column.key=='assigneddate'">
+                            {{data[column.key] | date: data.Uidateformat}} </span> <span
+                          ng-if="column.key=='targetdate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span>
+                        </td>
+                        <td class="center"><select
+                    ng-change='todaytaskcheck(todaytaskstatus[data.taskid], $index)'
+                    ng-model="todaytaskstatus[data.taskid]">
+                      <option ng-repeat="Taskstatusname in taskstatus"
+                        value="{{Taskstatusname.statuscode}}">{{Taskstatusname.statusname}}</option>
+                  </select> <!--                                                   <select ng-model="taskstatusdetailsbyid.value" ng-options="v for v in prop.values"> -->
+                    <!--   </select> --></td>
+                        
+                        <td><input id="pro_val" type="number" min="0" ng-change="validatepercentage('taskstatusdetails',$index)"
+                    ng-model="data.processpercent"></td>
+                    <td><progressbar class="progress-striped active" animate="true" max="100" value="data.processpercent" type="success" style="margin-top:10px;"><i><span count-to="{{data.processpercent}}" duration="0" count-from="{{countFrom}}"></span>%</i></progressbar></td>
+                    <td>
+                    <button type="button"
+                      class="btn btn-success btn-sm pull-right" allowed="write"
+                      mdlcode="VTK"
+                      ng-click="savetask(data.taskid,data.taskdesc,data.depcode,data.prioritycode,data.assignedby,data.assigneddate,data.targetdate,todaytaskstatus[data.taskid],data.processpercent)">
+                      <i class="fa fa-save"></i>
+                    </button>
+                  </td>
+                      <td><a href="#/ViewTask/123987/{{data.taskid}}" ng-click="changestatus(data.taskid)"
+                             class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  
+						<div style="margin-top: -20px;" class="pull-right">
+                      <dir-pagination-controls max-size="25" direction-links="true" pagination-id="taskstatusdetails"
+                        boundary-links="true"></dir-pagination-controls>
+                    </div>
+						<div ng-if="!taskstatusdetails.length" class="no_data">
+                    <img src="img/crying.png" style="margin: 1em 0;">
+                    <p>Can't find what you are looking for.</p>
+                  </div>
+					</div>
+					<!-- 										<a style="margin-top: 13px;" class="btn btn-success pull-right" ng-click="saveoverduetask">Save</a> -->
+
+				</div>
+			</div>
+
+			<!-- today task ends -->
+
+			<!-- completed task starts-->
+			<div class="row" id="completedcontent" ng-show="complete">
+				<div class="col-xs-12">
+					<div class="table-responsive">
+					 <form class="form-inline navbar-form ">
+                    
+                      <label class="pull-left" style="margin-left:-14px"><strong>Items per
+                          page</strong>
+                          
+                      </label>  <select style="margin-left: 10px; width: 60px" class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+                       
+                         
+                      <a class="btn btn-default btn-sm pull-right"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="Settings" ng-click="openpletedcomLayoutDialog()" style="margin-top: 2px;">  <i
+                  class="fa fa-cogs" aria-hidden="true"></i>
+                </a>
+                    
+                  </form>
+					<table class="table table-hover table-striped table-bordered"
+                         cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                      <th style="width:12%" ng-repeat="column in completedordered_columns">{{
+                        column.title }} <a ng-if="column.key!='activeStatus'"
+                                           href="" ng-click="sort(column.key)" class="sortDir"
+                                           ng-class="{ active: isSorted(column.key) }">&#x25B2;</a> <a
+                          ng-if="column.key!='activeStatus'" href=""
+                          ng-click="sort('-'+column.key)" class="sortDir"
+                          ng-class="{ active: isSorted('-'+column.key) }">&#x25BC;</a>
+                      </th>
+                     
+                      <th style="width:12%; text-align: center">View</th>
+                    </tr>
+                    <tr>
+                      <th ng-repeat="column in completedordered_columns" id="search-cell">
+                        <input
+                          ng-if="column.key!='targetdate' && column.key!='completeddate' && column.key!='assigneddate' "
+                          class="form-control" placeholder="Search"
+                          ng-model="search[column.key]"
+                          style="width: 100%; font-size: .9em" delete-if-empty />
+                      
+                     </th>
+                    <th> </th>
+                    <tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                      dir-paginate="data in completedtaskstatus | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize" pagination-id="completedtaskstatus" >
+                      <td ng-repeat="column in completedordered_columns"><span
+                        ng-if="column.key!='targetdate'  && column.key!='assigneddate' && column.key!='completeddate' && column.key!='reference' ">
+                            {{ data[column.key] }} </span>
+                        <span ng-if="column.key=='reference'"><a href="" class="dropdown-item animated fadeIn"> <i
+                          class="zmdi zmdi-power"></i> <span ng-click="referenceClicked(data.mdlcode,data.reference,data.taskid)" class="dropdown-text">{{data.reference}}</span>
+                        </a>
+                      </span>
+                         <span
+                          ng-if="column.key=='assigneddate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span> <span
+                          ng-if="column.key=='targetdate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span>
+                            <span
+                          ng-if="column.key=='completeddate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span>
+                        </td>                   
+                      <td><a href="#/ViewTask/123987/{{data.taskid}}" 
+                             class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  
+						<div style="margin-top: -20px;" class="pull-right">
+                      <dir-pagination-controls max-size="25" direction-links="true" pagination-id="completedtaskstatus"
+                        boundary-links="true"></dir-pagination-controls>
+                    </div>
+						<div ng-if="!completedtaskstatus.length" class="no_data">
+                    <img src="img/crying.png" style="margin: 1em 0;">
+                    <p>Can't find what you are looking for.</p>
+                  </div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- completed task ends -->
+
+			<!-- UP Coming starts-->
+			<div class="row" id="ongoingcontent" ng-show="upcoming">
+				<div class="col-xs-12">
+					<div class="table-responsive">
+					 <form class="form-inline navbar-form ">
+                    
+                      <label class="pull-left" style="margin-left:-14px"><strong>Items per
+                          page</strong>
+                          
+                      </label>  <select style="margin-left: 10px; width: 60px" class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+                       
+                        <a class="btn btn-default btn-sm pull-right"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="Settings" ng-click="openLayoutDialog()" style="margin-top: 2px;">  <i
+                  class="fa fa-cogs" aria-hidden="true"></i>
+                </a>
+                        
+                      
+                    
+                  </form>
+						  <table class="table table-hover table-striped table-bordered"
+                         cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                      <th style="width:12%" ng-repeat="column in ordered_columns">{{
+                        column.title }} <a ng-if="column.key!='activeStatus'"
+                                           href="" ng-click="sort(column.key)" class="sortDir"
+                                           ng-class="{ active: isSorted(column.key) }">&#x25B2;</a> <a
+                          ng-if="column.key!='activeStatus'" href=""
+                          ng-click="sort('-'+column.key)" class="sortDir"
+                          ng-class="{ active: isSorted('-'+column.key) }">&#x25BC;</a>
+                      </th>
+                      <th style="width:12%; text-align: center">Status</th>
+                      <th style="width:12%; text-align: center">%</th>
+                      <th style="width:12%; text-align: center">Progress</th>
+                      <th style="width:12%; text-align: center">Action</th>
+                      <th style="width:12%; text-align: center">View</th>
+                    </tr>
+                    <tr>
+                      <th ng-repeat="column in ordered_columns" id="search-cell">
+                        <input
+                          ng-if="column.key!='targetdate' && column.key!='completeddate' && column.key!='assigneddate' "
+                          class="form-control" placeholder="Search"
+                          ng-model="search[column.key]"
+                          style="width: 100%; font-size: .9em" delete-if-empty />
+                      </th>
+                      <th></th>
+                       <th></th>
+                        <th></th>
+                         <th></th>
+                         <th></th>
+                    <tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                      dir-paginate="data in upcomingtaskstatus | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize" pagination-id="upcomingtaskstatus" ng-style="{'background-color':data.backgroundcolor}">
+                      <td ng-repeat="column in ordered_columns"><span
+                        ng-if="column.key!='targetdate'  && column.key!='assigneddate' && column.key!='status' && column.key!='reference' ">
+                            {{ data[column.key] }} </span>
+                        <span ng-if="column.key=='reference'"><a href="" class="dropdown-item animated fadeIn"> <i
+                          class="zmdi zmdi-power"></i> <span ng-click="referenceClicked(data.mdlcode,data.reference,data.taskid)" class="dropdown-text">{{data.reference}}</span>
+                        </a>
+                      </span>
+                         <span
+                          ng-if="column.key=='assigneddate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span> <span
+                          ng-if="column.key=='targetdate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span>
+                        </td>
+                        <td class="center"><select
+                    ng-change='upcomingtaskcheck(setupcomingtaskstatus[data.taskid], $index)'
+                    ng-model="setupcomingtaskstatus[data.taskid]">
+                      <option ng-repeat="Taskstatusname in taskstatus"
+                        value="{{Taskstatusname.statuscode}}">{{Taskstatusname.statusname}}</option>
+                  </select></td>
+                        
+                        <td><input id="pro_val" type="number" min="0" ng-change="validatepercentage('upcomingtaskstatus',$index)"
+                    ng-model="data.processpercent"></td>
+                    <td><progressbar class="progress-striped active" animate="true" max="100" value="data.processpercent" type="success" style="margin-top:10px;"><i><span count-to="{{data.processpercent}}" duration="0" count-from="{{countFrom}}"></span>%</i></progressbar></td>
+                    <td>
+                    <button type="button"
+                      class="btn btn-success btn-sm pull-right" allowed="write"
+                      mdlcode="VTK"
+                      ng-click="savetask(data.taskid,data.taskdesc,data.depcode,data.prioritycode,data.assignedby,data.assigneddate,data.targetdate,setupcomingtaskstatus[data.taskid],data.processpercent)">
+                      <i class="fa fa-save"></i>
+                    </button>
+                  </td>
+                      <td><a href="#/ViewTask/123987/{{data.taskid}}" ng-click="changestatus(data.taskid)"
+                             class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+						    <div style="margin-top: -20px;" class="pull-right">
+                      <dir-pagination-controls max-size="25" direction-links="true" pagination-id="upcomingtaskstatus"
+                        boundary-links="true"></dir-pagination-controls>
+                    </div>
+						<div ng-if="!upcomingtaskstatus.length" class="no_data">
+                    <img src="img/crying.png" style="margin: 1em 0;">
+                    <p>Can't find what you are looking for.</p>
+                  </div>
+					</div>
+					<!-- 									<a  style="margin-top: 13px;" class="btn btn-success pull-right" ng-click="savetask()">Save</a> -->
+				</div>
+			</div>
+
+			<!-- up coming ends -->
+
+			<!-- follow starts-->
+			<div class="row" id="followcontent" ng-show="follow">
+				<div class="col-xs-12">
+					<div class="table-responsive">
+					 <form class="form-inline navbar-form ">
+                    
+                      <label class="pull-left" style="margin-left:-14px"><strong>Items per
+                          page</strong>
+                          
+                      </label>  <select style="margin-left: 10px; width: 60px" class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+                       
+                        
+                      <a class="btn btn-default btn-sm pull-right"
+                   data-toggle="tooltip" data-placement="bottom"
+                   title="Settings" ng-click="openpletedfollowLayoutDialog()" style="margin-top: 2px;">  <i
+                  class="fa fa-cogs" aria-hidden="true"></i>
+                </a>
+                    
+                  </form>
+						  <table class="table table-hover table-striped table-bordered"
+                         cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                      <th style="width:12%" ng-repeat="column in followordered_columns">{{
+                        column.title }} <a ng-if="column.key!='activeStatus'"
+                                           href="" ng-click="sort(column.key)" class="sortDir"
+                                           ng-class="{ active: isSorted(column.key) }">&#x25B2;</a> <a
+                          ng-if="column.key!='activeStatus'" href=""
+                          ng-click="sort('-'+column.key)" class="sortDir"
+                          ng-class="{ active: isSorted('-'+column.key) }">&#x25BC;</a>
+                      </th>
+                     
+                      <th style="width:12%; text-align: center">View</th>
+                    </tr>
+                    <tr>
+                      <th ng-repeat="column in followordered_columns" id="search-cell">
+                        <input
+                          ng-if="column.key!='targetdate'  && column.key!='assigneddate' "
+                          class="form-control" placeholder="Search"
+                          ng-model="search[column.key]"
+                          style="width: 100%; font-size: .9em" delete-if-empty />
+                      
+                     </th>
+                    <th> </th>
+                    <tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                      dir-paginate="data in followtaskstatus | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize" pagination-id="followtaskstatus"  ng-style="{'background-color':data.backgroundcolor} ">
+                      <td ng-repeat="column in followordered_columns"><span
+                        ng-if="column.key!='targetdate'  && column.key!='assigneddate'  && column.key!='reference' ">
+                            {{ data[column.key] }} </span>
+                        <span ng-if="column.key=='reference'"><a href="" class="dropdown-item animated fadeIn"> <i
+                          class="zmdi zmdi-power"></i> <span ng-click="referenceClickedforfollow(data.mdlcode,data.reference,data.taskid)" class="dropdown-text">{{data.reference}}</span>
+                        </a>
+                      </span>
+                         <span
+                          ng-if="column.key=='assigneddate'">
+                            {{data[column.key] | date: data.Uidateformat}} </span> <span
+                          ng-if="column.key=='targetdate'">
+                            {{data[column.key] | date:  data.Uidateformat}} </span>
+                            
+                        </td>                   
+                      <td><a href="#/ViewTask/123987/{{data.taskid}}" ng-click="changefollowstatus(data.taskid)"
+                             class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+						<div style="margin-top: -20px;" class="pull-right">
+                      <dir-pagination-controls max-size="25" direction-links="true" pagination-id="followtaskstatus"
+                        boundary-links="true"></dir-pagination-controls>
+                    </div>
+						  <div ng-if="!followtaskstatus.length" class="no_data">
+                    <img src="img/crying.png" style="margin: 1em 0;">
+                    <p>Can't find what you are looking for.</p>
+                  </div>
+					</div>
+					<!-- 									<a style="margin-top: 13px;" class="btn btn-success pull-right" ng-click="savefollowtask()">Save</a> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Missed something!" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+<toaster-container
+	toaster-options="{'time-out': 6000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<toaster-container
+	toaster-options="{'time-out': 6000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<div kendo-dialog="dialog" k-title="'My Task'"
+	k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+	k-width="300" k-height="150" k-actions="actions" k-modal="true">
+	<img src="img/warning -dialog.png">
+	<p ng-repeat="errors in dataerror">{{errors}}</p>
+</div>
+<div kendo-dialog="layoutdialog" k-title="'My Task'"
+     k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+     k-width="300" k-actions="layoutactions" k-modal="true">
+  <div ng-repeat="names in fieldNames" style="text-align: left">
+    <label> <input type="checkbox" ng-model="names.checked">
+      {{ names.title }}
+    </label>
+  </div>
+</div>
+<div kendo-dialog="completedlayoutdialog" k-title="'My Task'"
+     k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+     k-width="300" k-actions="layoutactions" k-modal="true">
+  <div ng-repeat="names in completedfieldNames" style="text-align: left">
+    <label> <input type="checkbox" ng-model="names.checked">
+      {{ names.title }}
+    </label>
+  </div>
+</div>
+<div kendo-dialog="followlayoutdialog" k-title="'My Task'"
+     k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+     k-width="300" k-actions="layoutactions" k-modal="true">
+  <div ng-repeat="names in followfieldNames" style="text-align: left">
+    <label> <input type="checkbox" ng-model="names.checked">
+      {{ names.title }}
+    </label>
+  </div>
+</div>

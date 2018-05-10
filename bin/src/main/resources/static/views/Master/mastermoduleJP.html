@@ -1,0 +1,117 @@
+ <meta charset="UTF-8">
+<div class="main" id="main" style="margin-top: -20px">
+	<ul class="breadcrumb">
+		<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">ホーム</a></li>
+		<li><b>設定マスター</b></li>
+		<!-- <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span> -->
+	</ul>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readFLT === 'Y'">
+			<a href="#/fleet_master">
+				<div class="tiles-wrapper tiles_2">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/fleet_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">フリートマスター</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readVST === 'Y'">
+			<a href="#/vessel_type">
+					<div class="tiles-wrapper tiles_2">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/vessel_type.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">船舶の種類</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readCNM === 'Y'">
+			<a href="#/CountryMaster">
+					<div class="tiles-wrapper tiles_2">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/country_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">カントリーマスター</div>
+				</div>
+			</a>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readPTM === 'Y'">
+			<a href="#/PortMaster">
+					<div class="tiles-wrapper tiles_2">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/port_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">ポートマスター</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readTRM === 'Y'">
+			<a href="#/TerminalMaster">
+					<div class="tiles-wrapper tiles_2">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/terminal_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">ターミナルマスター</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readUSD === 'Y'">
+			<a href="#/crewlistall">
+					<div class="tiles-wrapper tiles_2">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/user_details.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">ユーザーの詳細</div>
+				</div>
+			</a>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readSPS === 'Y'">
+			<a href="#/vesselMasterMain">
+					<div class="tiles-wrapper tiles_2">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/ship_particular.svg" />
+					</div>
+					<div class="tiles-inner "></div>
+					<div class="tiles-name">船舶明細</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readCRW === 'Y'">
+			<a href="#/crewMapping">
+					<div class="tiles-wrapper tiles_2">
+					<div class="tiles-icon ">
+						<img src="Sidebar/assets/tiles_icons/crew_list.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">乗組員リスト</div>
+				</div>
+			</a>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readVSM === 'Y'">
+      <a href="#/VesselMapping">
+      	<div class="tiles-wrapper tiles_2">
+          <div class="tiles-icon">
+            <img src="Sidebar/assets/tiles_icons/Vessel_mapping.svg" />
+          </div>
+          <div class="tiles-inner"></div>
+          <div class="tiles-name">船舶マッピング</div>
+        </div>
+      </a>
+    </div>
+		
+
+	</div>
+</div>

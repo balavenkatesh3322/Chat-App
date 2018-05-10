@@ -1,0 +1,126 @@
+
+<div class="main" id="main">
+  <div ng-show="haspermission" allowed="unauthorized" mdlcode="VSM"
+    callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+  <div allowed="read" mdlcode="VSM">
+    <div class="sticky_header">
+      <div class="tab_head_sticky">
+        <ul class="breadcrumb">
+          <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+          <li><a href="#/Master">Config Master</a></li>
+          <li><b></a>Vessel Mapping</b></li>
+        </ul>
+        <div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">Vessel Mapping</div>
+         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12" >
+        <div class="form_table_wrapper" style="margin-top: 15px !important;">
+          <div class="form_table">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group row">
+                  <div class="col-xs-12">
+                    <div class="col-sm-2">
+                      <label class="form-control-label">User <span
+                        class="text-error" >*</span>
+                      </label>
+                    </div>
+                    <div class="col-sm-6">
+                     <div class="col-sm-4">
+                      <input type="text" class="form-control"
+                        placeholder="" ng-model="userCode"
+                        id="userCode" disabled> 
+                        <div class="text-error">{{usercode_error}}</div>
+                      </div>
+                       <div class="col-sm-6"> 
+                        <input
+                        type="text" class="form-control" placeholder=""
+                        readonly="true"
+                        ng-model="userName" id="userName">
+                      </div>
+                      <div class="col-sm-1"> 
+                      <button type="button" class="btn btn-primary fa fa-search"
+                        ng-click="btnUserCodeActionPerformed()"></button>
+                        </div>
+                     
+
+                      <modal class="" visible="showUserModal"
+                        on-sown="modalOneShown()" on-hide="modalOneHide()">
+                      <modal-header class="tab_head" title="Employee Selection"></modal-header>
+                      <modal-body title1="Employee Code" title2="Employee Name"
+                        data="userCodeList" searchdesc1="Search User"
+                        searchdesc2="Employee Name" searchdesc3="Search on both"
+                        keymodelid="m1" valuemodelid="m2"
+                        callback-fn="setValue(arg1,arg2)" hide-fn="hide()" status="showUserModal">
+                      </modal-body> </modal>
+
+
+                    </div>
+                    <div class="col-sm-4">
+                      <img ng-if="showLoadImg" 
+                        src="/img/loader.gif " class="pull-right " /> <a
+                        type="button" allowed="write"
+                        mdlcode="VSM" ng-click="btnShowActionPerformed()"
+                        class="btn-custom"> <img
+                        src="Sidebar/css/button/show.svg" /> <img
+                        src="Sidebar/css/button/show_h.svg" />
+                      </a>
+                   
+                      <img ng-if="showLoadImg" 
+                        src="/img/loader.gif " class="pull-right " /> <a
+                        type="button" allowed="write"
+                        mdlcode="VSM" ng-click="btnCancelActionPerformed()"
+                        class="btn-custom"> <img
+                        src="Sidebar/css/button/cancel.svg" /> <img
+                        src="Sidebar/css/button/cancel_h.svg" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div kendo-dialog="dialog" k-title="'Vessel Mapping'"
+      k-on-open="dialogVisible=true" k-on-close="dialogVisible=false"
+      k-width="300" k-height="150" k-actions="actions" k-modal="true">
+      <img src="img/warning -dialog.png">
+      <p ng-repeat="errors in dataerror">{{errors[0]}}</p>
+    </div>
+            <div kendo-dialog="noDialog" k-title="'Vessel Mapping'" k-on-open="dialogVisible = true"
+             k-on-close="dialogVisible = false" k-width="300" k-height="150"
+             k-actions="actions" k-modal="false">
+             <img src="img/warning -dialog.png">
+            <p>No records found<p>
+          </div>
+              <div ng-show="ReportTab" class="tab-pane"
+                id="nav-pills-squared-1" aria-expanded="true">
+                <div class="row m-b-20">
+                  <div class="col-xs-12">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Vessel Name</th>
+                          <th>Position</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="user in userDetailList">
+                          <td>{{$index+1}}</td>
+                          <td>{{user.vesselname}}</td>
+                          <td>{{user.position}}</td>
+
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,94 @@
+.table .label {
+ font-size: 97% !important;
+ line-height: 2.5 !important;
+}
+
+.form-control {
+  border: 1px solid #CCC !important;
+  background-color: none !important;
+}
+
+form-control-label {
+ font-weight: 400 !important;
+}
+
+strong {
+ font-weight: 400 !important;
+}
+
+.label .label-danger {
+ background: #b2b4b6 !important;
+}
+
+.label-right	{
+	text-align: left;
+	margin-left: 20px;
+}
+ .tab_head	{
+	 text-align: center !important;
+	 background: linear-gradient(to bottom, rgba(222,239,255,1) 0%,rgba(152,190,222,1) 100%) !important;
+	 border: 1px solid #93b0c9 !important;
+	 padding: 8px !important;
+	 margin-bottom: 15px !important;
+	
+ }
+ 
+ .table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td	{
+	border-color: #ccc !important;
+	}
+	
+th	{
+	border: 1px solid #ccc !important;
+	
+}	
+ 
+ [data-layout="default-sidebar"][data-direction="ltr"] .main	{
+	 background-color: #dde2e5 !important;
+ }
+ 
+ 
+[data-direction="ltr"] .bs-nav-tabs.nav-tabs-warning .nav-tabs.nav-animated-border-from-left .nav-item a, [data-direction="ltr"] .bs-nav-tabs.nav-tabs-warning .nav-tabs.nav-animated-border-from-left .nav-item .active {
+	 border-color: #c3d4df !important;
+	}
+	
+[data-direction="ltr"] .bs-nav-tabs.nav-tabs-warning .nav-tabs.nav-animated-border-from-left .nav-item a	{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2f5f6+25,e5e5e5+100 */
+	background: rgb(242,245,246); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(242,245,246,1) 25%, rgba(229,229,229,1) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  rgba(242,245,246,1) 25%,rgba(229,229,229,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  rgba(242,245,246,1) 25%,rgba(229,229,229,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5f6', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+}	
+
+ .form_table	{
+	 border: 1px solid #c3d4df;
+	 overflow: hidden;
+	 padding-top: 20px;
+	 border-radius: 4px;
+	 box-shadow: 2px 2px 2px #ccc;
+	 background: #fff;
+	 margin-left: 0px;
+	 margin-top: -20px;
+ }
+ 
+ .table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th	{
+	 background: #bfd9f0;
+ }
+ 
+[data-direction="ltr"] .bs-nav-tabs .tab-content .tab-pane	{
+	padding: 10px 10px !important;
+} 
+
+[data-palette="palette-6"] .form-control	{
+	border-color: #ccc !important;
+}
+.col-md-6.scrollable {
+   max-height:200px;
+    overflow: auto;
+}

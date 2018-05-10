@@ -1,0 +1,2208 @@
+
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="SPS"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="SPS">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i>
+						<a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Master">Config Master</a></li>
+					<li><a href="#/vesselMasterMain">Vessel Particulars</a></li>
+					<li><b>Vessel Particulars Form</b></li>
+
+					<!-- 					<span class="pull-right"><img -->
+					<!-- 						src="Sidebar/assets/faces/Shore.svg" />You are in <strong>SVM -->
+					<!-- 							Shore</strong></span> -->
+				</ul>
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">Vessel
+						Particulars</div>
+				</div>
+
+			</div>
+		</div>
+		<div kendo-dialog="dialog" k-title="'Vessel Particulars'"
+			k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+			k-width="300" k-height="150" k-actions="actions" k-modal="true">
+			<img src="img/warning -dialog.png">
+			<p ng-repeat="errors in dataerror">{{errors}}</p>
+		</div>
+		<toaster-container
+			toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+		<toaster-container
+			toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+
+		<div class="bs-nav-tabs nav-tabs-warning">
+
+
+			<div class="form_table_wrapper" style="margin-top: 15px !important;">
+				<div class="form_table">
+					<div class="row">
+						<div class="col-xs-12">
+							<ul class="nav nav-tabs nav-animated-border-from-left"
+								id="accorditionTab">
+								<li class="nav-item"><a class="nav-link active"
+									id="firsttab" data-target="#nav-tabs-0-1">Basic Information</a></li>
+								<li class="nav-item"><a class="nav-link" id="secondtab"
+									data-target="#nav-tabs-0-2">Detailed Information</a></li>
+								<li class="nav-item"><a class="nav-link" id="dimentab"
+									data-target="#nav-tabs-0-7">Dimension Details</a></li>
+								<li class="nav-item"><a class="nav-link" id="thirdtab"
+									data-target="#nav-tabs-0-3">Management Resource</a></li>
+								<li class="nav-item"><a class="nav-link" id="fourthtab"
+									data-target="#nav-tabs-0-4">Machinery Details</a></li>
+								<li class="nav-item"><a class="nav-link" id="fifthtab"
+									data-target="#nav-tabs-0-5">Communication</a></li>
+								<li class="nav-item"><a class="nav-link" id="sixthtab"
+									data-target="#nav-tabs-0-6">Navigation Equipment</a></li>
+							</ul>
+							<div class="tab-content" style="margin-top: 10px;">
+								<div role="tabpanel" class="tab-pane in active"
+									id="nav-tabs-0-1">
+
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Vessel
+											Code <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input ng-focus="focusClear('vesselcode')" valid-alpha
+												ng-model="vesselCode" maxlength='5' class="form-control" />
+											<label ng-if="vesselCodeRequiredError" style="color: red">
+												This field is required. </label> <label
+												ng-if="vesselCodeRootCauseError" style="color: red">
+												Maximum length can be 6. </label>
+
+											<!-- 														<input tabindex="1" type="text" class="form-control" max="6" -->
+											<!-- 															ng-model="vesselCode" /> <label -->
+											<!-- 															ng-if="vesselCodeRequiredError" style="color: red"> -->
+											<!-- 															This field is required. </label> <label -->
+											<!-- 															ng-if="vesselCodeRootCauseError" style="color: red"> -->
+											<!-- 															Maximum length can be 5. </label> -->
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Vessel
+											Name <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input tabindex="2" type="text" class="form-control"
+												ng-disabled="allFields" maxlength='100'
+												ng-focus="focusClear('vesselname')" ng-model="vesselName" />
+											<label ng-if="vesselNameRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Vessel
+											Type <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" tabindex="3"
+												ng-disabled="allFields" ng-click="focusClear('vesseltype')"
+												data-placeholder="" ng-model="vesselType" maxlength='15'
+												style="width: 100% !important;">
+												<option></option>
+												<option value="{{vesselType[0]}}"
+													ng-repeat="vesselType in vesselTypeList">
+													{{vesselType[1]}}</option>
+
+											</select> <label ng-if="vesselTypeRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Fleet <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" tabindex="4"
+												ng-disabled="allFields" ng-click="focusClear('fleet')"
+												data-placeholder="" ng-model="fleet"
+												style="width: 100% !important;">
+												<option></option>
+												<option ng-repeat="fleet in fleetList"
+													value="{{fleet.fleetcode}}">{{fleet.fleetname}}</option>
+
+											</select> <label ng-if="fleetRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Flag <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" tabindex="5"
+												ng-disabled="allFields" ng-click="focusClear('flag')"
+												data-placeholder="" ng-model="flag"
+												style="width: 100% !important;">
+												<option></option>
+												<option ng-repeat="flag in flagsList"
+													value="{{flag.countrycode}}">{{flag.countryname}}</option>
+
+											</select> <label ng-if="flagRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Port of
+											Registry <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input type="text" class="col-sm-2 form-control"
+												ng-disabled="allFields"
+												style="width: 30%; margin-right: 10px;" placeholder=""
+												ng-blur="portnameclear()" ng-model="portOfRegistry"
+												id="PortCode"> <input type="text"
+												class="col-sm-4 form-control" placeholder="" readonly="true"
+												style="width: 49%; margin-right: 10px;"
+												ng-model="portOfRegistryName" id="PortName">
+
+											<button type="button" class="btn btn-primary fa fa-search"
+												ng-show="portOfRegistry.length >= 2"
+												style="position: absolute"
+												ng-click="btnPortCodeActionPerformed()"></button>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Type Of
+											Management <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-alpha ng-model="typeOfManagement"
+												class="form-control" maxlength='50' ng-disabled="allFields"
+												ng-focus="focusClear('typeofmanagement')" />
+
+											<!-- 														<input type="text" class="form-control" -->
+											<!-- 															ng-model="typeOfManagement" />  -->
+											<label tabindex="7" ng-if="typeOfManagementRequiredError"
+												style="color: red"> This field is required. </label>
+										</div>
+
+
+										<label ng-if="portOfRegistryRequiredError" style="color: red">
+											This field is required. </label> <label
+											class="col-sm-3 form-control-label ">OWNER's Business
+											Section <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<!-- 														<input type="text" class="form-control" -->
+											<!-- 															ng-model="ownerBusinessSection" /> -->
+											<input class="form-control" valid-alpha
+												ng-disabled="allFields" ng-model="ownerBusinessSection"
+												maxlength='100'
+												ng-focus="focusClear('ownersbusinesssection')" /> <label
+												ng-if="ownerBusinessSectionRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Management
+											Company <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields"
+												ng-click="focusClear('managementcompany')"
+												ng-model="managementCompany" style="width: 100% !important;">
+												<option></option>
+												<option ng-repeat="shorecode in shorecodesList"
+													value="{{shorecode.shorecode}}">
+													{{shorecode.shorename}}</option>
+											</select> <label ng-if="managementCompanyRequiredError"
+												style="color: red"> This field is required. </label>
+										</div>
+
+
+										<label class="col-sm-3 form-control-label ">Company
+											IMO Number <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-whole-number ng-model="companyIMONumber"
+												class="form-control" maxlength='25' ng-disabled="allFields"
+												ng-focus="focusClear('companyimono')" />
+											<!-- 														<input type="text" class="form-control" -->
+											<!-- 															ng-model="companyIMONumber" />  -->
+											<label ng-if="companyIMONumberRequiredError"
+												style="color: red"> This field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+
+										<label class="col-sm-3 form-control-label ">Former
+											Management Company</label>
+										<div class="col-sm-3">
+											<input valid-alpha class="form-control"
+												ng-disabled="allFields" ng-model="formerManagementCompany"
+												maxlength='100'
+												ng-focus="focusClear('formermanagementcompany')" />
+											<!-- 														<input type="text" class="form-control" -->
+											<!-- 															ng-model="formerManagementCompany" /> -->
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Company's
+											Account Code <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" maxlength='25'
+												ng-focus="focusClear('companyaccountcode')"
+												ng-disabled="allFields" ng-model="companyAccountCode" /> <label
+												ng-if="companyAccountCodeRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Owner
+											Account Code <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-whole-number class="form-control" maxlength='25'
+												ng-focus="focusClear('owneraccountcode')"
+												ng-disabled="allFields" ng-model="ownerAccountCode" /> <label
+												ng-if="ownerAccountCodeRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+
+
+										<label class="col-sm-3 form-control-label ">Base
+											Currency <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" class="form-control"
+												ng-click="focusClear('basecurrency')"
+												ng-disabled="allFields" ng-model="baseCurrency">
+												<option value=""></option>
+												<option value="{{currency.currencycode}}"
+													ng-repeat="currency in currencycodesList">
+													{{currency.currencycode+ " - " + currency.currencyname}}</option>
+											</select> <label ng-if="baseCurrencyRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+
+										<label class="col-sm-3 form-control-label ">Financial
+											Year End <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields"
+												ng-click="focusClear('financialyear')"
+												ng-model="financialYearEnd" style="width: 100% !important;">
+												<option></option>
+												<option>January</option>
+												<option>February</option>
+												<option>March</option>
+												<option>April</option>
+												<option>May</option>
+												<option>June</option>
+												<option>July</option>
+												<option>August</option>
+												<option>September</option>
+												<option>October</option>
+												<option>November</option>
+												<option>December</option>
+											</select> <label ng-if="financialYearEndRequiredError"
+												style="color: red"> This field is required. </label>
+										</div>
+
+
+										<label class="col-sm-3 form-control-label ">Vessel
+											Target <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-positive-number class="form-control"
+												maxlength="11" ng-disabled="allFields" ng-model="vesselkpi" />
+											<label ng-if="vesselKPIRequiredError" style="color: red">This
+												field is required. </label>
+										</div>
+									</div>
+
+									<!-- seperation for user perspective -->
+									<div class="section_hr"></div>
+
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Ship Yard
+											<span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-alpha class="form-control" maxlength='150'
+												ng-disabled="allFields" ng-focus="focusClear('shipyard')"
+												ng-model="shipYard" /> <label ng-if="shipYardRequiredError"
+												style="color: red"> This field is required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Date Of
+											Built <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<!-- 														<input type="date" class="form-control" -->
+											<!-- 															ng-model="dateOfBuild" /> -->
+
+											<input kendo-date-picker ng-model="dateOfBuild"
+												ng-disabled="allFields" style="width: 100%"
+												ng-click="focusClear('dateofbuild')" /> <label
+												ng-if="dateOfBuildRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Age <span
+											style="color: red">*</span></label>
+										<div class="col-sm-3">
+											<input valid-positive-number class="form-control"
+												ng-disabled="allFields" ng-model="age" maxlength='11'
+												ng-focus="focusClear('age')" /> <label
+												ng-if="ageRequiredError" style="color: red"> This
+												field is required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Hull No<span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-whole-number class="form-control"
+												ng-disabled="allFields" ng-model="hullNo" maxlength='30'
+												ng-focus="focusClear('hullno')" /> <label
+												ng-if="hullNoRequiredError" style="color: red"> This
+												field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">IMO No <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-whole-numbe class="form-control"
+												ng-model="IMONo" maxlength='20' ng-disabled="allFields"
+												ng-focus="focusClear('imono')" /> <label
+												ng-if="IMONoRequiredError" style="color: red"> This
+												field is required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Official
+											No <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-alphanumeric class="form-control" maxlength='30'
+												ng-disabled="allFields" ng-focus="focusClear('officialno')"
+												ng-model="officialNo" /> <label
+												ng-if="officialNoRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+
+										<label class="col-sm-3 form-control-label ">Call Sign
+											<span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" maxlength='30'
+												ng-disabled="allFields" ng-focus="focusClear('callsign')"
+												ng-model="callSign" /> <label ng-if="callSignRequiredError"
+												style="color: red"> This field is required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">CBA/CA <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" ng-model="CBA"
+												ng-disabled="allFields" maxlength='50'
+												ng-focus="focusClear('cbaca')" /> <label
+												ng-if="CBARequiredError" style="color: red"> This
+												field is required. </label>
+										</div>
+
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Class <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input valid-alpha class="form-control" ng-model="class"
+												ng-disabled="allFields" maxlength='30'
+												ng-focus="focusClear('class')" /> <label
+												ng-if="classRequiredError" style="color: red"> This
+												field is required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Class No <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" ng-model="classNo"
+												ng-disabled="allFields" maxlength='25'
+												ng-focus="focusClear('calssno')" /> <label
+												ng-if="classNoRequiredError" style="color: red">
+												This field is required. </label> <label
+												ng-if="classNoRootCauseError1" style="color: red">
+												Must be alphanumeric. </label> <label ng-if="classNoRootCauseError2"
+												style="color: red"> Maximum length can be 10. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Nationality
+											Rating</label>
+										<div class="col-sm-3">
+											<input type="text" disabled class="form-control"
+												ng-model="nationalityRating" />
+
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Total Crew</label>
+										<div class="col-sm-3">
+											<input type="text" disabled class="form-control"
+												ng-model="totalCrew" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Status <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input type="text" maxlength="30"
+												class="col-sm-4 form-control ng-pristine ng-valid ng-valid-maxlength ng-touched"
+												ng-model="status" ng-disabled='true'>
+											<!-- 											<select class="form-control" ng-model="status" -->
+											<!-- 												ng-click="focusClear('status')" data-placeholder="" -->
+											<!-- 												style="width: 100% !important;"> -->
+											<!-- 												<option ng-repeat="status in statusList">{{status}}</option> -->
+
+											<!-- 											</select> -->
+											<label ng-if="statusRequiredError" style="color: red">
+												This field is required. </label>
+										</div>
+
+									</div>
+
+									<modal class="" visible="showPortModal"
+										on-sown="modalOneShown()" on-hide="modalOneHide()"> <modal-header
+										class="tab_head" title="Port Selection"></modal-header> <modal-body
+										title1="Port Code" title2="Port Name" data="portnameList"
+										searchdesc1="Search Port Code" searchdesc2="Search Port Name"
+										searchdesc3="Search on both" keymodelid="m1" valuemodelid="m2"
+										callback-fn="setValue(arg1,arg2)" hide-fn="hide()">
+									</modal-body> </modal>
+
+
+
+									<div class="form-group row">
+										<div class="col-sm-12">
+											<div class="table-responsive">
+												<table
+													class="table table-hover table-striped table-bordered"
+													cellspacing="0">
+													<thead>
+														<tr>
+															<th>S.No</th>
+															<th>Ex Vessel Name</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-if="vessels.length <= 0">
+															<td colspan=2 class="no_data">No Data Available</td>
+														</tr>
+														<tr ng-repeat="vessel in vessels track by $index">
+
+															<td id='item-{{$index+1}}'>{{$index+1}}</td>
+															<td>
+																<div class="col-sm-2">
+																	<input disabled id="vslname"
+																		style="width: 622px !important;" type="text"
+																		class="form-control" value="{{vessel.vesselname}}" />
+																</div>
+															</td>
+															<!--                                                         <td width="12% !important" style="vertical-align: middle"> -->
+															<!--                                                             <div class="col-sm-2"> -->
+															<!--                                                                 <input disabled id="vslname1" style="width: 200px !important;" type="text" class="form-control" value="{{vessel.startdate}}" /> -->
+															<!--                                                             </div> -->
+															<!--                                                         </td> -->
+															<!--                                                         <td width="12% !important" style="vertical-align: middle"> -->
+															<!--                                                             <div class="col-sm-2"> -->
+															<!--                                                                 <input disabled id="vslname2" style="width: 200px !important;" type="text" class="form-control" value="{{vessel.enddate}}" /> -->
+															<!--                                                             </div> -->
+															<!--                                                         </td> -->
+														</tr>
+														<!--                                                     <tr style="text-align: center;"> -->
+														<!--                                                         <td>{{vessels.length+1}}</td> -->
+														<!--                                                         <td> -->
+														<!--                                                             <div class="col-sm-2"> -->
+														<!--                                                                 <input id="vslname" ng-model="addedVesselName" style="width: 622px !important;" type="text" class="form-control" value="addedVesselName"> -->
+														<!--                                                             </div> -->
+														<!--                                                         </td> -->
+														<!--                                                         <td width="12% !important" style="vertical-align: middle"> -->
+														<!--                                                             <div class="col-sm-2"> -->
+														<!--                                                                 <input id="vslname" ng-model="addedstartdate" style="width: 622px !important;" type="text" class="form-control" value="addedstartdate"> -->
+														<!--                                                             </div> -->
+														<!--                                                         </td> -->
+														<!--                                                         <td width="12% !important" style="vertical-align: middle"> -->
+														<!--                                                             <div class="col-sm-2"> -->
+														<!--                                                                 <input id="vslname" ng-model="addedenddate" style="width: 622px !important;" type="text" class="form-control" value="addedenddate"> -->
+														<!--                                                             </div> -->
+														<!--                                                         </td> -->
+														<!--                                                     </tr> -->
+													</tbody>
+												</table>
+											</div>
+											<div style="text-align: center; color: red"
+												ng-if="vesselsDuplicateError">Duplicate entry.</div>
+											<div style="text-align: center; color: red"
+												ng-if="vesselsEntryError">Fill up the field.</div>
+										</div>
+									</div>
+									<div class="row">
+										<a type="button" allowed="read" mdlcode="SPS" href=""
+											class="btn-custom  pull-right forward"><img
+											src="Sidebar/css/button/next.svg" style="margin-right: 10px;">
+											<img src="Sidebar/css/button/next_h.svg"
+											style="margin-right: 10px;"></a>
+
+
+									</div>
+								</div>
+								<!-- form_table -->
+
+								<div role="tabpane2" class="tab-pane" id="nav-tabs-0-2">
+									<div class="form-group lead_title">Insurance Details</div>
+									<div class="form_highlight">
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Insurance
+												Hull & Machineries <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input valid-alpha class="form-control" maxlength='100'
+													ng-focus="focusClear('insurancehull')"
+													ng-disabled="allFields"
+													ng-model="insuranceHullAndMachineries" />
+												<div ng-if="insuranceHullAndMachineriesRequiredError"
+													style="color: red">This field is required.</div>
+											</div>
+
+											<label class="col-sm-3 form-control-label ">Insurance
+												PI <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input type="text" class="form-control" maxlength='100'
+													ng-disabled="allFields"
+													ng-focus="focusClear('insurancepi')" ng-model="insurancePI" />
+												<div ng-if="insurancePIRequiredError" style="color: red">
+													This field is required.</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group lead_title">Important Dates</div>
+									<div class="form_highlight">
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label">
+												<div class="info_msg">
+													<span>Starting Date Of Management <span
+														style="color: red">*</span></span> <i class="fa fa-info-circle"
+														style="float: right; margin-top: 2px; margin-right: 5px;"></i>
+													<div class="dropdown-content dropdown-menu-arrow"
+														style="left: 140px; width: 100px;">
+														<div class="dropdown-content-desc"
+															style="width: 150px; margin-top: -10px">Start Date
+															of the System</div>
+													</div>
+												</div>
+											</label>
+											<div class="col-sm-3">
+												<!-- 														<input ng-model="startingManagementDate" -->
+												<!-- 															type="date" class="form-control" />  -->
+												<input kendo-date-picker ng-model="startingManagementDate"
+													style="width: 100%" ng-disabled="allFields"
+													ng-focus="focusClear('startingdateofmanagement')" />
+												<div ng-if="startingManagementDateRequiredError"
+													style="color: red">This field is required.</div>
+											</div>
+
+											<label class="col-sm-3 form-control-label ">Next Dry
+												Dock Date <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<!-- 														<input ng-model="nextDryDockDate" type="date" -->
+												<!-- 															class="form-control" /> -->
+												<input kendo-date-picker ng-model="nextDryDockDate"
+													ng-disabled="allFields" style="width: 100%"
+													ng-focus="focusClear('nextdrydocdate')" /> <label
+													ng-if="nextDryDockDateRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Last Dry
+												Dock Date <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<!-- 														<input ng-model="lastDryDockDate" type="date" -->
+												<!-- 															class="form-control" />  -->
+												<input kendo-date-picker ng-model="lastDryDockDate"
+													style="width: 100%" ng-disabled="allFields"
+													ng-focus="focusClear('lastdrydockdate')" /> <label
+													ng-if="lastDryDockDateRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+
+											<label class="col-sm-3 form-control-label ">Delivery
+												Date <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<!-- 														<input ng-model="deliveryDate" type="date" -->
+												<!-- 															class="form-control" />  -->
+												<input kendo-date-picker ng-model="deliveryDate"
+													ng-disabled="allFields" style="width: 100%"
+													ng-focus="focusClear('deliverydate')" /> <label
+													ng-if="deliveryDateRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group lead_title">Ownership Details</div>
+									<div class="form_highlight">
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label "><b>Name
+													Of Owner/Principal</b> <span style="color: red">*</span> </label>
+											<div class="col-sm-3">
+												<input valid-alpha class="form-control" maxlength='100'
+													ng-disabled="allFields"
+													ng-focus="focusClear('nameofowner')" ng-model="nameOfOwner" />
+												<label ng-if="nameOfOwnerRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+
+											<label class="col-sm-3 form-control-label ">IMO <span
+												style="color: red">*</span></label>
+											<div class="col-sm-3">
+												<input valid-whole-number class="form-control"
+													ng-disabled="allFields" maxlength='30'
+													ng-focus="focusClear('ownerimo')" ng-model="ownerIMO" /> <label
+													ng-if="ownerIMORequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Address <span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<textarea valid-alphanumeric class="form-control"
+													ng-disabled="allFields" maxlength='100'
+													ng-focus="focusClear('owneraddress')"
+													ng-model="ownerAddress"></textarea>
+												<label ng-if="ownerAddressRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+
+											<label class="col-sm-3 form-control-label ">Emergency
+												Name <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input valid-alpha class="form-control" maxlength='100'
+													ng-focus="focusClear('owneremergencyname')"
+													ng-disabled="allFields" ng-model="ownerEmergencyName" /> <label
+													ng-if="ownerEmergencyNameRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Emergency
+												Contact Number <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input valid-positive-number class="form-control"
+													ng-disabled="allFields" maxlength='100'
+													ng-focus="focusClear('emergencycontactno')"
+													ng-model="ownerEmergencyContactNumber" /> <label
+													ng-if="ownerEmergencyContactNumberRequiredError"
+													style="color: red"> This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label "><b>Name
+													Of Registered Owner</b> <span style="color: red">*</span> </label>
+											<div class="col-sm-3">
+												<input valid-alpha class="form-control" maxlength='100'
+													ng-focus="focusClear('nameofregisteredowner')"
+													ng-disabled="allFields" ng-model="nameOfRegisteredOwner" />
+												<label ng-if="nameOfRegisteredOwnerRequiredError"
+													style="color: red"> This field is required. </label>
+											</div>
+
+											<label class="col-sm-3 form-control-label ">IMO <span
+												style="color: red">*</span></label>
+											<div class="col-sm-3">
+												<input valid-positive-number class="form-control"
+													ng-disabled="allFields" maxlength='30'
+													ng-focus="focusClear('registeredownerimo')"
+													ng-model="registeredOwnerIMO" /> <label
+													ng-if="registeredOwnerIMORequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Address <span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<textarea valid-alphanumeric class="form-control"
+													ng-disabled="allFields" maxlength='100'
+													ng-focus="focusClear('registeredownerimo')"
+													ng-model="registeredOwnerAddress"></textarea>
+												<label ng-if="registeredOwnerAddressRequiredError"
+													style="color: red"> This field is required. </label>
+											</div>
+
+											<label class="col-sm-3 form-control-label ">Emergency
+												Name <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input valid-alpha class="form-control" maxlength='100'
+													ng-disabled="allFields"
+													ng-focus="focusClear('registeredowneremergencyname')"
+													ng-model="registeredOwnerEmergencyName" /> <label
+													ng-if="registeredOwnerEmergencyNameRequiredError"
+													style="color: red"> This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Emergency
+												Contact Number <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input valid-positive-number class="form-control"
+													maxlength='100' ng-disabled="allFields"
+													ng-focus="focusClear('registeredowneremergencycontactnumber')"
+													ng-model="registeredOwnerEmergencyContactNumber" /> <label
+													ng-if="registeredOwnerEmergencyContactNumberRequiredError"
+													style="color: red"> This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label "><b>Actual
+													Owner/Principal </b><span style="color: red">*</span></label>
+											<div class="col-sm-3">
+												<input valid-alpha class="form-control" maxlength='100'
+													ng-focus="focusClear('actualowner')"
+													ng-disabled="allFields" ng-model="nameOfActualOwner" /> <label
+													ng-if="nameOfActualOwnerRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+
+											<label class="col-sm-3 form-control-label ">IMO <span
+												style="color: red">*</span></label>
+											<div class="col-sm-3">
+												<input valid-positive-number class="form-control"
+													ng-disabled="allFields" maxlength='30'
+													ng-focus="focusClear('actualownerimo')"
+													ng-model="actualOwnerIMO" /> <label
+													ng-if="actualOwnerIMORequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Address <span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<textarea valid-alphanumeric class="form-control"
+													ng-disabled="allFields" maxlength='100'
+													ng-focus="focusClear('actualowneraddress')"
+													ng-model="actualOwnerAddress"></textarea>
+												<label ng-if="actualOwnerAddressRequiredError"
+													style="color: red"> This field is required. </label>
+											</div>
+											<label class="col-sm-3 form-control-label ">Emergency
+												Name <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input valid-alpha class="form-control" maxlength='100'
+													ng-disabled="allFields"
+													ng-focus="focusClear('actualowneremergencyname')"
+													ng-model="actualOwnerEmergencyName" /> <label
+													ng-if="actualOwnerEmergencyNameRequiredError"
+													style="color: red"> This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Emergency
+												Contact Number <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input valid-positive-number class="form-control"
+													maxlength='100' ng-disabled="allFields"
+													ng-focus="focusClear('actualowneremergencycontactno')"
+													ng-model="actualOwnerEmergencyContactNumber" /> <label
+													ng-if="actualOwnerEmergencyContactNumberRequiredError"
+													style="color: red"> This field is required. </label>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<a type="button" allowed="read" mdlcode="SPS" href=""
+											ng-disabled="allFields" class="btn-custom pull-right forward"><img
+											src="Sidebar/css/button/next.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/next_h.svg"
+											style="margin-right: 10px;"></a> <a allowed="read"
+											mdlcode="SPS" type="button"
+											class="btn-custom pull-right backward"><img
+											src="Sidebar/css/button/back.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/back_h.svg"
+											style="margin-right: 10px;"></a>
+									</div>
+								</div>
+
+								<div role="tabpane7" class="tab-pane" id="nav-tabs-0-7">
+									<div class="form-group lead_title">Dimension</div>
+									<div class="form_highlight">
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">Length(LOA)
+												<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<div>
+													<input ng-model="length" valid-positive-number step=any
+														ng-disabled="allFields" class="form-control"
+														ng-focus="focusClear('lengthloa')"
+														style="display: inline-block; width: 200px" /> <span
+														style="display: inline-block;">&nbsp;mtr</span>
+												</div>
+												<label ng-if="lengthRequiredError" style="color: red">
+													This field is required. </label> <label ng-if="lengthNaNError"
+													style="color: red"> Must be a number. </label>
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">LBP
+												<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="LBP" valid-positive-number step=any
+													ng-disabled="allFields" class="form-control"
+													ng-focus="focusClear('lbp')"
+													style="display: inline-block; width: 200px"> <span
+													style="display: inline-block;">&nbsp;mtr</span> <label
+													ng-if="LBPRequiredError" style="color: red"> This
+													field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">Breadth <span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<div>
+													<input ng-model="breadth" valid-positive-number step=any
+														ng-disabled="allFields" class="form-control"
+														ng-focus="focusClear('breadth')"
+														style="display: inline-block; width: 200px"> <span
+														style="display: inline-block;">&nbsp;mtr</span>
+												</div>
+												<label ng-if="breadthRequiredError" style="color: red">
+													This field is required. </label> <label ng-if="breadthNaNError"
+													style="color: red"> Must be a number. </label>
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">Height
+												<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<div>
+													<input ng-model="height" valid-positive-number step=any
+														ng-disabled="allFields" class="form-control"
+														ng-focus="focusClear('height')"
+														style="display: inline-block; width: 200px"> <span
+														style="display: inline-block;">&nbsp;mtr</span>
+												</div>
+												<label ng-if="heightRequiredError" style="color: red">
+													This field is required. </label> <label ng-if="heightNaNError"
+													style="color: red"> Must be a number. </label>
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">Depth <span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<div>
+													<input ng-model="depth" valid-positive-number step=any
+														ng-disabled="allFields" class="form-control"
+														ng-focus="focusClear('depth')"
+														style="display: inline-block; width: 200px"> <span
+														style="display: inline-block;">&nbsp;mtr</span>
+												</div>
+												<label ng-if="depthRequiredError" style="color: red">
+													This field is required. </label> <label ng-if="depthNaNError"
+													style="color: red"> Must be a number. </label>
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">Draft
+												<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<div>
+													<input ng-model="draft" valid-positive-number step=any
+														ng-disabled="allFields" class="form-control"
+														ng-focus="focusClear('draft')"
+														style="display: inline-block; width: 200px"> <span
+														style="display: inline-block;"> &nbsp;mtr</span>
+												</div>
+												<label ng-if="draftRequiredError" style="color: red">
+													This field is required. </label> <label ng-if="draftNaNError"
+													style="color: red"> Must be a number. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">Dead
+												Weight <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<div>
+													<input ng-model="deadWeight" valid-positive-number step=any
+														ng-disabled="allFields" class="form-control"
+														ng-focus="focusClear('deadweight')"
+														style="display: inline-block; width: 200px"> <span
+														style="display: inline-block">&nbsp;MT</span>
+												</div>
+												<label ng-if="deadWeightRequiredError" style="color: red">
+													This field is required. </label> <label ng-if="deadWeightNaNError"
+													style="color: red"> Must be a number. </label>
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">Capacity
+												<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-2" style="display: inline-block">
+												<input ng-model="capacityValue" valid-positive-number
+													ng-disabled="allFields" step=any class="form-control"
+													name="fname" placeholder="Value"
+													ng-focus="focusClear('capacity')"> <label
+													ng-if="capacityValueRequiredError"
+													style="display: block; color: red"> This field is
+													required. </label>
+											</div>
+											<div class="col-sm-2"
+												style="padding-left: 0; display: inline-block">
+												<select class="form-control" ng-disabled="allFields"
+													ng-select="focusClear('capacityselect')"
+													data-placeholder="Unit" ng-model="capacityUnit"
+													style="vertical-align: middle; min-width: 98px !important;">
+													<option>ton</option>
+													<option>barrel</option>
+													<option>teu</option>
+												</select> <label ng-if="capacityUnitRequiredError"
+													style="display: block; color: red"> This field is
+													required. </label>
+											</div>
+
+										</div>
+									</div>
+
+									<div class="form-group lead_title">Registered Tonnage</div>
+									<div class="form_highlight">
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">International
+												GT <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="internationalGT" valid-positive-number
+													ng-disabled="allFields" step=any
+													ng-focus="focusClear('internationalgt')"
+													class="form-control" style="width: 200px"></input> <label
+													ng-if="internationalGTRequiredError" style="color: red">
+													This field is required. </label>
+
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">International
+												NT <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="internationalNT" valid-positive-number
+													ng-disabled="allFields" step=any
+													ng-focus="focusClear('internationalnt')"
+													class="form-control" style="width: 200px"></input> <label
+													ng-if="internationalNTRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">Registered
+												GT <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="registeredGT" valid-positive-number
+													ng-disabled="allFields" step=any
+													ng-focus="focusClear('registeredgt')" class="form-control"
+													style="width: 200px"></input> <label
+													ng-if="registeredGTRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">Registered
+												NT <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="registeredNT" valid-positive-number
+													ng-disabled="allFields" step=any
+													ng-focus="focusClear('registerednt')" class="form-control"
+													style="width: 200px"></input> <label
+													ng-if="registeredNTRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">GT Suez <span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="GTSuez" valid-positive-number step=any
+													ng-disabled="allFields" ng-focus="focusClear('gtsuez')"
+													class="form-control" style="width: 200px"></span> </input> <label
+													ng-if="GTSuezRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">NT
+												Suez <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="NTSuez" valid-positive-number step=any
+													ng-disabled="allFields" ng-focus="focusClear('ntsuez')"
+													class="form-control" style="width: 200px"></input> <label
+													ng-if="NTSuezRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">GT Pan <span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="GTPan" valid-positive-number step=any
+													ng-disabled="allFields" ng-focus="focusClear('gtpan')"
+													class="form-control" style="width: 200px"></input> <label
+													ng-if="GTPanRequiredError" style="color: red"> This
+													field is required. </label>
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">MS/UMS
+												<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="UMS" valid-positive-number step=any
+													ng-disabled="allFields" ng-focus="focusClear('msums')"
+													class="form-control" style="width: 200px"></input> <label
+													ng-if="UMSRequiredError" style="color: red"> This
+													field is required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-2 form-control-label ">Light
+												Ship <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="lightShip" valid-positive-number step=any
+													ng-disabled="allFields" ng-focus="focusClear('lightship')"
+													class="form-control" style="width: 200px"></input> <label
+													ng-if="lightShipRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+
+											<label class="col-sm-offset-1 col-sm-2 form-control-label ">constant
+												<span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="constant" valid-positive-number step=any
+													ng-disabled="allFields" ng-focus="focusClear('constant')"
+													class="form-control" style="width: 200px"></input> <label
+													ng-if="constantRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<a type="button" allowed="read" mdlcode="SPS" href=""
+											class="btn-custom pull-right forward"><img
+											src="Sidebar/css/button/next.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/next_h.svg"
+											style="margin-right: 10px;"></a> <a type="button"
+											allowed="read" mdlcode="SPS"
+											class="btn-custom  pull-right backward"><img
+											src="Sidebar/css/button/back.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/back_h.svg"
+											style="margin-right: 10px;"></a>
+									</div>
+								</div>
+
+								<div role="tabpane2" class="tab-pane" id="nav-tabs-0-3">
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Superintendent
+											<span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields"
+												ng-click="focusClear('superintendent')"
+												ng-model="superintendent" style="width: 100% !important;">
+												<option></option>
+												<option value="{{superintendent[0]}}"
+													ng-repeat="superintendent in superintendentList">
+													{{superintendent[1]}}</option>
+
+											</select> <label ng-if="superintendentRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Fleet GM <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields" ng-click="focusClear('fleetgm')"
+												ng-model="fleetGM" style="width: 100% !important;">
+												<option></option>
+												<option value="{{fleetGM[0]}}"
+													ng-repeat="fleetGM in fleetGMList">{{fleetGM[1]}}</option>
+
+											</select> <label ng-if="fleetGMRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">2nd Backup
+											<span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields" ng-click="focusClear('2ndbackup')"
+												ng-model="secondBackup" style="width: 100% !important;">
+												<option></option>
+												<option value="{{superintendent[0]}}"
+													ng-repeat="superintendent in superintendentList">
+													{{superintendent[1]}}</option>
+
+											</select> <label ng-if="secondBackupRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">AGM QSHE <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields" ng-click="focusClear('hseqmanager')"
+												ng-model="HSEQManager" style="width: 100% !important;">
+												<option></option>
+												<option value="{{hseqManager[0]}}"
+													ng-repeat="hseqManager in hseqManagerList">
+													{{hseqManager[1]}}</option>
+
+											</select> <label ng-if="HSEQManagerRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">AGM AT </label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields"
+												ng-click="focusClear('marineoperationmanager')"
+												ng-model="marineOperationManager"
+												style="width: 100% !important;">
+												<option></option>
+												<option value="{{marineManager[1]}}"
+													ng-repeat="marineManager in marineManagersList">
+													{{marineManager[1]}}</option>
+
+											</select> <label ng-if="marineOperationManagerRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Accountant
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields" ng-click="focusClear('accountant')"
+												ng-model="accountant" style="width: 100% !important;">
+												<option></option>
+												<option value="{{accountant[0]}}"
+													ng-repeat="accountant in accountantList">
+													{{accountant[1]}}</option>
+
+											</select> <label ng-if="accountantRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">AGM
+											Crewing </label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields"
+												ng-click="focusClear('crewincharge')"
+												ng-model="crewInCharge" style="width: 100% !important;">
+												<option></option>
+												<option value="{{crewInCharge[0]}}"
+													ng-repeat="crewInCharge in crewInChargeList">
+													{{crewInCharge[1]}}</option>
+
+											</select> <label ng-if="crewInChargeRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label">Start Date
+											Of Superintendent </label>
+										<div class="col-sm-3">
+											<!-- 														<input ng-model="startDateOfSuperintendent" -->
+											<!-- 															type="date" class="form-control" />  -->
+											<input kendo-date-picker ng-model="startDateOfSuperintendent"
+												ng-click="focusClear('startdateofsuperintendent')"
+												ng-disabled="allFields" style="width: 100%" /> <label
+												ng-if="startDateOfSuperintendentRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Fleet
+											Manager <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields"
+												ng-click="focusClear('fleetmanager')"
+												ng-model="fleetManager" style="width: 100% !important;">
+												<option></option>
+												<option value="{{fleetManagers[0]}}"
+													ng-repeat="fleetManagers in fleetManagersList">
+													{{fleetManagers[1]}}</option>
+
+											</select> <label ng-if="fleetManagerRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">1 st
+											Backup <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields" ng-click="focusClear('firstbackup')"
+												ng-model="firstBackup" style="width: 100% !important;">
+												<option></option>
+												<option value="{{superintendent[0]}}"
+													ng-repeat="superintendent in superintendentList">
+													{{superintendent[1]}}</option>
+
+											</select> <label ng-if="firstBackupRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">MSI <span
+											style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-model="HSEQSuperintendant" ng-disabled="allFields"
+												ng-click="focusClear('hseqsuperintendant')"
+												style="width: 100% !important;">
+												<option></option>
+												<option value="{{hseqSI[0]}}"
+													ng-repeat="hseqSI in hseqSIList">{{hseqSI[1]}}</option>
+
+											</select> <label ng-if="HSEQSuperintendantRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">ATSI </label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-model="marineOperationSI" ng-disabled="allFields"
+												ng-click="focusClear('marineoperationsi')"
+												style="width: 100% !important;">
+												<option></option>
+												<option value="{{marineSI[0]}}"
+													ng-repeat="marineSI in marineSIList">
+													{{marineSI[1]}}</option>
+
+											</select> <label ng-if="marineOperationSIRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Purchase
+											Unit </label>
+										<div class="col-sm-3">
+											<input ng-model="purchaseUnit" type="text" maxlength='30'
+												ng-disabled="allFields"
+												ng-focus="focusClear('purchaseunit')" class="form-control" />
+											<label ng-if="purchaseUnitRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<label class="col-sm-3 form-control-label ">Purchaser
+										</label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-disabled="allFields" ng-click="focusClear('purchaser')"
+												ng-model="purchaser" style="width: 100% !important;">
+												<option></option>
+												<option value="{{purchaser[0]}}"
+													ng-repeat="purchaser in purchaserList">
+													{{purchaser[1]}}</option>
+
+											</select> <label ng-if="purchaserRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Invoicer
+											Name </label>
+										<div class="col-sm-3">
+											<select class="form-control" data-placeholder=""
+												ng-click="focusClear('invoicername')"
+												ng-disabled="allFields" ng-model="invoicerName"
+												style="width: 100% !important;">
+												<option></option>
+												<option value="{{invoicer[0]}}"
+													ng-repeat="invoicer in invoicerList">
+													{{invoicer[1]}}</option>
+
+											</select> <label ng-if="invoicerNameRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+
+									<div class="form-group lead_title">Former Management
+										Details</div>
+
+									<div class="form-group row">
+										<div class="col-sm-12">
+											<div class="table-responsive">
+												<table
+													class="table table-hover table-striped table-bordered"
+													cellspacing="0">
+													<thead>
+														<tr>
+															<th>S.No</th>
+															<th>Rank</th>
+															<th>Name</th>
+															<th>Start Date</th>
+															<th>End Date</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr ng-if="formerManagements.length <= 0">
+															<td colspan=5 class="no_data">No Data Available</td>
+														</tr>
+														<tr
+															ng-repeat="formerManagement in formerManagements track by $index">
+															<td>{{$index+1}}</td>
+															<td>
+																<div class="col-sm-10">
+																	<input disabled type="text"
+																		style="width: 300px !important;" class="form-control"
+																		value={{formerManagement.rankname}}>
+																	<!--                                                                         <input ng-model="addedFormerManagementRank" disabled type="text" class="form-control" value={{formerManagement.rankcode}}> -->
+																</div>
+															</td>
+															<td>
+																<div class="col-sm-10">
+																	<input disabled type="text"
+																		style="width: 300px !important;" class="form-control"
+																		value={{formerManagement.empname}}>
+																	<!--                                                                         <input ng-model="addedFormerManagementName" disabled type="text" class="form-control" value={{formerManagement.vesselname}}> -->
+																</div>
+															</td>
+															<td><input type="date" readonly="true"
+																class="form-control"
+																value="{{formerManagement.startdate | date:'MM/dd/yyyy'}}" />
+
+
+
+																<!--                                                                     <div class="col-sm-10"> -->
+																<!--                                                                     <input disabled type="text" class="form-control" value={{formerManagement.startdate}}> -->
+																<!--                                                                         <input ng-model="addedFormerManagementName" disabled type="text" class="form-control" value={{formerManagement.vesselname}}> -->
+																<!--                                                                     </div> -->
+															</td>
+															<td><input type="date" readonly="true"
+																class="form-control"
+																value="{{formerManagement.enddate | date:'MM/dd/yyyy'}}" />
+
+
+
+																<!--                                                                     <div class="col-sm-10"> -->
+																<!--                                                                     <input disabled type="text" class="form-control" value={{formerManagement.enddate}}> -->
+																<!--                                                                       <input ng-model="addedFormerManagementName" disabled type="text" class="form-control" value={{formerManagement.vesselname}}> -->
+																<!--                                                                     </div> -->
+															</td>
+
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+											<div style="text-align: center; color: red"
+												ng-if="vesselFormerManagementDuplicateError">Duplicate
+												entry.</div>
+											<div style="text-align: center; color: red"
+												ng-if="vesselFormerManagementEntryError">Fill up the
+												field/fields.</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<a type="button" allowed="read" mdlcode="SPS" href=""
+											class="btn-custom  pull-right forward"><img
+											src="Sidebar/css/button/next.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/next_h.svg"
+											style="margin-right: 10px;"></a> <a type="button"
+											allowed="read" mdlcode="SPS"
+											class="btn-custom  pull-right backward"><img
+											src="Sidebar/css/button/back.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/back_h.svg"
+											style="margin-right: 10px;"></a>
+									</div>
+								</div>
+
+								<div role="tabpane2" class="tab-pane" id="nav-tabs-0-4">
+
+									<div class="form-group lead_title">Main Engine</div>
+									<div class="form_highlight">
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Main
+												Engine <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="mainEngineMake"
+													valid-alpha name="fname" maxlength='50'
+													ng-disabled="allFields" ng-focus="focusClear('mainengine')"
+													placeholder="Make">
+												<div ng-if="mainEngineMakeRequiredError" style="color: red">
+													This field is required.</div>
+											</div>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="mainEngineType"
+													valid-alphanumeric name="fname" maxlength='50'
+													ng-disabled="allFields"
+													ng-focus="focusClear('mainenginetype')" placeholder="Type">
+												<div ng-if="mainEngineTypeRequiredError" style="color: red">
+													This field is required.</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">No. Of
+												Cylinder <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="noOfCylinder"
+													maxlength='11' valid-positive-number
+													ng-disabled="allFields"
+													ng-focus="focusClear('noofcylinder')" class="form-control" />
+												<div ng-if="noOfCylinderRequiredError" style="color: red">
+													This field is required.</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">MCR <span
+												style="color: red">*</span></label>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="MCRPs"
+													ng-disabled="allFields" valid-alphanumeric name="fname"
+													maxlength='50' ng-focus="focusClear('mcr')"
+													placeholder="(ps * rpm)">
+												<div ng-if="MCRPsRequiredError" style="color: red">This
+													field is required.</div>
+											</div>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="MCRKw"
+													ng-disabled="allFields" valid-alphanumeric name="fname"
+													maxlength='50' ng-focus="focusClear('mcrkw')"
+													placeholder="(kw * rpm)">
+												<div ng-if="MCRKwRequiredError" style="color: red">This
+													field is required.</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">Cameless
+												or Not <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input ng-model="camelessOrNot" maxlength='50' valid-alpha
+													ng-disabled="allFields"
+													ng-focus="focusClear('camelessornot')" class="form-control" />
+												<div ng-if="camelessOrNotRequiredError" style="color: red">
+													This field is required.</div>
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">License <span
+												style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="license" type="text"
+													ng-disabled="allFields" maxlength='50' valid-alpha
+													ng-focus="focusClear('license')">
+												<div ng-if="licenseRequiredError" style="color: red">
+													This field is required.</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">NSR <span
+												style="color: red">*</span></label>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="NSRPs"
+													valid-alphanumeric name="fname" maxlength='50'
+													ng-disabled="allFields" ng-focus="focusClear('nsr')"
+													placeholder="(ps * rpm)"> <label
+													ng-if="NSRPsRequiredError" style="color: red"> This
+													field is required. </label>
+											</div>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="NSRKw"
+													ng-disabled="allFields" valid-alphanumeric name="fname"
+													maxlength='50' ng-focus="focusClear('nsrkw')"
+													placeholder="(kw * rpm)"> <label
+													ng-if="NSRKwRequiredError"
+													style="display: block; color: red"> This field is
+													required. </label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label ">M/E Turbo
+												Charger <span style="color: red">*</span>
+											</label>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="turboChargerMake"
+													valid-alpha maxlength='50' ng-disabled="allFields"
+													ng-focus="focusClear('meturbocharger')" name="fname"
+													placeholder="Make"> <label
+													ng-if="turboChargerMakeRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+											<div class="col-sm-3">
+												<input class="form-control" ng-model="turboChargerType"
+													valid-alphanumeric maxlength='50' ng-disabled="allFields"
+													ng-focus="focusClear('meturbochargertype')" name="fname"
+													placeholder="Type"> <label
+													ng-if="turboChargerTypeRequiredError" style="color: red">
+													This field is required. </label>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group lead_title">Aux-Eng Details</div>
+									<div class="form_highlight">
+										<div class="table-responsive">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<thead>
+													<tr>
+														<th>S.No</th>
+														<th>Equipment Name</th>
+														<th>Make</th>
+														<th>Type</th>
+														<th>HP Unit</th>
+														<th>HP</th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr
+														ng-repeat="vesselAuxEngine in vesselAuxEngineList track by $index"
+														style="text-align: center;";>
+														<td>{{$index+1}}</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value="{{vesselAuxEngine.auxengname}}"
+																	type="text" class="form-control">
+
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value="{{vesselAuxEngine.eqpmake}}"
+																	valid-alpha class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value={{vesselAuxEngine.eqptype}}
+																	valid-alphanumeric class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value={{vesselAuxEngine.eqphpunit}}
+																	type="text" class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value={{vesselAuxEngine.eqphp}}
+																	valid-alphanumeric class="form-control"
+																	style="width: 172px !important;">
+															</div>
+														</td>
+														<td style="vertical-align: middle" width="8% !important">
+															<button ng-click="deleteVesselAuxEngine($index)"
+																type="button"
+																class="btn btn-danger label btn btn-danger label-rounded">
+																<i class="fa fa-minus"></i>
+															</button>
+														</td>
+													</tr>
+													<tr style="text-align: center;";>
+														<td>{{vesselAuxEngineList.length + 1}}</td>
+														<td>
+															<div class="col-sm-12">
+																<select class="form-control" data-placeholder=""
+																	ng-model="vesselAuxEngineEquipmentName"
+																	value={{auxEngineEqp[1]}}
+																	style="width: 100% !important;">
+																	<option></option>
+																	<option value="{{auxEngineEqp[0]}}"
+																		ng-repeat="auxEngineEqp in auxEngineEqpList">{{auxEngineEqp[1]}}</option>
+																</select>
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="vesselAuxEngineMake"
+																	value="{{vesselAuxEngineMake}}" valid-alpha
+																	class="form-control" value="DAIHATSU">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="vesselAuxEngineType"
+																	value={{vesselAuxEngineType}} valid-alphanumeric
+																	class="form-control" value="6 DL 24">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="vesselAuxEngineHPUnit"
+																	value={{vesselAuxEngineHPUnit}} type="text"
+																	class="form-control" value="ps x rpm">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="vesselAuxEngineHP"
+																	value={{vesselAuxEngineHP}} valid-alphanumeric
+																	class="form-control" style="width: 172px !important;"
+																	value="1632 x 720(PRIME MOVER)">
+															</div>
+														</td>
+														<td style="vertical-align: middle" width="8% !important">
+															<button ng-click="addVesselAuxEngine()" type="button"
+																class="btn btn-success label btn btn-success label-rounded">
+																<i class="fa fa-plus"></i>
+															</button>
+														</td>
+													</tr>
+											</table>
+										</div>
+									</div>
+									<div style="text-align: center; color: red"
+										ng-if="vesselAuxEngineError">Fill up all the
+										field/fields.</div>
+									<div ng-if="vesselAuxEngineRequiredError"
+										style="margin-top: .5rem; text-align: center; color: red">
+										This field is required.</div>
+
+									<div class="form-group lead_title">Aux-Machine Details</div>
+									<div class="form_highlight">
+										<div class="table-responsive">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0">
+												<thead>
+													<tr>
+														<th>S.No</th>
+														<th>Equipment Name</th>
+														<th>Make</th>
+														<th>Type</th>
+														<th>Capacity</th>
+														<th>No. of Set</th>
+														<th></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr
+														ng-repeat="vesselAuxMachine in vesselAuxMachineList track by $index"
+														style="text-align: center;";>
+														<td>{{$index+1}}</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value={{vesselAuxMachine.auxmach_name}}
+																	type="text" class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value={{vesselAuxMachine.auxmachmake}}
+																	type="text" class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value={{vesselAuxMachine.auxmachtype}}
+																	type="text" class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled
+																	value={{vesselAuxMachine.auxmachcapacity}} type="text"
+																	class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input disabled value={{vesselAuxMachine.auxmachsetcnt}}
+																	type="number" class="form-control">
+															</div>
+														</td>
+														<td style="vertical-align: middle" width="8% !important">
+															<button ng-click="deleteVesselAuxMachine($index)"
+																type="button"
+																class="btn btn-danger label btn btn-danger label-rounded">
+																<i class="fa fa-minus"></i>
+															</button>
+														</td>
+													</tr>
+													<tr style="text-align: center;";>
+														<td>{{vesselAuxMachineList.length + 1}}</td>
+														<td>
+															<div class="col-sm-12">
+
+																<select class="form-control" data-placeholder=""
+																	ng-model="vesselAuxMachineEquipmentName"
+																	value={{vesselAuxMachineEquipmentName}}
+																	style="width: 100% !important;">
+																	<option></option>
+																	<option value="{{auxMachineEqp[0]}}"
+																		ng-repeat="auxMachineEqp in auxMachineEqpList">{{auxMachineEqp[1]}}</option>
+																</select>
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="vesselAuxMachineMake"
+																	value={{vesselAuxMachineMake}} valid-alpha
+																	class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="vesselAuxMachineType"
+																	value={{vesselAuxMachineType}} valid-alphanumeric
+																	class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="vesselAuxMachineCapacity"
+																	value={{vesselAuxMachineCapacity}}
+																	valid-positive-number class="form-control">
+															</div>
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<input ng-model="vesselAuxMachineSets"
+																	value={{vesselAuxMachineSets}} valid-positive-number
+																	class="form-control">
+															</div>
+														</td>
+														<td style="vertical-align: middle" width="8% !important">
+															<button ng-click="addVesselAuxMachine()" type="button"
+																class="btn btn-success label btn btn-success label-rounded">
+																<i class="fa fa-plus"></i>
+															</button>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div style="text-align: center; color: red"
+										ng-if="vesselAuxMachineError">Fill up all the
+										field/fields.</div>
+									<div ng-if="vesselAuxMachineRequiredError"
+										style="margin-top: .5rem; text-align: center; color: red">
+										This field is required.</div>
+
+									<div class="row">
+										<a type="button" allowed="read" mdlcode="SPS" href=""
+											class="btn-custom pull-right forward"><img
+											src="Sidebar/css/button/next.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/next_h.svg"
+											style="margin-right: 10px;"></a> <a type="button"
+											allowed="read" mdlcode="SPS"
+											class="btn-custom  pull-right backward"><img
+											src="Sidebar/css/button/back.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/back_h.svg"
+											style="margin-right: 10px;"></a>
+									</div>
+								</div>
+
+								<div role="tabpane2" class="tab-pane" id="nav-tabs-0-6">
+									<div class="table-responsive">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0">
+											<thead>
+												<tr>
+													<th>S.No</th>
+													<th>Equipment Name</th>
+													<th>Make</th>
+													<th>Type</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr
+													ng-repeat="vesselNavigation in vesselNavigationList track by $index"
+													style="text-align: center;">
+													<td>{{$index+1}}</td>
+													<td>
+														<div class="col-sm-12">
+															<input disabled value={{vesselNavigation.navi_name}}
+																type="text" class="form-control">
+														</div>
+													</td>
+													<td>
+														<div class="col-sm-12">
+															<input disabled value={{vesselNavigation.navimake}}
+																type="text" class="form-control">
+														</div>
+													</td>
+													<td>
+														<div class="col-sm-12">
+															<input disabled value={{vesselNavigation.navitype}}
+																type="text" class="form-control">
+														</div>
+													</td>
+													<td style="vertical-align: middle" width="8% !important">
+														<button ng-click="deleteVesselNavigation($index)"
+															type="button"
+															class="btn btn-danger label btn btn-danger label-rounded">
+															<i class="fa fa-minus"></i>
+														</button>
+													</td>
+												</tr>
+												<tr style="text-align: center;">
+													<td>{{vesselNavigationList.length + 1}}</td>
+													<td>
+														<div class="col-sm-12">
+
+															<select class="form-control" data-placeholder=""
+																ng-model="vesselNavigationEquipmentName"
+																value={{vesselNavigationEquipmentName}}>
+																<option></option>
+																<option value="{{vesselNavEqp[0]}}"
+																	ng-repeat="vesselNavEqp in vesselNavEqpList">
+																	{{vesselNavEqp[1]}}</option>
+															</select>
+
+														</div>
+													</td>
+													<td>
+														<div class="col-sm-12">
+															<input ng-model="vesselNavigationMake"
+																value={{vesselNavigationMake}} valid-alpha
+																class="form-control">
+														</div>
+													</td>
+													<td>
+														<div class="col-sm-12">
+															<input ng-model="vesselNavigationType"
+																value={{vesselNavigationType}} valid-alphanumeric
+																class="form-control">
+														</div>
+													</td>
+													<td style="vertical-align: middle" width="8% !important">
+														<button ng-click="addVesselNavigation()" type="button"
+															class="btn btn-success label btn btn-success label-rounded">
+															<i class="fa fa-plus"></i>
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div style="text-align: center; color: red"
+										ng-if="vesselNavigationError">Fill up all the
+										field/fields.</div>
+
+
+									<div class="row">
+										<a type="button" allowed="read" mdlcode="SPS"
+											class="btn-custom  pull-right backward"><img
+											src="Sidebar/css/button/back.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/back_h.svg"
+											style="margin-right: 10px;"> </a> <a type="button"
+											class="btn-custom pull-right" ng-click="exportexcel1()"><img
+											src="Sidebar/css/button/export_ex.svg"
+											style="margin-right: 10px;"><img
+											src="Sidebar/css/button/export_ex_h.svg"
+											style="margin-right: 10px;"></a>
+
+										<!-- 											<label 
+<!-- 											id="upload-photo-label" allowed="write" mdlcode="SPS"
+<!-- 											ng-click="exportbtnActionPerformed()" 
+<!-- 											class=" btn btn-custom  pull-right" for="upload-photo"><img 
+<!-- 											src="Sidebar/css/button/export_ex.svg" /><img 
+<!-- 											src="Sidebar/css/button/export_ex_h.svg" /></label> -->
+										<!-- 											 <a -->
+										<!-- 											ng-click="storeFormData()" allowed="write" mdlcode="SPS" -->
+										<!-- 											a-disabled="isSaving" type="button" -->
+										<!-- 											class="btn btn-custom  pull-right"><img -->
+										<!-- 											src="Sidebar/css/button/save.svg" /><img -->
+										<!-- 											src="Sidebar/css/button/save_h.svg" /></a> -->
+										<!-- 											 <a type="button" -->
+										<!-- 											allowed="write" mdlcode="SPS" ng-click="resetData()" -->
+										<!-- 											class="btn btn-custom  pull-right"><img -->
+										<!-- 											src="Sidebar/css/button/reset.svg" /><img -->
+										<!-- 											src="Sidebar/css/button/reset_h.svg" /></a> <img -->
+										<!-- 											ng-if="isSaving" style="width: 35px;" src="img/loader.gif" -->
+										<!-- 											class="pull-right" /> -->
+									</div>
+
+									<div ng-if="dataSaved"
+										style="text-align: center; color: green; font-size: 1.2em">Your
+										data is saved.</div>
+									<div ng-if="mandatoryFieldError"
+										style="text-align: center; color: red; font-size: 1.2em">Some
+										fields are missing</div>
+								</div>
+
+								<!--	<div class="col-xs-12 col-xl-12">
+                     <br></br>
+                     <a type="button"  href="VesselMasterMain.html" class="btn btn-success btn-sm m-r-10 m-b-10 pull-right" >Save</a>
+                     	 <button type="button"  class="btn btn-primary btn-sm m-r-10 m-b-10 pull-right" >Reset</button>
+                     </div></div> -->
+								<div role="tabpane2" class="tab-pane" id="nav-tabs-0-5">
+									<div class="form-group row">
+										<div class="col-sm-3 form-control-label ">MMSI No</div>
+										<div class="col-sm-3">
+											<input ng-model="MMSINo" valid-positive-number maxlength='11'
+												ng-disabled="allFields" ng-focus="focusClear('mmsino')"
+												class="form-control" /> <label ng-if="MMSInoRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<div class="col-sm-3 form-control-label">
+											AAT/DHL Digits <span style="color: red">*</span>
+										</div>
+										<div class="col-sm-3">
+											<input ng-model="DHLDigits" valid-positive-number
+												ng-disabled="allFields" maxlength='50'
+												ng-focus="focusClear('aatdhl')" class="form-control" /> <label
+												ng-if="DHLDigitsRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-3 form-control-label ">
+											Sat-C ID <span style="color: red">*</span>
+										</div>
+										<div class="col-sm-3">
+											<input ng-model="satCID" valid-alphanumeric
+												class="form-control" maxlength='50' ng-disabled="allFields"
+												ng-focus="focusClear('satcid')" /> <label
+												ng-if="satCIDRequiredError"
+												style="display: block; color: red"> This field is
+												required. </label>
+										</div>
+
+										<div class="col-sm-3 form-control-label ">
+											Cell Phone <span style="color: red">*</span>
+										</div>
+										<div class="col-sm-3">
+											<!-- 														<tags-input  valid-positive-number ng-model="tags"></tags-input> -->
+											<input ng-model="cellPhone" valid-positive-number
+												ng-disabled="allFields" maxlength="10" class="form-control" />
+											<!--                                                     <input ng-model="cellPhone" type="text" class="tagsinput" id="tagsinput" value="" /> -->
+											<div ng-if="cellPhoneRequiredError" style="color: red">
+												This field is required.</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 form-control-label ">Iridium
+											Phone <span style="color: red">*</span>
+										</label>
+										<div class="col-sm-3">
+											<input ng-model="iridiumPhone" valid-positive-number
+												ng-disabled="allFields" maxlength='50'
+												ng-focus="focusClear('iridiumphone')" class="form-control" />
+											<div ng-if="iridiumPhoneRequiredError" style="color: red">
+												This field is required.</div>
+										</div>
+
+										<div class="col-sm-3">
+											Sat-A/B Email <span style="color: red">*</span>
+										</div>
+										<div class="col-sm-3">
+											<input ng-model="satABEmail" type="text" maxlength='50'
+												ng-disabled="allFields" ng-focus="focusClear('satabemail')"
+												class="form-control" />
+											<div ng-if="satABEmailRequiredError" style="color: red">
+												This field is required.</div>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="col-sm-2 form-control-label ">Sat-A/B/F
+											<span style="color: red">*</span>
+										</label>
+										<div class="col-sm-2">
+											<input class="form-control" ng-model="satABFTelex"
+												ng-disabled="allFields" valid-positive-number name="fname"
+												maxlength='50' ng-focus="focusClear('satabf')"
+												placeholder="Telex">
+											<div ng-if="satABFTelexRequiredError" style="color: red">
+												This field is required.</div>
+										</div>
+										<div class="col-sm-2">
+											<input class="form-control" ng-model="satABFVoice"
+												ng-disabled="allFields" valid-positive-number name="fname"
+												maxlength='50' ng-focus="focusClear('satabfvoice')"
+												placeholder="Voice">
+											<div ng-if="satABFVoiceRequiredError" style="color: red">
+												This field is required.</div>
+										</div>
+
+										<div class="col-sm-2">
+											<input class="form-control" ng-model="satABFFax"
+												ng-disabled="allFields" valid-positive-number name="fname"
+												maxlength='50' ng-focus="focusClear('satabffax')"
+												placeholder="Fax">
+											<div ng-if="satABFFaxRequiredError" style="color: red">
+												This field is required.</div>
+										</div>
+										<div class="col-sm-2">
+											<input class="form-control" ng-model="satABFData"
+												ng-disabled="allFields" valid-positive-number name="fname"
+												maxlength='50' ng-focus="focusClear('satabfdata')"
+												placeholder="Data">
+											<div ng-if="satABFDataRequiredError" style="color: red">
+												This field is required.</div>
+										</div>
+										<div class="col-sm-2">
+											<input class="form-control" ng-model="satABFHSD"
+												ng-disabled="allFields" valid-positive-number name="fname"
+												maxlength='50' ng-focus="focusClear('satabfhsd')"
+												placeholder="HSD">
+											<div ng-if="satABFHSDRequiredError" style="color: red">
+												This field is required.</div>
+										</div>
+									</div>
+									<div class="row">
+										<a type="button" allowed="read" mdlcode="SPS" href=""
+											class="btn-custom  pull-right forward"><img
+											src="Sidebar/css/button/next.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/next_h.svg"
+											style="margin-right: 10px;"></a> <a type="button"
+											allowed="read" mdlcode="SPS"
+											class="btn-custom pull-right backward"><img
+											src="Sidebar/css/button/back.svg" style="margin-right: 10px;"><img
+											src="Sidebar/css/button/back_h.svg"
+											style="margin-right: 10px;"></a>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		var accorditionNamespace = (function() {
+			var accorditionTab = document
+					.querySelectorAll("#accorditionTab li"), forwardClasses = document
+					.getElementsByClassName('forward'), backwardClasses = document
+					.getElementsByClassName('backward'), previousObjIndex = 0;
+			var getTargetObj = function() {
+				var activeAnchorElt = accorditionTab[previousObjIndex].children[0], getDataTarget = activeAnchorElt
+						.getAttribute('data-target');
+				return {
+					activeAnchorElt : activeAnchorElt,
+					getDataTarget : getDataTarget
+				};
+			};
+			var removePreviousDom = function() {
+				var getTargetObjs = getTargetObj(), tabPanelDiv = document
+						.querySelector(getTargetObjs.getDataTarget);
+				getTargetObjs.activeAnchorElt.classList.remove('active');
+				tabPanelDiv.classList.remove('active');
+			}, addCurrentDom = function(index) {
+				var getTargetObjs = getTargetObj(), tabPanelDiv = document
+						.querySelector(getTargetObjs.getDataTarget);
+				getTargetObjs.activeAnchorElt.classList.add('active');
+				tabPanelDiv.classList.add('active');
+			}, backward = function(index) {
+				if (backwardClasses.length - 1 === index) {
+					previousObjIndex = index;
+				}
+				index = previousObjIndex;
+				removePreviousDom();
+				index--;
+				previousObjIndex = index;
+				addCurrentDom(index);
+			}, forward = function(index) {
+				if (forwardClasses.length - 1 === index) {
+					previousObjIndex = index;
+				}
+				index++;
+				removePreviousDom();
+				previousObjIndex = index;
+				addCurrentDom(index);
+			};
+			accorditionTab.forEach(function(liObj, key) {
+				var index = key;
+				liObj.onclick = function(evt) {
+					(index !== previousObjIndex) && removePreviousDom();
+					previousObjIndex = index;
+					addCurrentDom(index);
+				}
+				if (forwardClasses[index]) {
+					forwardClasses[index].onclick = function() {
+						forward(index);
+					};
+				}
+				if (backwardClasses[index]) {
+					backwardClasses[index].onclick = function() {
+						backward(index);
+					};
+				}
+			});
+
+		})();
+	</script>

@@ -1,0 +1,139 @@
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="CNM"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="CNM">
+
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+			 <ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+  <li><a href="#/Master">Config Master</a></li>
+  <li><b>Country Master</b></li>
+  <!-- <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span> -->
+</ul>
+				<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">Country Master</div>
+         </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top: -19px;">
+					<div class="form_table">
+
+						<div class="row">
+							<div class="col-xs-12">
+
+								<div class="navbar-drawer  hidden-lg-down">
+										<form class="form-inline navbar-form" style="margin-top:-1px;">
+											<label style="margin-left: -13px"><strong>Items	per page</strong></label> 
+											
+											<select style="margin-left: 10px; width: 60px" class="form-control" ng-model="pageSize" ng-selected="pageSize"
+                                  ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select> 
+										</form>
+									</div>
+
+							
+									
+										<div class="table-responsive">
+											<table class="table table-hover table-striped table-bordered"
+												cellspacing="0" id="myTable">
+												<thead>
+													<tr>
+														<th style="text-align: left;">S.No</th>
+														<th style="text-align: left;">Country Code<a
+															href="" ng-click="sort('countrycode')" class="sortDir"
+															ng-class="{ active: isSorted('countrycode') }">&#x25B2;</a><a
+															href="" ng-click="sort('-countrycode')" class="sortDir"
+															ng-class="{ active: isSorted('-countrycode' ) }">&#x25BC;</a>
+														</th>
+														<th style="text-align: left;">Country Name<a
+															href="" ng-click="sort('countryname')" class="sortDir"
+															ng-class="{ active: isSorted('countryname' ) }">&#x25B2;</a><a
+															href="" ng-click="sort('-countryname')" class="sortDir"
+															ng-class="{ active: isSorted('-countryname' ) }">&#x25BC;</a></th>
+														<th style="text-align: center;">Status<a href="" ng-click="sort('statusDesc')" class="sortDir"	ng-class="{ active: isSorted('statusDesc') }">&#x25B2;</a><a href="" ng-click="sort('-statusDesc')" class="sortDir" ng-class="{ active: isSorted('-statusDesc' ) }">&#x25BC;</a> </th>
+													</tr>
+
+													<tr>
+														<th></th>
+														<th><input class="form-control" placeholder="Search"
+															ng-model="search['countrycode']"></th>
+														<th><input class="form-control" placeholder="Search"
+															ng-model="search['countryname']"></th>
+														<th><input placeholder="Search" class="form-control" ng-model="search['statusDesc']"></th>
+													</tr>
+												</thead>
+												<tbody class="item">
+													<tr style="text-align: center;" ng-style="set_color(masterlist)"
+													dir-paginate="masterlist in locationmasterlist1 = (locationmasterlist | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)" current-page="currentPage">
+														<!-- dir-paginate="masterlist in locationmasterlist |  orderBy:sortkey:reverse  | filter:search |itemsPerPage:pageSize | filter:{'countrycode':searchCountryCode} 
+														| filter:{'countryname':searchCountryName} | filter:{'statusDesc':searchStatus}:startsWith" current-page="currentPage"> -->
+<!-- 												<td style="text-align: left;"><span -->
+<!-- 													ng-if="masterlist.activeStatus=='A'"> {{ $index +1}}</span> -->
+<!-- 													<span class="text-error" -->
+<!-- 													ng-if="masterlist.activeStatus=='V'">{{ $index +1}}</span></td> -->
+												<td style="text-align: left;"><span
+													ng-if="masterlist.activeStatus=='A'">{{($index+1) + (currentPage -1) * pageSize }}</span>
+													<span class="text-error"
+													ng-if="masterlist.activeStatus=='V'">{{($index+1) + (currentPage -1) * pageSize }}</span></td>
+												<td style="text-align: left;"><span
+													ng-if="masterlist.activeStatus=='A'"> {{
+														masterlist.countrycode }}</span> <span class="text-error"
+													ng-if="masterlist.activeStatus=='V'">{{
+														masterlist.countrycode }}</span></td>
+												<td style="text-align: left;"><span
+													ng-if="masterlist.activeStatus=='A'"> {{
+														masterlist.countryname }}</span> <span class="text-error"
+													ng-if="masterlist.activeStatus=='V'"> {{
+														masterlist.countryname }}</span></td>
+												<td style="text-align: center;"> 
+													<span class="label" ng-class="{'label-success': masterlist.statusDesc == 'Active','label-danger': masterlist.statusDesc == 'Inactive'}">{{masterlist.statusDesc}}</span>
+												</td>
+												<td style="display: none">{{ masterlist.cruser }}</td>
+												<td style="display: none">{{ masterlist.crdate }}</td>
+												<td style="display: none">{{ masterlist.upduser }}</td>
+												<td style="display: none">{{ masterlist.upddate }}</td>
+												<!-- <td><span ng-if="masterlist.activeStatus=='A'"><a
+														class="btn btn-info btn-sm"
+														ng-click="fetchvalue(masterlist.countrycode,masterlist.countryname)"><i
+															style="color: white !important" class="fa fa-edit"></i></a></span> <span
+													ng-if="masterlist.activeStatus=='A'"><a
+														class="btn btn-danger btn-sm"
+														ng-click="deleteForm(masterlist)"><i
+															style="color: white !important" class="fa fa-trash-o"></i></a></span>
+												</td> -->
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="pull-right">
+											<dir-pagination-controls max-size="5" direction-links="true"
+												boundary-links="true"></dir-pagination-controls>
+										</div>
+									
+								
+							</div>
+							<!--  form_table  -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+		<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Missed something!" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+             
+ 
+ <div kendo-dialog="dialog" k-title="'Alert Message!'" k-on-open="dialogVisible = true"
+            k-on-close="dialogVisible = false" k-width="300" k-height="150"
+            k-actions="actions" k-modal="true" >
+            <img src="img/warning -dialog.png">
+            <p ng-repeat="errors in dataerror">{{errors[0]}}</p>
+          </div>

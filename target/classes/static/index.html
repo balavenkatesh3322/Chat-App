@@ -1,0 +1,128 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ChatAPP</title>
+<link rel="shortcut icon" href="img/spritle.ico">
+<link rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/spritle-login.css">
+</head>
+
+<body ng-app="loginApp" ng-controller="loginController">
+  <div id="particles-js">
+    <div id="particlejs-container"></div>
+    <!-- particlejs-container -->
+    <div class="box" ng-cloak>
+      <div class="row">
+        
+        <div class="col-xs-12 col-sm-6">
+          <img src="img/spritle.png" class="spritle-img">
+        </div>
+      </div>
+
+      <div class="container-fluid" id="login_form">
+        <div style="margin-right: 0 !important; padding-top: 180px;">
+
+          <div class="col-xs-4" id="one">
+
+
+            <div class="login_title">USER LOGIN</div>
+            <div class="form-group">
+              <label ng-if="errorMessage" class="text-error">{{errorMessage}}</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i
+                  class="glyphicon glyphicon-user"></i></span> <input
+                  class="form-control" ng-class="{'textfield-error': username_error==true|| errorMessage|| username_freetext_error}" placeholder="User ID" 
+                  ng-enter="loginForm()" ng-model="username" name="username"
+                  type="text" ng-change="validateFreeText('username', 'username_freetext_error')" ng-focus="hideerror('username_error')" maxlength="20">
+                  <img ng-if="username_error==true || errorMessage || username_freetext_error" src="img/error1.png" class="textfield-error-image"/>
+                  <img ng-if="username.length>0 && username_error==false && !errorMessage && !username_freetext_error" style="width:17px;"src="img/correct.png" class="textfield-error-image"/>
+              </div>
+              <div class="text-error">{{username_freetext_error}}</div>
+              <div ng-if="username_error" class="text-error">User ID is
+                required</div>
+              <div class="form-group" style="margin-top: 20px">
+                <div class="input-group">
+                  <span class="input-group-addon"><i
+                    class="glyphicon glyphicon-lock"></i></span> <input style="padding-right: 26px;"
+                    class="form-control" ng-class="{'textfield-error': password_error==true|| errorMessage || username_error==true || (username.length<=0 && password.length>0) || username_freetext_error}" ng-model="password"
+                    ng-enter="loginForm()" placeholder="Password" name="password"
+                    type="password" maxlength="128" ng-focus="hideerror('password_error')">
+                    <img ng-if="password_error==true || errorMessage || username_error==true || (username.length<=0 && password.length>0) || username_freetext_error" src="img/error1.png" class="textfield-error-image"/>
+                  <img ng-if="password.length>0 && password_error==false && !errorMessage && username_error==false && username.length>0 && !username_freetext_error" style="width:17px;"src="img/correct.png" class="textfield-error-image"/>
+                </div>
+                <div ng-if="password_error" class="text-error">Password
+                  required</div>
+                <button type="button" ng-click="loginForm()"
+                  class="btn btn-danger btn-sm" id="loginbutton">LOGIN</button>
+				   <button type="button" data-toggle="modal" data-target="#signupmodel" ng-click="clearsignupdata()"
+                  class="btn btn-danger btn-sm" id="signupbutton">SIGN UP</button>
+              </div>
+                          
+              <div class="login_footer">
+                Copyright © 2018 <a target="_blank" href="https://www.spritle.com">www.spritle.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  
+  <div class="modal fade" id="signupmodel" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="sub-head">Sign Up</h4>
+        </div>
+        <div class="modal-body">
+          <div class="sub-main">	
+				<input placeholder="User Name" name="Name" class="name" type="text" required="" ng-model="username" ng-focus="userexit=false" ng-blur="checkduplicateuser()">
+					<span class="icon1"><i class="fa fa-user" aria-hidden="true"></i>
+					</span><br>	 <label ng-show="userexit" class="text-error">user name already exists</label>			
+				<input placeholder="Phone Number" name="Number" class="number" type="text" ng-model="phonenumber" required="">
+					<span class="icon2"><i class="fa fa-phone" aria-hidden="true"></i></span><br>
+				<input placeholder="Email" name="mail" class="mail" type="text" ng-model="emailid" required="">
+					<span class="icon3"><i class="fa fa-envelope" aria-hidden="true"></i></span><br>
+				<input  placeholder="Password" name="Password" class="pass" type="password" ng-model="password" ng-focus="notmatch=false" required="">
+					<span class="icon4"><i class="fa fa-unlock" aria-hidden="true"></i></span><br>
+				<input  placeholder="Confirm Password" name="Password" class="pass" ng-model="conpassword" ng-blur="confirmpassword()" ng-focus="notmatch=false" type="password" required="">
+					<span class="icon5"><i class="fa fa-unlock" aria-hidden="true"></i></span><br>
+				<label ng-show="notmatch" class="text-error">Password is not correct</label><br>
+				<input type="submit" ng-click="signup()" value="sign up">
+		</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+</body>
+
+
+ 
+
+<!-- scripts -->
+<script src="js/controllers/angular.min.js"></script>
+<script src="js/controllers/loginController.js"></script>
+<script src="js/directives/loginDirective.js"></script>
+<script src="loginjs/chatapplogin.js"></script>
+
+<script src="js/lib/aes.js"></script>
+<script src="js/lib/pbkdf2.js"></script>
+<script src="js/lib/core-min.js "></script>
+<script src="js/lib/aes.js"></script>
+<script src="js/lib/cipher-core-min.js"></script>
+<script src="js/lib/enc-base64-min.js"></script>
+<script src="js/lib/enc-utf16-min.js"></script>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</html>

@@ -1,0 +1,631 @@
+
+.tiles-wrapper	{
+	width: 260px;
+    height: 125px;
+	box-shadow: 4px 4px 8px #ccc;
+	position: relative;
+	border-bottom-right-radius: 11px;
+	border-bottom-left-radius: 11px;
+	background: #eee;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	}
+
+.tiles-icon	{
+	position: absolute;
+    width: 65px;
+    height: 65px;
+    background: #0A536D;
+    border-radius: 8px;
+    z-index: 1;
+    box-sizing: border-box;
+    left: 100px;
+    top: 12px;
+}
+
+.tiles-icon	> i{
+	color: #fff;
+    font-size: 44px;
+    padding-top: 10px;
+    padding-left: 15px;
+}
+
+.tiles-icon	> img{
+    width: 46px;
+    height: 45px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.tiles-name	{
+	position: absolute;
+    color: #fff;
+    font-size: 18px;
+    box-sizing: border-box;
+    bottom: 7px;
+    text-align: center;
+    width: 260px;
+	}
+	
+.tiles-inner	{
+	position: absolute;
+    width: 260px;
+    height: 35px;
+	background: #0A536D;
+	transition: .2s ease-in;
+	bottom: 0;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	transition: .2s ease-in;
+	}	
+
+.tiles-wrapper:hover .tiles-inner	{	
+	height: 125px;
+}
+
+
+/* alternate colors */
+
+/* tile1 */
+
+/* .triangle-up-right1 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right1 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right1:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #e56c00;
+		box-sizing: border-box;
+}
+
+.tiles1	{
+	background: #e56c00; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #e56c00 , #e5ba00); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #e56c00, #e5ba00); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #e56c00, #e5ba00); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #e56c00 , #e5ba00); Standard syntax
+} */
+
+/* tile2 */
+
+/* .triangle-up-right2 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right2 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right2:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #39355A;
+		box-sizing: border-box;
+}
+
+
+
+.tiles2	{
+	background: #F02A63; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #39355A , #8988B1); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #39355A, #8988B1); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #39355A, #8988B1); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #39355A , #8988B1); Standard syntax
+} */
+
+/* tile3 */
+
+/* .triangle-up-right3 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right3 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right3:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #0055A7;
+		box-sizing: border-box;
+}
+
+.tiles3	{
+	background: #0055A7; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #0055A7 , #00938E); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #0055A7, #00938E); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #0055A7, #00938E); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #0055A7 , #00938E); Standard syntax
+} */
+
+/* tile4 */
+
+/* .triangle-up-right4 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right4 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right4:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #800608;
+		box-sizing: border-box;
+}
+
+.tiles4	{
+	background: #911291; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #800608 , #B41323); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #800608, #B41323); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #800608, #B41323); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #800608 , #B41323); Standard syntax
+}
+ */
+
+/* tile5 */
+
+/* .triangle-up-right5 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right5 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right5:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #FFAB32;
+		box-sizing: border-box;
+}
+
+.tiles5	{
+	background: #FFAB32; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #FFAB32 , #FFEA32); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #FFAB32, #FFEA32); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #FFAB32, #FFEA32); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #FFAB32 , #FFEA32); Standard syntax
+} */
+
+/* tile6 */
+
+/* .triangle-up-right6 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right6 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right6:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #009F8E;
+		box-sizing: border-box;
+}
+
+.tiles6	{
+	background: #009F8E; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #009F8E , #00CC8E); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #009F8E, #00CC8E); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #009F8E, #00CC8E); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #009F8E , #00CC8E); Standard syntax
+}
+ */
+/* tile7 */
+
+/* .triangle-up-right7 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right7 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right7:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #e56c00;
+		box-sizing: border-box;
+}
+
+.tiles7	{
+	background: #e56c00; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #e56c00 , #e5ba00); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #e56c00, #e5ba00); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #e56c00, #e5ba00); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #e56c00 , #e5ba00); Standard syntax
+} */
+
+
+/* tile8 */
+
+/* .triangle-up-right8 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right8 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right8:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #7d3200;
+		box-sizing: border-box;
+}
+
+.tiles8	{
+	background: #7d3200; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #7d3200 , #cf7e00); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #7d3200, #cf7e00); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #7d3200, #cf7e00); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #7d3200 , #cf7e00); Standard syntax
+}
+ */
+
+
+/* tile9 */
+
+/* .triangle-up-right9 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right9 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right9:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #0055a7;
+		box-sizing: border-box;
+}
+
+.tiles9 {
+	background: #0055a7; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #0055a7 , #99938e); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #0055a7, #99938e); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #0055a7, #99938e); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #0055a7 , #99938e); Standard syntax
+} */
+
+
+/* tile10 */
+
+/* .triangle-up-right10 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right10 > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right10:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #0055a7;
+		box-sizing: border-box;
+}
+
+.tiles10 {
+	background: #0055a7; For browsers that do not support gradients
+	background: -webkit-linear-gradient(left, #0055a7 , #99938e); For Safari 5.1 to 6.0
+	background: -o-linear-gradient(right, #0055a7, #99938e); For Opera 11.1 to 12.0
+	background: -moz-linear-gradient(right, #0055a7, #99938e); For Firefox 3.6 to 15
+	background: linear-gradient(to right, #0055a7 , #99938e); Standard syntax
+}
+ */
+/* tileDisabled */
+
+.triangle-up-right_disabled {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    padding-left: 10%;
+    padding-top: 10%;
+    overflow: hidden;
+	right: 0;
+	box-sizing: border-box;
+	z-index: 1;
+   }
+ .triangle-up-right_disabled > span { 
+   position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 18px;
+    color: #fff;
+	}  
+.triangle-up-right_disabled:after {
+        content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		margin-left: -400px;
+		margin-top: -430px;
+		border-left: 500px solid transparent;
+		border-top: 500px solid #bfbfbf;
+		box-sizing: border-box;
+}
+
+.svg	{
+	width: 46px;
+    height: 45px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+
+/* tiles_1 */
+
+.tiles_1 .tiles-icon	{
+	background: #31BFCB;
+}
+
+.tiles_1 .tiles-inner	{
+	background: #31BFCB;
+}
+
+
+/* tiles_2 */
+
+.tiles_2 .tiles-icon	{
+	background: #21AD88;
+}
+
+.tiles_2 .tiles-inner	{
+	background: #21AD88;
+}
+
+
+/* tiles_3 */
+
+.tiles_3 .tiles-icon	{
+	background: #F16922;
+}
+
+.tiles_3 .tiles-inner	{
+	background: #F16922;
+}
+
+
+/* tiles_4 */
+
+.tiles_4 .tiles-icon	{
+	background: #EEA320;
+}
+
+.tiles_4 .tiles-inner	{
+	background: #EEA320;
+}
+
+
+/* tiles_6 */
+
+.tiles_6 .tiles-icon	{
+	background: #068A44;
+}
+
+.tiles_6 .tiles-inner	{
+	background: #068A44;
+}
+
+
+/* tiles_7 */
+
+.tiles_7 .tiles-icon	{
+	background: #76618A;
+}
+
+.tiles_7 .tiles-inner	{
+	background: #76618A;
+}
+
+
+
+/* tiles_8 */
+
+.tiles_8 .tiles-icon	{
+	background: #944722;
+}
+
+.tiles_8 .tiles-inner	{
+	background: #944722;
+}
+
+
+
+/* tiles_9 */
+
+.tiles_9 .tiles-icon	{
+	background: #6D8665;
+}
+
+.tiles_9 .tiles-inner	{
+	background: #6D8665;
+}
+
+
+/* tiles_disabled */
+
+.tiles_disabled:hover	{
+	cursor: not-allowed !important;
+}
+
+.tiles_disabled .tiles-icon	{
+	background: #A8A8A9;
+}
+
+.tiles_disabled .tiles-inner	{
+	background: #A8A8A9;
+}
+
+.tiles_disabled:hover .tiles-inner	{
+	height: 35px;
+	cursor: disabled;
+}
+
+ 
+/* .tiles_disabled .tiles-name	{
+	color: #999999 !important;
+} */
+.tiles_disabled .tiles-icon .cls-1  {
+		fill:#999999 !important;
+		}

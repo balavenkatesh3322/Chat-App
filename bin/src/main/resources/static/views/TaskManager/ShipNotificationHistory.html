@@ -1,0 +1,210 @@
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="VNM"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="VNM">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Taskmanager">Task manager</a></li>
+					<li><b>Notification History</b></li>
+					
+				</ul>
+				<div class="tab_head"
+						style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important; padding-top: 3px !important;">
+						<div class="pull-left" style="font-size: 21px;">Notification History
+						</div>
+						
+					</div>
+			</div>
+		</div>
+		
+<style>
+@media only screen and (max-width: 560px) {
+	.showReset	{
+		margin-top: 10px;
+		float: left;
+	}
+}	
+</style>		
+		<!--------------------------------------------------------------->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper">
+					<div class="form_table">
+
+						<div class="row" style="margin-bottom: 10px;">
+							
+
+								<div class="col-sm-1"
+									>From</div>
+								<div class="col-sm-3">
+									<input kendo-date-picker id="textinputtargetdate"
+										ng-focus="hideError('fromDateRequiredError')"
+										ng-model="fromDate" />
+										
+										 <div ng-if="fromDateRequiredError" class="text-error">This field is required.</div>
+								</div>
+								<div class="col-sm-1"
+									>To</div>
+								<div class="col-sm-3">
+									<input kendo-date-picker id="textinputtargetdate"
+										ng-focus="hideError('toDateRequiredError')" ng-model="toDate" />
+									<div ng-if="toDateRequiredError" class="text-error">This
+										field is required.</div>
+								</div>
+								
+							
+							
+							</div>
+							<div class="row">
+					 
+<div class="col-sm-9" style="margin-bottom:10px;">
+							<div class="navbar-drawer hidden-lg-down">
+								<form class="form-inline navbar-form ">
+									
+										<label style="margin-left: -13px" class="pull-left" style="margin-left: -13px;"><strong>Items per
+												page</strong>
+												
+										</label>
+										  <select style="margin-left: 10px; width: 60px" class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+
+								</form>
+							</div>
+							</div>
+							
+							
+							<div class="col-sm-3" style="margin-top:10px;">
+								
+								
+								<span class="pull-right">
+								<a type="button" ng-click="btnShowActionPerformed()"
+									class="btn-custom "> <img
+									src="Sidebar/css/button/show.svg" /> <img
+									src="Sidebar/css/button/show_h.svg" />
+								</a> 
+								<a type="button" ng-click="btnResetActionPerformed()"
+									class=" btn-custom "> <img
+									src="Sidebar/css/button/reset.svg" /> <img
+									src="Sidebar/css/button/reset_h.svg" />
+								</a>
+								</span>
+								</div>
+								</div>
+
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<div class="table-responsive">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0" width="100%">
+											<thead>
+												<tr>
+													<!--                     <th>Notify Id</th> -->
+													<!--    					<th>Reference</th> -->
+													<!--                     <th>From</th> -->
+													<!--                     <th>Description</th> -->
+													<!-- 					<th>Priority</th> -->
+													<!-- 					<th>Assigned By</th> -->
+													<!--                     <th>Date</th> -->
+
+													<th>Notify Id <a href=""
+														ng-click="sort('notifyid')" class="sortDir"
+														ng-class="{ active: isSorted('notifyid') }">&#x25B2;</a><a
+														href="" ng-click="sort('-notifyid')" class="sortDir"
+														ng-class="{ active: isSorted('-notifyid' ) }">&#x25BC;</a>
+													</th>
+													<th>Reference <a href=""
+														ng-click="sort('reference')" class="sortDir"
+														ng-class="{ active: isSorted('reference') }">&#x25B2;</a><a
+														href="" ng-click="sort('-reference')" class="sortDir"
+														ng-class="{ active: isSorted('-reference' ) }">&#x25BC;</a>
+													</th>
+													<th>From <a href=""
+														ng-click="sort('notifyfromcode')" class="sortDir"
+														ng-class="{ active: isSorted('notifyfromcode') }">&#x25B2;</a><a
+														href="" ng-click="sort('-notifyfromcode')" class="sortDir"
+														ng-class="{ active: isSorted('-notifyfromcode' ) }">&#x25BC;</a>
+													</th>
+													<th>Description <a href=""
+														ng-click="sort('notifydesc')" class="sortDir"
+														ng-class="{ active: isSorted('notifydesc') }">&#x25B2;</a><a
+														href="" ng-click="sort('-notifydesc')" class="sortDir"
+														ng-class="{ active: isSorted('-notifydesc' ) }">&#x25BC;</a>
+													</th>
+													<th>Priority <a href=""
+														ng-click="sort('priority')" class="sortDir"
+														ng-class="{ active: isSorted('priority') }">&#x25B2;</a><a
+														href="" ng-click="sort('-priority')" class="sortDir"
+														ng-class="{ active: isSorted('-priority' ) }">&#x25BC;</a>
+													</th>
+													<th>Assigned By <a href=""
+														ng-click="sort('assignby')" class="sortDir"
+														ng-class="{ active: isSorted('assignby') }">&#x25B2;</a><a
+														href="" ng-click="sort('-assignby')" class="sortDir"
+														ng-class="{ active: isSorted('-assignby' ) }">&#x25BC;</a>
+													</th>
+													<th>Date</th>
+												</tr>
+
+												<tr>
+													<th><input placeholder="Search" class="form-control"
+														style="width: 100%;" ng-model="searchNot"></th>
+													<th><input placeholder="Search" class="form-control"
+														style="width: 100%;" ng-model="searchRef"></th>
+													<th><input placeholder="Search" class="form-control"
+														style="width: 100%;" ng-model="searchNotifyFrom"></th>
+													<th><input placeholder="Search" class="form-control"
+														style="width: 100%;" ng-model="searchDesc"></th>
+													<th><input placeholder="Search" class="form-control"
+														style="width: 100%;" ng-model="searchPrior"></th>
+													<th><input placeholder="Search" class="form-control"
+														style="width: 100%;" ng-model="searchAssigned"></th>
+													<th style="width: 12%;"></th>
+												</tr>
+											</thead>
+											<tbody>
+												<!--                 <tr ng-repeat="notify in notificationHistoryList"> -->
+												<tr style="text-align: center;" ng-style="set_color(x)"
+													dir-paginate="notify in notificationHistoryList |  orderBy:predicate:reverse  
+										| filter:search |itemsPerPage:pageSize
+										| filter:{'notifyid':searchNot} 
+										| filter:{'reference':searchRef} 
+										| filter:{'notifyfromcode':searchNotifyFrom}																										
+										| filter:{'notifydesc':searchDesc}										
+										| filter:{'priority':searchPrior}
+										| filter:{'assignby':searchAssigned}">
+													<td>{{notify.notifyid}}</td>
+													<td href=""
+														ng-click="referenceClicked(notify.mdlcode,notify.reference)">{{notify.reference}}</td>
+													<td>{{notify.notifyfromloc}}</td>
+													<td>{{notify.notifydesc}}</td>
+													<td>{{notify.priorityname}}</td>
+													<td>{{notify.assignbyname}}</td>
+													<td>{{notify.assigndate | date : "MM/dd/yyyy" :
+														timezone}}</td>
+												</tr>
+										</table>
+
+
+									</div>
+									<div class="pull-right">
+										<dir-pagination-controls max-size="15" direction-links="true"
+											boundary-links="true"></dir-pagination-controls>
+									</div>
+								</div>
+							</div>
+
+
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Missed something!" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+</div>

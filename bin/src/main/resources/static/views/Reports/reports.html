@@ -1,0 +1,107 @@
+<div class="main reports-page" id="main" style="margin-top: -20px;">
+	<ul class="breadcrumb">
+		<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+		<li><b>Reports</b></li>
+	</ul>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMRPT === 'Y'">
+			<a href="#/GraphReport/nearmiss">
+				<div class="tiles-wrapper tiles_7">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/nearmiss_analysis.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">NearMiss Analysis</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMRPT === 'Y'">
+			<a href="#/GraphReport/pscei">
+				<div class="tiles-wrapper tiles_7">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/portstatecontrol.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">EI- PSC</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMRPT === 'Y'">
+			<a href="#/GraphReport/sire">
+				<div class="tiles-wrapper tiles_7">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/SIRE.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">EI - SIRE</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMRPT === 'Y'">
+			<a href="#/GraphReport/fscei">
+				<div class="tiles-wrapper tiles_7">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/flag.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">EI - Flag State</div>
+				</div>
+			</a>
+
+		</div>
+	</div>
+	<div class="row">
+		<div style="display:none" class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMRPT === 'Y'">
+			<a href="#/GraphReport/ispsei">
+				<div class="tiles-wrapper tiles_7">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/ISPFSecurity.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">EI - ISPS</div>
+				</div>
+			</a>
+		</div>
+		<div style="display:none"  class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMRPT === 'Y'">
+			<a href="#/GraphReport/smsei">
+				<div class="tiles-wrapper tiles_7">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/ism.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">EI - ISM</div>
+				</div>
+			</a>
+		</div>
+
+		
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMRPT === 'Y'">
+			<a href="#/GraphReport/crewhealth">
+				<div class="tiles-wrapper tiles_7">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/crewhealthlog.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">Crew Health Log</div>
+				</div>
+			</a>
+
+		</div>
+		 <div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readNMS === 'Y'">
+		<a href="#NearMissShare">
+			<div class="tiles-wrapper tiles_7">
+				<div class="tiles-icon">
+					<img src="Sidebar/assets/tiles_icons/E_library.svg" />
+				</div>
+				<div class="tiles-inner"></div>
+				<div class="tiles-name">Shared NearMiss Report</div>
+			</div>
+			</a>
+		</div>
+  </div> 
+	</div>
+	
+	

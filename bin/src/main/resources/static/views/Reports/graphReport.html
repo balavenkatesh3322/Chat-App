@@ -1,0 +1,94 @@
+
+
+<div class="main" id="main" style="margin-top: -20px;">
+<div ng-show="haspermission" allowed="unauthorized" mdlcode="MRPT"
+		callback-fn="unauthorize(arg1)" id="unauthorized">
+</div>
+<div allowed="read" mdlcode="MRPT">
+  <ul class="breadcrumb">
+    <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+    <li><a href="#/Reports">Reports</a></li>
+    <li><b>{{currReport}}</b></li>
+  </ul>
+
+<div class="sel_category">
+  <div class="lead_title">Results for: <span class="pull-right" style="font-size: 14px;margin-right: 10px;"><a ng-click="clearAllFilters()">Clear All</a></span><span class="pull-right" style="font-size: 14px;margin-right: 10px;"><a ng-click="showFilters()">{{buttonLabel}}</a></span></div>
+  <div ng-if="showFiltersList">
+  <div ng-repeat="(key, data) in dupfilterValue">
+    <div>
+      <span class="chip-category"><b>{{data[0].headername}}</b></span>
+    </div>
+    <div class="filter-chips" ng-repeat="dd in data track by $index">
+      <div class="filter-chip-name" title={{dd.labelName}}>{{dd.labelName}}</div>
+      <div class="filter-chip-remove">
+        <img ng-click="removeFilter(key, $index)"
+          class="report-filter-cancel" src="img/remove_chip.svg">
+      </div>
+    </div>
+  </div>
+  </div>  
+</div>
+
+  <div class="cd-panel from-right" style="z-index: 2000">
+    <div class="cd-panel-container">
+      <a class="btn btn-warning btn-filter1" onclick="check()"> Filter
+        <i class="fa fa-filter" aria-hidden="true"></i>
+      </a>
+      <div class="cd-panel-content">
+        <div style="width: 100%" ng-init="getFilter_Tab_Details()">
+        
+           <div style="margin-bottom: 1em;">
+            <a ng-click="applyFilter(dashboardID,currenttabid,'null')"
+              type="button" class="btn-custom"> <img
+              src="Sidebar/css/button/apply.svg" /> <img
+              src="Sidebar/css/button/apply_h.svg" />
+            </a>
+          </div>
+          
+          
+          <div kendo-panel-bar="tree" k-data-source="kendoFilters"
+            k-on-change="selectedItem = dataItem">
+            <span k-template>
+
+              <div class="report-tree-item">
+                <input
+                  ng-checked="((filterValue[dataItem.parentkey] != undefined) && (filterValue[dataItem.parentkey].indexOf(dataItem.indexlabel) != -1))"
+                  ng-click="fiterItems(dataItem.indexlabel, dataItem.parentkey, dataItem.text, dataItem.headername)"
+                  style="vertical-align: middle" type="checkbox"
+                  ng-model="filterValue1[dataItem.indexlabel]">
+                {{dataItem.text}}
+              </div>
+            </span>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chart_tab">
+    <tabset> <tab ng-repeat="tab in tabs" heading="{{tab.name}}" active="tab.active" disable="tab.disabled" ng-click="initTab(dashboardID ,tab.id,'null')">
+    <div ng-if="$index == 0">
+      <input style="display: none" type="text" id="{{tab.id}}"
+        value="{{tab.id}}" ng-model="tab.id"></input> <input
+        style="display: none" type="text" id="{{tab.id}}Status"
+        value="loaded"></input>
+      <div id="{{tab.id}}chart" 
+        ng-init="initTab(dashboardID ,tab.id,'null')"></div>
+    </div>
+    <div ng-if="$index != 0">
+      <input style="display: none" type="text" id="{{tab.id}}"
+        value="{{tab.id}}" ng-model="tab.id"></input> <input
+        style="display: none" type="text" id="{{tab.id}}Status"
+        value="notLoaded"></input>
+      <div id="{{tab.id}}chart"></div>
+    </div>
+    </tab> </tabset>
+  </div>
+</div>
+</div>
+
+
+
+

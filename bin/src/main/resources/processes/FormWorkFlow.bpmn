@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef" xmlns:modeler="http://activiti.com/modeler" modeler:version="1.0ev" modeler:exportDateTime="20161117090946" modeler:modelId="991028" modeler:modelVersion="1" modeler:modelLastUpdated="1479373778204">
+  <process id="FormWorkFlow" name="FormWorkFlow" isExecutable="true">
+    <documentation>Form Work Flow</documentation>
+    <startEvent id="startEvent1" name="Start Event">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[startEvent1]]></modeler:editor-resource-id>
+      </extensionElements>
+    </startEvent>
+    <userTask id="formInitiationTask" name="Form initiated by Tier 2 at shore" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[formInitiationTask]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow0" sourceRef="startEvent1" targetRef="formInitiationTask">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow0]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="formFilledAndSubmitted" name="Form Filled by Crew member and submitted" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[formFilledAndSubmitted]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <userTask id="formReviewedAndApproved" name="Form reviewed by Master and Approved" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[formReviewedAndApproved]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow_3" sourceRef="formFilledAndSubmitted" targetRef="formReviewedAndApproved">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow_3]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow_4" sourceRef="formReviewedAndApproved" targetRef="formSentToShore">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow_4]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="fillingOfficeDetailsAtShore" name="Office details filled by Tier 2 at shore" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[fillingOfficeDetailsAtShore]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow_5" sourceRef="formSentToShore" targetRef="fillingOfficeDetailsAtShore">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow_5]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="CloseWithoutEscalation" name="Close out" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[CloseWithoutEscalation]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <userTask id="Escalated" name="Escalated to selected members and manager" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[Escalated]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow1" sourceRef="formInitiationTask" targetRef="formSentToShip">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow1]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow_2" sourceRef="formSentToShip" targetRef="formFilledAndSubmitted">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow_2]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="formSentToShip" name="Form sent to ship" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[formSentToShip]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <userTask id="ShareWithOtherShips" name="Share with other ships" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[ShareWithOtherShips]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-590FA069-9507-4033-8490-450322DDD45F" sourceRef="Escalated" targetRef="ShareWithOtherShips">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-590FA069-9507-4033-8490-450322DDD45F]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="formSentToShore" name="Form sent to the shore" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[formSentToShore]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <userTask id="SendNotificationToManager" name="Send Notification to Manager" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:editor-resource-id><![CDATA[SendNotificationToManager]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceCloseOut" sourceRef="CloseWithoutEscalation" targetRef="SendNotificationToManager">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceCloseOut]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <endEvent id="endEvent" name="End Event">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[endEvent]]></modeler:editor-resource-id>
+      </extensionElements>
+    </endEvent>
+    <sequenceFlow id="sequenceSendNotification" sourceRef="SendNotificationToManager" targetRef="endEvent">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceSendNotification]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="ExportToExcel" name="Export to Excel" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:editor-resource-id><![CDATA[ExportToExcel]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceCloseOut2" sourceRef="CloseWithoutEscalation" targetRef="ExportToExcel">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceCloseOut2]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="ShareViaEmail" name="Share via email" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:editor-resource-id><![CDATA[ShareViaEmail]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceCloseout3" sourceRef="CloseWithoutEscalation" targetRef="ShareViaEmail">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceCloseout3]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow6" name="No Escalation" sourceRef="fillingOfficeDetailsAtShore" targetRef="CloseWithoutEscalation">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow6]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceFlow5" name="Escalation" sourceRef="fillingOfficeDetailsAtShore" targetRef="Escalated">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow5]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceExportToExcel" sourceRef="ExportToExcel" targetRef="endEvent">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceExportToExcel]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceShareViaEmail" sourceRef="ShareViaEmail" targetRef="endEvent">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceShareViaEmail]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceShareWithShips" sourceRef="ShareWithOtherShips" targetRef="CloseWithoutEscalation">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceShareWithShips]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_FormWorkFlow">
+    <bpmndi:BPMNPlane bpmnElement="FormWorkFlow" id="BPMNPlane_FormWorkFlow">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="formInitiationTask" id="BPMNShape_formInitiationTask">
+        <omgdc:Bounds height="80.0" width="100.0" x="175.0" y="138.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="formFilledAndSubmitted" id="BPMNShape_formFilledAndSubmitted">
+        <omgdc:Bounds height="80.0" width="100.0" x="465.0" y="138.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="formReviewedAndApproved" id="BPMNShape_formReviewedAndApproved">
+        <omgdc:Bounds height="80.0" width="100.0" x="465.0" y="255.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fillingOfficeDetailsAtShore" id="BPMNShape_fillingOfficeDetailsAtShore">
+        <omgdc:Bounds height="80.0" width="100.0" x="615.0" y="360.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="CloseWithoutEscalation" id="BPMNShape_CloseWithoutEscalation">
+        <omgdc:Bounds height="80.0" width="100.0" x="795.0" y="210.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Escalated" id="BPMNShape_Escalated">
+        <omgdc:Bounds height="80.0" width="100.0" x="615.0" y="525.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="formSentToShip" id="BPMNShape_formSentToShip">
+        <omgdc:Bounds height="80.0" width="100.0" x="320.0" y="138.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ShareWithOtherShips" id="BPMNShape_ShareWithOtherShips">
+        <omgdc:Bounds height="80.0" width="100.0" x="795.0" y="330.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="formSentToShore" id="BPMNShape_formSentToShore">
+        <omgdc:Bounds height="80.0" width="100.0" x="465.0" y="360.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="SendNotificationToManager" id="BPMNShape_SendNotificationToManager">
+        <omgdc:Bounds height="80.0" width="100.0" x="795.0" y="75.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEvent" id="BPMNShape_endEvent">
+        <omgdc:Bounds height="28.0" width="28.0" x="1125.0" y="236.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ExportToExcel" id="BPMNShape_ExportToExcel">
+        <omgdc:Bounds height="80.0" width="100.0" x="990.0" y="138.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ShareViaEmail" id="BPMNShape_ShareViaEmail">
+        <omgdc:Bounds height="80.0" width="100.0" x="990.0" y="285.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow5" id="BPMNEdge_sequenceFlow5">
+        <omgdi:waypoint x="665.0" y="440.0"/>
+        <omgdi:waypoint x="665.0" y="525.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceCloseOut" id="BPMNEdge_sequenceCloseOut">
+        <omgdi:waypoint x="845.0" y="210.0"/>
+        <omgdi:waypoint x="845.0" y="155.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow6" id="BPMNEdge_sequenceFlow6">
+        <omgdi:waypoint x="665.0" y="360.0"/>
+        <omgdi:waypoint x="665.0" y="250.0"/>
+        <omgdi:waypoint x="795.0" y="250.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_4" id="BPMNEdge_sequenceFlow_4">
+        <omgdi:waypoint x="515.0" y="335.0"/>
+        <omgdi:waypoint x="515.0" y="360.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_5" id="BPMNEdge_sequenceFlow_5">
+        <omgdi:waypoint x="565.0" y="400.0"/>
+        <omgdi:waypoint x="615.0" y="400.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow1" id="BPMNEdge_sequenceFlow1">
+        <omgdi:waypoint x="275.0" y="178.0"/>
+        <omgdi:waypoint x="320.0" y="178.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceShareWithShips" id="BPMNEdge_sequenceShareWithShips">
+        <omgdi:waypoint x="845.0" y="330.0"/>
+        <omgdi:waypoint x="845.0" y="290.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_3" id="BPMNEdge_sequenceFlow_3">
+        <omgdi:waypoint x="515.0" y="218.0"/>
+        <omgdi:waypoint x="515.0" y="255.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow0" id="BPMNEdge_sequenceFlow0">
+        <omgdi:waypoint x="130.0" y="178.0"/>
+        <omgdi:waypoint x="175.0" y="178.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceSendNotification" id="BPMNEdge_sequenceSendNotification">
+        <omgdi:waypoint x="895.0" y="115.0"/>
+        <omgdi:waypoint x="1139.0" y="115.0"/>
+        <omgdi:waypoint x="1139.0" y="236.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceShareViaEmail" id="BPMNEdge_sequenceShareViaEmail">
+        <omgdi:waypoint x="1090.0" y="287.1212121212121"/>
+        <omgdi:waypoint x="1127.8407099258438" y="258.45400763193646"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceExportToExcel" id="BPMNEdge_sequenceExportToExcel">
+        <omgdi:waypoint x="1090.0" y="214.36363636363637"/>
+        <omgdi:waypoint x="1127.6776948197553" y="241.76559623254934"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_2" id="BPMNEdge_sequenceFlow_2">
+        <omgdi:waypoint x="420.0" y="178.0"/>
+        <omgdi:waypoint x="465.0" y="178.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceCloseOut2" id="BPMNEdge_sequenceCloseOut2">
+        <omgdi:waypoint x="895.0" y="250.0"/>
+        <omgdi:waypoint x="1040.0" y="250.0"/>
+        <omgdi:waypoint x="1040.0" y="218.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-590FA069-9507-4033-8490-450322DDD45F" id="BPMNEdge_sid-590FA069-9507-4033-8490-450322DDD45F">
+        <omgdi:waypoint x="715.0" y="565.0"/>
+        <omgdi:waypoint x="845.0" y="565.0"/>
+        <omgdi:waypoint x="845.0" y="410.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceCloseout3" id="BPMNEdge_sequenceCloseout3">
+        <omgdi:waypoint x="895.0" y="250.0"/>
+        <omgdi:waypoint x="1040.0" y="250.0"/>
+        <omgdi:waypoint x="1040.0" y="285.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

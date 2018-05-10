@@ -1,0 +1,113 @@
+			
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="FLT" callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div  allowed="read" mdlcode="FLT">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li>
+						<a href="#/Dashbord">Dashboard</a>
+					</li>
+					<li>
+						<a href="#/Master">Config Master</a>
+					</li>
+					<li >
+						<b>Fleet Master</b>
+					</li>
+					<!-- <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span> -->
+				</ul>
+				<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">Fleet Master</div>
+         </div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top: 15px;">
+					<div class="form_table">
+						<div class="row">
+							<div class="col-xs-12">
+								<div ng-controller="FleetMasterCtrl" style="margin-top: 20px">
+									
+										<div class="navbar-drawer  hidden-lg-down">
+											<form class="form-inline navbar-form" style="margin-top:-18px;">
+												<label style="margin-left: -15px">
+													<strong>Items per page</strong></label>
+													
+												<select style="margin-left: 10px; width: 60px" class="form-control" ng-model="pageSize" ng-selected="pageSize"
+                                  ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+														
+													</form>
+												</div>
+										
+											
+												<table class="table table-hover table-striped table-bordered"
+									cellspacing="0">
+													<thead>
+														<tr>
+															<th style="text-align: left;">S.No</th>
+															<th style="text-align: left;">Fleet Code 
+																<a href="" ng-click="sort('fleetcode')" class="sortDir" ng-class="{ active: isSorted('fleetcode') }">&#x25B2;</a>
+																<a href="" ng-click="sort('-fleetcode')" class="sortDir" ng-class="{ active: isSorted('-fleetcode' ) }">&#x25BC;</a>
+															</th>
+															<th style="text-align: left;">Fleet Name 
+																<a href="" ng-click="sort('fleetname')" class="sortDir" ng-class="{ active: isSorted('fleetname') }">&#x25B2;</a>
+																<a href="" ng-click="sort('-fleetname')" class="sortDir" ng-class="{ active: isSorted('-fleetname' ) }">&#x25BC;</a>
+															</th>
+															<th style="text-align: center;">Status<a href="" ng-click="sort('statusDesc')" class="sortDir"	ng-class="{ active: isSorted('statusDesc') }">&#x25B2;</a><a href="" ng-click="sort('-statusDesc')" class="sortDir" ng-class="{ active: isSorted('-statusDesc' ) }">&#x25BC;</a> </th>
+															<!-- <th style="text-align: center;">Action</th>  -->
+														</tr>
+														<tr>
+															<th></th>
+															<th>												
+																<input  placeholder="Search" class="form-control" ng-model="search['fleetcode']">
+																</th>																	
+																<th>
+																	<input  placeholder="Search" class="form-control" ng-model="search['fleetname']">
+																	</th>																	
+																		<th><input placeholder="Search" class="form-control" ng-model="search['statusDesc']"></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr style="text-align: center;" ng-style="set_color(x)"
+																dir-paginate="x in fleets1 = (fleets | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)" current-page="currentPage">
+											<!-- dir-paginate="x in fleets1 | orderBy:predicate:reverse  | filter:search | itemsPerPage:pageSize| filter:{'fleetcode':searchfleetCode} 
+													| filter:{'fleetname':searchfleetName} | filter:{'statusDesc':searchStatus}:startsWith" current-page="currentPage"> -->
+																	<td style="text-align:left">{{($index+1) + (currentPage -1) * pageSize }}</td>
+																	<td style="text-align: left;">{{x.fleetcode}}</td>
+																	<td style="text-align: left;">{{x.fleetname}}</td>
+																	<td style="text-align: center;"> 
+																		<span class="label" ng-class="{'label-success': x.statusDesc == 'Active','label-danger': x.statusDesc == 'Inactive'}">{{x.statusDesc}}</span>
+																	</td>
+																	<td style="display: none">{{ x.cruser }}</td>
+																	<td style="display: none">{{ x.id }}</td>
+																	<td style="display: none">{{ x.crdate }}</td>
+																	<td style="display: none">{{ x.upduser }}</td>
+																	<td style="display: none">{{ x.upddate }}</td>
+																	<!-- <td><span ng-if="x.active_status=='A'"><a class="btn btn-info btn-sm" ng-model="fleetdisable"  ng-click="fleetMasterEdit(x)"><i style="color:white !important" class="fa fa-edit"></i></a></span><span ng-if="x.active_status=='A'"><a class="btn btn-danger btn-sm" ng-model="fleetdisable"  ng-click="removeFleet(x)"><i style="color:white !important" class="fa fa-trash-o"></i></a></span></td> -->
+																</tr>
+															</tbody>
+														</table>
+														<div class="pull-right">
+															<dir-pagination-controls max-size="5" direction-links="true"
+										boundary-links="true"></dir-pagination-controls>
+														</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+				<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+				<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Missed something!" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+				<div kendo-dialog="dialog" k-title="'Alert Message!'" k-on-open="dialogVisible = true"
+            k-on-close="dialogVisible = false" k-width="300" k-height="150"
+            k-actions="actions" k-modal="true" >
+					<img src="img/warning -dialog.png">
+						<p ng-repeat="errors in dataerror">{{errors[0]}}</p>
+					</div>

@@ -1,0 +1,105 @@
+<div class="main" id="main" ng-hide="hidebody">
+	
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="MQS"
+    callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+  <div allowed="read" mdlcode="MQS">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+			 <ul class="breadcrumb">
+		<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+		<li><a href="#/communication">Communication</a></li>
+		<li><a href="#/activemq">Data Sent</a></li>
+		<li><b>Detail Data Sent</b></li>
+	</ul>
+
+				<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">Detail Data Sent</div>
+         </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top: -19px;">
+					<div kendo-dialog="layoutdialog" k-title="'Choose Your Layout'"
+						k-on-open="dialogVisible = true"
+						k-on-close="dialogVisible = false" k-width="300"
+						k-actions="layoutactions" k-modal="true">
+						<div ng-repeat="names in fieldNames" style="text-align: left">
+							<label> <input type="checkbox" ng-model="names.checked">
+								{{ names.title }}
+							</label>
+						</div>
+					</div>
+					<div class="form_table">
+						<div class="navbar-drawer hidden-lg-down">
+							<form class="form-inline navbar-form ">
+								<div class="col-xs-12" style="margin-bottom:10px;">
+									<label class="pull-left" style="margin-left:-28px;"><strong>Items per
+											page</strong></label>
+											
+											<select style="margin-left: 10px; width: 60px" class="form-control" ng-model="pageSize" ng-selected="pageSize"
+                                  ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>  
+                        
+                        <a
+										class="btn btn-default btn-sm pull-right"
+										ng-click="openLayoutDialog()" style="margin-right:-30px;"> <i class="fa fa-cogs"
+										aria-hidden="true"></i></a>
+								</div>
+							</form>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="table-responsive">
+									<table class="table table-hover table-striped table-bordered"
+										cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th ng-repeat="column in ordered_columns">{{
+													column.title }} <a href="" ng-click="sort(column.key)"
+													class="sortDir" ng-class="{ active: isSorted(column.key) }">&#x25B2;</a>
+													<a href="" ng-click="sort('-'+column.key)" class="sortDir"
+													ng-class="{ active: isSorted('-'+column.key) }">&#x25BC;</a>
+												</th>
+											</tr>
+											<tr>
+												<th ng-repeat="column in ordered_columns" id="search-cell">
+													<input
+													ng-if="column.key!='inspectiondate' && column.key!='txnStatus'"
+													class="form-control" placeholder="Search"
+													ng-model="search[column.key]"
+													style="width: 100%; font-size: .9em" />
+												</th>
+											<tr>
+										</thead>
+										<tbody>
+											<tr
+												dir-paginate="data in activeMQMasterData | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize">
+												<td ng-repeat="column in ordered_columns"><span
+													ng-if="column.key!='startTime' && column.key!='endTime' && column.key!='transferStatus'">
+														{{ data[column.key] }} </span> <span
+													ng-if="column.key=='startTime' || column.key=='endTime'">
+														{{ data[column.key] | date: "MMM d, y HH:mm:ss"}} </span> <span
+													ng-if="column.key=='transferStatus'"> <span
+														ng-if="data.transferStatus == 'Y'" class="label approve-status">Synced</span>
+														<span ng-if="data.transferStatus == 'I'"
+														class="label label-warning">Syncing</span> <span
+														ng-if="data.transferStatus == 'N'" class="label review-status">Yet
+															to Sync</span>
+												</span></td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="pull-right">
+									 <dir-pagination-controls max-size="10" direction-links="true"
+										boundary-links="true"></dir-pagination-controls>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

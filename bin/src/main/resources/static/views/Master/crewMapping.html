@@ -1,0 +1,562 @@
+<style>
+.panel {
+	margin-bottom: 20px;
+	background-color: #fff;
+	/* border: 1px solid transparent; */
+	border-radius: 4px;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+</style>
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="CRW"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="CRW">
+		<div class="sticky_header" style="height: 94px">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Master">Config Master</a></li>
+					<li><b>Crew Mapping</b></li>
+					<!--                <span class="pull-right"><img src="Sidebar/assets/faces/Shore.svg"/>You are in <strong>SVM Shore</strong></span> -->
+				</ul>
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">Crew Mapping</div>
+				</div>
+			</div>
+		</div>
+		<!--------------------------------------------------------------->
+		<div class="row">
+			<div class="col-xs-12">
+				<toaster-container
+					toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+				<div class="form_table_wrapper" style="margin-top: -19px;">
+					<div class="form_table">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group row">
+									<label class="col-sm-2 form-control-label">Vessel Name</label>
+									<div class="col-sm-3">
+										<select class="form-control" ng-model="vesselCode">
+											<option></option>
+											<option value="{{vesselName[0]}}"
+												ng-repeat="vesselName in vesselNameList">
+												{{vesselName[1]}}</option>
+										</select>
+										<div class="text-error">{{VesselCodeError}}</div>
+										
+									</div>
+									<div class="col-sm-3">
+										<a
+											type="button" allowed="read" mdlcode="CRW"
+											ng-click="btnShowActionPerformed()" class="btn-custom"> <img
+											src="Sidebar/css/button/show.svg" /> <img
+											src="Sidebar/css/button/show_h.svg" /> <a type="button"
+											class="btn-custom" allowed="read"
+											ng-click="exportexcel()" mdlcode="CRW"><img
+												src="Sidebar/css/button/export_ex.svg" style="margin-left:10px;"/> <img
+												src="Sidebar/css/button/export_ex_h.svg" style="margin-left:10px;"/></a>
+										</a>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="tab-content">
+							<div ng-show="ReportTab">
+								<div class="row m-b-20">
+									<div class="col-xs-12">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Vessel Name</th>
+													<th>Vessel Code</th>
+													<th>Present Count</th>
+													<th style="text-align:center;">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>{{vesselName}}</td>
+													<td>{{vesselCodeCrew}}</td>
+													<td>{{crewCount}}</td>
+													<td style="text-align: center;"><span class="label label-success">{{crewStatusList}}</span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="form-group row ">
+											<div class="col-sm-12">
+												<div class="section_header_top"
+													style="height: 3px; left: 15px !important;"
+													id="showfields2"></div>
+												<div ng-if="saveFlag == 'Save'"  class="section_header col-lg-12" id="showfields2">Crew List</div>
+										   </div>
+											</div>
+								<div class="navbar-drawer  hidden-lg-down">
+									<form class="form-inline navbar-form ">
+										<label style="margin-left: -12px"><strong>Items
+												per page</strong></label>
+												<select class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit" style="margin-left: 10px; width: 60px">{{pageSize}}</select>
+											
+									</form>
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0" width="100%">
+											<thead>
+												<tr>
+													<th>S.No</th>
+													<th>Name <a
+														ng-click="sort('empname')" class="sortDir"
+														ng-class="{ active: isSorted('empname') }">&#x25B2;</a><a
+														ng-click="sort('-empname')" class="sortDir"
+														ng-class="{ active: isSorted('-empname' ) }">&#x25BC;</a>
+													</th>
+													<th>User Code <a
+														ng-click="sort('usercode')" class="sortDir"
+														ng-class="{ active: isSorted('usercode') }">&#x25B2;</a><a
+														ng-click="sort('-usercode')" class="sortDir"
+														ng-class="{ active: isSorted('-usercode' ) }">&#x25BC;</a>
+													</th>
+													<th>Rank <a
+														ng-click="sort('rankname')" class="sortDir"
+														ng-class="{ active: isSorted('rankname') }">&#x25B2;</a><a
+														ng-click="sort('-rankname')" class="sortDir"
+														ng-class="{ active: isSorted('-rankname' ) }">&#x25BC;</a>
+													</th>
+													<th>Vessel Name <a
+														ng-click="sort('vesselname')" class="sortDir"
+														ng-class="{ active: isSorted('vesselname') }">&#x25B2;</a><a
+														ng-click="sort('-vesselname')" class="sortDir"
+														ng-class="{ active: isSorted('-vesselname' ) }">&#x25BC;</a>
+													</th>
+													<th>Department <a
+														ng-click="sort('deptname')" class="sortDir"
+														ng-class="{ active: isSorted('deptname') }">&#x25B2;</a><a
+														ng-click="sort('-deptname')" class="sortDir"
+														ng-class="{ active: isSorted('-deptname' ) }">&#x25BC;</a>
+													</th>
+													<th>Nationality <a
+														ng-click="sort('countryname')" class="sortDir"
+														ng-class="{ active: isSorted('countryname') }">&#x25B2;</a><a
+														ng-click="sort('-countryname')" class="sortDir"
+														ng-class="{ active: isSorted('-countryname' ) }">&#x25BC;</a>
+													</th>
+													<th style="text-align: center">Status</th>
+													<th style="text-align: center"width: 10%>Action</th>
+												</tr>
+												<tr>
+													<th></th>
+													<th><input placeholder="Search" class="form-control"
+														ng-model="search['empname']"></th>
+													<th><input placeholder="Search" class="form-control"
+														ng-model="search['usercode']"></th>
+													<th><input placeholder="Search" class="form-control"
+														ng-model="search['rankname']"></th>
+													<th><input placeholder="Search " class="form-control"
+														ng-model="search['vesselname']"></th>
+													<th><input placeholder="Search" class="form-control"
+														ng-model="search['deptname']"></th>
+													<th><input placeholder="Search" class="form-control"
+														ng-model="search['countryname']"></th>
+													<th></th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr style="text-align: center"
+												dir-paginate="crewName in crewNameList1 = (crewNameList | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)" >
+<!-- 													dir-paginate="crewName in crewNameList |  orderBy:predicate:reverse   -->
+<!-- 													| filter:search | itemsPerPage:pageSize |  filter:{'empname':searchName}  -->
+<!--                                        | filter:{'rankname':searchRank} | filter:{'vesselname' :searchVesselName} | filter:{'deptname':searchDepartment}  -->
+<!--                                        | filter:{'countryname':searchNationality}  |  filter:{'usercode':searchUser}"> -->
+													<td style="text-align: left;">{{$index+1}}</td>
+													<td style="text-align: left;">{{crewName.empname}}</td>
+													<td>{{crewName.usercode}}</td>
+													<td ng-hide="true">{{crewName.crewcode}}</td>
+													<td ng-hide="true">{{crewName.rankcode}}</td>
+													<td ng-hide="true">{{crewName.rolecode}}</td>
+													<td ng-hide="true">{{crewName.deptcode}}</td>
+													<td ng-hide="true">{{crewName.portofjoin}}</td>
+													<td ng-hide="true">{{crewName.usercode}}</td>
+													<td ng-hide="true">{{crewName.cruser}}</td>
+													<td ng-hide="true">{{crewName.crdate}}</td>
+													<td style="text-align: left;">{{crewName.rankname}}</td>
+													<td style="text-align: left;">{{crewName.vesselname}}</td>
+													<td style="text-align: left;">{{crewName.deptname}}</td>
+													<td style="text-align: left;">{{crewName.countryname}}</td>
+													<td ng-if="crewName.active_status == 'A'"><span
+														class="label label-success">Active</span></td>
+													<td ng-if="crewName.active_status == 'V'"><span
+														class="label label-danger">Inactive</span></td>
+													<!--                       <td><span class="label label-success" ng-if="crewStatus = 'A' ")>{{crewName.active_status}}</span></td> -->
+													<!--                       <td>{{crewName.active_status}}</td> -->
+													<td><span> <a class="btn btn-sm btn-info"
+															href="" allowed="read" mdlcode="CRW"
+															ng-click="btnCrewMasterViewActionPerformed(crewName.usercode)"
+															style="color: white !important;"><i class="fa fa-eye"></i></a>
+													</span> </td>
+													<!--                                        <td ng-if="crewName.active_status == 'V'"></td> -->
+												</tr>
+											</tbody>
+										</table>
+										<div style="margin-top: -20px;" class="pull-right">
+											<dir-pagination-controls max-size="10" direction-links="true"
+												boundary-links="true"></dir-pagination-controls>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div ng-show="AddCrewTab">
+								<div class="panel1 panel-default">
+									<div class="panel-body">
+										<div class="form-group row" style="margin-bottom:0px;">
+											<div class="col-sm-12">
+												<div class="section_header_top"
+													style="height: 3px; left: 15px !important;"
+													id="showfields2"></div>
+												<div class="section_header col-lg-12" id="showfields2">Crew Member</div>
+												<a class="pull-right" style="margin-top: 20px;border-bottom: 1px solid #23527c;"ng-if="saveFlag == 'Update'" target="_blank" href="#/shipuserlistNewView/{{userCode}}"> View Primary Detail </a>	
+											</div>
+											<div class="col-sm-3 form-control-label">User</div>
+											<div class="col-sm-3">
+												<input type="text" class="col-sm-3 form-control" ng-disabled="allFields"
+													ng-blur="clearUsername()" style="width: 20%; "
+													placeholder="" ng-model="userCode" id="userCode"> <label
+													ng-show="UserCodeRequiredError" style="color: red">
+													This field is required. </label> <input type="text"
+													class="col-sm-4 form-control" placeholder=""
+													readonly="true" style="width: 55%;margin-left:10px;" ng-model="userName"
+													id="userName">
+												<button type="button" class="btn btn-primary fa fa-search"
+													style="position: absolute; margin-left:10px; margin-top: 2px;"
+													ng-click="btnUserCodeActionPerformed()"></button>
+												<modal class="" visible="showUserModal"
+													on-sown="modalOneShown()" on-hide="modalOneHide()">
+												<modal-header class="tab_head" title="Employee Selection"></modal-header>
+												<modal-body title1="Employee Code" title2="Employee Name"
+													data="userCodeList" searchdesc1="Search User"
+													searchdesc2="Employee Name" searchdesc3="Search on both"
+													keymodelid="m1" valuemodelid="m2"
+													callback-fn="setValue(arg1,arg2)" hide-fn="hide()">
+												</modal-body> </modal>
+												<div ng-show="UserCodeRequiredError">
+													This field is required. </div>
+											</div>
+											<div class="form-group row">
+												<div class="col-sm-3 form-control-label">Port Of
+													Join</div>
+												<div class="col-sm-3"">
+													<input type="text" class="col-sm-3 form-control" ng-disabled="allFields"
+														style="width: 20%;" placeholder="" ng-model="portCode"
+														ng-blur="clearPortname()" id="portCode"> <input
+														type="text" class="col-sm-4 form-control" placeholder=""
+														readonly="true" style="width: 55%; margin-left:10px;" ng-model="portName"
+														id="portName">
+													<button type="button" class="btn btn-primary fa fa-search"
+														style="position: absolute; margin-left:10px; margin-top: 2px;"
+														ng-click="btnPortCodeActionPerformed()"></button>
+													<modal class="" visible="showPortModal"
+														on-sown="modalOneShown()" on-hide="modalOneHide()">
+													<modal-header class="tab_head" title="Port Selection"></modal-header>
+													<modal-body title1="Port Code" title2="Port Name"
+														data="portnameList" searchdesc1="Search Port"
+														searchdesc2="Port Name" searchdesc3="Search on both"
+														keymodelid="m1" valuemodelid="m2"
+														callback-fn="setValue1(arg1,arg2)" hide-fn="hide1()">
+													</modal-body> </modal>
+												</div>
+												<div >{{ProtCodeSelectError}}</div>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-3 form-control-label">Rank</div>
+											<div class="col-sm-3">
+												<input type="text" class="col-sm-3 form-control"
+													ng-model="rankName" disabled>
+											</div>
+											<div class="col-sm-3 form-control-label">Emp Name</div>
+											<div class="col-sm-3">
+												<input type="text" class="col-sm-3 form-control"
+													ng-model="empName" disabled>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-3 form-control-label">Emp Code</div>
+											<div class="col-sm-3">
+												<input type="text" class="col-sm-3 form-control"
+													ng-model="empCode" disabled>
+											</div>
+											<div class="col-sm-3 form-control-label">Nationality</div>
+											<div class="col-sm-3">
+												<input type="text" class="col-sm-3 form-control"
+													ng-model="nationality" disabled>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-3 form-control-label">Department</div>
+											<div class="col-sm-3">
+												<input type="text" class="col-sm-3 form-control"
+													ng-model="department" disabled>
+											</div>
+											<div class="col-sm-3 form-control-label">Gender</div>
+											<div class="col-sm-3">
+												<input type="text" class="col-sm-3 form-control"
+													ng-model="gender" disabled>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-3 form-control-label">Passport
+												Number</div>
+											<div class="col-sm-3">
+												<input type="text" class="col-sm-3 form-control"
+													ng-model="passportNumber" disabled>
+											</div>
+											<div class="col-sm-3 form-control-label">Passport
+												Expiry</div>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="passportExpiry" disabled>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-3 form-control-label">Medical
+												Certificate Issued</div>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="medicalIssued" ng-disabled="allFields"
+													ng-blur="validateDateOnly('medicalIssued', 'medicalIssued_error')">
+												<div class="text-error">{{medicalIssued_error}}</div>
+											</div>
+											<div class="col-sm-3 form-control-label">Medical
+												Certificate Expiry</div>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="medicalExpiry" ng-disabled="allFields"
+													ng-blur="validateDateOnly('medicalExpiry', 'medicalExpiry_error')">
+												<div class="text-error">{{medicalExpiry_error}}</div>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-3 form-control-label">Flag
+												Licence Number</div>
+											<div class="col-sm-3">
+												<input type="text" maxlength='30' ng-disabled="allFields"
+													class="col-sm-3 form-control" ng-model="flagLicenceNo">
+											</div>
+											<div class="col-sm-3 form-control-label">Flag
+												Licence Expiry</div>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="flagLicenceExpiry" ng-disabled="allFields"
+													ng-blur="validateDateOnly('flagLicenceExpiry', 'flagLicenceExpiry_error')">
+												<div class="text-error">{{flagLicenceExpiry_error}}</div>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-3 form-control-label">US Visa
+												Expiry</div>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="usVisaExpiry" ng-disabled="allFields"
+													ng-blur="validateDateOnly('usVisaExpiry', 'usVisaExpiry_error')">
+												<div class="text-error">{{usVisaExpiry_error}}</div>
+											</div>
+											<label class="col-sm-3 form-control-label">Flag D.C.E
+												Expiry</label>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="flagDCEExpiry" ng-disabled="allFields"
+													ng-blur="validateDateOnly('flagDCEExpiry', 'flagDCEExpiry_error')">
+												<div class="text-error">{{flagDCEExpiry_error}}</div>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="col-sm-3 form-control-label">Flag
+												Seaman Book Number</label>
+											<div class="col-sm-3">
+												<input type="text" maxlength='30' ng-disabled="allFields"
+													class="col-sm-4 form-control" ng-model="flagSeamanBookNo">
+											</div>
+											<label class="col-sm-3 form-control-label">Flag
+												Seaman Book Expiry</label>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="flagSeamanBookExpiry" ng-disabled="allFields"
+													ng-blur="validateDateOnly('flagSeamanBookExpiry', 'flagSeamanBookExpiry_error')">
+												<div class="text-error">{{flagSeamanBookExpiry_error}}</div>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="col-sm-3 form-control-label">Flag GMDSS
+												GOC Number</label>
+											<div class="col-sm-3">
+												<input type="text" maxlength='30' ng-disabled="allFields"
+													class="col-sm-4 form-control" ng-model="flagGMDSSGOCno">
+											</div>
+											<label class="col-sm-3 form-control-label">Flag GMDSS
+												GOC Expiry</label>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="flagGMDSSGOCExpiry" ng-disabled="allFields"
+													ng-blur="validateDateOnly('flagGMDSSGOCExpiry', 'flagGMDSSGOCExpiry_error')">
+												<div class="text-error">{{flagGMDSSGOCExpiry_error}}</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label">Final Term
+												Appraisal Completed</label>
+											<div class="col-sm-3">
+												<label class="c-input c-checkbox lines"> <input
+													type="checkbox" ng-model="finalTermAppComp"
+													id="envproblemid" ng-disabled="allFields"
+													onclick="showHideFields('envproblemid','envproblemtxtid')"><span
+													class="c-indicator c-indicator-success"></span> <span
+													class="c-input-text"> </span>
+												</label>
+											</div>
+											<label class="col-sm-3 form-control-label">Half Term
+												Appraisal Completed</label>
+											<div class="col-sm-3">
+												<label class="c-input c-checkbox lines"> <input
+													type="checkbox" id="envproblemid"
+													ng-model="halfTermAppComp" ng-disabled="allFields"
+													onclick="showHideFields('envproblemid','envproblemtxtid')"><span
+													class="c-indicator c-indicator-success"></span> <span
+													class="c-input-text"> </span>
+												</label>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 form-control-label">Final Term
+												Appraisal</label>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="finalTermAppraisal" ng-disabled="allFields"
+													ng-blur="validateDateOnly('finalTermAppraisal', 'finalTermAppraisal_error')">
+												<div class="text-error">{{finalTermAppraisal_error}}</div>
+											</div>
+											<label class="col-sm-3 form-control-label">Half Term
+												Appraisal</label>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="halfTermAppraisal" ng-disabled="allFields"
+													ng-blur="validateDateOnly('halfTermAppraisal', 'halfTermAppraisal_error')">
+												<div class="text-error">{{halfTermAppraisal_error}}</div>
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="col-sm-3 form-control-label">Employment
+												Contract Expiry</label>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-model="empContractExpiry" ng-disabled="allFields"
+													ng-blur="validateDateOnly('empContractExpiry', 'empContractExpiry_error')">
+												<div class="text-error">{{empContractExpiry_error}}</div>
+											</div>
+											<label class="col-sm-3 form-control-label">Status</label>
+											<div class="col-sm-3">
+											<input type="text" maxlength="30"
+											 class="col-sm-4 form-control ng-pristine ng-valid ng-valid-maxlength ng-touched" 
+											 ng-model="statusofcrew"  ng-disabled='true'>
+<!-- 												<input ng-model="statusofcrew" ng-disabled='true'/> -->
+<!-- 													<option>Active</option> -->
+<!-- 													<option>In Active</option> -->
+<!-- 												</select> -->
+											</div>
+										</div>
+										<div class="form-group row " ng-show="statusofcrew == 'In Active'">
+											<label class="col-sm-3 form-control-label">Sign off Date</label>
+											<div class="col-sm-3">
+												<input kendo-date-picker ng-disabled="true" ng-model="signoffdate1">
+											</div>
+										</div>
+										<div class="form-group row ">
+											<label class="col-sm-3 form-control-label">Remarks</label>
+											<div class="col-sm-9">
+												<textarea class="form-control"
+													style="height: 66px !important;" ng-model="crewRemarks"
+													id="exampleTextarea" rows="2" cols="5"></textarea>
+												
+												
+												
+												<label style="float:right; font-size:.8em; color: #577A3A;"> Characters left:{{200-crewRemarks.length}}</label>
+											</div>
+										</div>
+										<div class="form-group row col-sm-12 ">
+											<label class="col-sm-12 form-control-label"
+												style="color: red"><b>{{ErrorFlag}}</b></label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" id="crewListDelete" tabindex="-1"
+						role="dialog" aria-labelledby="large-modalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog modal-sm" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title">Crew List</h4>
+								</div>
+								<div class="form-group row" style="padding: 10px;">
+									<div class="col-xs-12">
+										<label class="form-control-label"> Sign off Date</label>
+										<div class="text-error">{{signoffdate_error}}</div>
+										<input kendo-date-picker ng-model="signoffdate">
+									</div>
+								</div>
+								<div class="form-group row" style="margin-right: 5px; margin-top: -15px;">
+									<div class="pull-right">
+										<a type="button"
+											ng-click="btnRemoveActionPerformedConfirmed()"
+											class="btn-custom pull-right"> <img
+											src="Sidebar/css/button/delete.svg" /> <img
+											src="Sidebar/css/button/delete_h.svg" />
+										</a> <a type="button" class="btn-custom pull-right"
+											data-dismiss="modal"> <img
+											src="Sidebar/css/button/close.svg" /> <img
+											src="Sidebar/css/button/close_h.svg" /></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+						title="Crew Mapping" name="systemvalidationdialog"
+						custom-options="actions" error-type="warning"
+						error-message="dataerror" error-status="{{geterrorstatuscode}}"
+						detail-error-message="{{detailerrormessages}}"
+						showexception="showexception" error-details="errordetails"
+						error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+   function firstnext() {
+    $('#firsttab').addClass("active");
+    $('#secondtab').removeClass("active");
+    $('#nav-pills-squared-1').addClass("active");
+    $('#nav-pills-squared-2').removeClass("active");
+   }
+   
+   function secondnext() {
+    $('#secondtab').addClass("active");
+    $('#firsttab').removeClass("active");
+    $('#nav-pills-squared-2').addClass("active");
+    $('#nav-pills-squared-1').removeClass("active");
+    document.getElementById('#nav-pills-squared-2').attr('aria-expanded',
+        'true');
+   }
+</script>

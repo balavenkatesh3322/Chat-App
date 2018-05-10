@@ -1,0 +1,158 @@
+<div class="main" id="main">
+
+	<div class="sticky_header">
+		<div class="tab_head_sticky">
+			<ul class="breadcrumb">
+				<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+				<li><a href="#/Security">Security</a></li>
+				<li><a href="#/ShoreAccessManagement">Shore Role and Access
+						Management</a></li>
+				<li><b>Shore Access Control</b></li>
+				<!-- <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span> -->
+			</ul>
+			<div class="tab_head">
+				<div class="pull-left" style="font-size: 21px;">Shore Role And
+					Access Management</div>
+				<div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+					<span style="display: inline-block; padding-right: 20px;">{{employee}}</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-sm-12">
+
+			<div class="form_table_wrapper">
+				<div class="form_table">
+
+
+					<!-- 	<div ng-if="showAccessId" value="accessID" ng-model="accessID" class="access-id">Access Id : {{accessID}} </div>  -->
+					<div ng-repeat="parentNode in parentToModules"
+						style="padding: 10px; font-size: 12px;">
+
+						<table class="table"
+							style="margin-bottom: 0; background-color: #ededed; color:white;">
+							<tbody>
+								<tr>
+									<td
+										style="width: 15em; padding: 0em; background-color: #2d3e50; font-size: 2em; vertical-align: middle; padding-left: 10px"
+										value="{{parentNode[0]}}">{{parentNode[1]}}</td>
+									<td style="vertical-align: middle; background-color: #2d3e50;" class="onoffButton"><label
+										class="switch"><input disabled
+											ng-checked="permit.{{parentNode[0]}}[4]"
+											ng-click="showHide(parentNode[0])" type="checkbox">
+											<div class="slider round"></div></label></td>
+									<td style="vertical-align: middle; background-color: #2d3e50;" class="{{parentNode[0]}}">
+										<div style="display: block" class="multiselect">
+											<div class="selectBox" onclick="showCheckboxes1()">
+												<!-- <select
+															style="font-weight: 100; margin-bottom: 1em; background: transparent; border: 0; font-size: 1.2em;">
+															<option>View, Write, Delete</option>
+														</select> -->
+												<div class="overSelect"></div>
+											</div>
+											<div style="width: 50em" id="checkboxes1">
+												<div
+													style="display: inline-block; padding-right:120px; padding-left: 20px;"
+													for="one">
+													<input ng-checked="permit.{{parentNode[0]}}[0]" disabled
+														ng-click="parentNodeChecked(parentNode[0], 'V')"
+														style="vertical-align: middle" type="checkbox" id="one" />
+													<label style="vertical-align: middle; padding-top: 10px">View</label>
+												</div>
+												<div style="display: inline-block; padding-right:120px;"
+													for="two">
+													<input ng-checked="permit.{{parentNode[0]}}[1]" disabled
+														ng-click="parentNodeChecked(parentNode[0], 'C')"
+														style="vertical-align: middle" type="checkbox" id="two" />
+													<label style="vertical-align: middle; padding-top: 10px">Write</label>
+												</div>
+												<div ng-show="false"
+													style="display: inline-block; padding-right: 18px;"
+													for="three">
+													<input ng-checked="permit.{{parentNode[0]}}[2]" disabled
+														ng-click="parentNodeChecked(parentNode[0], 'E')"
+														style="vertical-align: middle" type="checkbox" id="three" />
+													<label style="vertical-align: middle; padding-top: 10px">Edit</label>
+												</div>
+												<div style="display: inline-block; padding-right: 18px;"
+													for="four">
+													<input ng-checked="permit.{{parentNode[0]}}[3]" disabled
+														ng-click="parentNodeChecked(parentNode[0], 'D')"
+														style="vertical-align: middle" type="checkbox" id="four" />
+													<label style="vertical-align: middle; padding-top: 10px">Delete</label>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="table">
+							<tbody>
+								<tr ng-repeat="module in modulesList"
+									ng-if="module[0] == parentNode[0]">
+									<td
+										style="width: 25em; font-size: 1.2em; vertical-align: middle;"
+										value="{{module[1]}}">{{module[2]}}</td>
+									<td style="vertical-align: middle" class="onoffButton"><label
+										class="switch"><input disabled
+											ng-checked="permit.{{module[1]}}[4]"
+											ng-click="childShowHide(module[1])" type="checkbox">
+											<div class="slider round"></div></label></td>
+									<td class={{module[1]}} style="display: flex"
+										class="drop_editBtn">
+										<div style="display: block" class="multiselect">
+											<div class="selectBox" onclick="showCheckboxes1()">
+												<!-- <select
+															style="font-weight: 100; margin-bottom: 1em; background: transparent; border: 0; font-size: 1.2em;">
+															<option>View, Write, Delete</option>
+														</select> -->
+												<div class="overSelect"></div>
+											</div>
+											<div style="width:50em" id="checkboxes1">
+												<div
+													style="display: inline-block; padding-right: 120px; padding-left: 20px;"
+													for="one">
+													<input ng-checked="permit.{{module[1]}}[0]" disabled
+														ng-click="toggle(module[1], 'V')"
+														style="vertical-align: middle" type="checkbox" id="one" />
+													<label style="vertical-align: middle; padding-top: 10px">View</label>
+												</div>
+												<div style="display: inline-block; padding-right: 120px;"
+													for="two">
+													<input ng-checked="permit.{{module[1]}}[1]" disabled
+														ng-click="toggle(module[1], 'C')"
+														style="vertical-align: middle" type="checkbox" id="two" />
+													<label style="vertical-align: middle; padding-top: 10px">Write</label>
+												</div>
+												<div ng-show="false"
+													style="display: inline-block; padding-right: 18px;"
+													for="three">
+													<input ng-checked="permit.{{module[1]}}[2]" disabled
+														ng-click="toggle(module[1], 'E')"
+														style="vertical-align: middle" type="checkbox" id="three" />
+													<label style="vertical-align: middle">Edit</label>
+												</div>
+												<div style="display: inline-block; padding-right: 18px;"
+													for="four">
+													<input ng-checked="permit.{{module[1]}}[3]" disabled
+														ng-click="toggle(module[1], 'D')"
+														style="vertical-align: middle" type="checkbox" id="four" />
+													<label style="vertical-align: middle; padding-top: 10px">Delete</label>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,197 @@
+<div class="col-xs-12 main" id="main">
+		<div ng-show="haspermission" allowed="unauthorized" mdlcode="USD" callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+			<div  allowed="read" mdlcode="USD">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+			<ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+  <li><a href="#/Master">Config Master</a></li>
+  <li><b>User List</b></li>
+<!--    <span class="pull-right"><img src="Sidebar/assets/faces/Shore.svg"/>You are in <strong>SVM Shore</strong></span> -->
+</ul>
+				<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">User List</div>
+         </div>
+				
+				
+			</div>
+		</div>
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="User List" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+             
+
+		<div class="form_table_wrapper" style="margin-top: -18px;">
+			<div class="form_table">
+				<div class="row">
+				<div class="col-sm-6">
+				<div class="navbar-drawer  hidden-lg-down">
+					<form class="form-inline navbar-form ">
+						<label style="margin-left: -12px"><strong>Items
+								per page</strong></label> <select class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit" style="margin-left: 10px; width: 60px">{{pageSize}}</select>
+					</form>
+				</div>
+				</div>
+			
+					<div class="col-sm-6" style="margin-top: 0px;">
+						<div class=" pull-right">
+						<!-- 	<a class="btn btn-custom" allowed="write" mdlcode="USD" href=""><img
+								src="Sidebar/css/button/export_ex.svg" /> <img
+								src="Sidebar/css/button/export_ex_h.svg" /></a></span> <a
+								class="btn btn-custom" allowed="write" mdlcode="USD" href=""><img
+								src="Sidebar/css/button/import.svg" /> <img
+								src="Sidebar/css/button/import_h.svg" /></a></span> -->
+<!-- 							 <a -->
+<!-- 								class="btn btn-custom" allowed="write" mdlcode="USD" -->
+<!-- 								href="#/shipuserlistNew"><img -->
+<!-- 								src="Sidebar/css/button/new.svg" style="margin-right: -10px;">  -->
+<!-- 								<img src="Sidebar/css/button/new_h.svg" style="margin-right: -10px;"> </a> -->
+
+						</div>
+					</div>
+				</div>
+
+
+
+				
+
+				<div class="row">
+					<div class="col-sm-12 form_table1">
+						<table id="example-2"
+							class="table table-hover table-striped table-bordered"
+							cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>S.No</th>
+
+
+
+
+
+									<th>Vessel Code <a href=""
+										ng-click="sort('shorename')" class="sortDir"
+										ng-class="{ active: isSorted('shorename') }">&#x25B2;</a><a
+										href="" ng-click="sort('-shorename')" class="sortDir"
+										ng-class="{ active: isSorted('-shorename' ) }">&#x25BC;</a>
+									</th>
+									<th>User Code <a href=""
+										ng-click="sort('userCode')" class="sortDir"
+										ng-class="{ active: isSorted('userCode') }">&#x25B2;</a><a
+										href="" ng-click="sort('-userCode')" class="sortDir"
+										ng-class="{ active: isSorted('-userCode' ) }">&#x25BC;</a>
+									</th>
+									<th>Name <a href=""
+										ng-click="sort('empName')" class="sortDir"
+										ng-class="{ active: isSorted('empName') }">&#x25B2;</a><a
+										href="" ng-click="sort('-empName')" class="sortDir"
+										ng-class="{ active: isSorted('-empName' ) }">&#x25BC;</a>
+									</th>
+									<th>Rank <a href=""
+										ng-click="sort('rankName')" class="sortDir"
+										ng-class="{ active: isSorted('rankName') }">&#x25B2;</a><a
+										href="" ng-click="sort('-rankName')" class="sortDir"
+										ng-class="{ active: isSorted('-rankName' ) }">&#x25BC;</a>
+									</th>
+									<th>Department <a href=""
+										ng-click="sort('depName')" class="sortDir"
+										ng-class="{ active: isSorted('depName') }">&#x25B2;</a><a
+										href="" ng-click="sort('-depName')" class="sortDir"
+										ng-class="{ active: isSorted('-depName' ) }">&#x25BC;</a>
+									</th>
+									<th>Nationality <a href=""
+										ng-click="sort('countryName')" class="sortDir"
+										ng-class="{ active: isSorted('countryName') }">&#x25B2;</a><a
+										href="" ng-click="sort('-countryName')" class="sortDir"
+										ng-class="{ active: isSorted('-countryName' ) }">&#x25BC;</a>
+									</th>
+									<th style="text-align: center;">Status <a href=""
+										ng-click="sort('statusDesc')" class="sortDir"
+										ng-class="{ active: isSorted('statusDesc') }">&#x25B2;</a><a
+										href="" ng-click="sort('-statusDesc')" class="sortDir"
+										ng-class="{ active: isSorted('-statusDesc' ) }">&#x25BC;</a></th>
+									<th style="text-align: center;">Action</th>
+								</tr>
+
+								<tr>
+									<th></th>
+									<th><input placeholder="Search " style="width: 100%;"
+										class="form-control" ng-model="search['shorename']"></th>
+									<th><input placeholder="Search " style="width: 100%;"
+										class="form-control" ng-model="search['userCode']"></th>
+									<th><input placeholder="Search " style="width: 100%;"
+										class="form-control" ng-model="search['empName']"></th>
+									<th><input placeholder="Search " style="width: 100%;"
+										class="form-control" ng-model="search['rankName']"></th>
+									<th><input placeholder="Search " style="width: 100%;"
+										class="form-control" ng-model="search['depName']"></th>
+									<th><input placeholder="Search " style="width: 100%;"
+										class="form-control" ng-model="search['countryName']"></th>
+									<th><input placeholder="Search " style="width: 100%;"
+										class="form-control" ng-model="search['statusDesc']"></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr style="text-align: center;" ng-style="set_color(users)"
+									dir-paginate="users in userDetailList = (userDetailList1 | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)">
+									<!--                 <tr ng-repeat = "users in userDetailList"> -->
+									<td>{{$index+1}}</td>
+									<td>{{users.shorename}}</td>
+									<td>{{users.userCode}}</td>
+									<td ng-hide="true">{{users.controlType}}</td>
+									<td>{{users.empName}}</td>
+									<td>{{users.rankName}}</td>
+									<td>{{users.depName}}</td>
+									<td>{{users.countryName}}</td>
+									<td style="text-align: center;"><span class="label"
+                          ng-class="{'label-success': users.statusDesc == 'Active','label-danger': users.statusDesc == 'Inactive'}">{{users.statusDesc}}</span>
+									</td>
+									<td><a 
+										href="#/shipuserlistNew/{{users.userCode}}"
+										style="color: white !important;"><span allowed="read" mdlcode="USD"
+											class="btn btn-sm- btn-info"><i class="fa fa-eye" 
+												style="color: white !important;"></i></span></a></td>
+<!-- 												<td ng-if="users.activeStatus == 'V'" style="color: red"> -->
+										
+<!-- 									</td> -->
+								</tr>
+							</tbody>
+						</table>
+						<div ng-if="!userDetailList.length" class="no_data">
+										<img src="img/crying.png" style="margin: 1em 0;">
+										<p>Can't find what you are looking for.</p>
+									</div>
+					</div>
+					<div class="pull-right" style="margin-right: 16px;">
+						<dir-pagination-controls max-size="10" direction-links="true"
+							boundary-links="true"></dir-pagination-controls>
+					</div>
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" role="dialog">
+					<div class="modal-dialog">
+
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Status of Crew Member</h4>
+							</div>
+							<div class="modal-body">
+								<p>Are you sure to deactivate ?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-success"
+									data-dismiss="modal">Confirm</button>
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Cancel</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

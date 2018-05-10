@@ -1,0 +1,140 @@
+<div class="main" id="main" ng-hide="hidebody">
+
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="DRI"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="DRI">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Forms">Safety Management</a></li>
+					<li><b>Dril Reports - Lists</b></li>
+				</ul>
+				<div class="tab_head"
+					style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important; padding-top: 3px !important;">
+					<div class="pull-left" style="font-size: 21px;">Drill Reports
+						- Lists</div>
+
+
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top: 15px !important;">
+					<div class="form_table">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="navbar-drawer  hidden-lg-down"
+									style="margin-left: -15px; margin-right: -15px;">
+									<form class="form-inline navbar-form ">
+										<label><strong>Items per page</strong></label> <select
+											class="form-control" ng-model="pageSize"
+											ng-selected="pageSize"
+											ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}
+										</select> <a class="btn btn-default btn-sm pull-right"
+											data-toggle="tooltip" data-placement="bottom"
+											title="Settings" style="margin-top: 3px;"
+											ng-click="openLayoutDialog()"> <i class="fa fa-cogs"
+											aria-hidden="true"></i>
+										</a> <a type="button" a-disabled="isuploading" allowed="write" ng-show="newButton"
+											mdlcode="DRI" class="btn-custom pull-right"
+											style="margin-right: 10px" ng-click="getformvalidation()">
+											<img src="Sidebar/css/button/new.svg" /> <img
+											src="Sidebar/css/button/new_h.svg" />
+										</a> <img ng-if="isuploading" style="width: 35px;"
+											src="img/loader.gif" class="pull-right" />
+									</form>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="table-responsive">
+									<table class="table table-hover table-striped table-bordered"
+										cellspacing="0" width="100%">
+
+										<thead>
+											<tr>
+												<th ng-repeat="column in ordered_columns">{{
+													column.title }} <a href="" ng-click="sort(column.key)"
+													class="sortDir" ng-class="{ active: isSorted(column.key) }">&#x25B2;</a>
+													<a href="" ng-click="sort('-'+column.key)" class="sortDir"
+													ng-class="{ active: isSorted('-'+column.key) }">&#x25BC;</a>
+												</th>
+												<th style="text-align: center">Action</th>
+											</tr>
+											<tr>
+												<th ng-repeat="column in ordered_columns" id="search-cell">
+													<input class="form-control" placeholder="Search"
+													ng-model="search[column.key]" delete-if-empty
+													style="width: 100%; font-size: .9em" />
+												</th>
+												<th></th>
+											<tr>
+										</thead>
+
+										<tbody>
+											<tr
+												dir-paginate="data in reportdatalist = (reportdata | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)">
+												<td ng-repeat="column in ordered_columns"><span
+													ng-if="column.key!='formstatusdesc' && column.key!='drilldatetime'">
+														{{ data[column.key] }} </span> <span
+													ng-if="column.key=='drilldatetime'"> {{
+														data[column.key] | date: dateFormat}} </span> <span
+													ng-if="column.key=='formstatusdesc'"> <span
+														class="label"
+														ng-class="{ 'close-status' : data.formstatusdesc ==  'Close Out',  'reassign-status': data.formstatusdesc == 'Reassigned', 'label-warning': data.formstatusdesc == 'Inprogress', 'label-success' : data.formstatusdesc == 'Submited',  'approve-status' : data.formstatusdesc ==  'Approved', 'delete-status': data.formstatusdesc == 'Deleted'}">{{data.formstatusdesc}}</span>
+												</span></td>
+												<td><a href="#/DrillReport/{{data.drlid}}"
+													class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a></td>
+											</tr>
+										</tbody>
+									</table>
+									<div ng-if="!reportdatalist.length" class="no_data">
+										<img src="img/crying.png" style="margin: 1em 0;">
+										<p>Can't find what you are looking for.</p>
+									</div>
+								</div>
+								<div class="pull-right">
+									<dir-pagination-controls max-size="5" direction-links="true"
+										boundary-links="true"></dir-pagination-controls>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
+<div kendo-dialog="dialog" k-title="'Alert Message!'"
+	k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+	k-width="300" k-height="150" k-actions="actions" k-modal="true">
+	<img src="img/warning -dialog.png">
+	<p ng-repeat="errors in dataerror">{{errors}}</p>
+</div>
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Drill Report"
+	name="systemvalidationdialog" custom-options="actions"
+	error-type="warning" error-message="dataerror"
+	error-status="{{geterrorstatuscode}}"
+	detail-error-message="{{detailerrormessages}}"
+	showexception="showexception" error-details="errordetails"
+	error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+<div kendo-dialog="layoutdialog" k-title="'Choose Your Layout'"
+	k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+	k-width="300" k-actions="layoutactions" k-modal="true">
+	<div ng-repeat="names in fieldNames" style="text-align: left">
+		<label> <input type="checkbox" ng-model="names.checked">
+			{{ names.title }}
+		</label>
+	</div>
+</div>

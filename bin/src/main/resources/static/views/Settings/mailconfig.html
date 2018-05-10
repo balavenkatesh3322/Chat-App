@@ -1,0 +1,306 @@
+<div class="main" id="main">
+  <div ng-show="haspermission" allowed="unauthorized" mdlcode="MAC"
+    callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+  <div allowed="read" mdlcode="MAC">
+    <div class="sticky_header">
+      <div class="tab_head_sticky">
+        <ul class="breadcrumb">
+          <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+          <li><a href="#/Settings">Settings</a></li>
+          <li><b></a>Mail config</b></li>
+        </ul>
+        <div class="tab_head"
+          style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important; padding-top: 3px !important;">
+          <div class="pull-left" style="font-size: 21px;">MAIL CONFIG
+            </div>
+          
+        </div>
+        <h4 class="tab_head">MAIL CONFIG</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form_table_wrapper" style="margin-top: -39px;">
+          <div class="form_table">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group row">
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="col-sm-5">
+                      <label class="form-control-label">Host <span
+                        class="mandatory" style="color: red">*</span>
+                      </label>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" ng-model="mailhost"
+                        ng-focus="hideError('mailhost')" > <label
+                        class="col-sm-12 text-error" style="color: red">{{mailhost_error}}</label>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="col-sm-5">
+                      <label class="form-control-label">Port <span
+                        class="mandatory" style="color: red">*</span>
+                      </label>
+                    </div>
+                    <div class="col-sm-6">
+                      <input valid-positive-number ng-model="mailport" 
+                        ng-focus="hideError('mailport')" class="form-control">
+                      <label class="col-sm-12 text-error" style="color: red">{{mailport_error}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="col-sm-5">
+                      <label class="form-control-label">Protocol <span
+                        class="mandatory" style="color: red">*</span>
+                      </label>
+                    </div>
+                    <div class="col-sm-6" id="rad">
+                    
+                     <input name="protocol" value="smtp" type="radio" 
+                        ng-model="protocol" disabled>
+                        
+                      <span class="c-input-text">SMTP</span>
+                      
+                       <!-- <input name="protocol" value="pop3" type="radio" 
+                        ng-model="protocol" disabled>
+                        
+                      <span class="c-input-text">POP3</span> -->
+                      
+                      
+                        
+                      </label> <label class="col-xl-12 text-error" style="color: red">{{protocol_error}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="col-sm-5">
+                      <label class="form-control-label">Sender Id <span
+                        class="mandatory" style="color: red">*</span>
+                      </label>
+                    </div>
+                    <div class="col-sm-6">
+                      <input ng-model="senderid" ng-focus="hideError('senderid')" 
+                        class="form-control"> <label
+                        class="col-sm-12 text-error" style="color: red">{{senderid_error}}</label>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <div class="col-sm-5">
+                      <label class="form-control-label">Password <span
+                        class="mandatory" style="color: red">*</span>
+                      </label>
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="password" ng-model="mailpassword" 
+                        ng-focus="hideError('mailpassword')" class="form-control">
+                      <label class="col-sm-12 text-error" style="color: red">{{mailpassword_error}}</label>
+                    </div>
+                  </div>
+                </div>
+                
+                  <div class=" row" style="margin-top: 20px">
+                   <div class="col-xs-12 col-sm-6">
+                        <div class="wrapper-class" style="display: flex">
+                      <div class="col-xs-12 backgroundcolor">
+                        <div class="section_header_top"
+                          style="height: 3px !important"></div>
+                        <div class="section_header">
+                          IT Support 
+                        </div>
+                        
+                        <div class="form-group row">
+                          
+                            <div class="col-sm-5">
+                              <label class="form-control-label">Receiver Id 
+                              </label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input ng-model="itreceiverid" 
+                                ng-focus="hideError('itreceiverid')"
+                                class="form-control"> <label
+                                class="col-sm-12 text-error" style="color: red">{{itreceiverid_error}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                          
+                            <div class="col-sm-5">
+                              <label class="form-control-label">Subject/Prefix
+                              </label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input ng-model="itreceivemailsub" 
+                                ng-focus="hideError('itreceivemailsub')"
+                                class="form-control"> <label
+                                class="col-sm-12 text-error" style="color: red">{{itreceivemailsub_error}}</label>
+                            </div>
+                          
+                        </div>
+                        <div class="form-group row">
+                          
+                            <div class="col-sm-5">
+                              <label class="form-control-label">Cc
+                              </label>
+                            </div>
+                            <div class="col-sm-6">
+                              <select disabled kendo-multi-select style="WIDTH: 277px !important;"
+                                k-options="itreceiverccOptionAction"
+                                k-rebind="itreceiverccOptionAction"
+                                k-ng-model="itreceivercc"
+                                ng-enter="addNewItReceiverMail()"></select>
+                              <div class="text-error">{{itreceivercc_error}}</div>
+                            </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  
+                <div class="col-xs-12 col-sm-6">
+                  
+                      <div class=" wrapper-class" style="display: flex">
+                      <div class="col-xs-12 backgroundcolor">
+                        <div class="section_header_top"
+                          style="height: 3px !important"></div>
+                        <div class="section_header">
+                          Office Support
+                        </div>
+                        <div class="form-group row">
+                          
+                            <div class="col-sm-5">
+                              <label class="form-control-label">Receiver Id <span
+                                class="mandatory" style="color: red">*</span>
+                              </label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input ng-model="offreceiverid" 
+                                ng-focus="hideError('offreceiverid')"
+                                class="form-control"> <label
+                                class="col-sm-12 text-error" style="color: red">{{offreceiverid_error}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                          
+                            <div class="col-sm-5">
+                              <label class="form-control-label">Subject/Prefix
+                                <span class="mandatory" style="color: red">*</span>
+                              </label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input ng-model="offreceivemailsub" 
+                                ng-focus="hideError('offreceivemailsub')"
+                                class="form-control"> <label
+                                class="col-sm-12 text-error" style="color: red">{{offreceivemailsub_error}}</label>
+                            </div>
+                          
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-5">
+                              <label class="form-control-label">Cc <span
+                                class="mandatory" style="color: red">*</span>
+                              </label>
+                            </div>
+                            <div class="col-sm-6">
+                              <select kendo-multi-select style="WIDTH: 277px !important;"
+                                k-options="offreceiverccOptionAction" 
+                                k-rebind="offreceiverccOptionAction"
+                                k-ng-model="offreceivercc"
+                                ng-enter="addNewOffReceiverMail()"></select>
+                              <div class="text-error">{{offreceivercc_error}}</div>
+                            </div>
+                          
+                        </div>
+                      </div>
+                    </div>  
+              </div>
+            </div>
+                    <hr/>
+            <div class=" row" >
+            <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-12 col-sm-6">
+                      <label class=" form-control-label ">Forget Password Subject</label>
+
+                      <textarea class=" " rows="3 " ng-model="forgotPasswordSub"   maxlength="500"
+                        style="width: 100%;"></textarea>
+                        <div class="char-left">Characters left: {{500 - accsub.length}}</div>
+                      <div class="text-error ">{{accsub_error}}</div>
+                  
+            </div>
+              <div class="col-xs-12 col-sm-6">
+                      <label class=" form-control-label ">Forget Password Content</label>
+
+                      <textarea class=" " rows="3 " ng-model="forgotPasswordContent"  maxlength="500"
+                        style="width: 100%;"></textarea>
+                        <div class="char-left">Characters left: {{500 - accmsg.length}}</div>
+                      <div class="text-error ">{{accmsg_error}}</div>
+                 
+            </div>
+            </div>
+            </div>
+            
+             <div class=" row" >
+            <div class="col-xs-12 col-sm-12">
+            <div class="col-xs-12 col-sm-6">
+                      <label class=" form-control-label ">Forget Username Subject</label>
+
+                      <textarea class=" " rows="3 " ng-model="forgotUsernameSub"   maxlength="500"
+                        style="width: 100%;"></textarea>
+                        <div class="char-left">Characters left: {{500 - accsub.length}}</div>
+                      <div class="text-error ">{{accsub_error}}</div>
+                  
+            </div>
+              <div class="col-xs-12 col-sm-6">
+                      <label class=" form-control-label ">Forget Username Content</label>
+
+                      <textarea class=" " rows="3 " ng-model="forgotUsernameContent"  maxlength="500"
+                        style="width: 100%;"></textarea>
+                        <div class="char-left">Characters left: {{500 - accmsg.length}}</div>
+                      <div class="text-error ">{{accmsg_error}}</div>
+                 
+            </div>
+            </div>
+            </div>
+                <div ng-show="saveDis">
+                  <a type="button" ng-click="updateMailConfig()"
+                    ng-disabled="newDisabled" allowed="write" mdlcode="MAC"
+                    class="btn btn-custom pull-right "><img
+                    src="Sidebar/css/button/updated.svg " /> <img
+                    src="Sidebar/css/button/updated_h.svg " /></a>
+                </div>
+                <div ng-show="updateDis">
+                  <a type="button" ng-click="saveMailConfig()"
+                    ng-disabled="newDisabled" allowed="write" mdlcode="MAC"
+                    class="btn btn-custom pull-right "><img
+                    src="Sidebar/css/button/save.svg " /> <img
+                    src="Sidebar/css/button/save_h.svg " /></a>
+                </div>
+                
+                          <kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+  title="Mail Config" name="systemvalidationdialog"
+  custom-options="actions" error-type="warning" error-message="dataerror"
+  error-status="{{geterrorstatuscode}}"
+  detail-error-message="{{detailerrormessages}}"
+  showexception="showexception" error-details="errordetails"
+  error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+  
+                <div kendo-dialog="dialogtemp" k-title="'Mail Config'"
+                  k-on-open="dialogVisible = true"
+                  k-on-close="dialogVisible = false" k-width="300" k-height="150"
+                  k-actions="actions" k-modal="true">
+                  <img src="img/warning-dialog.png">
+                  <p ng-repeat="errors in dataerror">{{errors}}</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,190 @@
+ <meta charset="UTF-8">
+<div class="main" id="main" style="margin-top: -20px">
+	<ul class="breadcrumb">
+		<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">ホーム</a></li>
+		<li><b>セキュリティ</b></li>
+		<!--    <span class="pull-right"><img src="Sidebar/assets/faces/Shore.svg"/>You are in <strong>SVM Ship</strong></span> -->
+	</ul>
+
+	<div class="row">
+		<div class="col-xs-12" style="border-bottom: 4px solid #2c3e50;">
+			<img src="Sidebar/assets/tiles_icons/admin_menu.svg"
+				style="margin-left: -4px; margin-bottom: 6px" border="0"
+				height="30px" width="30px"> <span
+				style="font-size: 20px; color: #2c3e50;">管理者メニュー</span>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMCR === 'Y'">
+			<a href="#/ModuleCreation">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/module_config.svg" />
+					</div>
+					<div class="tiles-inner tiles1"></div>
+					<div class="tiles-name">モジュール一覧</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMID === 'Y'">
+			<a href="#/ModuleIndex">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Module_index.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">モジュールインデックス</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12"
+			style="border-bottom: 4px solid #2c3e50; margin-top: 30px">
+			<img src="Sidebar/assets/tiles_icons/ship.svg"
+				style="margin-left: -4px; margin-bottom: 6px" border="0"
+				height="30px" width="30px"> <span
+				style="font-size: 20px; color: #2c3e50;">容器
+				</span>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readDEP === 'Y'">
+			<a href="#/DepartmentMaster">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Dept_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">部門</div>
+				</div>
+			</a>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readROL === 'Y'">
+			<a href="#/RoleMaster">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Role_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">役割
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readRNK === 'Y'">
+			<a href="#/RankMaster">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Rank_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">ランク</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readRNK === 'Y'">
+			<a href="#/RankMapping">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/rankmapping.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">ランクマッピング</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readVRM === 'Y'">
+			<a href="#/ShipAccessManagement">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Ship-Access_mgt.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">船舶アクセス管理</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12"
+			style="border-bottom: 4px solid #2c3e50; margin-top: 50px; margin-bottom: 30px">
+			<img src="Sidebar/assets/tiles_icons/shore.svg"
+				style="margin-left: -4px; margin-bottom: 6px" border="0"
+				height="30px" width="30px"> <span
+				style="font-size: 20px; color: #2c3e50;">オフィス</span>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readSDM === 'Y'">
+			<a href="#/ShoreDepartmentMaster">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Dept_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">部門</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readSRL === 'Y'">
+			<a href="#/ShoreRoleMaster">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Role_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">役割</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readSRK === 'Y'">
+			<a href="#/ShoreRankMaster">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Rank_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">ランク</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readSRK === 'Y'">
+			<a href="#/ShoreRankMapping">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/rankmapping.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">ランクマッピング</div>
+				</div>
+			</a>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readSRM === 'Y'">
+			<a href="#/ShoreAccessManagement">
+				<div class="tiles-wrapper tiles_3">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Ship-Access_mgt.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">オフィスアクセス管理</div>
+				</div>
+			</a>
+		</div>
+
+	</div>
+
+</div>

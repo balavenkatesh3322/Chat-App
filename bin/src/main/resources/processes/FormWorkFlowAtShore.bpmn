@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef" xmlns:modeler="http://activiti.com/modeler" modeler:version="1.0ev" modeler:exportDateTime="20161118134702" modeler:modelId="991062" modeler:modelVersion="1" modeler:modelLastUpdated="1479476787680">
+  <process id="FormWorkFlowAtShore" name="FormWorkFlowAtShore" isExecutable="true">
+    <documentation>Form Work Flow</documentation>
+    <userTask id="fillingOfficeDetailsAtShore" name="Office details filled by Tier 2 at shore" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[fillingOfficeDetailsAtShore]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceFlow_5" sourceRef="formSentToShore" targetRef="fillingOfficeDetailsAtShore">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceFlow_5]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="closeOut" name="Close out and send notification to the manager" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[closeOut]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <userTask id="escalated" name="Escalated to QSHE Manager (Tier 1)" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[escalated]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <userTask id="shareWithOtherShips" name="Share the form to specific vessel type or all ships" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[shareWithOtherShips]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <userTask id="formSentToShore" name="Form sent to the shore for review" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:initiator-can-complete><![CDATA[false]]></modeler:initiator-can-complete>
+        <modeler:editor-resource-id><![CDATA[formSentToShore]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sequenceShareWithShips" sourceRef="shareWithOtherShips" targetRef="closeOut">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceShareWithShips]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <startEvent id="startEventAtShore" name="Start  Event at shore">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[startEventAtShore]]></modeler:editor-resource-id>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="sid-206329AC-42C9-41E9-A4E2-5DD9005A69C6" sourceRef="startEventAtShore" targetRef="formSentToShore">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-206329AC-42C9-41E9-A4E2-5DD9005A69C6]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusiveGatewayForEscalation" default="sid-5936DCC2-3F8F-4036-84E0-4BEFA3234F0D">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[exclusiveGatewayForEscalation]]></modeler:editor-resource-id>
+      </extensionElements>
+    </exclusiveGateway>
+    <sequenceFlow id="sid-45798AB6-FD03-4D24-8941-A94E359F1855" sourceRef="fillingOfficeDetailsAtShore" targetRef="exclusiveGatewayForEscalation">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-45798AB6-FD03-4D24-8941-A94E359F1855]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusiveGatewayMarked" activiti:async="true" default="sid-3E9CA8BA-EDDA-465B-80C7-5458F533BB62">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[exclusiveGatewayMarked]]></modeler:editor-resource-id>
+      </extensionElements>
+    </exclusiveGateway>
+    <sequenceFlow id="sid-6E377D2A-A2D0-449B-A8D3-CA1B478BF584" sourceRef="escalated" targetRef="exclusiveGatewayMarked">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-6E377D2A-A2D0-449B-A8D3-CA1B478BF584]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="shareTheFormToAll" name="Share the form to all vessel and to all Vessel Managers" activiti:async="true" activiti:exclusive="false" activiti:assignee="$INITIATOR">
+      <extensionElements>
+        <modeler:allow-send-email><![CDATA[true]]></modeler:allow-send-email>
+        <modeler:activiti-idm-initiator><![CDATA[true]]></modeler:activiti-idm-initiator>
+        <modeler:editor-resource-id><![CDATA[shareTheFormToAll]]></modeler:editor-resource-id>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-F65B982B-080E-4768-97F5-A68D412D9767" sourceRef="shareTheFormToAll" targetRef="closeOut">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-F65B982B-080E-4768-97F5-A68D412D9767]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <endEvent id="endEventAtShore" name="End Event at shore">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[endEventAtShore]]></modeler:editor-resource-id>
+      </extensionElements>
+    </endEvent>
+    <sequenceFlow id="sid-AB3ED63D-55D2-45E5-B737-7C88BC1475D2" sourceRef="closeOut" targetRef="endEventAtShore">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-AB3ED63D-55D2-45E5-B737-7C88BC1475D2]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sid-5936DCC2-3F8F-4036-84E0-4BEFA3234F0D" sourceRef="exclusiveGatewayForEscalation" targetRef="endEventAtShore">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-5936DCC2-3F8F-4036-84E0-4BEFA3234F0D]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceMarked" name="Mark Significant" sourceRef="exclusiveGatewayMarked" targetRef="shareWithOtherShips">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceMarked]]></modeler:editor-resource-id>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${isMarked == 'N'}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceNotMarked" name="Not Marked significant" sourceRef="exclusiveGatewayMarked" targetRef="shareTheFormToAll">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceNotMarked]]></modeler:editor-resource-id>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${isMarked == 'Y'}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-3E9CA8BA-EDDA-465B-80C7-5458F533BB62" name="Default" sourceRef="exclusiveGatewayMarked" targetRef="closeOut">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sid-3E9CA8BA-EDDA-465B-80C7-5458F533BB62]]></modeler:editor-resource-id>
+      </extensionElements>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceEscalation" name="Escalation" sourceRef="exclusiveGatewayForEscalation" targetRef="escalated">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceEscalation]]></modeler:editor-resource-id>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${escalate == 'Y'}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sequenceNoEscalation" name="No Escalation" sourceRef="exclusiveGatewayForEscalation" targetRef="closeOut">
+      <extensionElements>
+        <modeler:editor-resource-id><![CDATA[sequenceNoEscalation]]></modeler:editor-resource-id>
+      </extensionElements>
+      <conditionExpression xsi:type="tFormalExpression">${escalate == 'N'}</conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_FormWorkFlowAtShore">
+    <bpmndi:BPMNPlane bpmnElement="FormWorkFlowAtShore" id="BPMNPlane_FormWorkFlowAtShore">
+      <bpmndi:BPMNShape bpmnElement="fillingOfficeDetailsAtShore" id="BPMNShape_fillingOfficeDetailsAtShore">
+        <omgdc:Bounds height="80.0" width="100.0" x="473.5" y="225.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="closeOut" id="BPMNShape_closeOut">
+        <omgdc:Bounds height="82.0" width="112.0" x="783.0" y="208.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="escalated" id="BPMNShape_escalated">
+        <omgdc:Bounds height="80.0" width="100.0" x="588.5" y="465.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shareWithOtherShips" id="BPMNShape_shareWithOtherShips">
+        <omgdc:Bounds height="87.0" width="115.0" x="697.5" y="300.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="formSentToShore" id="BPMNShape_formSentToShore">
+        <omgdc:Bounds height="80.0" width="100.0" x="323.5" y="225.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startEventAtShore" id="BPMNShape_startEventAtShore">
+        <omgdc:Bounds height="30.0" width="30.0" x="180.0" y="237.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusiveGatewayForEscalation" id="BPMNShape_exclusiveGatewayForEscalation">
+        <omgdc:Bounds height="40.0" width="40.0" x="618.5" y="245.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusiveGatewayMarked" id="BPMNShape_exclusiveGatewayMarked">
+        <omgdc:Bounds height="40.0" width="40.0" x="735.0" y="485.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="shareTheFormToAll" id="BPMNShape_shareTheFormToAll">
+        <omgdc:Bounds height="88.0" width="120.0" x="870.0" y="495.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEventAtShore" id="BPMNShape_endEventAtShore">
+        <omgdc:Bounds height="28.0" width="28.0" x="940.0" y="235.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_5" id="BPMNEdge_sequenceFlow_5">
+        <omgdi:waypoint x="423.5" y="265.0"/>
+        <omgdi:waypoint x="473.5" y="265.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceNoEscalation" id="BPMNEdge_sequenceNoEscalation">
+        <omgdi:waypoint x="658.0719782388561" y="265.42802176114384"/>
+        <omgdi:waypoint x="783.0" y="264.9565395227764"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceNotMarked" id="BPMNEdge_sequenceNotMarked">
+        <omgdi:waypoint x="755.5" y="524.5"/>
+        <omgdi:waypoint x="755.5" y="565.0"/>
+        <omgdi:waypoint x="870.0" y="565.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-F65B982B-080E-4768-97F5-A68D412D9767" id="BPMNEdge_sid-F65B982B-080E-4768-97F5-A68D412D9767">
+        <omgdi:waypoint x="878.5733105468751" y="495.0"/>
+        <omgdi:waypoint x="878.5733105468751" y="290.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceEscalation" id="BPMNEdge_sequenceEscalation">
+        <omgdi:waypoint x="639.0" y="284.5"/>
+        <omgdi:waypoint x="639.0" y="465.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceMarked" id="BPMNEdge_sequenceMarked">
+        <omgdi:waypoint x="755.4160281305763" y="485.41602813057625"/>
+        <omgdi:waypoint x="755.0045468798996" y="387.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-6E377D2A-A2D0-449B-A8D3-CA1B478BF584" id="BPMNEdge_sid-6E377D2A-A2D0-449B-A8D3-CA1B478BF584">
+        <omgdi:waypoint x="688.5" y="505.21367521367523"/>
+        <omgdi:waypoint x="735.4141630901288" y="505.41416309012874"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-206329AC-42C9-41E9-A4E2-5DD9005A69C6" id="BPMNEdge_sid-206329AC-42C9-41E9-A4E2-5DD9005A69C6">
+        <omgdi:waypoint x="210.0" y="252.0"/>
+        <omgdi:waypoint x="323.5" y="252.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-5936DCC2-3F8F-4036-84E0-4BEFA3234F0D" id="BPMNEdge_sid-5936DCC2-3F8F-4036-84E0-4BEFA3234F0D">
+        <omgdi:waypoint x="639.0" y="245.5"/>
+        <omgdi:waypoint x="639.0" y="170.9609375"/>
+        <omgdi:waypoint x="946.3333129882812" y="170.9609375"/>
+        <omgdi:waypoint x="946.3333129882812" y="229.2475279571191"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-45798AB6-FD03-4D24-8941-A94E359F1855" id="BPMNEdge_sid-45798AB6-FD03-4D24-8941-A94E359F1855">
+        <omgdi:waypoint x="573.5" y="265.2164502164502"/>
+        <omgdi:waypoint x="618.9130434782609" y="265.4130434782609"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3E9CA8BA-EDDA-465B-80C7-5458F533BB62" id="BPMNEdge_sid-3E9CA8BA-EDDA-465B-80C7-5458F533BB62">
+        <omgdi:waypoint x="774.5" y="505.5"/>
+        <omgdi:waypoint x="860.0" y="505.5"/>
+        <omgdi:waypoint x="860.0" y="290.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-AB3ED63D-55D2-45E5-B737-7C88BC1475D2" id="BPMNEdge_sid-AB3ED63D-55D2-45E5-B737-7C88BC1475D2">
+        <omgdi:waypoint x="895.0" y="249.0"/>
+        <omgdi:waypoint x="940.0" y="249.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceShareWithShips" id="BPMNEdge_sequenceShareWithShips">
+        <omgdi:waypoint x="812.5" y="343.5"/>
+        <omgdi:waypoint x="839.0" y="343.5"/>
+        <omgdi:waypoint x="839.0" y="290.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

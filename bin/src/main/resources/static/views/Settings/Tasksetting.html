@@ -1,0 +1,284 @@
+<div class="main" id="main">
+   <div ng-show="haspermission" allowed="unauthorized" mdlcode="TSK" callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+   <div  allowed="read" mdlcode="TSK">
+      <div class="sticky_header">
+         <div class="tab_head_sticky">
+            <ul class="breadcrumb">
+               <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+               <li><a href="#/Settings">Settings</a></li>
+               <li><b>Task Settings</b></li>
+            </ul>
+            <div class="tab_head"
+               style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important; padding-top: 3px !important;">
+               <div class="pull-left" style="font-size: 21px;">Task Settings
+               </div>
+               <div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form_table_wrapper" style="margin-top: 15px !important">
+         <div class="form_table">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="form-group row">
+                     <div class="col-sm-2">
+                        <label class="form-control-label" id="moduleLbl">Module
+                        </label>
+                     </div>
+                     <div class="col-sm-2">
+                        <input type="text" ng-model="ModuleId" ng-disabled="true"
+                           id="mdlcode" class="form-control" placeholder="Code">
+                        <div class="text-error">{{ModuleId_error}}</div>
+                     </div>
+                     <div class="col-sm-3">
+                        <input type="text" ng-model="ModuleName" ng-disabled="true"
+                           id="mdlname" class="form-control" placeholder="Name">
+                     </div>
+                     <div class="col-sm-1" style="margin-top: 3px;">
+                        <button class="btn btn-primary btn-sm fa fa-search"
+                           ng-click="showModalActionl()" ></button>
+                     </div>
+                     <modal class="" visible="showModal" on-sown="modalOneShown()"
+                        on-hide="modalOneHide()">
+                        <modal-header
+                           title="Module Selection"></modal-header>
+                        <modal-body
+                           title1="Module Code" title2="Module Name" data="modulesListData"
+                           searchdesc1="Search Module Code"
+                           searchdesc2="Search Module Name" searchdesc3="Seach on both"
+                           keymodelid="m1" valuemodelid="m2"
+                           callback-fn="setValue(arg1,arg2)" hide-fn="hide()" status="showModal">
+                        </modal-body>
+                     </modal>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-2">
+                        <label class="form-control-label" id="locationLbl">Location</label>
+                     </div>
+                     <div class="col-sm-3"  style="margin-left: -16px;">
+                        <label class="col-sm-6 c-input c-radio"> <input
+                           ng-click="hideError('location')" name="radio-stacked2"
+                           value="CNT001" ng-model="taskfromcode" type="radio"> <span
+                           class="c-indicator c-indicator-warning"></span> <span
+                           class="c-input-text">Office</span>
+                        </label>
+                        <label class="col-sm-6 c-input c-radio"> <input
+                           ng-click="hideError('location')" name="radio-stacked2"
+                           value="CNT002" ng-model="taskfromcode" type="radio"> <span
+                           class="c-indicator c-indicator-warning"></span> <span
+                           class="c-input-text">Vessel</span>
+                        </label>
+                        <div class="text-error" style="margin-left: 15px;">{{location_error}}</div>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-2">
+                        <label class="form-control-label" id="actionLbl">Action</label>
+                     </div>
+                     <div class="col-sm-3">
+                        <select id="actcode1" class="form-control" ng-model="actioncode"
+                           ng-change="hideError('action')">
+                           <option ng-repeat="status in statusdetails"
+                              value="{{status.statuscode}}">{{status.statusdesc}}</option>
+                        </select>
+                        <div class="text-error" >{{action_error}}</div>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-2">
+                        <label class="form-control-label" id="tasknameLbl">Task
+                        Name 
+                        </label>
+                     </div>
+                     <div class="col-sm-3">
+                        <input class="form-control" maxlength="50" ng-focus="hideError('taskname')"
+                           id="taskname1" ng-model="taskname">
+                        <div class="text-error" >{{taskname_error}}</div>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-2">
+                        <label class="form-control-label" id="taskdescLbl">Task
+                        Description 
+                        </label>
+                     </div>
+                     <div class="col-sm-6">
+                        <textarea class="form-control" ng-focus="hideError('taskdesc')"
+                           rows="3" maxlength="100" id="taskdesc" ng-model="taskdesc"></textarea>
+                        <div class="char-left">Characters left: {{100- taskdesc.length}}</div>
+                        <div class="text-error" >{{taskdesc_error}}</div>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-2">
+                        <label class="form-control-label" id="targetLbl">Target Duration 
+                        </label>
+                     </div>
+                     <div class="col-sm-3">
+                        <select class="form-control" ng-focus="Myfunct"
+                           ng-change="hideError('targetdate')" tabindex="3"
+                           ng-model="targetdate" data-placeholder=""
+                           style="width:100% !important;" ng-change="test()">
+                           <option ng-repeat="td in targetDtList" value="{{td}}">
+                              {{td}}
+                           </option>
+                        </select>
+                        <div class="text-error" >{{targetdate_error}}</div>
+                     </div>
+                     <span style="padding-top: 8px;display: inline-block">Days    </span>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-2">
+                        <label class="form-control-label" id="priorityLbl">Priority
+                        </label>
+                     </div>
+                     <div class="col-sm-3">
+                        <select ng-focus="Myfunct" ng-change="hideError('priority')"
+                           class="form-control" ng-model="PriorCode" id="priorcode1">
+                           <option ng-repeat="prioritytypes in prioritys"
+                              value="{{prioritytypes.prioritycode}}">{{prioritytypes.priorityname}}</option>
+                        </select>
+                        <div class="text-error">{{priority_error}}</div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-xs-6">
+                        <div class="navbar-drawer  hidden-lg-down">
+                           <form class="form-inline navbar-form ">
+                              <label style="margin-left: -15px"> <strong>Items
+                              per page</strong>
+                              </label>   <select class="form-control"
+                                 ng-model="pageSize" ng-selected="pageSize"
+                                 ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+                           </form>
+                        </div>
+                     </div>
+                     <div class="col-sm-6" style="margin-top: 10px;">
+                        <a class="btn_wrapper pull-right" type="button"
+                           style="margin-bottom: 10px;margin-left: 10px;" ng-show="showCancel"
+                           allowed="write" mdlcode="TSK" ng-click="cancelTaskSetting()">
+                        <span>Cancel</span>
+                        <img src="Sidebar/css/icons/cancel.svg" />
+                        </a>
+                     </div>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-12">
+                        <div class="table-responsive">
+                           <table class="table table-hover table-striped table-bordered"
+                              cellspacing="0">
+                              <thead>
+                                 <tr>
+                                    <th>Task Name <a href=""
+                                       ng-click="sort('taskname')" class="sortDir"
+                                       ng-class="{ active: isSorted('taskname') }">&#x25B2;</a><a
+                                       href="" ng-click="sort('-taskname')" class="sortDir"
+                                       ng-class="{ active: isSorted('-taskname' ) }">&#x25BC;</a>
+                                    </th>
+                                    <th>Module Name <a href=""
+                                       ng-click="sort('mdlname')" class="sortDir"
+                                       ng-class="{ active: isSorted('mdlname') }">&#x25B2;</a><a
+                                       href="" ng-click="sort('-mdlname')" class="sortDir"
+                                       ng-class="{ active: isSorted('-mdlname' ) }">&#x25BC;</a>
+                                    </th>
+                                    <th>Location <a href=""
+                                       ng-click="sort('cnttypename')" class="sortDir"
+                                       ng-class="{ active: isSorted('cnttypename') }">&#x25B2;</a><a
+                                       href="" ng-click="sort('-cnttypename')" class="sortDir"
+                                       ng-class="{ active: isSorted('-cnttypename' ) }">&#x25BC;</a>
+                                    </th>
+                                    <th>Action<a href=""
+                                       ng-click="sort('actionname')" class="sortDir"
+                                       ng-class="{ active: isSorted('actionname') }">&#x25B2;</a><a
+                                       href="" ng-click="sort('-actionname')" class="sortDir"
+                                       ng-class="{ active: isSorted('-actionname' ) }">&#x25BC;</a>
+                                    </th>
+                                    <th>Target Days <a href=""
+                                       ng-click="sort('targetdate')" class="sortDir"
+                                       ng-class="{ active: isSorted('targetdate') }">&#x25B2;</a><a
+                                       href="" ng-click="sort('-targetdate')" class="sortDir"
+                                       ng-class="{ active: isSorted('-targetdate' ) }">&#x25BC;</a>
+                                    </th>
+                                    <th>Priority <a href=""
+                                       ng-click="sort('priorityname')" class="sortDir"
+                                       ng-class="{ active: isSorted('priorityname') }">&#x25B2;</a><a
+                                       href="" ng-click="sort('-priorityname')" class="sortDir"
+                                       ng-class="{ active: isSorted('-priorityname' ) }">&#x25BC;</a>
+                                    </th>
+                                    <th style="text-align: center;">Status<a 
+                                       ng-click="sort('masterstatusdesc')" class="sortDir"
+                                       ng-class="{ active: isSorted('masterstatusdesc') }">&#x25B2;</a><a
+                                       ng-click="sort('-masterstatusdesc')" class="sortDir"
+                                       ng-class="{ active: isSorted('-masterstatusdesc' ) }">&#x25BC;</a></th>
+                                    <th style="text-align: center;">Action</th>
+                                 </tr>
+                                 <tr>
+                                    <th><input placeholder="Search" class="form-control"
+                                       style="width: 100%;" ng-model="search['taskname']"></th>
+                                    <th><input placeholder="Search" class="form-control"
+                                       style="width: 100%;" ng-model="search['mdlname']"></th>
+                                    <th><input placeholder="Search" class="form-control"
+                                       style="width: 100%;" ng-model="search['cnttypename']"></th>
+                                    <th><input placeholder="Search" class="form-control"
+                                       style="width: 100%;" ng-model="search['actionname']"></th>
+                                    <th><input placeholder="Search" class="form-control"
+                                       style="width: 100%;" ng-model="search['targetdate']"></th>
+                                    <th><input placeholder="Search" class="form-control"
+                                       style="width: 100%;" ng-model="search['priorityname']"></th>
+                                    <th><input placeholder="Search" class="form-control"
+                                       style="width: 100%;" ng-model="search['masterstatusdesc']"></th>
+                                    <th style="width: 10%;"></th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr style="text-align: center;"
+                                    ng-style="set_colortasksetting(z)"
+                                    dir-paginate="z in taskSettings1 = (taskSettings | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)">
+                                    <td ng-show="false">{{z.taskid}}</td>
+                                    <td ng-show="false">{{z.cnttypecode}}</td>
+                                    <td ng-show="false">{{z.actioncode}}</td>
+                                    <td ng-show="false">{{z.mdlcode}}</td>
+                                    <td>{{z.taskname}}</td>
+                                    <td>{{z.mdlname}}</td>
+                                    <td>{{z.cnttypename}}</td>
+                                    <td>{{z.actionname}}</td>
+                                    <td>{{z.targetdate}}</td>
+                                    <td>{{z.priorityname}}</td>
+                                    <td style="text-align: center;">
+                                       <span class="label"
+                                          ng-class="{'label-success': z.masterstatusdesc == 'Active','label-danger': z.masterstatusdesc == 'Inactive'}">{{z.masterstatusdesc}}</span>
+                                    </td>
+                                    <td style="display: none">{{ z.cruser }}</td>
+                                    <td style="display: none">{{ z.crdate }}</td>
+                                    <td style="display: none">{{ z.upduser }}</td>
+                                    <td style="display: none">{{ z.upddate }}</td>
+                                    <td style="width: 15%;text-align: center;"><span>
+                                       <a class="btn btn-info btn-sm" ng-click="editTaskSettings(z)"
+                                          allowed="read" mdlcode="NFY"><i
+                                          style="color: white !important" class="fa fa-eye"></i></a></span>  
+                                    </td>
+                                 </tr>
+                           </table>
+                        </div>
+                        <!-- table-responsive -->
+                        <div class="pull-right">
+                           <dir-pagination-controls max-size="10" direction-links="true"
+                              boundary-links="true"></dir-pagination-controls>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+   k-title="'Notification Settings'" name="systemvalidationdialog"
+   custom-options="actions" error-type="warning" error-message="dataerror"
+   error-status="{{geterrorstatuscode}}"
+   detail-error-message="{{detailerrormessages}}"
+   showexception="showexception" error-details="errordetails"
+   error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+</div>

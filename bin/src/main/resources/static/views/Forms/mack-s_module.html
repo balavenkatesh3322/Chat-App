@@ -1,0 +1,114 @@
+
+<div class="main" id="main"
+	style="margin-top: -20px; min-height: 400px;">
+
+	<ul class="breadcrumb">
+		<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+		<li><b>Safety Management</b></li>
+	</ul>
+
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-lg-3">
+			<a href="#/RiskMgntMain" ng-if="readRSK === 'Y'">
+				<div class="tiles-wrapper">
+					<div class="tiles-icon tiles1">
+						<img class="svg" src="Sidebar/assets/tiles_icons/risk_mgt.svg" />
+					</div>
+					<div class="tiles-inner tiles1"></div>
+					<div class="tiles-name">Risk Management</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readSAF  === 'Y'">
+			<a href="#/SafetyMain">
+				<div class="tiles-wrapper">
+					<div class="tiles-icon tiles2">
+						<img class="svg" src="Sidebar/assets/tiles_icons/safety_mgt.svg" />
+					</div>
+					<div class="tiles-inner tiles2"></div>
+					<div class="tiles-name">Safety Meeting</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readNMR  === 'Y'">
+			<a href="#/NearmissMain">
+				<div class="tiles-wrapper">
+					<div class="tiles-icon tiles3">
+						<img src="Sidebar/assets/tiles_icons/nearmiss.svg" />
+					</div>
+					<div class="tiles-inner tiles3"></div>
+					<div class="tiles-name">Near Miss Report</div>
+				</div>
+			</a>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readART  === 'Y'">
+			<a href="#/AccidentMain">
+				<div class="tiles-wrapper">
+					<div class="tiles-icon tiles4">
+						<img src="Sidebar/assets/tiles_icons/accident.svg" />
+					</div>
+					<div class="tiles-inner tiles4"></div>
+					<div class="tiles-name">Accident Report</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readCHL  === 'Y'">
+			<a href="#/CrewhealthMain">
+				<div class="tiles-wrapper">
+					<div class="tiles-icon tiles5">
+						<img src="Sidebar/assets/tiles_icons/crew_health.svg" />
+					</div>
+					<div class="tiles-inner tiles5"></div>
+					<div class="tiles-name">Crew Health Log</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readDRI  === 'Y'">
+			<a href="#/DrillMain">
+				<div class="tiles-wrapper">
+					<div class="tiles-icon tiles6">
+						<img src="Sidebar/assets/tiles_icons/drill_report.svg" />
+					</div>
+					<div class="tiles-inner tiles6"></div>
+					<div class="tiles-name">Drill Report</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readDRI  === 'Y'">
+			<a href="">
+				<div class="tiles-wrapper tiles_disabled">
+					<div class="tiles-icon tiles7">
+						<img src="Sidebar/assets/tiles_icons/incident.svg" />
+					</div>
+					<div class="tiles-inner tiles7"></div>
+					<div class="tiles-name">Incidents</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readDRI  === 'Y'">
+			<a href="">
+				<div class="tiles-wrapper tiles_disabled">
+					<div class="tiles-icon tiles8">
+						<img src="Sidebar/assets/tiles_icons/master_review.svg" />
+					</div>
+					<div class="tiles-inner tiles8"></div>
+					<div class="tiles-name">Masters Review</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readRSK === 'Y'">
+			<a href="">
+				<div class="tiles-wrapper tiles_disabled">
+					<div class="tiles-icon tiles9">
+						<img class="svg" src="Sidebar/assets/tiles_icons/hot_work.svg" />
+					</div>
+					<div class="tiles-inner tiles9"></div>
+					<div class="tiles-name">Hot Work</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,1004 @@
+<!doctype html>
+<html ng-app="mackAppJP" lang="en">
+ <meta charset="UTF-8">
+  <head>
+  <title>Macklite</title>
+<link rel="shortcut icon" href="img/favicon.ico">
+    <meta name="description" content="Marino, Admin theme, Dashboard theme, AngularJS Theme">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <script>
+    document.onreadystatechange = () => {
+        if (document.readyState === 'interactive') {
+          setTimeout(function(){ 
+            document.getElementById("loaderjp").style.opacity = 0;
+            document.getElementById("loaderjp").style.transition = "opacity 0.1s ease-in-out";
+            loaderjp.addEventListener( 
+                   'webkitTransitionEnd', 
+                   function( event ) { 
+                    document.getElementById("loaderjp").style.display = "none";
+                   }, false );
+            
+          }, 1000);
+        }
+      };
+    
+   function check(){
+    event.preventDefault();
+	    if( $('.cd-panel').is('.is-visible') ) { 
+	        $('.cd-panel').removeClass('is-visible');
+	    } else {
+		    $('.cd-panel').addClass('is-visible');
+		    $('.cd-panel').css({"background-color": "rgba(0,0,0,0.5)"});
+	    }
+    
+   }
+
+
+   
+      
+    </script>
+    <toaster-container toaster-options="{'time-out':3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+    <style type="text/css">
+img[src="img/loader.gif"]	{
+	width: 140px !important;
+}    
+/* .sidebar-nav	{
+	overflow-y: scroll;
+    height: 68%;
+    padding-top: 20px;
+    margin-top: -20px;
+    padding-bottom: 25px;
+}  */
+
+#loaderjp {
+ position: fixed;
+ left: 0px;
+ top: 0px;
+ width: 100vw;
+ height: 100vh;
+ z-index: 999999;
+ background: url('img/loading_jp.gif') 50% 50% no-repeat rgb(255, 255, 255);
+ background-size: 100vw 100vh;
+}
+
+.sidebar-outer-wrapper ::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+.sidebar-outer-wrapper ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); 
+    /* border-radius: 0px; */
+    background: #1f324d;
+}
+ 
+.sidebar-outer-wrapper ::-webkit-scrollbar-thumb {
+   /*  border-radius: 0px; */
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); 
+    background: #3e5c7d;
+}    
+    
+.nav-search > .chosen-container { 
+   margin-top: 8px;
+   min-width: 190px !important;
+}
+
+
+.chosen-single > span {
+color:black;
+}
+.search-choice-close{
+  display: none !important;
+}
+.search-choice{
+  border: none !important;
+  background: white !important;
+  box-shadow: none !important;
+}
+ 
+  .sidebar-1 .section-content a	{
+  	height: 40px !important;
+  }
+  
+.sidebar-1 .sidebar-section	{
+	margin-top: -9px !important
+}
+
+.sidebar-1 .section-content a .md-icon.pull-left {
+    margin: 13px 0 0 0 !important;
+}
+
+ .navbar-top {
+  top: 60px;
+ }
+ 
+html [data-palette="palette-7"][data-layout="default-sidebar"], html [data-palette="palette-7"][data-layout="collapsed-sidebar"]  {
+  background: #dde2e5 !important;
+  } 
+ 
+ /* alert menu */
+ 
+ .dropdown-alert-menu {
+  width: 320px;
+    border: 1px solid #ff9331 !important;
+    margin-right: -8px !important;
+    word-break: break-all;
+    }
+ 
+  
+ .dropdown-alert-menu ul{
+  list-style: none;
+  padding: 0px !important;
+  margin-bottom: 5px;
+  }
+  
+  .dropdown-alert-menu  ul div:first-child{
+    background: #ff9331;
+    color: #fff;
+    padding: 8px;
+    font-weight: bold;
+  } 
+  
+   .dropdown-alert-menu ul div:last-child{
+    background: #ff9331;
+    color: #fff;
+    padding: 4px;
+    margin-bottom: -5px;
+    
+  } 
+ 
+ .dropdown-alert-menu ul:nth-child(even){
+  background: #eee;
+  color: #000;
+ }
+ 
+/* .alert_body {
+  max-height: 324px;
+  overflow-x: hidden;
+    overflow-y: scroll;
+} */
+      
+ .dropdown-alert-menu ul:hover {
+  background: #ccc;
+  /* color: #fff !important; */
+ }  
+ 
+  .dropdown-alert-menu  ul li{
+    padding-left: 5px;
+    padding-right: 5px;
+    white-space: initial;
+  } 
+  
+  .dropdown-alert-menu  ul li:first-child{
+    color: #5f6469;
+    } 
+    
+   .dropdown-alert-menu ul li:last-child{
+    color: red;
+    } 
+    
+    
+  /* notification menu */
+ 
+ .dropdown-notification-menu  {
+  width: 320px;
+    border: 1px solid #fec432 !important;
+    margin-right: -8px !important;
+    word-break: break-all;
+    }
+ 
+  
+ .dropdown-notification-menu  ul{
+  list-style: none;
+  padding: 0px !important;
+  margin-bottom: 5px;
+  }
+  
+  .dropdown-notification-menu ul div:first-child{
+    background: #fec432;
+    color: #fff;
+    padding: 8px;
+    font-weight: bold;
+  } 
+  
+   .dropdown-notification-menu  ul div:last-child{
+    background: #fec432;
+    color: #fff;
+    padding: 4px;
+    margin-bottom: -5px;
+    
+  } 
+ 
+ .dropdown-notification-menu  ul:nth-child(even){
+  background: #eee;
+  color: #000;
+ }
+ 
+/* .notification_body  {
+  max-height: 324px;
+  overflow-x: hidden;
+    overflow-y: scroll;
+} */
+      
+ .dropdown-notification-menu  ul:hover {
+  background: #ccc;
+  /* color: #fff !important; */
+ }  
+ 
+  .dropdown-notification-menu ul li{
+    padding-left: 5px;
+    padding-right: 5px;
+    white-space: initial;
+  } 
+  
+  .dropdown-notification-menu ul li:first-child{
+    color: #5f6469;
+    } 
+    
+   .dropdown-notification-menu  ul li:last-child{
+    color: red;
+    } 
+  
+ /* ::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); 
+    border-radius: 4px;
+    background: #eee;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); 
+}  */
+
+
+/* Search */
+
+.nav-search > input {
+  margin-top: 8px;
+  width: 200px;
+}
+
+
+/* profile-img dropdown fix (should be added in style2.css)*/
+
+.nav > li > a {
+      height: 50px !important;
+     }
+
+ .navbar-profile  {
+  width: 80px;
+  height: 50px;
+  margin-right: -30px;
+ }
+
+.profile-dropdown {
+    margin: 0px -23px !important; 
+    }
+
+.active-left-tab .icon_bg::after {
+    width: 25%;
+}
+
+@media only screen and (max-width: 996px) {
+  [data-layout="default-sidebar"][data-direction="ltr"] .navbar, [data-layout="collapsed-sidebar"][data-direction="ltr"] .navbar  {
+    height: auto !important;
+    padding-bottom: 5px;
+  }
+  
+  [data-layout="collapsed-sidebar"][data-direction="ltr"] .main {
+    margin-top: 35px !important;
+  }
+}
+
+@media only screen and (max-width: 917px) {
+  [data-layout="default-sidebar"][data-direction="ltr"] .main {
+    margin-top: 35px !important;
+  }
+}
+
+@media only screen and (max-width: 907px) {
+
+}
+
+@media only screen and (max-width: 767px) {
+  [data-direction="ltr"] .navbar-1 .navbar-notifications .nav-link .label {
+     right: 10px !important;
+  }
+  
+  ul.navbar-nav > li > a > i  {
+    padding-top: 8px !important;
+  }
+  
+  ul.navbar-profile > li > a > i  {
+    top: 5px !important;
+      right: 17px !important;
+} 
+
+@media only screen and (max-width: 594px) {
+  .nav-search > input {
+    width: 280px !important;
+    margin-right: -25px ;
+  }
+  
+  [data-layout="collapsed-sidebar"][data-direction="ltr"] .main {
+    margin-top: 85px !important;
+  }
+
+@media only screen and (max-width: 546px) {
+  
+  [data-layout="default-sidebar"][data-direction="ltr"] .main {
+    margin-top: 85px !important;
+  }
+} 
+  
+@media only screen and (max-width: 474px) {
+    .toggle-fullscreen-mode {
+      display: none;
+    }
+    
+  
+    [data-layout="collapsed-sidebar"][data-direction="ltr"] .navbar-brand {
+      margin-left: -25px;
+      margin-right: -15px;
+    }
+    
+    [data-layout="collapsed-sidebar"][data-direction="ltr"] .toggle-layout  {
+      margin-right: -35px;
+    }
+} 
+
+@media only screen and (max-width: 451px) {
+    [data-layout="collapsed-sidebar"][data-direction="ltr"] .navbar-profile {
+      margin-right: -37px !important;
+    }
+  } 
+
+/* navbar collapse !important css below */
+
+/* @media only screen and (max-width: 767px) {
+  .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+      max-height: 340px;
+      width: 100%;
+      left: 0;
+      top: 50px;
+      position: absolute;
+      background: #2d3e50 !important;
+  }
+  
+  .navbar-collapse.in {
+    overflow-y: none !important;
+    overflow-x: none !important;
+  }
+  
+} 
+ */
+ </style>
+
+    <link rel="stylesheet" href="Sidebar/css/toaster.css">   
+    <link rel="stylesheet" href="Sidebar/css/tiles.css">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="Sidebar/css/bootstrap.css" />
+    <link rel="stylesheet" href="Sidebar/css/main_temp_test.css">
+    <link rel="stylesheet" href="Sidebar/css/sidebar.css">
+    <link rel="stylesheet" href="Sidebar/css/style2.css">
+    <link rel="stylesheet" href="Sidebar/css/style.css">
+    <link rel="stylesheet" href="Sidebar/css/NewStyle/style2.css">
+    <link rel="stylesheet" href="Sidebar/css/changes.css">
+    <link rel="stylesheet" href="Sidebar/css/custom_navbar.css">
+    <link rel="stylesheet" href="scripts/font-awesome.min.css" />
+    <link rel="stylesheet" href="scripts/kendo.common.min.css" />
+    <link rel="stylesheet" href="scripts/kendo.default.min.css" />
+    <link rel="stylesheet" href="scripts/kendo.default.mobile.min.css" />
+    <link href="scripts/chosen-select/chosen.css" rel="stylesheet"  type="text/css" />
+    <link href="lib/amChart/export.css"  rel="stylesheet"type="text/css" />
+    <link href="lib/amChart/export.css"  rel="stylesheet"type="text/css" />
+    <link href="lib/amChart/custom.min.css"  rel="stylesheet"type="text/css" />
+    <link href="js/multiselect/multiple-select.css"  rel="stylesheet"type="text/css" />
+  </head>
+  <body  id="container" data-layout="empty-layout" 
+    data-direction="none" ng-controller="TemplateCtrl" style="style="background: #dde2e5 !important"">
+    <div id="loaderjp"></div>
+    <nav class="navbar navbar-fixed-top navbar-1">
+      <a class="navbar-brand" href="#"><img style="width: 80%"
+        class="img-fluid profile-image" src="assets/faces/macklite.png">
+      </a>
+      <ul class="nav navbar-nav pull-left toggle-layout" data-click="toggle-layout" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Sidebar Toggle">
+        <li class="nav-item"><a class="nav-link"
+          data-click="toggle-layout" onclick="leftSideBar();"><i
+          class="fa fa-bars"></i></a></li>
+      </ul>
+      <ul class="nav navbar-nav pull-left toggle-fullscreen-mode" data-click="toggle-layout" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Fullscreen">
+        <li class="nav-item"><a class="nav-link"
+          data-click="toggle-fullscreen-mode"><i class="fa fa-arrows-alt"></i></a>
+        </li>
+      </ul>
+  <ul class="nav navbar-nav pull-right hidden-lg-down navbar-profile" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Profile"  style="margin-right: -30px !important; width: 60px;">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle no-after" data-toggle="dropdown">
+                <img class="img-circle img-fluid profile-image" src="assets/faces/user-icon-6.png ">
+            </a>
+            <div class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right">
+                 <a href="#/shipuserlistNewView/{{usercode}}"
+              class="dropdown-item animated fadeIn"><i style="color: #000 !important; font-size: 21px;" class="fa fa-user"></i><span class="dropdown-text">My
+            Profile </span>
+            </a> 
+                <a href="/logout" class="dropdown-item"><i style="color: #000 !important; font-size: 21px;" class="fa fa-power-off"></i> 
+                 <span class="dropdown-text">Logout</span> </a>
+            </div>
+        </li>
+    </ul>
+      <ul class="nav navbar-nav pull-right hidden-lg-down navbar-flags" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Languages"
+        style="background: #00ae8d; width: 56px; height: 50px; margin-right: -17px !important;">
+        <li class="nav-item dropdown dropdown-menu-right">
+          <a
+            class="nav-link dropdown-toggle no-after" data-toggle="dropdown">
+          <span class="flag flag-icon flag-icon-jp"
+            style="padding-bottom: 16px; margin-left: 9px;"></span>
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right">
+            <a class="dropdown-item" href="/Template.html"> <span
+              class="flag flag-icon flag-icon-gb"></span><span class="title">English</span>
+            </a> <a class="dropdown-item" href="/TemplateJP.html"> <span
+              class="flag flag-icon flag-icon-jp"></span><span class="title">Japanese</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      <ul
+        class="nav navbar-nav pull-right hidden-lg-down navbar-notifications" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Task Manager"
+        style="background: #0082c0; width: 60px; height: 50px; margin-right: -17px !important;">
+        <li class="nav-item dropdown dropdown-menu-right">
+          <a
+            href="#/TaskMangerDashboard" class="nav-link  no-after"> <i
+            class="fa fa-tasks"
+            style="margin-top: 5px !important; margin-left: 5px;"></i> <span
+            class="label label-rounded label-danger label-xs">{{taskCount}}</span>
+          </a> <!--         <div --> <!--           class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right"> -->
+          <!--          <a class="dropdown-item"> <span class="title">Task 1</span> -->
+          <!--          </a> <a class="dropdown-item"> <span class="title">Task 2</span> -->
+          <!--          </a> --> <!--         </div> -->
+        </li>
+      </ul>
+     <ul class="nav navbar-nav pull-right hidden-lg-down navbar-notifications" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Notifications" style="background: #fec432; width: 60px; height: 50px; margin-right: -17px !important;">
+        <li class="nav-item dropdown dropdown-menu-right">
+          <a class="nav-link dropdown-toggle no-after" data-toggle="dropdown">
+          <i class="fa fa-envelope" style="margin-top: 5px !important; margin-left: 7px;"></i>
+    <span class="label label-rounded label-danger label-xs">{{notificationCount}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right dropdown-notification-menu">
+            
+            <ul class="dropdown-item">
+            
+                <div class="text-center">NOTIFICATIONS</div>
+                <div ng-show="notificationmessagelength==0" >
+                         <p class="text-center">No notification</p>                                  
+                </div> 
+                  <div class="notification_body"  >
+                <ul  style="background-color: lightblue;" ng-repeat="list in notificationList" ng-if="list.readstatus == 'N'" ng-click="referenceClicked(list.mdlcode,list.reference)">
+                      <li>{{list.notifydesc }}</li>
+                               <li>{{list.assigndate | date : "MM/dd/yyyy" : timezone }}</li>
+                               <li>{{list.notifyid }} is pending</li>
+                </ul>
+                <ul style="background-color:white;" ng-repeat="list in notificationList" ng-if="list.readstatus == 'Y'" ng-click="referenceClicked(list.mdlcode,list.reference)">
+                      <li>{{list.notifydesc }}</li>
+                               <li>{{list.assigndate | date : "MM/dd/yyyy" : timezone }}</li>
+                               <li>{{list.notifyid }} is pending</li>
+                </ul>
+              </div>
+          <a href="#/NotificationHistory">
+              <div class="text-center">view all notifications</div>
+            </a>  
+                
+        </ul>   
+         </div>
+        
+        </li>
+      </ul>
+      
+     
+<ul class="nav navbar-nav pull-right hidden-lg-down navbar-notifications" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Alerts" style="background: #ff9331; width: 60px; height: 50px; margin-right: -17px !important;">
+        <li class="nav-item dropdown dropdown-menu-right">
+          <a class="nav-link dropdown-toggle no-after" data-toggle="dropdown">
+          <i class="fa fa-bell" style="margin-top: 5px !important; margin-left: 7px;"></i>
+    <span class="label label-rounded label-danger label-xs">{{alertmessagecount}}</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right dropdown-alert-menu">
+            
+            <ul class="dropdown-item">
+            
+                <div class="text-center">ALERTS</div>
+                <div ng-show="alertmessagelength==0" >
+                         <p class="text-center">No alert</p>                                  
+                </div> 
+                  <div class="alert_body">
+                <ul  ng-repeat="list in alertmessage" ng-click="alertnavigation(list.mdlcode,list.reference,list.taskid)">
+                      <li>{{list.taskdesc }}</li>
+                               <li>{{list.targetdate | date : "MM/dd/yyyy" : timezone }}</li>
+                               <li>{{list.taskname }} is pending</li>
+                </ul>
+              </div>  
+            <a href="#/Taskschedule/Overdue">
+              <div class="text-center">view all alerts</div>
+            </a>  
+                
+        </ul>   
+         </div>
+        
+        </li>
+      </ul>
+      <ul class="nav navbar-nav pull-right hidden-lg-down nav-search">
+<input kendo-auto-complete ng-model="userdata" k-options="searchoption" ng-change="getsearchmessage()">
+      </ul>
+    </nav>
+    <div class="container-fluid toggled">
+      <div class="row">
+        <div class="sidebar-placeholder"></div>
+        <div class="sidebar-outer-wrapper">
+          <div class="sidebar-inner-wrapper">
+            <div class="sidebar-1 slidebarback">
+              <div class="profile">
+                <div class="profile-image" style="padding-bottom: 30px;">
+                  <img class="img-fluid" src="assets/faces/klsm_logo.svg">
+                </div>
+                <div class="profile-desc">
+                  <p>{{vesselname}}</p>
+                  <p>{{username}}</p>
+                  <p>{{empcode}}</p>
+                  <p>{{userrank}}</p>
+                </div>
+              </div>
+              <div class="sidebar-nav slidebarback">
+                <div class="sidebar-section account-links">
+                  <div class="section-title">Account</div>
+                  <ul class="list-unstyled section-content">
+                    <li><a class="sideline"> <i
+                      class="zmdi zmdi-account-circle md-icon pull-left"></i> <span
+                      class="title">Profile</span>
+                      </a>
+                    </li>
+                    <li><a class="sideline"> <i
+                      class="zmdi zmdi-settings md-icon pull-left"></i> <span
+                      class="title">Settings</span>
+                      </a>
+                    </li>
+                    <li><a href="/logout" class="sideline"> <i
+                      class="zmdi zmdi-sign-in md-icon pull-left"></i> <span
+                      class="title">Logout</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <style></style>
+                <div class="sidebar-section">
+                  <!-- <div class="section-title"></div> -->
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'DashBoard' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="" ng-click="activateTab('DashBoard')"
+                      href="#/Dashboard"> <span class="icon_bg icon_bg_1" data-toggle="tooltip" data-placement="right" title="" data-original-title="ダッシュボード"><img
+                      src="Sidebar/assets/navigation_icons/dashboard.svg" class="icon_bg_top" /> <span
+                      class="title">ダッシュボード</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'TaskManager' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="layouts" ng-click="activateTab('TaskManager')"
+                      href="#/Taskmanager"> <span class="icon_bg icon_bg_2" data-toggle="tooltip" data-placement="right" title="" data-original-title="タスクマネージャー"><img
+                      src="Sidebar/assets/navigation_icons/Taskmanager.svg" class="icon_bg_top" /> <span
+                      class="title">タスクマネージャー</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'Config' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="" href="#/Master" ng-click="activateTab('Config')">
+                      <span class="icon_bg icon_bg_3" data-toggle="tooltip" data-placement="right" title="" data-original-title="設定マスター"><img
+                      src="Sidebar/assets/navigation_icons/config_master.svg" class="icon_bg_top" /> <span
+                        class="title">設定マスター</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'Security' }" class="l1 list-unstyled section-content">
+                    <li><a href="#/Security" class="sideline" ng-click="activateTab('Security')"
+                      data-id="layouts"> <span class="icon_bg icon_bg_4" data-toggle="tooltip" data-placement="right" title="" data-original-title="セキュリティ"><img
+                      src="Sidebar/assets/navigation_icons/Security.svg" class="icon_bg_top" /> <span
+                      class="title">セキュリティ</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab=='DocManager' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="layouts" href="#/Edoc" ng-click="activateTab('DocManager')">
+                      <span class="icon_bg icon_bg_5" data-toggle="tooltip" data-placement="right" title="" data-original-title="ドキュメントマネージャ"><img
+                      src="Sidebar/assets/navigation_icons/docmanager.svg" class="icon_bg_top" />
+                      <span class="title" style="font-size: 12px;">ドキュメントマネージャ</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'SafetyMgnt' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="layouts" ng-click="activateTab('SafetyMgnt')"
+                      href="#/Forms"> <span class="icon_bg icon_bg_6" data-toggle="tooltip" data-placement="right" title="" data-original-title="安全管理"><img
+                      src="Sidebar/assets/navigation_icons/Safety_management.svg" class="icon_bg_top" /> <span
+                      class="title">安全管理</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'Inspections' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="layouts" ng-click="activateTab('Inspections')"
+                      href="#/Inspection"> <span class="icon_bg icon_bg_7" data-toggle="tooltip" data-placement="right" title="" data-original-title="検査"><img
+                      src="Sidebar/assets/navigation_icons/inspection.svg" class="icon_bg_top"  style="width: 25px;" /> <span
+                      class="title">検査</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'Reports' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="layouts" href="#/Reports" ng-click="activateTab('Reports')"> <span
+                      class="icon_bg icon_bg_8" data-toggle="tooltip" data-placement="right" title="" data-original-title="レポート"><img
+                      src="Sidebar/assets/navigation_icons/Report.svg" class="icon_bg_top" />
+                      <span class="title">レポート</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'Communication' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="layouts" href="#/communication" ng-click="activateTab('Communication')"> <span
+                      class="icon_bg icon_bg_9" data-toggle="tooltip" data-placement="right" title="" data-original-title="コミュニケーション"><img
+                      src="Sidebar/assets/navigation_icons/communication.svg" class="icon_bg_top" />
+                      <span class="title">コミュニケーション</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul ng-class="{ 'active-left-tab': activeTab == 'Settings' }" class="l1 list-unstyled section-content">
+                    <li><a class="sideline" data-id="layouts" href="#/Settings" ng-click="activateTab('Settings')"> <span
+                      class="icon_bg icon_bg_10" data-toggle="tooltip" data-placement="right" title="" data-original-title="設定"><img
+                      src="Sidebar/assets/navigation_icons/setting.svg" class="icon_bg_top" />
+                      <span class="title">設定</span> </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-sidebar-outer">
+          <div class="right-sidebar-inner">
+            <div class="right-sidebar">
+              <div class="bs-nav-tabs nav-tabs-warning justified">
+                <ul class="nav nav-tabs nav-animated-border-from-center">
+                  <li class="nav-item notification_header">Activities</li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade in active" id="rtab-left">
+                      <div class="timeline-widget-4">
+                      <div class="row bg-odd-color"
+                        ng-repeat="list in notificationList">
+                        <div ng-if="list.readstatus == 'N'" style="background-color: lightblue;"
+                      class="col-xs-12 timeline timeline-danger">                      
+                      <div class="p-10" ng-click="referenceClicked(list.mdlcode,list.reference)">                        
+                        <p>{{list.notifydesc}}</p>
+                        <p style="color: red" class="text-sm text-muted">{{list.assigndate
+                          | date : "MM/dd/yyyy" : timezone}}
+                        </p>
+                        <p>Id : {{list.notifyid}}</p>
+                      </div>
+                    </div>
+                    <div ng-if="list.readstatus == 'Y'" style="background-color:white;"
+                      class="col-xs-12 timeline timeline-warning">
+                      <div class="p-10" ng-click="referenceClicked(list.mdlcode,list.reference)">
+                        <p>{{list.notifydesc}}</p>
+                        <p style="color: orange" class="text-sm text-muted">{{list.assigndate
+                          | date : "MM/dd/yyyy" : timezone}}
+                        </p>
+                        <p>Id : {{list.notifyid}}</p>
+                      </div>
+                    </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  main section-->
+        <div ng-view></div>
+        
+<style>
+[data-layout="default-sidebar"][data-direction="ltr"]  .footer_new {
+ background: #333333;
+ bottom: 0;
+ width: 100%;
+ height: 40px;
+ color: #fff;
+ padding-left: 185px;
+ position: fixed;
+ z-index: 10;
+}
+
+[data-layout="collapsed-sidebar"][data-direction="ltr"] .footer_new {
+ background: #333333;
+ bottom: 0;
+ width: 100%;
+ height: 40px;
+ color: #fff;
+ padding-left: 80px;
+ position: fixed;
+ z-index: 10;
+}
+
+ .footer_new img {
+    width: 160px;
+    margin-left: 10px;
+    margin-top: -10px;
+ }
+ 
+ .footer_new a {
+  color: #ccc;
+  font-size: 12px;
+  margin-top: 13px;
+  float: right;
+  }
+  
+ .footer_new span {
+  margin-top: 13px;
+    display: inline-block;
+    font-size: 12px;
+ }
+
+@media only screen and (max-width: 768px) {
+.footer_new {
+  height: 80px;
+}
+  
+/* .footer_new  img {
+  position: absolute;
+    top: 5px;
+    right: 31%;
+    width: 160px;
+}
+.footer_new a {
+  position: absolute;
+    top: 0;
+    right: 3%;
+  color: #ccc;
+  font-size: 12px;
+  margin-top: 13px;
+} */
+</style>        
+        <div class="footer_new">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="col-xs-12 col-sm-5">
+                <span>Powered by</span> <img src="Sidebar/assets/faces/footer_logo.svg" alt="poweredBySVM" />
+              </div>
+              <div class="col-xs-12 col-sm-5">  
+               <a target="_blank" href="https://www.solverminds.com/">&#9400;2017 Solverminds Solutions & Technologies Pvt.Ltd. All Rights Reserved.</a>
+              </div> 
+              
+              
+              <div class="col-xs-12 col-sm-2">
+							<span class="pull-right" style="font-size:12px;margin-top: 3px;">UI Version No 1.0.0.0<br />DB version No {{versionno}}</span>
+						</div> 
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- -------------------Global page script start---------------------------- -->    
+    <script src="scripts/jquery-2.0.3.min.js"></script>
+    <script src="/js/lib/webjar/angular.js"></script>
+    <script src="/js/lib/webjar/angular-resource.js"></script>
+    <script src="/js/lib/webjar/angular-route.js"></script>
+    <script src="lib/bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="scripts/sockjs.js"></script>
+    <script src="scripts/stomp.js"></script>
+    <script src="scripts/kendo.all.min.js"></script>
+
+    <script src="/js/appJP.js"></script>
+    <!-- -------------------Global page script end---------------------------- -->
+    <!-- ----------------------Template page script start------------------------- -->
+    <script src="js/controllers/TemplateController.js"></script>
+    <!-- ------------------------Template page script start----------------------- -->
+    <!-- -------------------Landing page script start---------------------------- -->
+    <script src="js/controllers/SystemNotificationCtrl.js"></script>
+    <script src="js/services/SystemNotificationService.js"></script>
+    <!-- -----------------------Landing page script end------------------------ -->
+    <!-- ----------------------nearmiss page script start------------------------- -->
+    <script src="js/controllers/nearmiss-mainController.js"></script>
+    <script src="js/controllers/NearMiss-Share.js"></script>
+    <!-- ------------------------nearmiss page script start----------------------- -->
+    <!-- ------------------------Rbac page script start----------------------- -->
+    <script src="js/directives/RbacDirectives/RbacPageDirectives.js"></script>
+    <script src="js/factory/RbacFactory/RbacFactory.js"></script>
+    <!-- ------------------------Rbac page script start----------------------- -->
+    <!-- ----------------------nearmissform page script start--------------------------->
+    <script src="js/controllers/nearmissreportController.js"></script>
+    <!-- ------------------------nearmissform page script start----------------------- -->
+    <!-- ------------------------View Taskmanager page script start----------------------- -->
+    <script src="js/controllers/Showtaskmanager.js"></script>
+    <!-- -------------------------View Taskmanager page script start---------------------- -->
+    <!-- ------------------------create Taskmanager page script start----------------------- -->
+    <script src="js/controllers/TaskManager.js"></script>
+    <!-- --------------------------create Taskmanager page script start--------------------- -->
+    <!-- --------------------------task Schedule page script start--------------------- -->
+    <script src="js/controllers/taskschedule.js"></script>
+    <!-- --------------------------task Schedule page script end--------------------- -->
+    <!-- --------------------------notification  page script start--------------------- -->
+    <script src="js/controllers/ShipNotificationHistoryCtrl.js"></script>
+    <script src="js/services/ShipNotificationHistoryService.js"></script>
+    <!-- --------------------------Accident  page script start--------------------- -->
+    <script src="js/controllers/accidentreport-mainController.js"></script>
+    <script src="js/controllers/accidentreportController.js"></script>
+    <script src="js/services/accidentReportService.js"></script>
+     <!-- --------------------------Risk  Management script start--------------------- -->
+    <script src="js/controllers/riskmanagement-mainController.js"></script>
+    <script src="js/controllers/RiskManagementController.js"></script>
+    <script src="js/services/RiskManagementService.js"></script>
+     <!-- --------------------------Drill  Report script start--------------------- -->
+    <script src="js/controllers/drillreport-mainController.js"></script>
+    <script src="js/controllers/drillreportController.js"></script>
+     <!-- --------------------------Safety Meeting script start--------------------- -->
+   <script type="text/javascript" src="js/controllers/safetyReportMainController.js"></script> 
+   <script type="text/javascript"   src="scripts/digitalsignature/SigWebTablet.js"></script>
+   <script type="text/javascript" src="js/controllers/safetyReportController.js"></script>
+    <script type="text/javascript" src="js/services/safetyReportService.js"></script>
+     <!-- --------------------------CrewHealth Log script start--------------------- -->
+    <script src="js/controllers/crewhealthlog-mainController.js"></script>
+   <script src="js/controllers/crewhealthlogController.js"></script>
+<!-- --------------------------Master page script start--------------------- -->
+    <script src="js/fleetmasjs/fleetController.js"></script>
+    <script src="js/controllers/Countrymaster.js"></script>
+    <script src="js/controllers/portcontroller.js"></script>
+    <script src="js/controllers/terminalController.js"></script>
+    <script src="js/controllers/userdetailControllerMain.js"></script>
+    <script src="js/controllers/vesselMasterMainController.js"></script>
+    <script type="text/javascript" src="js/controllers/vesselMasterController.js"></script>
+    <script type="text/javascript" src="js/services/vesselMasterService.js"></script>
+    <script src="js/controllers/crewMappingCtrl.js"></script>
+    <script src="js/services/crewMappingService.js"></script>
+    <script src="js/controllers/VslTypeCtrl.js"></script>
+    <script src="js/controllers/vesselMappingController.js"></script>
+    <!-- --------------------------ship user list script start--------------------- -->
+    <script src="js/controllers/userdetailController.js"></script>
+    <!-- --------------------------ship user list script end--------------------- -->
+    <!-- --------------------------Settings page script start--------------------- -->
+    <script src="js/controllers/WorkFlowHistoryCtrl.js"></script>
+<script src="js/services/WorkFlowHistoryService.js"></script>
+<script src="js/directives/Component/Search.js"></script>
+<script src="js/controllers/taskSettings.js"></script>
+<script src="js/controllers/notificationsettingController.js"></script>
+<script src="js/controllers/systemconfig.js"></script>
+<script src="js/controllers/mailconfig.js"></script>
+  <script src="js/controllers/mqconfig.js"></script>
+  
+ <!-----------for Module Creation and Module Index script start ------------->
+    <script src="js/controllers/MdlIndexController.js"></script>
+    <!-----------for Module Creation and Module Index script End ------------->
+    
+    <!-----------for Department Master script start ------------->
+      <script src="js/rolejs/app.js"></script>
+    <script src="js/controllers/departmentController.js"></script>
+    <!-----------for Department Master script End ------------->
+    
+    <!-----------for Role Master script start ------------->
+      <script src="js/controllers/roleController.js"></script>
+    <!-----------for Role Master script End ------------->
+    
+    <!-----------for Rank Master script start ------------->
+      <script src="js/rolejs/app.js"></script>
+      <script src="js/controllers/rolemasterController.js"></script>
+    <!-----------for Rank Master script End ------------->
+    
+    <!-----------for Rank Mapping script start ------------->
+      <script src="js/rolejs/app.js"></script>
+      <script src="js/controllers/rolemasterController.js"></script>
+    <!-----------for Rank Mapping script End ------------->
+    
+    <!-----------for Ship AccessManagement script start -------------> 
+    <script type="text/javascript" src="js/controllers/rolesController.js"></script>
+    <script type="text/javascript" src="js/services/rolesService.js"></script>
+    <!-----------for Ship AccessManagement script End ------------->
+    
+    <!-----------for Shore Department Master script start ------------->
+      <script src="js/rolejs/app2.js"></script>
+      <script src="js/controllers/shoreDepartmentController.js"></script>
+    <!-----------for Shore Department Master script End ------------->
+ <script src="js/directives/AlphaDirectives/Alpha-numericDirectives.js"></script>    
+  <!-----------for Shore Role Master script start ------------->
+      <script src="js/rolejs/app2.js"></script>
+    <script src="js/controllers/shoreRoleController.js"></script>
+    <!-----------for Shore Role Master script End ------------->
+    
+    <!-----------for Shore Rank Master script start ------------->
+      <script src="js/rolejs/app2.js"></script>
+    <script src="js/controllers/shoreRolemasterController.js"></script>
+    <!-----------for Shore Rank Master script End ------------->
+    
+  <!-----------for Ship AccessManagement script start -------------> 
+    <script type="text/javascript" src="js/controllers/ShoreAccessManagement.js"></script>
+    <script type="text/javascript" src="js/services/ShoreAccessManagementService.js"></script>
+    <!-----------for Ship AccessManagement script End ------------->
+    
+      <!-----------for Ship AccessManagement script start -------------> 
+<script src="js/controllers/permissionsController.js"></script>
+<script type="text/javascript" src="js/services/permissionsService.js"></script>
+    <!-----------for Ship AccessManagement script End ------------->
+    
+          <!-----------for Ship AccessManagement script start -------------> 
+<script type="text/javascript" src="js/controllers/ShorePro-Permission.js"></script>
+<script type="text/javascript" src="js/services/ShorePro-PermissionService.js"></script>
+    <!-----------for Ship AccessManagement script End ------------->
+  
+  <!-- --------------------------external inspection main page script start--------------------- -->
+<script src="js/controllers/externalInspection-mainController.js"></script>
+<script src="js/services/externalInspectionService.js"></script>
+<!-- --------------------------external inspection main page script end--------------------- -->
+
+<!-- --------------------------external inspection main page script start--------------------- -->
+<script src="js/controllers/externalInspectionController.js"></script>
+<script src="js/services/externalInspectionService.js"></script>
+<!-- --------------------------external inspection main page script end--------------------- -->
+
+<!-- --------------------------qshe main page script start--------------------- -->
+<script src="js/controllers/QSHEFeedBack-mainController.js"></script>
+<script type="text/javascript"  src="js/controllers/QSHEFeedBackController.js"></script>
+<!-- --------------------------qshe main page script end--------------------- -->
+<!-- ActiveMQ UI -->
+  <script src="js/controllers/activemqCtrl.js"></script>
+  <script src="js/controllers/activemqDetailCtrl.js"></script>
+  <script src="js/controllers/activemqReceiverCtrl.js"></script>
+  <script src="js/controllers/activemqReceiverDetailCtrl.js"></script>
+  
+<!-- End of ActiveMQ UI -->
+
+    <script src="js/stompClient.js"></script>
+<script src='js/directives/Progressbar/Progressbar.js'></script>
+
+<script type="text/javascript"	src="js/directives/chosenSelect/chosenDirective.js"></script>
+<script type="text/javascript"  src="js/directives/latitudeLongitudeDirective.js"></script>
+	<script type="text/javascript"	src="js/directives/ngEnter/ngEnterDirective.js"></script>
+		<script type="text/javascript"	src="js/directives/ngFiles/ngFilesDirective.js"></script>
+<script type="text/javascript" src="js/directives/Component/kendoDialog.js"></script>
+	<script type="text/javascript"  src="js/multiselect/multiple-autocomplete-field.js"></script>
+	<script type="text/javascript"  src="js/multiselect/multiple-select.js"></script>
+      </body>
+  <!-- --------------------globalScript start --------------------------- -->
+  <script src="scripts/loginScript.js"></script>
+  <script src="scripts/lodash.min.js"></script>
+  <script src="js/directives/anchorDisabled/anchorDisabledDirective.js"></script>
+  <script src="js/directives/safetyReportDirective.js"></script>
+  <script src="js/lib/dirPagination.js"></script>
+  <script src="js/directives/accidentReportMainDirectives.js"></script>
+  <script src="Sidebar/bower_components/jquery-storage-api/jquery.storageapi.min.js"></script>
+  <script type="text/javascript" src="scripts/chosen-select/chosen.jquery_unlimited.js"></script>
+  <script src="scripts/bootstrap.min.js"></script>
+  <script src="Sidebar/scripts/components/jquery-fullscreen/jquery.fullscreen-min.js"></script>
+  <script src="Sidebar/scripts/functions.js"></script>
+  <script src="Sidebar/bower_components/wow/dist/wow.min.js"></script>
+  <script src="Sidebar/scripts/colors.js"></script>
+  <script src="Sidebar/scripts/left-sidebar.js"></script>
+  <script src="Sidebar/scripts/navbar.js"></script>
+  <script src="Sidebar/scripts/main.js"></script>
+      <script src="js/nearmiss.js"></script>
+      <script src="Sidebar/scripts/angular-animate.min.js"></script>
+   <script src="Sidebar/scripts/toaster.js"></script>
+  <script src="Sidebar/scripts/tables-datatable.js"></script>
+  <!-- --------------------globalScript end --------------------------- -->
+  <!-- --------------------Dashboard Script start--------------------------- -->
+  <script src="lib/amChart/custom.min.js"></script>
+  <script src="lib/amChart/amcharts.js"></script>
+  <script src="lib/amChart/serial.js"></script>
+  <script src="lib/amChart/pie.js"></script>
+  <script src="lib/amChart/xy.js"></script>
+  <script src="lib/amChart/export.min.js"></script>
+  <script src="lib/amChart/gauge.js"></script>
+  <script src="lib/amChart/radar.js"></script>
+  <script src="lib/amChart/plugins/accordian/jquery.magic-accordion.min.js"></script>
+  <!-- --------------------------Dashboard Script end--------------------- -->
+    <script src="js/lib/yearpicker.js"></script>
+    <script src="js/lib/yearpickerbootsrap.js"></script>
+    <!-- CrewHealthDetails -->
+    <script src="js/controllers/Crewhealthdetails.js"></script> 
+  
+  </html>

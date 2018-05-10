@@ -1,0 +1,81 @@
+ <meta charset="UTF-8">
+<div class="col-xs-12 main" id="main" style="margin-top: -10px">
+	<ul class="breadcrumb">
+		<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">ホーム</a></li>
+		<li><b>設定
+		</b></li>
+	</ul>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readWKF === 'Y'">
+			<a href="#/WorkFlowHistory-View">
+					<div class="tiles-wrapper tiles_9">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/workflowhistroy.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">ワークフロー履歴</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readTSK === 'Y'">
+			<a href="#/Tasksetting">
+					<div class="tiles-wrapper tiles_9">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/tasksetting.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">タスク設定</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readNFY === 'Y'">
+			<a href="#/notificationsetting">
+					<div class="tiles-wrapper tiles_9">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/notificationsetting.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">通知設定</div>
+				</div>
+			</a>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readSYC === 'Y'">
+			<a href="#/systemconfig">
+					<div class="tiles-wrapper tiles_9">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/system_config.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">システム構成</div>
+				</div>
+			</a>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMAC === 'Y'">
+			<a href="#/mailconfig">
+					<div class="tiles-wrapper tiles_9">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/Mail_Config.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">メール設定</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readMQC === 'Y'">
+			<a href="#/mqshoreconfig">
+					<div class="tiles-wrapper tiles_9">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/port_master.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">MQ 設定</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>

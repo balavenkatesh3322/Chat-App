@@ -1,0 +1,193 @@
+<div class="main" id="main">
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="PTM" callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+			<div  allowed="read" mdlcode="PTM">
+		<div class="sticky_header">
+			<div class="tab_head_sticky">
+			 <ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+  <li><a href="#/Master">Config Master</a></li>
+  <li ><b>Port Master</b></li>
+  <!-- <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span> -->
+</ul>
+				<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">Port Master</div>
+         </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper" style="margin-top:15px !important;">
+					<div class="form_table">
+
+						<div class="row">
+							
+
+								<label class="col-xs-2 col-sm-1 form-control-label">Country<span class="mandatory"
+									style="color: red">*</span></label>
+								<div class="col-xs-12 col-sm-2">
+									<input type="text" class="form-control" ng-disabled="true"
+										placeholder="Code" ng-model="countrycode" id="Countrycode">
+								</div>
+								<div class="col-xs-12 col-sm-3">
+									<input type="text" class="form-control" placeholder="Name"
+										ng-model="countryname" ng-disabled="true" id="Countryname">
+								</div>
+								<div class="col-xs-1 col-sm-1">
+									<button type="button"
+										class="btn btn-primary btn-sm fa fa-search"
+										ng-click="showModal = true" style="margin-top: 3px;"></button>
+								</div>
+							
+							<!--<div class="row">
+						
+									<div class="col-xs-offset-1 text-error"
+										style="color: red; margin-left: 13%;">{{Countrycode_error}}</div>
+								
+							</div>-->
+<br>
+<br>
+<!-- 							<modal class="" visible="showModal" on-sown="modalOneShown()" -->
+<!-- 								on-hide="modalOneHide()"> <modal-header class="tab_head" -->
+<!-- 								title="Country Selection"></modal-header> <modal-body -->
+<!-- 								title1="Country Code" title2="Country Name" -->
+<!-- 								data="modulesListData" searchdesc1="Search Country Code" -->
+<!-- 								searchdesc2="Search Country Name" searchdesc3="Search on both" -->
+<!-- 								keymodelid="m1" valuemodelid="m2" -->
+<!-- 								callback-fn="setValue(arg1,arg2)" hide-fn="hide()"> -->
+<!-- 							</modal-body> </modal> -->
+							
+								<modal class="" visible="showModal" ng-focus="hideError('Countrycode')"
+										on-sown="modalOneShown()" on-hide="modalOneHide()"> <modal-header
+										title="Country Selection"></modal-header> <modal-body
+										title1="Country Code" title2="Country Name"
+										data="modulesListData" searchdesc1="Search Country Code"
+										searchdesc2="Search Country Name" searchdesc3="Search on both"
+										keymodelid="m1" valuemodelid="m2"
+										callback-fn="setValue(arg1,arg2)" hide-fn="hide()" status="showModal">
+								</modal-body> </modal>
+									
+								<div class="navbar-drawer  hidden-lg-down">
+										<form class="form-inline navbar-form ">
+											<label style="margin-left: 0px"><strong>Items per page</strong></label> 
+											
+											<select style="margin-left: 10px; width: 60px" class="form-control" ng-model="pageSize" ng-selected="pageSize"
+                                  ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+										</form>
+									</div>
+
+
+							<div class="col-xs-12 col-xl-12">
+								
+									<div class="table-responsive">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0" id="myTable">
+											<thead>
+												<tr>
+													<th style="text-align: left;">S.No</th>
+													<th style="text-align: left;">Port Code <a href=""
+														ng-click="sort('portcode')" class="sortDir"
+														ng-class="{ active: isSorted('portcode') }">&#x25B2;</a><a
+														href="" ng-click="sort('-portcode')" class="sortDir"
+														ng-class="{ active: isSorted('-portcode' ) }">&#x25BC;</a>
+													</th>
+													<th style="text-align: left;">Port Name <a href=""
+														ng-click="sort('portname')" class="sortDir"
+														ng-class="{ active: isSorted('portname') }">&#x25B2;</a><a
+														href="" ng-click="sort('-portname')" class="sortDir"
+														ng-class="{ active: isSorted('-portname' ) }">&#x25BC;</a>
+													</th>
+													<th style="text-align: left;">Country Code <a
+														href="" ng-click="sort('countrycode')" class="sortDir"
+														ng-class="{ active: isSorted('countrycode') }">&#x25B2;</a><a
+														href="" ng-click="sort('-countrycode')" class="sortDir"
+														ng-class="{ active: isSorted('-countrycode' ) }">&#x25BC;</a>
+													</th>
+													<th style="text-align: left;">Country Name <a
+														href="" ng-click="sort('countryname')" class="sortDir"
+														ng-class="{ active: isSorted('countryname') }">&#x25B2;</a><a
+														href="" ng-click="sort('-countryname')" class="sortDir"
+														ng-class="{ active: isSorted('-countryname' ) }">&#x25BC;</a>
+													</th>
+													<th style="text-align: center;">Status<a href="" ng-click="sort('statusDesc')" class="sortDir"	ng-class="{ active: isSorted('statusDesc') }">&#x25B2;</a><a href="" ng-click="sort('-statusDesc')" class="sortDir" ng-class="{ active: isSorted('-statusDesc' ) }">&#x25BC;</a> </th>
+												</tr>
+
+												<tr>
+												<th></th>
+												<th><input class="form-control" placeholder="Search"
+													ng-model="search['portcode']"></th>
+												<th><input class="form-control" placeholder="Search"
+													ng-model="search['portname']"></th>
+												<th><input class="form-control" placeholder="Search"
+													ng-model="search['countrycode']"></th>
+												<th><input class="form-control" placeholder="Search"
+													ng-model="search['countryname']"></th>
+												<th><input placeholder="Search" class="form-control" ng-model="searchStatus"></th>
+												</tr>
+												<!-- <tr>
+													<th style="text-align: center;">SR No</th>
+													<th style="text-align: center;">Port Code</th>
+													<th style="text-align: center;">Port Name</th>
+													<th style="text-align: center;">Country Code</th>
+													<th style="text-align: center;">Country Name</th>
+													<th style="text-align: center;">Status</th>
+													<th style="text-align: center;">Update</th>
+												</tr> -->
+											</thead>
+											<tbody class="item">
+												<tr style="text-align: center;" ng-style="set_color(x)"
+												dir-paginate="x in ports1 = (ports | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)" current-page="currentPage">
+													<!-- dir-paginate="x in ports |  orderBy:predicate:reverse  | filter:search | itemsPerPage:pageSize | filter:{'portcode':searchPortCode} 
+													| filter:{'portname':searchPortName} | filter:{'countrycode' :searchCountryCode} | filter:{'countryname':searchCountryName} | filter:{'statusDesc':searchStatus}:startsWith" current-page="currentPage"> -->
+<!-- 													<td>{{$index + 1}}</td> -->
+													<td >{{($index+1) + (currentPage -1) * pageSize }}</td>
+													<td>{{x.portcode}}</td>
+													<td>{{x.portname}}</td>
+													<td>{{x.countrycode}}</td>
+													<td>{{x.countryname}}</td>
+													<td style="text-align: center;"> 
+														<span class="label" ng-class="{'label-success': x.statusDesc == 'Active','label-danger': x.statusDesc == 'Inactive'}">{{x.statusDesc}}</span>
+													</td>
+													<td style="display: none">{{ x.cruser }}</td>
+													<td style="display: none">{{ x.crdate }}</td>
+													<td style="display: none">{{ x.upduser }}</td>
+													<td style="display: none">{{ x.upddate }}</td>
+													<!-- <td><span ng-if="x.active_status=='A'"><a
+														class="btn btn-info btn-sm" ng-click="portMasterEdit(x)"><i
+															style="color: white !important" class="fa fa-edit"></i></a></span> <span
+													ng-if="x.active_status=='A'"><a
+														class="btn btn-danger btn-sm" ng-click="deleteForm(x)"><i
+															style="color: white !important" class="fa fa-trash-o"></i></a></span></td> -->
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div style="margin-top: -20px;" class="pull-right">
+										<dir-pagination-controls max-size="25" direction-links="true"
+											boundary-links="true"></dir-pagination-controls>
+									</div>
+								
+							</div>
+
+						</div>
+						<!--  form_table  -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+</div>
+		<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Port Master" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+             
+ 
+ <div kendo-dialog="dialog" k-title="'Port Master'" k-on-open="dialogVisible = true"
+            k-on-close="dialogVisible = false" k-width="300" k-height="150"
+            k-actions="actions" k-modal="true" >
+            <img src="img/warning -dialog.png">
+            <p ng-repeat="errors in dataerror">{{errors[0]}}</p>
+          </div>

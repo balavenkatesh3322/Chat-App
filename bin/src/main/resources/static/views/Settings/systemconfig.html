@@ -1,0 +1,95 @@
+			<div class="main" id="main">
+				<div ng-show="haspermission" allowed="unauthorized" mdlcode="SYC" callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+			<div  allowed="read" mdlcode="SYC">
+				<div class="sticky_header">
+					<div class="tab_head_sticky">
+					<ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+  <li><a href="#/Settings">Settings</a></li>
+  <li><b>Sytem Config</b></li>
+</ul>
+						<div class="tab_head"
+					style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important; padding-top: 3px !important;">
+					<div class="pull-left" style="font-size: 21px;">SYSTEM CONFIG
+					</div>
+					<div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+
+					</div>
+				</div>
+					</div>
+				</div>
+				<div class="row">
+      <div class="col-xs-12">
+       <div class="form_table_wrapper" style="margin-top: 15px !important;">
+        <div class="form_table">
+         <div class="row">
+          <div class="col-xs-12" style="margin-top: 0px;">
+			
+						</div>
+					</div>
+					<div class="navbar-drawer  hidden-lg-down">
+							 <form class="form-inline navbar-form ">
+									<label style="margin-left:-13px"><strong>Items per page</strong></label> 
+									
+									<select style="margin-left: 10px; width: 60px" class="form-control" ng-model="pageSize" ng-selected="pageSize"
+                                  ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+								</form>  								
+							</div>
+					
+					<div class="form-group row ">
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-hover table-striped table-bordered"
+									cellspacing="0" id="myTable">
+									
+									<thead>
+											<tr>
+												<th>S.No</th>
+												<th>Description <a href="" ng-click="sort('sysparam')" class="sortDir" ng-class="{ active: isSorted('sysparam') }">&#x25B2;</a><a href="" ng-click="sort('-sysparam')" class="sortDir" ng-class="{ active: isSorted('-sysparam' ) }">&#x25BC;</a> </th>
+												<th>Value <a href="" ng-click="sort('sysvalue')" class="sortDir" ng-class="{ active: isSorted('sysvalue') }">&#x25B2;</a><a href="" ng-click="sort('-sysvalue')" class="sortDir" ng-class="{ active: isSorted('-sysvalue' ) }">&#x25BC;</a> </th>
+												<th style="text-align: center;">Status<a href="" ng-click="sort('statusDesc')" class="sortDir"	ng-class="{ active: isSorted('statusDesc') }">&#x25B2;</a><a href="" ng-click="sort('-statusDesc')" class="sortDir" ng-class="{ active: isSorted('-statusDesc' ) }">&#x25BC;</a> </th>												
+											</tr>
+
+											<tr>
+												<th></th>
+												<th><input placeholder="Search" class="form-control" ng-model="search['sysparam']"></th>
+												<th><input placeholder="Search" class="form-control"  ng-model="search['sysvalue']"></th>
+												<th><input placeholder="Search"	class="form-control" ng-model="search['statusDesc']"></th>											    
+											</tr>
+										</thead>
+								
+									<tbody class="item">
+										<tr  ng-style="set_color(sys)" 
+										    row-id="{{ sys.id }}"	
+										    dir-paginate="sys in Sysconfig1 = (Sysconfig | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)" current-page="currentPage">
+										   <!--  dir-paginate="sys in Sysconfig |  orderBy:predicate:reverse  | filter:search | itemsPerPage:pageSize 
+										    | filter:{'sysparam':searchDescription}
+										    | filter:{'sysvalue':searchValue} | filter:{'statusDesc':searchStatus}:startsWith" current-page="currentPage"> -->
+<!-- 											<td>{{$index+1}}</td> -->
+											<td>{{($index+1) + (currentPage -1) * pageSize }}</td>
+											<td>{{sys.sysparam}}</td>
+											<td style="text-align:left;">{{sys.sysvalue}}</td>
+											<td style="text-align: center;"> 
+													<span class="label" ng-class="{'label-success': sys.statusDesc == 'Active','label-danger': sys.statusDesc == 'Inactive'}">{{sys.statusDesc}}</span>	
+											</td>											
+										</tr>
+								</table>
+								<div class="pull-right">
+									<dir-pagination-controls max-size="10" direction-links="true"
+									boundary-links="true"></dir-pagination-controls>
+								</div>
+							</div>
+							<!-- table-responsive -->
+							<div class="col-xs-12 col-xl-12">
+								<div class="alert alert-success" role="alert" ng-hide="msgclear">
+									<strong> {{informationMessage}}</strong>
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

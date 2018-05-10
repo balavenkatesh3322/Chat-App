@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+<title>MACK Lite</title>
+<meta name="description" content="Marino, Admin theme, Dashboard theme, AngularJS Theme">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="favicon.ico">
+<!--[if IE]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- global stylesheets -->
+<link rel="stylesheet" href="styles/components/bootstrap.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/1.0.0/css/flag-icon.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css" />
+	<style>
+	body{
+		font-size: 12px;
+	}
+	</style>
+</head>
+  <body data-layout="empty-layout" data-palette="palette-0" data-direction="none">
+       <!-- <div ng-include src="'AngularViews/header.html'"></div> -->
+       
+       <nav class="navbar navbar-fixed-top navbar-1"><a class="navbar-brand" href="hseqdashboard.html">MACK Lite</a> 
+            <ul class="nav navbar-nav pull-left toggle-layout">
+                <li class="nav-item">
+                    <a class="nav-link" data-click="toggle-layout"> <i class="zmdi zmdi-menu"></i> 
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-left toggle-fullscreen-mode">
+                <li class="nav-item">
+                    <a class="nav-link" data-click="toggle-fullscreen-mode"> <i class="zmdi zmdi-fullscreen"></i> 
+                    </a>
+                </li>
+            </ul>
+           
+            <ul class="nav navbar-nav pull-left toggle-search">
+                <li class="nav-item">
+                    <a class="nav-link" data-click="toggle-search"> <i class="zmdi zmdi-search"></i> 
+                    </a>
+                </li>
+            </ul>
+			
+            <div class="navbar-drawer pull-left hidden-lg-down">
+                <form class="form-inline navbar-form ">
+                    <input class="form-control" type="text" placeholder="Search">
+                </form>
+            </div>
+                        <ul class="nav navbar-nav pull-right hidden-lg-down navbar-flags">
+                <li class="nav-item dropdown dropdown-menu-right">
+                    <a class="nav-link dropdown-toggle no-after" data-toggle="dropdown"> <span class="flag flag-icon flag-icon-gb"></span> 
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right">
+                        <a class="dropdown-item" > <span class="flag flag-icon flag-icon-gb"></span>  <span class="title">English</span> 
+                        </a>
+     <a class="dropdown-item"> <span class="flag flag-icon flag-icon-jp"></span> <span class="title">Japanese</span> 
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right hidden-lg-down navbar-notifications">
+                <li class="nav-item">
+                    <a class="nav-link" data-click="toggle-right-sidebar"> <i class="zmdi zmdi-notifications-active"></i>  <span class="label label-rounded label-danger label-xs">3</span> 
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right hidden-lg-down navbar-profile">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle no-after" data-toggle="dropdown">
+                        <img class="img-circle img-fluid profile-image" src="assets/faces/m12.png">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-scale from-right dropdown-menu-right">
+                      <a href="/logout" class="dropdown-item animated fadeIn" > <i class="zmdi zmdi-power"></i>  <span class="dropdown-text">Logout</span> 
+                        </a>
+                    </div>
+                </li>
+            </ul>
+          			<ul class="nav navbar-nav pull-right hidden-lg-down navbar-profile">
+                <li class="nav-item"> <b>KLSM - SG</b> 
+                </li>
+            </ul>
+        </nav>
+            <div class="container-fluid">
+            <div class="row">
+                <div class="sidebar-placeholder">
+                </div>
+               <div class="sidebar-outer-wrapper">
+    <div class="sidebar-inner-wrapper">
+        <div class="sidebar-1 slidebarback">
+            <div class="profile">
+                <button data-click="toggle-sidebar" type="button" class="btn btn-white btn-outline no-border close-sidebar"> <i class="fa fa-close"></i> 
+                </button>
+                <div class="profile-image">
+                    <img class="img-circle img-fluid" src="assets/faces/kslm-logo.png">
+                </div>
+                <div class="profile-toggle">
+                    <button data-click="toggle-profile" type="button" class="btn btn-white btn-outline no-border"> <i class="pull-right fa fa-caret-down icon-toggle-profile"></i> 
+                    </button>
+                </div>
+                <div class="profile-title">Chikkara</div>
+				<div class="profile-title">KLSM001</div>
+				<div class="profile-title">Chief Officer</div>
+                <!--<div class="profile-subtitle">user@kline.com</div> -->
+            </div>
+
+            <div class="sidebar-nav slidebarback">
+                <div class="sidebar-section account-links">
+                    <div class="section-title">Account</div>
+                    <ul class="list-unstyled section-content">
+                        <li>
+                            <a class="sideline"> <i class="zmdi zmdi-account-circle md-icon pull-left"></i>  <span class="title">Profile</span> 
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sideline"> <i class="zmdi zmdi-settings md-icon pull-left"></i>  <span class="title">Settings</span> 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/logout" class="sideline" href="pages-login.html"> <i class="zmdi zmdi-sign-in md-icon pull-left"></i>  <span class="title">Logout</span> 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+    
+              <div class="sidebar-section">
+
+                                <!-- <div class="section-title"></div> -->
+                               <ul class="l1 list-unstyled section-content">
+                                    <li>
+                                        <a class="sideline" data-id="dashboards" href="hseqdashboard.html"><i class="fa fa-tachometer md-icon pull-left"></i>  <span class="title">Dashboard</span> 
+                                        </a>  
+                                    </li>
+                                </ul>
+								<ul class="l1 list-unstyled section-content">
+                                    <li>
+                                        <a class="sideline" data-id="layouts" href="mastermodule.html"> 
+										<i class="pull-right  icon-layouts"></i>  
+										<i class="zmdi zmdi-view-dashboard md-icon pull-left"></i> 
+										<span class="title">Masters</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+
+								<ul class="l1 list-unstyled section-content">
+                                    <li>
+                                        <a class="sideline" data-id="dashboards" href="securitymodule.html">										
+										<i class="fa fa-lock md-icon pull-left"></i>
+										<span class="title">Security</span> 
+                                        </a>  
+                                    </li>
+                                </ul>
+                                <!-- <ul class="l1 list-unstyled section-content">
+                                    <li>
+                                        <a  href="mastermodule.html" class="sideline" data-id="layouts"><i class="fa fa-file-text-o md-icon pull-left"></i ><span class="title">Masters</span>
+                                        </a>
+                                                                            </li>
+                                </ul>
+                                <ul class="l1 list-unstyled section-content">
+                                    <li>
+                                        <a  href="securitymodule.html" class="sideline" data-id="layouts"><i class="fa fa-file-text-o md-icon pull-left"></i ><span class="title">Security</span>
+                                        </a>
+                                                                            </li>
+                                </ul> -->
+                                <ul class="l1 list-unstyled section-content">
+                                    <li>
+                                        <a  href="edocs.html" class="sideline" data-id="layouts"><i class="fa fa-file-text-o md-icon pull-left"></i ><span class="title">e-Docs</span>
+                                        </a>
+                                                                            </li>
+                                </ul>
+                                <ul class="l1 list-unstyled section-content">
+                                    <li>  
+                                        <a class="sideline" data-id="layouts" href="hseqmodule.html"><i class="fa fa-search-plus md-icon pull-left"></i> <span class="title">e-Inspect</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <ul class="l1 list-unstyled section-content">
+                                    <li>
+                                        <a class="sideline" data-id="layouts" href="mack-s_module.html"><i class="fa fa-check-square-o md-icon pull-left"></i> <span class="title">e-Forms</span> 
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="sidebar-section">
+                                <div class="section-title"></div>        
+                            </div>
+                            <div class="sidebar-section">
+                                <div class="section-title"></div>
+
+                            </div>
+                            <div class="sidebar-section">
+                                <div class="section-title hidden"></div>
+
+                            </div>
+                            <div class="sidebar-labels m-t-20">   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-sidebar-outer">
+                <div class="right-sidebar-inner">
+                    <div class="right-sidebar">
+                        <div class="bs-nav-tabs nav-tabs-warning justified">
+                            <ul class="nav nav-tabs nav-animated-border-from-center">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" data-target="#rtab-left">Notification</a> 
+                                </li>
+                                                           </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="rtab-left">
+                                    <h5>Today</h5> 
+                                    <div class="timeline-widget-4">
+                                        <div class="row bg-odd-color">
+                                            <div class="col-xs-12 timeline timeline-info">
+                                                <div class="p-10">
+                                                    <p>New Circular from HSEQ Dept</p>
+                                                    <p class="text-sm text-muted">10 minutes ago</p>
+                                                    <p class="text-sm m-t-10"> <span>Reply</span>  <i class="m-l-5 m-r-5 fa fa-mail-reply"></i> 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row bg-even-color">
+                                            <div class="col-xs-12 timeline timeline-danger">
+                                                <div class="p-10">
+                                                    <p>Near Miss reported in Engine Dept</p>
+                                                    <p class="text-sm text-muted">30 minutes ago</p>
+                                                    <p class="text-sm m-t-10"> <span>Like</span>  <i class="m-l-5 m-r-5 fa fa-thumbs-o-up"></i>  <span>Comment</span>  <i class="m-l-5 m-r-5 fa fa-comment"></i> 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row bg-odd-color">
+                                            <div class="col-xs-12 timeline timeline-success">
+                                                <div class="p-10">
+                                                    <p>Safety meeting is scheduled on 5 Jan 2016</p>
+                                                    <p class="text-sm text-muted">3 hours ago</p>
+                                                    <p class="text-sm m-t-10"> <span>10</span>  <i class="m-l-5 m-r-5 fa fa-star-o"></i>  <span>23</span>  <i class="m-l-5 m-r-5 fa fa-heart-o"></i> 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>																	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 main" id="main">
+					
+			<table width="100%" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" border="0" style="border:#06F solid 0px">
+<tr>
+<td>
+<table width="100%" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" border="0" style="border:#06F solid 0px">
+<tr>
+<td align="center">
+<div style="border:0px dotted #990000; margin:10px;background-color:#f2f2f2">
+<img src="img/management.png" style="margin: 10px" border="0" height="40px" width="40px" />
+<br />
+
+<a href="roleConfiguration.html"><span style="color: #262932;font-weight: normal;margin-bottom: 2px;">Role config</span> </a>
+<br />
+&nbsp;
+</div>
+</td>
+<td align="center">
+<div style="border:0px dotted #990000; margin:10px;background-color:#f2f2f2">
+<img src="img/visitreport.png" style="margin: 10px" border="0" height="40px" width="40px" />
+<br />
+
+<a href="modulecreation.html"><span style="color: #262932;font-weight: normal;margin-bottom: 2px;">Module config</span> </a>
+<br />
+&nbsp;
+</div>
+</td>
+<td align="center">
+<div style="border:0px dotted #990000; margin:10px;background-color:#f2f2f2">
+<img src="img/Competence.png" style="margin: 10px" border="0" height="40px" width="40px" />
+<br />
+
+<a href="ShipAccessManagement.html"><span style="color: #262932;font-weight: normal;margin-bottom: 2px;">Vessel Access Management</span> </a>
+<br />
+&nbsp;
+</div>
+</td>
+</tr>
+
+<tr>
+
+
+<td align="center">
+<div style="border:0px dotted #990000; margin:10px;background-color:#f2f2f2">
+<img src="img/Competence.png" style="margin: 10px" border="0" height="40px" width="40px" />
+<br />
+
+<a href="ShoreAccessManagement.html"><span style="color: #262932;font-weight: normal;margin-bottom: 2px;">Shore Access Management</span> </a>
+<br />
+&nbsp;
+</div>
+</td>
+
+
+
+
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</div>
+
+
+ <div class="col-xs-12 col-lg-4 m-b-5">
+
+    </div>
+</div>
+
+<div class="footer">
+    <div class="row">
+        <div class="col-xs-12">
+            <a href="#" target="_blank">&#9400;2017 Solverminds Solutions & Technologies Pvt.Ltd. All Rights Reserved  </a><a href="#" target="_blank"></a>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+    <!-- global scripts -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/tether/dist/js/tether.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/PACE/pace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+<script src="scripts/components/jquery-fullscreen/jquery.fullscreen-min.js"></script>
+<script src="bower_components/jquery-storage-api/jquery.storageapi.min.js"></script>
+<script src="bower_components/wow/dist/wow.min.js"></script>
+<script src="scripts/functions.js"></script>
+<script src="scripts/colors.js"></script>
+<script src="scripts/left-sidebar.js"></script>
+<script src="scripts/navbar.js"></script>
+<script src="scripts/horizontal-navigation-1.js"></script>
+<script src="scripts/horizontal-navigation-2.js"></script>
+<script src="scripts/horizontal-navigation-3.js"></script>
+<script src="scripts/main.js"></script>
+	<script src="bower_components/notifyjs/dist/notify.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+	<script src="bower_components/chartist/dist/chartist.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+	<script src="http://bower.batchthemes.com/bower_components/datamaps/dist/datamaps.all.js"></script>
+    <script src="scripts/dashboards.js"></script>
+    <script src="scripts/index.js"></script>
+</body>
+</html>

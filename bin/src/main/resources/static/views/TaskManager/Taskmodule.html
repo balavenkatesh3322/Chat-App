@@ -1,0 +1,42 @@
+    <div class="main" id="main" style="margin-top: -20px;">
+ <ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+  <li><b>Task Manager</b></li>  
+</ul>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readVTM=== 'Y'">
+			<a href="#/CreatedTask">
+				<div class="tiles-wrapper tiles_1">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/create_task.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">Task List</div>
+				</div>
+			</a>	
+			</div>
+			<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readVTK === 'Y'">
+			<a href="#/Taskschedule/Today">
+				<div class="tiles-wrapper tiles_1">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/mytask.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">My Task</div>
+				</div>
+				</a>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-lg-3" ng-if="readVNM === 'Y'">
+			<a href="#/NotificationHistory">
+				<div class="tiles-wrapper tiles_1">
+					<div class="tiles-icon">
+						<img src="Sidebar/assets/tiles_icons/notification_history.svg" />
+					</div>
+					<div class="tiles-inner"></div>
+					<div class="tiles-name">Notification History</div>
+				</div>
+				</a>
+			</div>
+		</div>
+	</div>

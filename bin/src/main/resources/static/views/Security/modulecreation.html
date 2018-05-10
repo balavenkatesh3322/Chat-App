@@ -1,0 +1,227 @@
+<div class="main" id="main">
+				<div ng-show="haspermission" allowed="unauthorized" mdlcode="MCR" callback-fn="unauthorize(arg1)" id="unauthorized"></div> 					
+ 				<div allowed="read" mdlcode="MCR">
+				<div class="sticky_header">
+					<div class="tab_head_sticky">
+					 <ul class="breadcrumb">
+  <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+  <li><a href="#/Security">Security</a></li>
+  <li><b>Module List</b></li>
+  <!-- <span class="pull-right"><img src="Sidebar/assets/faces/ship.svg"/>You are in <strong>SVM Ship</strong></span> -->
+</ul>
+				<div class="tab_head">
+     <div class="pull-left" style="font-size: 21px;">Module List</div>
+         </div>	
+					</div>
+				</div>
+<div class="row">
+      <div class="col-xs-12">
+       <div class="form_table_wrapper" style="margin-top:15px !important;">
+        
+         <div class="row">
+          <div class="col-xs-12" style="margin-top: 0px;">				
+						<div class="col-xs-12 col-xl-12">
+							<div class="alert alert-success" role="alert" ng-hide="msgclear">
+								<strong> {{informationMessage}}</strong>
+							</div>
+						</div>		
+						<div class="form_table">
+							<div ng-hide="true" class="form-group row">
+								<div class="col-xs-12 col-sm-6">
+									<div class="col-sm-4">
+										<label class="form-control-label">Module Id: <span
+											class="mandatory" style="color: red">*</span>
+										</label>
+									</div>
+									<div class="col-sm-7">
+										<input type="text" id="mdlid" ng-disabled="disabled"
+											ng-model="MdlId" class="col-sm-4 form-control" /> <label
+											class="col-sm-12 text-error" style="color: red">{{MdlCode_error}}</label>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6">
+									<div class="col-sm-4">
+										<label class="form-control-label">Module Name: <span
+											class="mandatory" style="color: red">*</span>
+										</label>
+									</div>
+									<div class="col-sm-7">
+										<input type="text" id="mdlname" ng-model="mdlname"
+											ng-disabled="disabled" class="form-control" /> <label
+											class="col-sm-12 text-error" style="color: red">{{MdlName_error}}</label>
+									</div>
+								</div>
+							</div>
+							<!--  -->
+							<div ng-hide="true" class="form-group row">
+								<div class="col-xs-12 col-sm-6">
+									<div class="col-sm-4">
+										<label class="form-control-label">Parent Code: <span
+											class="mandatory" style="color: red">*</span>
+										</label>
+									</div>
+									<div class="col-sm-7">
+										<input type="text" id="parenttext" ng-model="prntcode"
+											class="form-control" /> <label class="col-sm-12 text-error"
+											style="color: red">{{PrntCode_error}}</label>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6">
+									<div class="col-sm-4">
+										<label class="form-control-label">Menu Type:</label>
+									</div>
+									<div class="col-sm-7">
+										<label class="col-sm-4 c-input c-radio"> <input
+											name="radio-stacked1" value="H" ng-model="menutype"
+											type="radio" ng-checked="true"> <span
+											class="c-indicator c-indicator-warning"></span> <span
+											class="c-input-text"> Head </span>
+										</label> <label class="col-sm-4 c-input c-radio"> <input
+											name="radio-stacked1" value="M" ng-model="menutype"
+											type="radio"> <span
+											class="c-indicator c-indicator-warning"></span> <span
+											class="c-input-text"> Menu </span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div ng-hide="true" class="form-group row">
+								<div class="col-xs-12 col-sm-6">
+									<div class="col-sm-4">
+										<label class="form-control-label">Url: <span
+											class="mandatory" style="color: red">*</span>
+										</label>
+									</div>
+									<div class="col-sm-7">
+										<input type="text" id="url" ng-model="url"
+											class="form-control" /> <label class="col-sm-12 text-error"
+											style="color: red">{{Url_error}}</label>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6">
+									<div class="col-sm-4">
+										<label class="form-control-label">Auto Save:</label>
+									</div>
+									<div class="col-sm-7">
+										<label class="col-sm-4 c-input c-radio"> <input
+											name="radio-stacked3" value="Y" ng-model="autosave"
+											type="radio" ng-checked="true"> <span
+											class="c-indicator c-indicator-warning"></span> <span
+											class="c-input-text"> Yes </span>
+										</label> <label class="col-sm-4 c-input c-radio"> <input
+											name="radio-stacked3" value="N" ng-model="autosave"
+											type="radio"> <span
+											class="c-indicator c-indicator-warning"></span> <span
+											class="c-input-text"> No </span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div ng-hide="true" class="form-group row ">
+								<div class="col-xs-12 col-xl-12">
+									<button type="button" ng-show="shouldShow"
+										class="btn btn-primary btn-sm m-r-10 m-b-10 pull-right"
+										ng-click="cancelModuleCreation()">Cancel</button>
+									<button type="button" id="addbtn" ng-show="shouldShow1"
+										class="btn btn-info btn-sm m-r-10 m-b-10 pull-right"
+										ng-click="saveModuleCreation()">Add</button>
+									<button type="button" id="savebtn" ng-show="shouldShow"
+										class="btn btn-info btn-sm m-r-10 m-b-10 pull-right"
+										ng-click="updateModuleCreation()">Update</button>
+								</div>
+							</div>
+							<div class="navbar-drawer  hidden-lg-down">
+								<form class="form-inline navbar-form ">
+									<label style="margin-left: -13px"><strong>Items	per page</strong></label>
+									 
+									<select style="margin-left: 10px; width: 60px" class="form-control" ng-model="pageSize" ng-selected="pageSize"
+                                  ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select> 
+								</form>  		
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="table-responsive">
+										<table class="table table-hover table-striped table-bordered"
+											cellspacing="0" id="myTable">
+											
+											<thead>
+											<tr>
+												<th style="text-align: left">Module Id <a href="" ng-click="sort('mdlcode')" class="sortDir" ng-class="{ active: isSorted('mdlcode') }">&#x25B2;</a><a href="" ng-click="sort('-mdlcode')" class="sortDir" ng-class="{ active: isSorted('-mdlcode' ) }">&#x25BC;</a> </th>												
+												<th style="text-align: left">Module Name <a href="" ng-click="sort('mdlname')" class="sortDir" ng-class="{ active: isSorted('mdlname') }">&#x25B2;</a><a href="" ng-click="sort('-mdlname')" class="sortDir" ng-class="{ active: isSorted('-mdlname' ) }">&#x25BC;</a> </th>
+												<th style="text-align: left">Parent Code <a href="" ng-click="sort('parentcode')" class="sortDir" ng-class="{ active: isSorted('parentcode') }">&#x25B2;</a><a href="" ng-click="sort('-parentcode')" class="sortDir" ng-class="{ active: isSorted('-parentcode' ) }">&#x25BC;</a> </th>
+												<th style="text-align: left">Menu Type <a href="" ng-click="sort('menutype')" class="sortDir" ng-class="{ active: isSorted('menutype') }">&#x25B2;</a><a href="" ng-click="sort('-menutype')" class="sortDir" ng-class="{ active: isSorted('-menutype' ) }">&#x25BC;</a> </th>
+												<th style="text-align: left">Auto Save <a href="" ng-click="sort('autosaveEnb')" class="sortDir" ng-class="{ active: isSorted('autosaveEnb') }">&#x25B2;</a><a href="" ng-click="sort('-autosaveEnb')" class="sortDir" ng-class="{ active: isSorted('-autosaveEnb' ) }">&#x25BC;</a> </th>
+												<th style="text-align: left">Url </th>												
+												<th style="text-align: center;">Status<a href="" ng-click="sort('statusDesc')" class="sortDir"	ng-class="{ active: isSorted('statusDesc') }">&#x25B2;</a><a href="" ng-click="sort('-statusDesc')" class="sortDir" ng-class="{ active: isSorted('-statusDesc' ) }">&#x25BC;</a> </th>
+											</tr>
+
+											<tr>
+												<th><input placeholder="Search" class="form-control" ng-model="search['mdlcode']"></th>
+												<th><input placeholder="Search" class="form-control" ng-model="search['mdlname']"></th>
+												<th><input placeholder="Search" class="form-control" ng-model="search['parentcode']"></th>
+												<th><input placeholder="Search" class="form-control" ng-model="search['menutype']"></th>
+												<th><input placeholder="Search" class="form-control" ng-model="search['autosaveEnb']"></th>																						
+												<th></th>
+												<th><input placeholder="Search" class="form-control" ng-model="search['statusDesc']"></th>	
+											</tr>
+										</thead>
+											
+											
+										
+											<tbody class="item">
+												<tr style="text-align: center;" ng-style="set_color(x)"
+												dir-paginate="x in Mdlcrn1 = (Mdlcrn | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)" current-page="currentPage">
+													<!-- dir-paginate="x in Mdlcrn | orderBy:predicate:reverse  | filter:search | itemsPerPage:pageSize | filter:{'mdlcode':searchModuleCode} 
+													| filter:{'mdlname':searchModuleName} | filter:{'parentcode' :searchParentCode} | filter:{'menutype':searchMenuType}
+													| filter:{'url':searchUrl} | filter:{'autosaveEnb':searchAuto} | filter:{'statusDesc':searchStatus}:startsWith"> -->
+													<td style="text-align: left">{{x.mdlcode}}</td>
+													<td style="text-align: left">{{x.mdlname}}</td>
+													<td style="text-align: left">{{x.parentcode}}</td>
+													<td style="text-align: left">{{x.menutype}}</td>
+														<td style="text-align: left">{{x.autosaveEnb}}</td>
+														<td><select class="form-control" ng-model="x.url">
+															<option ng-repeat="rank in x.urldata"
+																value="{{rank.mdlcode}}">{{rank.url}}</option>
+													</select></td>
+												
+													<td style="display: none">{{ x.cruser }}</td>
+													<td style="display: none">{{ x.crdate }}</td>
+													<td style="display: none">{{ x.upduser }}</td>
+													<td style="display: none">{{ x.upddate }}</td>
+													<td style="text-align: center;"><span class="label"
+														ng-class="{'label-success': x.statusDesc == 'Active','label-danger': x.statusDesc == 'Inactive'}">{{x.statusDesc}}</span>
+													</td>
+														<!-- <td width="12%"><span ng-if="x.activeStatus=='A'">
+																<a class="btn btn-info btn-sm" ng-model="mdldisable"
+																ng-click="MdlCreationEdit(x)"> <i
+																	style="color: white !important" class="fa fa-edit"></i>
+															</a>
+														</span> <span ng-if="x.activeStatus=='A'"> <a
+																class="btn btn-danger btn-sm" ng-model="mdldisable"
+																ng-click="deleteModuleCreation(x)"> <i
+																	style="color: white !important" class="fa fa-trash-o"></i>
+															</a>
+														</span></td> -->
+												</tr>
+										</table>
+									</div>
+									<!-- table-responsive -->
+									<div class="pull-right">
+										<dir-pagination-controls max-size="10" direction-links="true"
+											boundary-links="true"></dir-pagination-controls>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- form-table -->
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div></div>          
+ 
+
+<kendo-custom-dialog ng-if="geterrorstatuscode!=0" handle-close="setStatusCode" title="Module Creation" name="systemvalidationdialog" 
+custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" 
+showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>

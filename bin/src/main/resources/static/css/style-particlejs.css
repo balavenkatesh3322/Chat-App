@@ -1,0 +1,322 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	background: #111;
+}
+
+/* ---- stats.js ---- */
+.count-particles {
+	background: #000022;
+	position: absolute;
+	top: 48px;
+	left: 0;
+	width: 80px;
+	color: #13E8E9;
+	font-size: .8em;
+	text-align: left;
+	text-indent: 4px;
+	line-height: 14px;
+	padding-bottom: 2px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+}
+
+.js-count-particles {
+	font-size: 1.1em;
+}
+
+#stats, .count-particles {
+	-webkit-user-select: none;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+#stats {
+	border-radius: 3px 3px 0 0;
+	overflow: hidden;
+}
+
+.count-particles {
+	border-radius: 0 0 3px 3px;
+}
+
+/* ---- particles.js container ---- */
+#particles-js {
+	/*width: 100%;
+ /* height: auto;
+ /* background-color: #000;*/
+	/* background-image: url('/images/ship.jpg');*/
+	/* background-size: cover;*/
+	/*  background-position: 50% 50%;*/
+	/* background-repeat: no-repeat;*/
+	background-image: url('/img/bg_ship.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+/* Login Page */
+.mac-light {
+	position: fixed;
+	right: 18px;
+	top: 23px;
+	height: 35px;
+}
+
+.k-line {
+	position: fixed;
+	left: 10px;
+	top: 7px;
+}
+
+.form-group {
+	margin-top: -10px;
+}
+
+.login_title {
+	font-size: 24px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+#loginbutton {
+	background-color: #bd081c !important;
+	background-color: #bd081c !important;
+	width: 290px;
+	font-size: 13px;
+	font-weight: bold;
+	margin-top: 10px;
+	padding: 8px;
+}
+
+.link {
+	font-size: 12px;
+	margin-top: -6px;
+	overflow: hidden;
+}
+
+.link a:first-child {
+	float: left;
+	color: #003399 !important;
+}
+
+.link a:last-child {
+	float: right;
+	color: #003399 !important;
+}
+
+#login_form  .text-error {
+	padding-top: 4px;
+	font-size: 12px;
+	color: red;
+}
+
+#particle-js {
+	position: relative;
+}
+
+#particlejs-container {
+	position: absolute;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.box {
+	width: 300px;
+	height: 350px;
+	position: fixed;
+	left: 45%;
+	top: 25%;
+}
+
+#login_form {
+	position: absolute;
+	height: auto !important;
+}
+
+#one {
+	border: 15px solid rgba(255, 255, 255, .7);
+	-webkit-background-clip: padding-box; /* for Safari */
+	background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	Width: 345PX;
+	border-radius: 10px;
+	box-shadow: 4px 4px 6px rgba(51, 51, 51, 0.46);
+	height: auto;
+	background-color: #fafafa;
+	background-repeat: no-repeat;
+	padding-top: 1px;
+	bottom: 180px;
+	right: 133px;
+}
+
+#two {
+	border: 15px solid rgba(255, 255, 255, .7);
+	-webkit-background-clip: padding-box; /* for Safari */
+	background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	Width: 330PX;
+	border-radius: 10px;
+	box-shadow: 4px 4px 6px rgba(51, 51, 51, 0.46);
+	height: auto;
+	background-color: #fafafa;
+	background-repeat: no-repeat;
+	padding-top: 1px;
+	bottom: 180px;
+	right: 133px;
+}
+
+#two>.terms {
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+.terms {
+	font-size: 12px;
+	text-align: center;
+	margin-top: 15px;
+	color: #999999 !important;
+	margin-bottom: -9px;
+}
+
+.terms  a {
+	text-decoration: none;
+	color: #999999 !important;
+}
+
+@media only screen and (device-width: 1024px) {
+	#one {
+		border: 15px solid rgba(255, 255, 255, .7);
+		-webkit-background-clip: padding-box; /* for Safari */
+		background-clip: padding-box;
+		/* for IE9+, Firefox 4+, Opera, Chrome */
+		Width: 350px;
+		border-radius: 10px;
+		box-shadow: 4px 4px 6px rgba(51, 51, 51, 0.46);
+		height: 375px;
+		background-color: #fafafa;
+		background-repeat: no-repeat;
+		padding-top: 1px;
+		bottom: 400px;
+		right: 130px;
+	}
+	#two {
+		border: 15px solid rgba(255, 255, 255, .7);
+		-webkit-background-clip: padding-box; /* for Safari */
+		background-clip: padding-box;
+		/* for IE9+, Firefox 4+, Opera, Chrome */
+		Width: 850PX;
+		border-radius: 10px;
+		box-shadow: 4px 4px 6px rgba(51, 51, 51, 0.46);
+		height: auto;
+		background-color: #fafafa;
+		background-repeat: no-repeat;
+		padding-top: 1px;
+		bottom: 400px;
+		right: 377px;
+	}
+}
+
+@media only screen and (device-width: 768px) {
+	#one {
+		border: 15px solid rgba(255, 255, 255, .7);
+		-webkit-background-clip: padding-box; /* for Safari */
+		background-clip: padding-box;
+		/* for IE9+, Firefox 4+, Opera, Chrome */
+		Width: 350px;
+		border-radius: 10px;
+		box-shadow: 4px 4px 6px rgba(51, 51, 51, 0.46);
+		height: auto;
+		background-color: #fafafa;
+		background-repeat: no-repeat;
+		padding-top: 1px;
+		bottom: 350px;
+		right: 130px;
+	}
+	#two {
+		border: 15px solid rgba(255, 255, 255, .7);
+		-webkit-background-clip: padding-box; /* for Safari */
+		background-clip: padding-box;
+		/* for IE9+, Firefox 4+, Opera, Chrome */
+		Width: 450PX;
+		border-radius: 10px;
+		box-shadow: 4px 4px 6px rgba(51, 51, 51, 0.46);
+		height: auto;
+		background-color: #fafafa;
+		background-repeat: no-repeat;
+		padding-top: 14px;
+		bottom: 300px;
+		right: 45%;
+	}
+}
+
+@media only screen and (max-device-width: 653px) and (min-device-width:
+	253px) {
+	.k-line {
+		min-width: 96% !important;
+	}
+	.mac-light {
+		width: 40%;
+		height: 68px;
+		margin: 157px 259px 0 0px;
+	}
+	#one {
+		border: 15px solid rgba(255, 255, 255, .7);
+		-webkit-background-clip: padding-box; /* for Safari */
+		background-clip: padding-box;
+		/* for IE9+, Firefox 4+, Opera, Chrome */
+		Width: 850PX;
+		border-radius: 10px;
+		box-shadow: 4px 4px 6px rgba(51, 51, 51, 0.46);
+		height: auto;
+		background-color: #fafafa;
+		background-repeat: no-repeat;
+		padding-top: 1px;
+		bottom: 180px;
+		right: 377px;
+	}
+	#two {
+		border: 15px solid rgba(255, 255, 255, .7);
+		-webkit-background-clip: padding-box; /* for Safari */
+		background-clip: padding-box;
+		/* for IE9+, Firefox 4+, Opera, Chrome */
+		Width: 850PX;
+		border-radius: 10px;
+		box-shadow: 4px 4px 6px rgba(51, 51, 51, 0.46);
+		height: auto;
+		background-color: #fafafa;
+		background-repeat: no-repeat;
+		padding-top: 1px;
+		bottom: 180px;
+		right: 377px;
+	}
+	#loginbutton {
+		background-color: #bd081c !important;
+		background-color: #bd081c !important;
+		width: 778px;
+		font-size: 35px;
+		font-weight: bold;
+		margin-left: 6px;
+		margin-top: 34px;
+		padding: 8px;
+	}
+}
+
+.login_title {
+	font-size: 24px;
+}
+
+.login_footer {
+	font-size: 13px;
+	position: absolute;
+	margin: 4px 4px;
+	right: 30px;
+	bottom: -40px;
+	color: white;
+}
+
+.login_footer>a {
+	color: #48e4fb;
+	text-shadow: 2px 3px 2px black;
+}

@@ -1,0 +1,115 @@
+
+	/*
+.form-control {
+ border-color: rgba(126, 239, 104, 0.8);
+  box-shadow: 0 0 2px rgba(82,168,236,.6);
+  outline: 0 none;
+}
+
+*/
+
+
+.label.label-info1 {
+    background-color: #00aced;
+    color: #fff;
+    padding: 5px 7px !important;
+    cursor: pointer;
+}
+[data-palette="palette-5"] .table-hover > tbody > tr:hover > td, [data-palette="palette-5"] .table-hover > tbody > tr:hover > th {
+   
+}
+[data-palette="palette-5"] .table-striped > tbody > tr:nth-child(odd) > td, [data-palette="palette-5"] .table-striped > tbody > tr:nth-child(odd) > th {
+    
+}
+
+body {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    color: #373a3c !important;
+    background-color: #fff !important;
+}
+.marginalign {
+     margin-bottom: 5px !important; 
+}
+
+.form-control-label {
+    padding: 0.175rem 0.75rem !important;
+    margin-bottom: 0 !important;
+    font-weight: 400 !important;
+ }
+
+select
+{
+font-size: 12px;
+}
+
+
+select:focus,
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: rgba(82,168,236,.8);
+    outline: 0;
+    outline: thin dotted \9;
+    -moz-box-shadow: 0 0 8px rgba(82,168,236,.6);
+    box-shadow: 0 0 8px rgba(82,168,236,.6) !important;
+}
+
+
+.label {
+border-radius: 0rem;
+padding: 10px;
+}
+
+.fontcolor
+{
+color:#d9534f;
+}
+
+.fonts
+{
+color:#0275d8;
+border: solid 1px #0275d8; 
+}
+
+.lines
+{
+line-height: 1.5rem !important;
+}
+
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; 
+  }
+
+legend {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none; 
+	Font-Size: 13px;
+    Color: #0020ff;
+	}
+
+
+  legend.scheduler-border {
+    width:inherit; /* Or auto */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+}
+
+

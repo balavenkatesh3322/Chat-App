@@ -1,0 +1,1 @@
+angular.module("ShoreRoleMasterApp",['angularUtils.directives.dirPagination']);

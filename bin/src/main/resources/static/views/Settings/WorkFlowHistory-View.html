@@ -1,0 +1,145 @@
+<div class="main" id="main">
+   <div ng-show="haspermission" allowed="unauthorized" mdlcode="WKF" callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+   <div  allowed="read" mdlcode="WKF">
+      <div class="sticky_header">
+         <div class="tab_head_sticky">
+            <ul class="breadcrumb">
+               <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+               <li><a href="#/Settings">Settings</a></li>
+               <li><b>Work Flow Master</b></li>
+            </ul>
+            <div class="tab_head"
+               style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important; padding-top: 3px !important;">
+               <div class="pull-left" style="font-size: 21px;">Work Flow
+                  Master
+               </div>
+               <div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row" >
+         <div class="col-xs-12">
+            <div class="form_table_wrapper" style="margin-top: 15px !important;">
+               <div class="form_table">
+                  <div class="row">
+                   
+                        <div class="form-group">
+                           <label class="col-sm-1 form-control-label">Module</label>
+                           <div class="col-sm-2">
+                              <input type="text" class=" form-control" disabled
+                                 placeholder="Code" ng-model="moduleCode"
+                                 id="moduleCode"> <label
+                                 ng-show="moduleCodeRequiredError" style="color: red">
+                              This field is required. </label>
+                           </div>
+                           <div class="col-sm-3"> 
+                              <input type="text"
+                                 class="form-control" placeholder="Name" readonly="true"
+                                 ng-model="moduleName" id="moduleName">
+                           </div>
+                           <div class="col-sm-1"> 
+                              <button type="button" class="btn btn-primary fa fa-search"
+                                 style="position: absolute; top: 2px;" allowed="read" mdlcode="WKF"
+                                 ng-click="btnModuleCodeActionPerformed()"></button>
+                           </div>
+                           <modal class="" visible="showModuleModal"
+                              on-sown="modalOneShown()" on-hide="modalOneHide()">
+                              <modal-header class="tab_head" title="Module Selection"></modal-header>
+                              <modal-body 
+                                 title1="Module Code" title2="Module Name"
+                                 data="moduleCodeList" searchdesc1="Search Module"
+                                 searchdesc2="Module Name" searchdesc3="Search on both"
+                                 keymodelid="m1" valuemodelid="m2"
+                                 callback-fn="setValue(arg1,arg2)" hide-fn="hide()" status="showModuleModal">
+                              </modal-body>
+                           </modal>
+                           <label ng-show="UserCodeRequiredError" style="color: red">
+                           This field is required. </label>
+                        </div>
+                  
+                  </div>
+                  <div class="navbar-drawer  hidden-lg-down" style="margin-top:22px">
+                     <form class="form-inline navbar-form ">
+                        <label style="margin-left:-13px"> <strong>Items
+                        per page</strong>
+                        </label>   <select class="form-control"
+                          ng-model="pageSize" ng-selected="pageSize"
+                        ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+                           
+                          
+                     </form>
+                  </div>
+                  <div class="form-group row">
+                     <div class="col-sm-12">
+                        <div class="table-responsive">
+                           <!--         <table id="example-2" class="table table-hover table-striped table-bordered" cellspacing="0" width="100%" id="myTable"> -->
+                           <table class="table table-hover table-striped table-bordered"
+                              cellspacing="0" id="myTable">
+                              <thead>
+                                 <tr>
+                                    <th>Stage <a href="" ng-click="sort('stage')" class="sortDir" ng-class="{ active: isSorted('stage') }">&#x25B2;</a><a href="" ng-click="sort('-stage')" class="sortDir" ng-class="{ active: isSorted('-stage' ) }">&#x25BC;</a> </th>
+                                    <th>Workflow ID <a href="" ng-click="sort('wrkflowid')" class="sortDir" ng-class="{ active: isSorted('wrkflowid') }">&#x25B2;</a><a href="" ng-click="sort('-wrkflowid')" class="sortDir" ng-class="{ active: isSorted('-wrkflowid' ) }">&#x25BC;</a> </th>
+                                    <th>Role <a href="" ng-click="sort('rolename')" class="sortDir" ng-class="{ active: isSorted('rolename') }">&#x25B2;</a><a href="" ng-click="sort('-rolename')" class="sortDir" ng-class="{ active: isSorted('-rolename' ) }">&#x25BC;</a> </th>
+                                    <th>Rank <a href="" ng-click="sort('rankname')" class="sortDir" ng-class="{ active: isSorted('rankname') }">&#x25B2;</a><a href="" ng-click="sort('-rankname')" class="sortDir" ng-class="{ active: isSorted('-rankname' ) }">&#x25BC;</a> </th>
+                                    <th>User <a href="" ng-click="sort('username')" class="sortDir" ng-class="{ active: isSorted('username') }">&#x25B2;</a><a href="" ng-click="sort('-username')" class="sortDir" ng-class="{ active: isSorted('-username' ) }">&#x25BC;</a> </th>
+                                    <th>Control Type <a href="" ng-click="sort('cntName')" class="sortDir" ng-class="{ active: isSorted('cntName') }">&#x25B2;</a><a href="" ng-click="sort('-cntName')" class="sortDir" ng-class="{ active: isSorted('-cntName' ) }">&#x25BC;</a> </th>
+                                    <th style="text-align: center;">Access</th>
+                                 </tr>
+                                 <tr>
+                                    <th> <input placeholder="Search" class="form-control" style="width: 100%;"
+                                       ng-model="searchStage" delete-if-empty></th>
+                                    <th><input placeholder="Search" class="form-control" style="width: 100%;" 
+                                        ng-model="searchWorkFlowID" delete-if-empty></th>
+                                    <th><input placeholder="Search" class="form-control" style="width: 100%;"
+                                       ng-model="searchRole" delete-if-empty></th>
+                                    <th><input placeholder="Search" class="form-control" style="width: 100%;"
+                                       ng-model="searchRank" delete-if-empty></th>
+                                    <th><input placeholder="Search" class="form-control" style="width: 100%;"
+                                       ng-model="searchUser" delete-if-empty></th>
+                                    <th><input placeholder="Search" class="form-control" style="width: 100%;"
+                                       ng-model="searchcntName" delete-if-empty></th>
+                                    <th style="width: 10%;"></th>
+                                 </tr>
+                              </thead>
+                              <tbody class="item">
+                                 <tr style="text-align: center;"
+                                    ng-style="set_colortasksetting(list)"
+                                    dir-paginate="list in workFlowHistoryDetailsList |  orderBy:predicate:reverse  | filter:search |itemsPerPage:pageSize
+                                    | filter:{'stage':searchStage} 
+                                    | filter:{'wrkflowid':searchWorkFlowID}                                                   
+                                    | filter:{'rolename':searchRole}
+                                    | filter:{'rankname':searchRank}
+                                    | filter:{'username':searchUser}
+                                    | filter:{'cntName':searchcntName}">
+                                    <td>{{list.stage}}</td>
+                                    <td>{{list.wrkflowid}}</td>
+                                    <td>{{list.rolename}}</td>
+                                    <td>{{list.rankname}}</td>
+                                    <td>{{list.username}}</td>
+                                    <td>{{list.cntName}}</td>
+                                    <td>
+                                       <select class="form-control" 
+                                          style="width: 100% !important;">
+                                          <option ng-repeat="access in defaultActionList"
+                                             ng-if="access.wfrefid == list.wfrefid">{{access.action_rights
+                                             + ' - ' + access.default_action}}
+                                          </option>
+                                       </select>
+                                    </td>
+                                 </tr>
+                           </table>
+                        </div>
+                        <div class="pull-right">
+                           <dir-pagination-controls max-size="15" direction-links="true"
+                              boundary-links="true"></dir-pagination-controls>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <kendo-custom-dialog ng-if="geterrorstatuscode!=0" title="Work Flow Master" name="systemvalidationdialog" custom-options="actions" error-type="warning" error-message="dataerror" error-status="{{geterrorstatuscode}}" detail-error-message="{{detailerrormessages}}" showexception="showexception" error-details="errordetails" error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+</div>

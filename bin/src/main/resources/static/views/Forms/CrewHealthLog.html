@@ -1,0 +1,923 @@
+<div class="main" id="main" ng-hide="hidebody">
+
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="CHL"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="CHL">
+		<div class="sticky_header" style="height: 94px;">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Forms">Safety Management</a></li>
+					<li><a href="#/CrewhealthMain">Crew Health Log Reports</a></li>
+					<li><b>Crew Health Log</b></li>
+				</ul>
+
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">Crew Health
+						Log</div>
+					<div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+						<span ng-if="chlrfid.length > 0"
+							style="display: inline-block; border-right: 2px solid #fff; padding-right: 20px;">Ref.Id : 
+							{{chlrfid}}</span> <span
+							style="display: inline-block; padding-left: 18px;">Form
+							No: {{actFormno}}</span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="form_table_wrapper">
+			<div class="form_table">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="row" style="margin-bottom: 10px;">
+							<div ng-if="enablePDF === 'APR'" class="col-xs-12">
+								<a type="button" style="margin-left: 10px;"
+									class="btn-custom pull-right" ng-click="exportexcel()"><img
+									src="Sidebar/css/button/export_ex.svg" /> <img
+									src="Sidebar/css/button/export_ex_h.svg" /></a> <a type="button"
+									style="margin-left: 10px;"
+									class="btn-custom pull-right ng-isolate-scope"
+									ng-click="saveAsPDFDocument()"><img
+									src="Sidebar/css/button/pdf.svg" /> <img
+									src="Sidebar/css/button/pdf_h.svg" /></a> <br />
+							</div>
+						</div>
+
+
+						<div class="workflow_wrapper">
+							<div class="workflow_wrapper_title">Vessel Workflow</div>
+							<div class="no-workflow" ng-if="!displayShipWorkflow">Work
+								Flow Not Yet Started</div>
+							<div ng-if="displayShipWorkflow"
+								class="row workflow_wrapper_content">
+								<div class="col-xs-12 col-sm-1">
+									<div class="ship-stage pull-right">
+										<img src="img/ship-stage.svg" />
+									</div>
+								</div>
+								<div class="col-sm-11">
+									<div class="btn-stage-container"
+										ng-repeat="wrkflowstatusdetails in wrkflowstatus"
+										ng-if="wrkflowstatusdetails.cntrltype=='CNT002'">
+										<div class="stage-head">{{wrkflowstatusdetails.stageid}}</div>
+										<div class="stage-neck"></div>
+										<div class="stage-body">
+											<p>{{ wrkflowstatusdetails.username}}</p>
+											<p>{{ wrkflowstatusdetails.rankname}}</p>
+											 <p ng-if="wrkflowstatusdetails.upddate==null">{{ wrkflowstatusdetails.senddate 
+                      | date:dateFormat }}</p>
+                      <p ng-if="wrkflowstatusdetails.upddate!=null">{{ wrkflowstatusdetails.upddate 
+                      | date:dateFormat }}</p>
+											<span class="stage-body-footer">{{wrkflowstatusdetails.formstatusname}}</span>
+										</div>
+										<div class="stage-tail"></div>
+										<div class="dropdown-content dropdown-menu-arrow"
+											ng-if="wrkflowstatusdetails.remarks!=null">
+											<div class="label label-primary">Remarks</div>
+											<div class="dropdown-content-desc">{{wrkflowstatusdetails.remarks}}</div>
+											<div class="dropdown-content-footer">{{wrkflowstatusdetails.senddate
+												| date:dateFormat}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+						<div class="row" style="margin-top: 30px">
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group row">
+									<label class="col-sm-5 form-control-label ">Vessel Name</label>
+									<div class="col-sm-6">
+										<input type="text" ng-disabled="shouldShow2" id="vslname"
+											ng-model="vslname" class="col-sm-4 form-control" />
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-sm-5 form-control-label " id="medicalOfficer">Medical
+										Officer<span style="color: red">*</span>
+									</label>
+									<div class="col-sm-3">
+										<select ng-disabled="subDisabled"
+											ng-click="hideError('IndexMD')"
+											style="width: 100% !important;" class="form-control"
+											ng-model="medicals" ng-change="fetchMedical()">
+											<option ng-repeat="rank in rankdetails"
+												value="{{rank.rankcode}}">{{rank.rankname}}</option>
+										</select>
+										<div class="text-error">{{IndexMD_error}}</div>
+									</div>
+									<div class="col-sm-3">
+										<input ng-disabled="shouldShow2" type="text" id="txtmedname"
+											ng-model="txtmedname" class="col-sm-2 form-control" /> <input
+											type="text" disabled=true; id="txtmedcode" ng-hide="true"
+											ng-model="txtmedcode" class="col-sm-2 form-control" />
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-6">
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label ">Date</label>
+									<div class="col-sm-6">
+										<input type="text" disabled
+											value="{{tddate | date:dateFormat}}"
+											class="form-control" />
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-sm-6 form-control-label ">Master</label>
+									<div ng-disabled="subDisabled" class="col-sm-6">
+										<!--                          <input type="text" disabled=true; id="txtmaster" ng-disabled="true" ng-model="txtmaster" class="col-sm-4 form-control" />                           -->
+										<input type="text" id="txtmastername" ng-disabled="true"
+											ng-model="nameOfMaster" class="col-sm-4 form-control" />
+									</div>
+								</div>
+							</div>
+</div>
+
+<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="row">
+									<label class="col-sm-5 form-control-label ">Chief
+										Engineer</label>
+									<div ng-disabled="subDisabled" class="col-sm-6">
+										<input type="text" id="txtmastername" ng-disabled="true"
+											ng-model="chiefEng" class="col-sm-4 form-control" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+
+				<hr />
+
+
+				<!-- Error Dialog Boxes here -->
+				<kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+						title="Missed something!" name="systemvalidationdialog"
+						custom-options="actions" error-type="warning" error-message="dataerror"
+						error-status="{{geterrorstatuscode}}"
+						detail-error-message="{{detailerrormessages}}"
+						showexception="showexception" error-details="errordetails"
+						error-code="{{geterrorstatus}}">
+				</kendo-custom-dialog>
+
+				<toaster-container
+					toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+				<toaster-container
+					toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+
+				<div kendo-dialog="dialog" k-title="'Missed something!'"
+					k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+					k-width="300" k-height="150" k-actions="actions" k-modal="true">
+					<img src="img/warning -dialog.png">
+					<p ng-repeat="errors in dataerror">{{errors[0]}}</p>
+				</div>
+
+				<div kendo-dialog="previewDialog" k-on-open="dialogVisible = true"
+					k-width="500" class="preview-box" k-rebind="previewObj"
+					k-options="previewObj" k-on-close="dialogVisible = false"
+					k-modal="true">
+					<img src="{{imagetest}}" class="preview-img">
+				</div>
+
+				<div kendo-dialog="exceededFileSizedialog"
+					k-title="'File Size Exceeded!'" k-on-open="dialogVisible = true"
+					k-on-close="dialogVisible = false" k-width="300" k-height="150"
+					k-actions="actions" k-modal="true">
+					<img src="img/fileuploadError.png" class="file-error"> <img
+						src="img/attach.png">
+					<p>{{fileSizeExceededDialogMsg}}</p>
+				</div>
+
+				<div kendo-dialog="exceededFileCountDialog"
+					k-title="'File Count Exceeded!'" k-on-open="dialogVisible = true"
+					k-on-close="dialogVisible = false" k-width="300" k-height="150"
+					k-actions="actions" k-modal="true">
+					<img src="img/fileuploadError.png" class="file-error"> <img
+						src="img/attach.png">
+					<p>{{exceededFileCountDialogMsg}}</p>
+				</div>
+
+				<div kendo-dialog="confirmDeleteDialog" k-title="'Confirm delete!'"
+					k-on-open="dialogVisible = true" k-on-close="dialogVisible = false"
+					k-width="300" k-height="150" k-actions="deleteActions"
+					k-modal="true">
+					<img src="img/delete-icon.png">
+					<p>{{deleteDialogMsg}}</p>
+				</div>
+
+				<div kendo-dialog="confirmDeleteCrewHealthDialog"
+					k-title="'Confirm delete!'" k-on-open="dialogVisible = true"
+					k-on-close="dialogVisible = false" k-width="300" k-height="150"
+					k-actions="deleteCrewHealthActions" k-modal="true">
+					<img src="img/delete-icon.png">
+					<p>{{deleteDialogMsg}}</p>
+				</div>
+
+
+				<!-- ------------------------------------ -->
+
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label ">Rank</label>
+							<div class="col-sm-6">
+								<select  id="txtrnk" class="form-control" ng-click="hideError('IndexRK')"
+									ng-model="ranks" ng-change="fetchName()" id="rankdetails">
+									<option ng-repeat="rank in allRanks" value="{{rank.rankcode}}">{{rank.rankname}}</option>
+								</select>
+								<!--                <input type="text" disabled=true; id="txtrkcode" value="{{rankdetails}}" class="col-sm-4 form-control" /> -->
+								<div class="text-error">{{IndexRK_error}}</div>
+								<!--<select id="fa_he_td1" class="chosen-select" multiple class="chosen-select">-->
+								<!--<select class="form-control" id="fintxtid"> 
+           </select>-->
+							</div>
+
+
+
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label ">Name</label>
+							<div class="col-sm-6">
+								<input type="text" disabled=true; id="txtrankname"
+									ng-model="txtrankname" class="col-sm-4 form-control" /> <input
+									type="text" disabled=true; id="txtnamecode"
+									ng-model="txtnamecode" class="col-sm-4 form-control"
+									ng-hide="true" />
+								<!--             <input type="text" class="form-control" value="SHROFF ZUBIN BEJON" disabled="true">  -->
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label ">Age</label>
+							<div class="col-sm-6">
+								<!--             <input type="number" class="form-control" value="35" disabled="true"> -->
+								<input type="text" disabled=true; id="txtage" ng-model="txtage"
+									class="col-sm-4 form-control" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label ">Nationality</label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control" Value="Indian" disabled="true"> -->
+								<input type="text" disabled ng-model="txtnation"
+									class="col-sm-4 form-control" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label ">Sex</label>
+							<div class="col-sm-6">
+								<label class="c-input c-radio"> <input
+									name="radio-stacked6" disabled=true; value="M"
+									id="reviewedmins" ng-model="radsex" type="radio" checked><span
+									class="c-indicator c-indicator-warning"></span> <span
+									class="c-input-text"> Male </span>
+								</label> <label class="c-input c-radio"> <input
+									name="radio-stacked6" disabled=true; value="F"
+									id="reviewedmins2" ng-model="radsex" type="radio"><span
+									class="c-indicator c-indicator-warning"></span> <span
+									class="c-input-text"> Female </span>
+								</label>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label " id="height">Height<span
+								style="color: red">*</span></label>
+							<div class="col-sm-3">
+								<!--               <input type="text" id="tx1" class="form-control"> -->
+								<input valid-positive-number min="0" id="txtheight"
+									ng-focus="hideError('IndexHt')" ng-change="BMIcalculation()"
+									ng-blur="BMIcalculation()" ng-model="txtheight"
+									class="col-sm-4 form-control" /> <label
+									class="col-sm-15 text-error">{{IndexHt_error}}</label>
+							</div>
+							<div class="col-sm-3">
+								<select ng-disabled="subDisabled" id="txtheightunit"
+									ng-click="hideError('IndexHU')" ng-change="BMIcalculation()"
+									class="form-control" id="fintxtid" ng-model="txtheightunit">
+									<option>Mtr</option>
+									<option>CM</option>
+								</select> <label class="text-error">{{IndexHU_error}}</label>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label " id="weight">Weight<span
+								style="color: red">*</span></label>
+							<div class="col-sm-3">
+								<!--            <input type="text" id="tx2" class="form-control"> -->
+								<input ng-disabled="subDisabled" valid-positive-number min="0"
+									ng-focus="hideError('IndexWt')" id="txtweight"
+									ng-model="txtweight" ng-change="BMIcalculation()"
+									ng-blur="BMIcalculation()" class="col-sm-4 form-control" /> <label
+									class="col-sm-15 text-error">{{IndexWt_error}}</label>
+							</div>
+							<div class="col-sm-3">
+								<select ng-disabled="subDisabled" ng-change="BMIcalculation()"
+									ng-click="hideError('IndexWU')" id="txtweightunit"
+									class="form-control" ng-model="txtweightunit">
+									<option>Kgs</option>
+									<option>Lbs</option>
+									<!-- <option>Pounds</option> -->
+								</select> <label class="text-error">{{IndexWU_error}}</label>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label">
+								<div class="info_msg">
+									<span>Body Mass Index BMI</span> <i class="fa fa-info-circle"></i>
+									<div class="dropdown-content dropdown-menu-arrow"
+										style="right: -272px">
+										<div class="dropdown-content-desc" style="width: 355px">
+											<span style="display: inline-block; margin-bottom: 10px">Body
+												Mass Index BMI = Weight / Height + Height<br /> BMI = <20
+												Slim, 20~24 Standard, 24~26.5 Medium, >26.5 Fat
+											</span>
+										</div>
+									</div>
+								</div>
+							</label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control"> -->
+								<input disabled type="text" id="txtBmIndex"
+									ng-blur="BMICondition()" ng-model="txtBmIndex"
+									class="col-sm-4 form-control" /> <label
+									class="col-sm-15 text-error">{{IndexIdx_error}}</label>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label ">BMI Condition</label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control">  -->
+								<input disabled type="text" id="txtBmicndn"
+									ng-style="{background: txtBmicndncolor}" ng-model="txtBmicndn"
+									class="col-sm-4 form-control colorfortxt text-white" /> <input
+									type="text" id="txtBmicndn1" style="display: none"
+									ng-model="txtBmicndncolor"
+									class="col-sm-4 form-control colorfortxt" />
+								<!--          <label class="col-sm-15 text-error" style="color:red">{{IndexBmi_error}}</label>           -->
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-5 form-control-label" id="pulseRate">Pulse Rate<span
+								style="color: red">*</span></label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control">  -->
+								<input ng-disabled="subDisabled" valid-positive-number id="txtpulserate"
+									ng-focus="hideError('IndexPulse')" ng-model="txtpulserate"
+									class="col-sm-4 form-control" /> <label
+									class="col-sm-15 text-error">{{IndexPulse_error}}</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group row">
+							<label class="col-sm-6 form-control-label " id="urinalysis">Urinalysis<span
+								style="color: red">*</span></label>
+							<div class="col-sm-6">
+								<select ng-disabled="subDisabled" id="txturine"
+									ng-click="hideError('IndexUR')" class="form-control"
+									ng-model="urinals" ng-change="fetchDetails()"
+									id="diseasedetails">
+									<option ng-repeat="disease in diseasedetails"
+										value="{{disease.urinalysiscode}}">{{disease.urinalysisdesc}}</option>
+								</select>
+								<div class="text-error">{{IndexUR_error}}</div>
+								<input type="text" ng-hide="true" disabled=true; id="txturcode"
+									ng-model="urinals" class="col-sm-4 form-control" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-6 form-control-label " id="blood">Blood
+								Pressure (mm Hg)<span style="color: red">*</span>
+							</label>
+							<div class="col-sm-3">
+								<!--            <input type="text" id="tx2" class="form-control"> Systolic  -->
+								<input ng-disabled="subDisabled" valid-positive-number min="0" max="400"
+									ng-focus="hideError('IndexSys')" id="txtsytlc"
+									ng-model="txtsytlc" class="col-sm-4 form-control"
+									ng-blur="calculateBPM('systolic')" /> Systolic<span
+									style="color: red">*</span> <label class="col-sm-15 text-error">{{IndexSys_error}}</label>
+							</div>
+							<div class="col-sm-3">
+								<!--            <input type="text" id="tx2" class="form-control"> Diastolic  -->
+								<input valid-positive-number ng-disabled="subDisabled" min="0" max="280"
+									ng-focus="hideError('IndexDias')"
+									ng-blur="calculateBPM('diastolic')" id="txtdistlc"
+									ng-model="txtdistlc" class="col-sm-4 form-control" />
+								Diastolic<span style="color: red">*</span> <label
+									class="col-sm-15 text-error">{{IndexDias_error}}</label>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-6 form-control-label ">
+								<div class="info_msg">
+									<span>Blood Pressure Level Severity</span> <i
+										class="fa fa-info-circle"></i>
+									<div class="dropdown-content dropdown-menu-arrow"
+										style="right: -272px">
+										<div class="dropdown-content-desc" style="width: 355px">
+											<span style="display: inline-block; margin-bottom: 10px"><b>BLOOD
+													PRESSURE LEVEL SEVERITY</b><br /> Classification of blood
+												pressure for adults (age 18 years and older)</span>
+										</div>
+									</div>
+								</div>
+							</label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control" disabled> -->
+								<input type="text" id="txtbplvl1" style="display: none"
+									ng-model="txtbplvlcolor"
+									class="col-sm-4 form-control colorfortxt" /> <input disabled
+									type="text" id="txtbplvl"
+									ng-style="{background: txtbplvlcolor}" ng-model="txtbplvl"
+									class="col-sm-4 form-control colorfortxt text-white" /> <label
+									class="col-sm-15 text-error">{{IndexBplvl_error}}</label>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-6 form-control-label " id="neck">NECK
+								narrowest (cm)<span style="color: red">*</span>
+							</label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control">  -->
+								<input ng-disabled="subDisabled" valid-positive-number id="txtneck"
+									ng-focus="hideError('IndexNeck')" ng-model="txtneck"
+									class="col-sm-4 form-control" /> <label
+									class="col-sm-15 text-error">{{IndexNeck_error}}</label>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-6 form-control-label " id="waist">WAIST @Navel
+								or HIP (cm)<span style="color: red">*</span>
+							</label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control">  -->
+								<input ng-disabled="subDisabled" valid-positive-number id="txtwaist"
+									ng-focus="hideError('IndexWaist')" ng-blur="calculateBodyFat()"
+									ng-model="txtwaist" class="col-sm-4 form-control" /> <label
+									class="col-sm-15 text-error">{{IndexWaist_error}}</label>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-6 form-control-label ">
+								<div class="info_msg">
+									<span>Body Fat(%)</span> <i class="fa fa-info-circle"></i>
+									<div class="dropdown-content dropdown-menu-arrow"
+										style="right: -272px">
+										<div class="dropdown-content-desc" style="width: 355px">
+											<span style="display: inline-block; margin-bottom: 10px"><b>Measuring
+													Body Fat:</b><br /> "Specific techniques must be used to
+												measure body fat. The U.S. Navy has come up with a
+												straightforward and useful method - equations developed by
+												Drs. Hodgdon and Beckett" at the Naval Health Research
+												Center take into account differences in the way men and
+												women accumulate fat, thus different measurements are
+												required.</span>
+										</div>
+									</div>
+								</div>
+							</label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control" disabled>  -->
+								<input disabled type="text" id="txtbodyfat"
+									ng-blur="BodyFatEvaluation()" ng-model="txtbodyfat"
+									class="col-sm-4 form-control" /> <label
+									class="col-sm-15 text-error">{{IndexBdyFat_error}}</label>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-6 form-control-label ">Body Fat
+								Evaluation</label>
+							<div class="col-sm-6">
+								<!--             <input type="text" class="form-control" disabled>  -->
+								<input type="text" id="txtbodyfatevln1" style="display: none"
+									ng-model="txtbodyfatevlncolor"
+									class="col-sm-4 form-control colorfortxt" /> <input disabled
+									type="text" id="txtbodyfatevln"
+									ng-style="{background: txtbodyfatevlncolor}"
+									ng-model="txtbodyfatevln"
+									class="col-sm-4 form-control colorfortxt text-white" /> <label
+									class="col-sm-15 text-error">{{IndexBdyEvln_error}}</label>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-6 form-control-label " id="bmiTarget">What is your
+								BMI target<span style="color: red">*</span>
+							</label>
+							<div class="col-sm-3">
+								<!--            <input type="text" id="tx2" class="form-control"> BMI  -->
+								<input ng-disabled="subDisabled" valid-positive-number id="txtBmi"
+									ng-focus="hideError('Indextrgt')" ng-model="txtBmi"
+									class="col-sm-4 form-control" /> BMI <span style="color: red">*</span><label
+									class="col-sm-12 text-error">{{Indextrgt_error}}</label>
+							</div>
+							<div class="col-sm-3">
+								<!--            <input type="text" id="tx2" class="form-control"> Period in months  -->
+								<input ng-disabled="subDisabled" valid-positive-number id="txtperiod"
+									ng-focus="hideError('Indexprd')" ng-model="txtperiod"
+									valid-positive-number class="col-sm-4 form-control" /> Period
+								in months <span style="color: red">*</span><input type="text"
+									id="txtperiod" ng-model="txtindex"
+									class="col-sm-4 form-control" ng-hide="true" /> <label
+									class="col-sm-15 text-error">{{Indexprd_error}}</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-12">
+						<a type="button" ng-disabled="subDisabled" ng-show="Addbutton"
+							class="btn-custom pull-right" allowed="write" mdlcode="CHL"
+							ng-click="addTables('Add')"><img
+							src="Sidebar/css/button/add.svg" /> <img
+							src="Sidebar/css/button/add_h.svg" /></a>
+							 <a
+							ng-if="activeStatus != 'APR'" type="button"
+							ng-disabled="subDisabled" ng-show="Updatebutton"
+							style="margin-right: 10px" class="btn-custom pull-right"
+							allowed="write" mdlcode="CHL" ng-click="resetInputField()"><img
+							src="Sidebar/css/button/cancel.svg" /> <img
+							src="Sidebar/css/button/cancel_h.svg" /></a> <a
+							ng-if="activeStatus != 'APR'" type="button"
+							ng-disabled="subDisabled" ng-show="Updatebutton"
+							class="btn-custom pull-right" allowed="write" mdlcode="CHL"
+							ng-click="addTables('Update')"><img
+							src="Sidebar/css/button/updated.svg" /> <img
+							src="Sidebar/css/button/updated_h.svg" /></a>
+					</div>
+				</div>
+
+
+				<div class="row marginalign alert alert-danger" role=alert;
+					ng-hide="msgclear"
+					;
+              style="padding: 4px; text-align: center; background-color: #efde73; border-color: #efde73; color: #d43f3a;">
+					<b>{{ informationMessage }}</b>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<a target="_blank" href="#/crewhealthdetails" class="lead_title">Guidance<i
+							class="fa fa-question-circle" aria-hidden="true"></i></a>
+						<!--onclick="showTableContent();"-->
+						
+						<table ng-disabled="subDisabled"
+							class="table table-hover table-striped table-bordered"
+							cellspacing="0">
+							<thead>
+								<tr>
+									<th>S.No</th>
+									<th>Rank</th>
+									<th width=16%>Name</th>
+									<th>Age</th>
+
+									<td ng-show="shouldShow">Nationality</td>
+									<td ng-show="shouldShow">Sex</td>
+									<td ng-show="shouldShow">Height</td>
+									<td ng-show="shouldShow">Weight</td>
+									<td ng-show="shouldShow">Body Mass Index BMI</td>
+									<td ng-show="shouldShow">BMI Condition</td>
+									<td ng-show="shouldShow">Pulse Rate</td>
+
+									<th>Urinalysis</th>
+
+									<td ng-show="shouldShow">BP Systolic</td>
+									<td ng-show="shouldShow">BP Diastolic</td>
+
+									<th>Blood Pressure Level Severity</th>
+									<td ng-show="shouldShow">Blood Pressure Level Severity
+										Color</td>
+									<td ng-show="shouldShow">NECK</td>
+									<td ng-show="shouldShow">WAIST</td>
+
+									<th>Body Fat ***(%)</th>
+									<th>Body Fat Evaluation</th>
+									<td ng-show="shouldShow">Body Fat Evaluation Color</td>
+
+									<td ng-show="shouldShow">BMI target</td>
+									<td ng-show="shouldShow">BMI Condition</td>
+									<td ng-show="shouldShow">BMI Condition Color</td>
+									<td ng-show="shouldShow">Height Unit</td>
+									<td ng-show="shouldShow">Weight Unit</td>
+									<th style="width: 10%; text-align: center;">Action</th>
+								</tr>
+							</thead>
+							<tr style="text-align: center"
+								ng-repeat="reportData in existingReportData">
+								<td ng-hide="reportData.deleteFlag.length > 0">{{$index+1}}</td>
+								<td ng-hide="reportData.deleteFlag.length > 0">{{reportData.rankname}}</td>
+								<td ng-show="shouldShow">{{reportData.chldetid}}</td>
+								  <td ng-show="shouldShow">{{reportData.chid}}</td>
+								<td ng-show="shouldShow">{{reportData.rankcode}}</td>
+								<td ng-hide="reportData.deleteFlag.length > 0">{{reportData.namedtl}}</td>
+								<td ng-show="shouldShow">{{reportData.namecode}}</td>
+								<td ng-hide="reportData.deleteFlag.length > 0">{{reportData.age}}</td>
+								<td ng-show="shouldShow">{{reportData.nationality}}</td>
+								<td ng-show="shouldShow">{{reportData.countryName}}</td>
+								<td ng-show="shouldShow">{{reportData.gender}}</td>
+								<td ng-show="shouldShow">{{reportData.height}}</td>
+								<td ng-show="shouldShow">{{reportData.weight}}</td>
+								<td ng-show="shouldShow">{{reportData.bmindex}}</td>
+								<td ng-show="shouldShow">{{reportData.bmicondition}}</td>
+								<td ng-show="shouldShow">{{reportData.bmicndncolor}}</td>
+								<td ng-show="shouldShow">{{reportData.pulserate}}</td>
+								<td ng-show="shouldShow">{{reportData.deleteFlag}}</td>
+								<td ng-hide="reportData.deleteFlag.length > 0">{{reportData.urinalysisdesc}}</td>
+								<td ng-show="shouldShow">{{reportData.urianalysis}}</td>
+								<td ng-show="shouldShow">{{reportData.bpsystolic}}</td>
+								<td ng-show="shouldShow">{{reportData.bpdiastolic}}</td>
+								<td ng-hide="reportData.deleteFlag.length > 0">{{reportData.bplevelsecurity}}</td>
+								<td ng-show="shouldShow">{{reportData.bplevelcolor}}</td>
+								<td ng-show="shouldShow">{{reportData.neck}}</td>
+								<td ng-show="shouldShow">{{reportData.waist}}</td>
+								<td ng-hide="reportData.deleteFlag.length > 0">{{reportData.bodyfat}}</td>
+								<td ng-hide="reportData.deleteFlag.length > 0">{{reportData.bodyfateval}}</td>
+								<td ng-show="shouldShow">{{reportData.bdyfatevalcolor}}</td>
+								<td ng-show="shouldShow">{{reportData.targetperiod}}</td>
+								<td ng-show="shouldShow">{{reportData.targetbmi}}</td>
+								<td ng-show="shouldShow">{{reportData.hunit}}</td>
+								<td ng-show="shouldShow">{{reportData.wunit}}</td>
+								<td ng-hide="reportData.deleteFlag.length > 0"><span><a ng-if="activeStatus != 'APR'"
+										class="btn btn-info btn-sm" allowed="write" mdlcode="CHL"
+										ng-disabled="subDisabled" ng-click="CrewHealthEdit($index)"><i
+											style="color: white !important" class="fa fa-edit"></i></a></span> <span><a
+										ng-if="activeStatus != 'APR'" class="btn btn-danger btn-sm"
+										allowed="write" mdlcode="CHL" ng-disabled="subDisabled"
+										ng-click="RemoveCrewHealth($index)"><i
+											style="color: white !important" class="fa fa-trash-o"></i></a></span> <span><a
+										ng-if="activeStatus == 'APR'" class="btn btn-info btn-sm"
+										title="View" allowed="write" mdlcode="CHL"
+										ng-click="CrewHealthEdit($index)"> <i class="fa fa-eye"
+											style="color: #61B329"></i></a></span></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<!--File Attachment Component Start-->
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="section_header_top"
+							style="height: 3px; left: 15px !important;" id="showfields2"></div>
+						<div class="section_header col-lg-12" id="showfields2"">Attachments</div>
+						<div allowed="write" mdlcode="SAF">
+
+							<div class="row">
+								<div class=" col-lg-12">
+									<table>
+										<tr ng-repeat="file in myFile track by $index">
+											<td style="padding: 6px; border-bottom: 1px solid grey;">{{$index
+												+ 1}}</td>
+											<td
+												style="font-weight: 700; color: #238E68; padding: 6px; border-bottom: 1px solid grey;">{{file._file.name}}</td>
+											<td
+												style="font-size: .8em; padding: 6px; border-bottom: 1px solid grey;">{{file._file.size}}
+												bytes</td>
+											<td
+												style="font-size: .8em; padding: 3px 6px; border-bottom: 1px solid grey;">
+												<i ng-click="removeFile($index)"
+												style="cursor: pointer; color: red" class="fa  fa-close"></i>
+											</td>
+										</tr>
+									</table>
+									 <label class="col-sm-15 text-error">{{filemsg_error}}</label>
+									<a ng-if="myFile.length > 0" class="btn-custom btn-upload"
+										ng-click="uploadFile()"> <img
+										src="Sidebar/css/button/upload.svg" /> <img
+										src="Sidebar/css/button/upload_h.svg" />
+									</a>
+								<label ng-hide="actionFormHide"  ng-if="(actionRight == 'SUB' || actionRight == 'APR' ) && permitRight == 'Y'"
+                        allowed="write" mdlcode="CHL" 
+                        for="file-upload" class="pull-right"
+                        style="cursor: pointer; padding-right: 10px; vertical-align: middle"
+                        class="fileinput-button" style="border-radius: 0px;">
+                        <span style="font-size: 18px;"></span><b>Attach</b><i
+                          class="fa fa-plus-circle btn-attach"> </i>
+                      </label> <input multiple type="file"
+                        file-model="myFile" id="file-upload" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="table-responsive upload_table">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>S.No.</th>
+										<th>File Name</th>
+										<th>File Size</th>
+										<th>Uploaded Date & Time</th>
+										<th>Uploaded by</th>
+										<th>Action</th>
+										<th>Removed Date & Time</th>
+										<th>Removed by</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-if="filesData.length<=0">
+										<td colspan=8 class="no_data">No Data Available</td>
+									</tr>
+									<tr ng-class="{'inactive-file': data.docstatus === 'V'}"
+										ng-repeat="data in filesData | orderBy : 'docstatus'">
+										<td>{{$index + 1}}</td>
+										<td>{{data.filename}}</td>
+										<td>{{(data.filesize/fileSizeConversionFactor) |
+											number:fileSizeRoundOffFactor}} {{fileSizeUnit}}</td>
+										<td>{{data.uploaddate | date :dateFormat}}</td>
+										<td>{{data.uploadusername}}</td>
+										<td><a
+											ng-if="data.filetype === 'jpg' || data.filetype === 'png' || data.filetype === 'jpeg'"
+											ng-click="previewFile(data.docid, data.filename)"><i
+												class="fa fa-eye"></i></a> <a
+											ng-click="confirmDelete(data.docid)" ng-hide="actionFormHide"
+											ng-if="(data.docstatus === 'A') && (actionRight == 'SUB'|| actionRight == 'APR') && permitRight == 'Y'"><i
+												class="fa fa-trash"></i></a> <a
+											href="/crewhealth/downloadDocument/?docId={{data.docid}}"><i
+												class="fa fa-download"></i></a></td>
+										<td>{{data.removedate | date :dateFormat}}</td>
+										<td>{{data.removeusername}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<!--File Attachment Component End-->
+				<br />
+				<div class="row">
+					<div class="col-xs-12">
+						<div ng-hide="actionFormHide">
+							<div style="text-align: right;" ng-hide="actionFormHide">
+								
+								<a type="button" class="btn_wrapper pull-right"
+										                 ng-show="deleteAction" allowed="delete" mdlcode="CHL"
+										                 ng-click="deleteActionPerformed()">
+										                 <span>Delete</span>
+										                 <img src="Sidebar/css/icons/delete.svg" />
+										             </a>
+										             
+										             
+								<a a-disabled="isSaving" style="margin-right: 10px;"
+									type="button"
+									ng-if="(actionRight == 'SUB' || actionRight == 'APR' ) && permitRight == 'Y'"
+									class="btn-custom" allowed="write" mdlcode="CHL"
+									ng-click="saveCrewHealthLog('save')"> <img
+									src="Sidebar/css/button/save.svg" /> <img
+									src="Sidebar/css/button/save_h.svg" />
+								</a> <a a-disabled="isSaving" style="margin-right: 10px;"
+									type="button"
+									ng-if="actionRight == 'SUB' && permitRight == 'Y'"
+									class="btn-custom" allowed="write" mdlcode="CHL"
+									ng-click="saveCrewHealthLog('submit')"> <img
+									src="Sidebar/css/button/send.svg" /> <img
+									src="Sidebar/css/button/send_h.svg" /></a> <a
+									style="width: 8% !important; margin-right: 10px"
+									ng-if="isReassign == 'RSN'" type="button" allowed="write"
+									mdlcode="CHL" class="btn-custom pull-right"
+									ng-click="showReassignModal('#reAssign')"> <img
+									src="Sidebar/css/button/re-assign.svg" /> <img
+									src="Sidebar/css/button/re-assign_h.svg" />
+								</a> <a a-disabled="isSaving" style="margin-right: 10px;"
+									ng-click="saveCrewHealthLog('approve')" allowed="write"
+                  mdlcode="CHL" type="button"
+									ng-if="actionRight == 'APR' && permitRight == 'Y'"
+									class="btn-custom pull-right"><img
+									src="Sidebar/css/button/approved.svg" /> <img
+									src="Sidebar/css/button/approved_h.svg" /></a> 
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="reAssign" role="dialog">
+					<div class="modal-dialog">
+
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Remarks</h4>
+							</div>
+							<div class="modal-body">
+								<textarea ng-model="remarks" maxlength="200" ng-trim="false"
+									style="width: 100%;" ng-focus="hideError('reassignRemarks')"
+									rows="4" cols="68"></textarea>
+								<div class="char-left">Characters left: {{max200Length -
+									remarks.length}}</div>
+								<label class="text-error">{{reassignRemarks_error}}</label>
+							</div>
+							<div class="modal-footer">
+								<button type="button" ng-click="okAction('#reAssign')"
+									class="btn-custom">
+									<img src="Sidebar/css/button/ok.svg" /> <img
+										src="Sidebar/css/button/ok_h.svg" />
+								</button>
+								<button type="button" class="btn-custom" data-dismiss="modal">
+									<img src="Sidebar/css/button/cancel.svg" /> <img
+										src="Sidebar/css/button/cancel_h.svg" />
+								</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+				<div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="revision_content">
+						<b>Revision No : </b> {{actRevno}} | <b>Date:</b> {{reviseddate |
+						date : dateFormat}}
+					
+					<span class="pull-right"><b>S.No:</b>
+							{{chlid}}</span> 
+							</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- container -->
+<!-- global scripts -->
+
+<div class="modal fade" id="nearmismodal" tabindex="-1" role="dialog"
+	aria-labelledby="large-modalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+
+			<div class="modal-body">
+				<div class="form-group row">
+					<label class="col-sm-12 form-control-label"><span
+						style="border-bottom: 2px solid #333; padding-bottom: 1px;"><b>Body
+								Mass Index (BMI) = Weight� Height� Height</b></span></label> <label
+						class="col-sm-12 form-control-label">&nbsp;
+						&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;BMI
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+						< 20 Slim, &nbsp;&nbsp;&nbsp;&nbsp;20~24
+						Standard,&nbsp;&nbsp;&nbsp;&nbsp; 24~26.5
+						Medium,&nbsp;&nbsp;&nbsp;&nbsp; >26.5 Fat </label>
+
+
+				</div>
+
+				<div class="form-group row">
+
+					<label class="col-sm-12 form-control-label"><span
+						style="border-bottom: 2px solid #333; padding-bottom: 1px;"><b>Classification
+								of blood pressure for adults (age 18 years and older): </b></span></label> <label
+						class="col-sm-12 form-control-label">&nbsp;
+						&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;Normal&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						: Systolic (mmHg) less than 120
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; Diastolic (mmHg)
+						less than 80</label> <label class="col-sm-12 form-control-label">&nbsp;
+						&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;Pre hypertension&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						: Systolic (mmHg) 120-139
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Diastolic (mmHg)
+						80-89</label> <label class="col-sm-12 form-control-label">&nbsp;
+						&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;Hypertension (stage 1)&nbsp; &nbsp;&nbsp; : Systolic
+						(mmHg) 140-159 &nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						Diastolic (mmHg) 90-99</label> <label class="col-sm-12 form-control-label">&nbsp;
+						&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;Hypertension (stage 2)&nbsp; &nbsp;&nbsp; : Systolic
+						(mmHg) >160 &nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						Diastolic (mmHg) >100</label>
+
+				</div>
+			</div>
+			<!--  <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div> -->
+		</div>
+	</div>
+</div>

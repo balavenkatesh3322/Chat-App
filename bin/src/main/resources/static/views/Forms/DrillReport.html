@@ -1,0 +1,844 @@
+<div class="main" id="main" ng-hide="hidebody">
+
+	<div ng-show="haspermission" allowed="unauthorized" mdlcode="DRI"
+		callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+	<div allowed="read" mdlcode="DRI">
+		<div class="sticky_header" style="height: 94px;">
+			<div class="tab_head_sticky">
+				<ul class="breadcrumb">
+					<li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+					<li><a href="#/Forms">Safety Management</a></li>
+					<li><a href="#/DrillMain">Drill Report-Lists</a></li>
+					<li><b>Drill Report</b></li>
+				</ul>
+
+				<div class="tab_head">
+					<div class="pull-left" style="font-size: 21px;">Drill Report</div>
+					<div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+						<span ng-if="drlrfid.length > 0"
+							style="display: inline-block; border-right: 2px solid #fff; padding-right: 20px;">Ref.Id : 
+							{{drlrfid}}</span> <span
+							style="display: inline-block; padding-left: 18px;">Form
+							No: {{actFormno}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form_table_wrapper">
+					<div class="form_table">
+						<div class="row">
+							<div class="col-xs-12">
+
+								<div class="row" style="margin-bottom: 10px;">
+									<div class="col-xs-12">
+<!-- 										<a type="button" style="margin-left: 10px;" allowed="write" mdlcode="DRI" -->
+<!-- 										ng-show="exportDis" -->
+<!-- 											class="btn-custom pull-right" ng-click="exportexcel()"><img -->
+<!-- 											src="Sidebar/css/button/export_ex.svg" /> <img -->
+<!-- 											src="Sidebar/css/button/export_ex_h.svg" /></a> -->
+											
+											<a class="btn_wrapper pull-right" style="margin-left: 10px;" allowed="write" mdlcode="DRI"
+										ng-show="exportDis" ng-click="exportexcel()">
+												<span>Export Excel</span>
+												<img src="Sidebar/css/icons/export_ex.svg" />
+											</a>
+
+<!-- 											 <a type="button" -->
+<!-- 											allowed="write" mdlcode="DRI" style="margin-left: 10px;" ng-show="exportDis" -->
+<!-- 											class="btn-custom pull-right" ng-click="saveAsPDFDocument()"><img -->
+<!-- 											src="Sidebar/css/button/pdf.svg" /> <img -->
+<!-- 											src="Sidebar/css/button/pdf_h.svg" /></a> -->
+											
+											<a class="btn_wrapper pull-right" allowed="write" mdlcode="DRI" style="margin-left: 10px;" ng-show="exportDis"
+											ng-click="saveAsPDFDocument()">
+												<span>Export PDF</span>
+												<img src="Sidebar/css/icons/pdf.svg" />
+											</a>
+									</div>
+								</div>
+
+
+								<div class="workflow_wrapper">
+									<div class="workflow_wrapper_title">Vessel Workflow</div>
+									<div class="no-workflow" ng-if="!displayShipWorkflow"
+										class="row" style="padding-left: 15px">Work Flow Not Yet
+										Started</div>
+									<div ng-if="displayShipWorkflow"
+										class="row workflow_wrapper_content">
+										<div class="col-xs-12 col-sm-1">
+											<div class="ship-stage pull-right">
+												<img src="img/ship-stage.svg" />
+											</div>
+										</div>
+										<div class="col-sm-11">
+											<div class="btn-stage-container"
+												ng-repeat="wrkflowstatusdetails in wrkflowstatus"
+												ng-if="wrkflowstatusdetails.cntrltype=='CNT002'">
+												<div class="stage-head">{{wrkflowstatusdetails.stageid}}</div>
+												<div class="stage-neck"></div>
+												<div class="stage-body">
+													<p>{{ wrkflowstatusdetails.username}}</p>
+													<p>{{ wrkflowstatusdetails.rankname}}</p>
+													 <p ng-if="wrkflowstatusdetails.upddate==null">{{ wrkflowstatusdetails.senddate 
+                      | date:dateFormat }}</p>
+                      <p ng-if="wrkflowstatusdetails.upddate!=null">{{ wrkflowstatusdetails.upddate 
+                      | date:dateFormat }}</p>
+													<span class="stage-body-footer">{{wrkflowstatusdetails.formstatusname}}</span>
+												</div>
+												<div class="stage-tail"></div>
+												<div class="dropdown-content dropdown-menu-arrow"
+													ng-if="wrkflowstatusdetails.remarks!=null">
+													<div class="label label-primary">Remarks</div>
+													<div class="dropdown-content-desc">{{wrkflowstatusdetails.remarks}}</div>
+													<div class="dropdown-content-footer">{{wrkflowstatusdetails.senddate
+														| date:dateFormat}}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="modal fade" id="reAssign" role="dialog">
+									<div class="modal-dialog">
+
+										<!-- Modal content-->
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Remarks</h4>
+											</div>
+											<div class="modal-body">
+												<textarea ng-model="remarks" maxlength="200" ng-trim="false"
+													ng-focus="hideError('remarksMessage')" rows="4" cols="68"></textarea>
+												<div class="char-left">Characters left: {{max200Length
+													- remarks.length}}</div>
+												<label class="text-error">{{remarksMessage_error}}</label>
+											</div>
+											<div class="modal-footer">
+												<button type="button" ng-click="okAction('#reAssign')"
+													class="btn btn-success">OK</button>
+												<button type="button" class="btn btn-danger"
+													data-dismiss="modal">Cancel</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<hr />
+
+								<!-- Error Dialog Boxes here -->
+								<div kendo-dialog="reAssignDialog" k-title="'Reassign'"
+									k-on-open="dialogVisible = true"
+									k-on-close="dialogVisible = false" k-width="300" k-height="150"
+									k-actions="reassignActions" k-modal="true">
+									<img src="img/reassign_icon.png">
+									<p>{{reAssignConf + mdlname + " ?"}}</p>
+								</div>
+
+								<kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+									title="Missed something!" name="systemvalidationdialog"
+									custom-options="errorActions" error-type="warning"
+									error-message="dataerror" error-status="{{geterrorstatuscode}}"
+									detail-error-message="{{detailerrormessages}}"
+									showexception="showexception" error-details="errordetails"
+									error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+
+								<div kendo-dialog="dialog" k-title="'Missed something!'"
+									k-on-open="dialogVisible = true"
+									k-on-close="dialogVisible = false" k-width="300" k-height="150"
+									k-actions="actions" k-modal="true">
+									<img src="img/warning -dialog.png">
+									<p ng-repeat="errors in dataerror1">{{errors[0]}}</p>
+								</div>
+
+								<div kendo-dialog="previewDialog" k-rebind="previewObj"
+									k-options="previewObj" k-on-open="dialogVisible = true"
+									class="preview-box" k-width="500"
+									k-on-close="dialogVisible = false" k-modal="true">
+									<img src="{{imagetest}}" class="preview-img">
+								</div>
+
+								<div kendo-dialog="exceededFileSizedialog"
+									k-title="'File Size Exceeded!'"
+									k-on-open="dialogVisible = true"
+									k-on-close="dialogVisible = false" k-width="300" k-height="150"
+									k-actions="actions" k-modal="true">
+									<img src="img/fileuploadError.png" class="file-error"> <img
+										src="img/attach.png">
+									<p>{{fileSizeExceededDialogMsg}}</p>
+								</div>
+
+								<div kendo-dialog="exceededFileCountDialog"
+									k-title="'File Count Exceeded!'"
+									k-on-open="dialogVisible = true"
+									k-on-close="dialogVisible = false" k-width="300" k-height="150"
+									k-actions="actions" k-modal="true">
+									<img src="img/fileuploadError.png" class="file-error"> <img
+										src="img/attach.png">
+									<p>{{exceededFileCountDialogMsg}}</p>
+								</div>
+
+								<div kendo-dialog="confirmDeleteDialog"
+									k-title="'Confirm delete!'" k-on-open="dialogVisible = true"
+									k-on-close="dialogVisible = false" k-width="300" k-height="150"
+									k-actions="deleteActions" k-modal="true">
+									<img src="img/delete-icon.png">
+									<p>{{deleteDialogMsg}}</p>
+								</div>
+
+
+								<!-- ------------------------------------ -->
+  <fieldset ng-disabled="closeOutDis">
+								<div class="row">
+									<div class="col-xs-12">
+
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label">Vessel Name</label>
+											</div>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" disabled
+													ng-model="VesselName">
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label">Name Of Master</label>
+											</div>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" disabled
+													ng-model="nameOfMaster">
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label">Name of the Chief
+													Engineer</label>
+											</div>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" disabled
+													ng-model="chiefEng">
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label">Name of the Chief
+													Officer</label>
+											</div>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" disabled
+													ng-model="chiefOff">
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label" id="dateTime">Date / Time of
+													Drill<span style="color: red"> <span
+														style="color: red">*</span></span>
+												</label>
+											</div>
+											<div class="col-sm-5">
+												<input ng-focus="hideError('TimeofDrill')"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													kendo-date-time-picker k-options="monthPickerConfig"
+													ng-model="TimeofDrills" style="width: 100%;"
+													ng-blur="validateDate('TimeofDrills','TimeofDrills', 'TimeofDrill_error','TimeofDrillsCondtn','time')" />
+												<div class="text-error" ng-if="TimeofDrillsCondtn">{{TimeofDrill_error}}</div>
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label" style="margin-left: 7px;" id="shipPosition">Ships
+													Position<span style="color: red">*</span>
+												</label>
+											</div>
+											<div class="col-sm-3" style="padding-top: 10px;">
+
+												<input name="placetype" value="At Port" type="radio"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													ng-click="radioenable('Y','port');" ng-model="placetype"
+													id="placetype" ng-change="changesea()" /> <span
+													class="c-input-text"> At Port</span> <input
+													name="placetype" value="At Sea" type="radio"
+													ng-click="radioenable('N','sea');"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													ng-model="placetype" ng-change="changesea()" /> <span
+													class="c-input-text">At Sea</span>
+
+												<div class="text-error">{{place_error}}</div>
+
+											</div>
+
+										</div>
+										<div class="form-group row" ng-show="portshow">
+											<div class="col-sm-3">
+												<label class="form-control-label">At Port <span
+													style="color: red"><span style="color: red">*</span></span></label>
+											</div>
+											<div class="col-sm-2">
+												<input valid-alpha maxlength="5"
+													ng-focus="hideError('portcode')" class="form-control"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													type="text" name="fname" ng-model="portcode"
+													ng-blur="getAtPortName()" placeholder="Code"> <span
+													class="text-error">{{portcode_error}}</span>
+											</div>
+											<div class="col-sm-3">
+												<input class="form-control" type="text" name="fname"
+													ng-model="portname" disabled placeholder="Name"> <span
+													class="text-error">{{portname_error}}</span>
+											</div>
+											<div class="col-sm-1">
+												<button type="button"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													class="btn btn-primary btn-sm fa fa-search" allowed="write"
+													mdlcode="DRI" ng-show="portcode.length >= 2"
+													ng-click="btnAtPortCodeActionPerformed()"></button>
+												<modal class="" visible="showModal"
+													on-sown="modalOneShown()" on-hide="modalOneHide()">
+												<modal-header title="Search Port"></modal-header> <modal-body
+													title1="Port Code" title2="Port Name" data="portnameAtList"
+													searchdesc1="Search Port Code"
+													searchdesc2="Search Port Name" searchdesc3="Seach on both"
+													callback-fn="setValue(arg1, arg2)" hide-fn="hide()">
+												</modal-body> </modal>
+											</div>
+										</div>
+
+										<div class="form-group row" ng-show="seashow">
+											<label class="col-sm-3 form-control-label">At Sea <span
+												style="color: red"><span style="color: red">*</span></span></label>
+											<div class="col-sm-3">
+												<p style="font-size: .8em">Latitude</p>
+												<latitude data="latitude" validation="latitudeValidation"
+													component-disabled="false"></latitude>
+												<div class="text-error">{{latitude_error}}</div>
+											</div>
+											<div class="col-sm-3 longitude">
+												<p style="font-size: .8em">Longitude</p>
+												<longitude data="longitude" component-disabled="false"
+													validation="longitudeValidation"></longitude>
+												<div class="text-error">{{latitude_error}}</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label" id="typeofDrill">Type of Drill <span
+													style="color: red"><span style="color: red">*</span></span></label>
+											</div>
+											<div class="col-sm-5">
+
+												<select id="fa_he_td1" class="form-control"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													ng-click="hideError('TypeofDrill')" ng-model="typeofdrill"
+													id="Typeofdrills">
+													<option
+														ng-repeat="drills in typeofdrills | orderBy:'drilltypedesc' "
+														value="{{drills.drilltypecode}}">{{drills.drilltypedesc}}</option>
+												</select>
+												<div class="text-error">{{TypeofDrill_error}}</div>
+											</div>
+										</div>
+
+
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label"  id="drillScenario">Drill Scenario <span
+													style="color: red"><span style="color: red">*</span></span></label>
+											</div>
+											<div class="col-sm-5">
+
+												<textarea maxlength="100" class="form-control"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													ng-model="DrillScenario"
+													ng-focus="hideError('DrillScenario')" id="DrillScenario"></textarea>
+												<div class="char-left">Characters left: {{max500Length
+													- DrillScenario.length}}</div>
+												<br>
+												<div class="text-error">{{DrillScenario_error}}</div>
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label" id="drillAbsenties">Drill Absentees<span
+													style="color: red"><span style="color: red">*</span></span></label>
+											</div>
+											
+<!-- 											 <div class="col-sm-5"> -->
+<!-- 							                    <div class="text-error">{{TypeofDrill_error}}</div> -->
+<!-- 							                    <select kendo-multi-select k-options="selectOptions1" -->
+<!-- 							                      k-ng-model="absentees" disabled></select> -->
+<!-- 							                  </div> -->
+                  
+											<div class="col-sm-5">
+												<select kendo-multi-select k-options="selectOption1"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													k-ng-model="absentees" ng-blur="hideError('DrillAbsen')"></select>
+													<div class="text-error">{{DrillAbsen_error}}</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-3">
+												<label class="form-control-label"  id="otherParticipants">Drill Other
+													Participants <span style="color: red"><span
+														style="color: red">*</span></span>
+												</label>
+											</div>
+											<div class="col-sm-9">
+
+												<textarea maxlength="500" class="form-control"
+													ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+													ng-focus="hideError('DrillotherParticipants')"
+													style="height: 66px !important"
+													ng-model="drillotherParticipant" id="otherParticipants" title={{drillotherParticipant}}></textarea>
+												<div class="char-left">Characters left: {{max500Length
+													- drillotherParticipant.length}}</div>
+												<br>
+												<div class="text-error">{{DrillotherParticipants_error}}</div>
+											</div>
+											<br>
+
+
+										</div>
+									</div>
+								</div>
+
+
+
+
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="lead_title"  id="timeSheet">Time Sheet</div>
+
+										<table class="table table-hover table-striped table-bordered">
+											<thead>
+												<tr>
+													<th>Time <span style="color: red"><span
+															style="color: red">*</span></span>
+													</th>
+													<th>Events / Details <span style="color: red"><span
+															style="color: red">*</span></span>
+													</th>
+													<th width="10% !important">
+															<button type="button"
+																ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+																class="btn btn-success btn-xs btn-rounded"
+																allowed="write" mdlcode="DRI"
+																ng-click="adddrillReport()">
+																<i class="fa fa-plus"></i>
+															</button>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="drillData in existingdrillData">
+													<td ng-show="index">{{$index}}</td>
+													<td width="25% !important" ng-hide="drillData.deleteFlag.length > 0"><input
+														ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+														kendo-date-time-picker ng-focus="hideError('Time')"
+														k-options="monthPickerConfig"
+														ng-model="drillData.eventtime" style="width: 100%;"
+														ng-blur="validateDateDynamic('existingdrillData',$index,'eventtime', 'date_error')" />
+														<div class="text-error">
+															{{Time_error}}<span ng-if="errorIndex==$index">{{date_error}}</span>
+														</div></td>
+
+													<td  ng-hide="drillData.deleteFlag.length > 0"><textarea
+														ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+														style="height: 70px !important; margin-top: 20px;"
+														maxlength="500" type="text"
+														ng-focus="hideError('EventsDetails')"
+														ng-model="drillData.eventdetails" class="form-control" title={{drillData.eventdetails}}/>
+														<div class="char-left">Characters left:
+															{{max500Length - drillData.eventdetails.length}}</div> <br>
+														<div class="text-error">{{EventsDetails_error}}</div></td>
+														<td ng-show="false"><input	class="form-control" type="text" ng-model="drillData.drldetailid" ></td>
+														<td ng-show="false"><input	class="form-control" type="text" ng-model="drillData.detailid" ></td>
+													<td width="10% !important" style="text-align: center" ng-hide="drillData.deleteFlag.length > 0">
+														<button type="button" ng-if="$index != 0"
+															class="btn btn-danger btn-xs btn-rounded" allowed="write"
+															mdlcode="DRI" ng-click="deletedrillReport($index)">
+															<i class="fa fa-minus"></i>
+														</button>
+													</td>
+												</tr>
+												</center>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-12">
+										<label id="deBriefing">Debriefing (any shortcomings, suggested
+											improvements, training imparted etc) <span style="color: red"><span
+												style="color: red">*</span></span>
+										</label>
+
+										<textarea
+											ng-disabled="(actionRight != 'SUB' && actionRight != 'APR' )"
+											maxlength="500" class="form-control" ng-model="Debriefing"
+											ng-focus="hideError('Debriefing')" ng-trim="false"
+											style="height: 66px !important" id="Debriefing" title={{Debriefing}}></textarea>
+										<div class="char-left">Characters left: {{max500Length -
+											Debriefing.length}}</div>
+										<br>
+										<div class="text-error">{{Debriefing_error}}</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-xs-12">
+										<label id="masterEva">Master's Evaluation (including any best
+											practices identified, training needs etc) <span
+											style="color: red"><span style="color: red">*</span></span>
+										</label>
+
+										<textarea
+											ng-disabled="masterText"
+											maxlength="500" class="form-control"
+											ng-model="MastersEvaluation"
+											ng-focus="hideError('MastersEvaluation')"
+											style="height: 66px !important" id="MastersEvaluation"
+											ng-trim="false" title={{MastersEvaluation}}></textarea>
+										<div class="char-left">Characters left: {{max500Length -
+											MastersEvaluation.length}}</div>
+										<br>
+										<div class="text-error">{{MastersEvaluation_error}}</div>
+									</div>
+								</div>
+
+
+								<!--File Attachment Component Start-->
+								
+								  <div class="row">
+          <div class="col-sm-12">
+            <div class="section_header_top"
+              style="height: 3px; left: 15px !important;" id="showfields2"></div>
+            <div class="section_header col-lg-12" id="showfields2"">Attachments</div>
+            <div allowed="write" mdlcode="SAF">
+
+              <div class="row">
+                <div class=" col-lg-12">
+                  <table>
+                    <tr ng-repeat="file in myFile track by $index">
+                      <td style="padding: 6px; border-bottom: 1px solid grey;">{{$index
+                        + 1}}</td>
+                      <td
+                        style="font-weight: 700; color: #238E68; padding: 6px; border-bottom: 1px solid grey;">{{file._file.name}}</td>
+                      <td
+                        style="font-size: .8em; padding: 6px; border-bottom: 1px solid grey;">{{file._file.size}}
+                        bytes</td>
+                      <td
+                        style="font-size: .8em; padding: 3px 6px; border-bottom: 1px solid grey;">
+                        <i ng-click="removeFile($index)"
+                        style="cursor: pointer; color: red" class="fa  fa-close"></i>
+                      </td>
+                    </tr>
+                  </table>
+                   <label class="col-sm-15 text-error">{{filemsg_error}}</label>
+                  <a ng-if="myFile.length > 0" class="btn-custom btn-upload"
+                    ng-click="uploadFile()"> <img
+                    src="Sidebar/css/button/upload.svg" /> <img
+                    src="Sidebar/css/button/upload_h.svg" />
+                  </a>
+                <label ng-hide="actionFormHide"  ng-if="(actionRight == 'SUB' || actionRight == 'APR' ) && permitRight == 'Y'"
+                        allowed="write" mdlcode="DRI" 
+                        for="file-upload" class="pull-right"
+                        style="cursor: pointer; padding-right: 10px; vertical-align: middle"
+                        class="fileinput-button" style="border-radius: 0px;">
+                        <span style="font-size: 18px;"></span><b>Attach</b><i
+                          class="fa fa-plus-circle btn-attach"> </i>
+                      </label> <input multiple type="file"
+                        file-model="myFile" id="file-upload" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="table-responsive upload_table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>File Name</th>
+                    <th>File Size</th>
+                    <th>Uploaded Date & Time</th>
+                    <th>Uploaded by</th>
+                    <th>Action</th>
+                    <th>Removed Date & Time</th>
+                    <th>Removed by</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-if="filesData.length<=0">
+                    <td colspan=8 class="no_data">No Data Available</td>
+                  </tr>
+                  <tr ng-class="{'inactive-file': data.docstatus === 'V'}"
+                    ng-repeat="data in filesData | orderBy : 'docstatus'">
+                    <td>{{$index + 1}}</td>
+                    <td>{{data.filename}}</td>
+                    <td>{{(data.filesize/fileSizeConversionFactor) |
+                      number:fileSizeRoundOffFactor}} {{fileSizeUnit}}</td>
+                    <td>{{data.uploaddate | date :dateFormat}}</td>
+                    <td>{{data.uploadusername}}</td>
+                    <td><a
+                      ng-if="data.filetype === 'jpg' || data.filetype === 'png' || data.filetype === 'jpeg'"
+                      ng-click="previewFile(data.docid, data.filename)"><i
+                        class="fa fa-eye"></i></a> <a
+                      ng-click="confirmDelete(data.docid)" ng-hide="actionFormHide" 
+                      ng-if="(data.docstatus === 'A') && (actionRight == 'SUB' && permitRight == 'Y' || actionRight == 'APR' && permitRight == 'Y')"><i
+                        class="fa fa-trash"></i></a> <a
+                      href="/crewhealth/downloadDocument/?docId={{data.docid}}"><i
+                        class="fa fa-download"></i></a></td>
+                    <td>{{data.removedate | date :dateFormat}}</td>
+                    <td>{{data.removeusername}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+								<!--File Attachment Component End-->
+								<br />
+								<div class="row">
+									<div class="col-xs-12">
+										<div ng-hide="actionFormHide" allowed="write" mdlcode="DRI">
+											<div style="text-align: right;">
+													<a class="btn_wrapper" a-disabled="isSaving"
+													ng-if="(actionRight == 'SUB' || actionRight == 'APR' ) && permitRight == 'Y'"
+													ng-click="saveForm('save')" style="margin-left: 10px" class="btn-custom pull-right" >
+														<span>Save</span>
+														<img src="Sidebar/css/icons/save.svg" />
+													</a>																							
+																									
+													<a class="btn_wrapper" a-disabled="isSaving"
+													ng-if="actionRight == 'SUB' && permitRight == 'Y'"
+													class="btn-custom pull-right" style="margin-left: 10px"
+													ng-click="saveForm('send')">
+														<span>Send</span>
+														<img src="Sidebar/css/icons/send.svg" />
+													</a>
+													
+													<a class="btn_wrapper" a-disabled="isSaving" ng-if="isReassign == 'RSN'"
+													class="btn-custom pull-right" style="margin-left: 10px"
+													ng-click="reAssignDialogClick('#reAssign')">
+														<span>Re-assign</span>
+														<img src="Sidebar/css/icons/re-assign.svg" />
+													</a>
+													
+													<a class="btn_wrapper" a-disabled="isSaving"
+													ng-if="actionRight == 'APR' && permitRight == 'Y'"
+													class="btn-custom pull-right" style="margin-left: 10px"
+													ng-click="saveForm('approve')">
+														<span>Approve</span>
+														<img src="Sidebar/css/icons/approve.svg" />
+													</a>
+													
+													 <a type="button" class="btn_wrapper pull-right"
+										                 ng-show="deleteAction" allowed="delete" mdlcode="DRI"
+										                 ng-click="deleteActionPerformed()">
+										                 <span>Delete</span>
+										                 <img src="Sidebar/css/icons/delete.svg" />
+										             </a>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="revision_content">
+								<b>Revision No : </b> {{actRevno}} | <b>Date:</b> {{reviseddate | date :dateFormat}}
+								<span class="pull-right"> <b>S.No :</b>
+									{{drlid.drlid}}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+          </div>
+          </fieldset>
+
+			<script>
+								$(document).ready(function() {
+									// create DateTimePicker from input HTML element
+									$("#TimeofDrill").kendoDateTimePicker({
+										value : new Date(),
+										max : new Date()
+									});
+								});
+							</script>
+
+
+			<div class="cd-panel from-right" style="z-index: 2000"
+				onclick="check1()">
+				<header class="cd-panel-header">
+					<h4 style="padding-left: 20px; padding-top: 10px">
+						<font color="white">Filter</font>
+					</h4>
+					<a href="#0" class="cd-panel-close">Close</a>
+				</header>
+
+				<div class="cd-panel-container">
+					<div class="cd-panel-content">
+						<div style="width: 100%" ng-init="getFilter_Tab_Details()">
+
+							<table ng-repeat="f in filters">
+								<tr>
+									<td bgcolor="#2d3e50"><font color="white"><label>{{f.name}}</label></font></td>
+								</tr>
+								<tr>
+									<td><select ng-model="filterValue[f.key]"
+										multiple="multiple" style="width: 300px;">
+											<!-- <option  title="{{d}}" ng-repeat="d in f.value">{{d}}</option> -->
+											<option title="{{d}}" ng-repeat="d in f.value"
+												value="{{f.label[$index]}}">{{d}}</option>
+									</select></td>
+								</tr>
+							</table>
+							<div>
+								<button type="button" class="btn btn-primary"
+									ng-click="applyFilter(dashboardID,currenttabid,'null')">Apply</button>
+							</div>
+						</div>
+					</div>
+					<!-- cd-panel-content -->
+				</div>
+				<!-- cd-panel-container -->
+			</div>
+
+			<tabset> <tab ng-repeat="tab in tabs" heading="{{tab.name}}"
+				select="alertMe(tab.id)" active="tab.active" disable="tab.disabled">
+
+
+			<div ng-if="$index == 0">
+				<input style="display: none" type="text" id="{{tab.id}}"
+					value="{{tab.id}}" ng-model="tab.id"></input> <input
+					style="display: none" type="text" id="{{tab.id}}Status"
+					value="loaded"></input>
+				<div id="{{tab.id}}chart"
+					ng-init="initTab(dashboardID ,tab.id,'null')"></div>
+			</div>
+			<div ng-if="$index != 0">
+				<input style="display: none" type="text" id="{{tab.id}}"
+					value="{{tab.id}}" ng-model="tab.id"></input> <input
+					style="display: none" type="text" id="{{tab.id}}Status"
+					value="notLoaded"></input>
+				<div id="{{tab.id}}chart"></div>
+			</div>
+			</tab> </tabset>
+
+		</div>
+
+
+		<style>
+.cd-panel-header {
+	background: #54b4eb;
+}
+
+.x_panel {
+	border: 1px solid #34495E !important;
+	box-shadow: 2px 2px 4px #ccc;
+	width: 540px !important;
+	height: 400px !important;
+	margin-bottom: 10px !important;
+}
+
+.breadcrumb {
+	padding: 8px 0px;
+	margin-bottom: 20px;
+	list-style: none;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+}
+
+.x_title {
+	border: 1px solid #ccc;
+	width: 540px;
+	padding: 7px;
+	border-bottom: none !important;
+	background: #34495E;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.nav {
+	padding-left: 0;
+	margin-bottom: 6px;
+	list-style: none;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus
+	{
+	color: white;
+	cursor: default;
+	background-color: #54b4eb;
+	/* border: 1px solid #ddd; */
+	border-bottom-color: transparent;
+}
+
+.nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus
+	{
+	background: #54b4eb !important;
+	height: auto !important;
+	background-color: red;
+}
+
+.col-md-6 {
+	position: relative;
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 0px;
+}
+
+.nav-tabs>li>a {
+	background-color: #34495E;
+	line-height: 1;
+	color: white;
+	font-size: 14px;
+}
+
+label {
+	display: inline-block;
+	max-width: 100%;
+	margin-bottom: 7px;
+	font-weight: bold;
+	margin-top: 7px;
+	margin-left: 8px;
+	font-size: 13px;
+}
+
+/* td {
+	border-top-right-radius: 2em;
+} */
+
+select option {
+	font-size: 11px;
+	margin: 0 0 -6px 5;
+}
+
+select[multiple], select[size] {
+	height: auto;
+	margin-bottom: 10px;
+}
+</style>

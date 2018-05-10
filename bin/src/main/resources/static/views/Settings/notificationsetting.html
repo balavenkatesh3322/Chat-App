@@ -1,0 +1,371 @@
+<div class="main" id="main">
+   <div ng-show="haspermission" allowed="unauthorized" mdlcode="NFY" callback-fn="unauthorize(arg1)" id="unauthorized"></div>
+   <div  allowed="read" mdlcode="NFY">
+      <div class="sticky_header">
+         <div class="tab_head_sticky">
+            <ul class="breadcrumb">
+               <li><i class="fa fa-dashboard" style="padding: 0px 8px;"></i> <a href="#/Dashboard">Home</a></li>
+               <li><a href="#/Settings">Settings</a></li>
+               <li><b>Notification Settings</b></li>
+            </ul>
+            <div class="tab_head"
+               style="padding: 0 !important; height: 40px; padding-left: 15px !important; padding-right: 15px !important; padding-top: 3px !important;">
+               <div class="pull-left" style="font-size: 21px;">NOTIFICATION SETTINGS
+               </div>
+               <div class="pull-right" style="font-size: 15px; padding-top: 6px;">
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="form_table_wrapper" style="margin-top: 15px !important">
+         <div class="form_table">
+            <div class="form-group row">
+               <div class="col-sm-3">
+                  <label class="form-control-label" id="moduleLbl">Module</label>
+               </div>
+               <div class="col-sm-2">
+                  <input type="text" ng-model="ModuleId" ng-disabled="true"
+                     id="mdlid3" class="form-control" placeholder="Code">
+               </div>
+               <div class="col-sm-3">
+                  <input type="text" ng-model="ModuleName" ng-disabled="true"
+                     id="mdlname3" class="form-control" placeholder="Name">
+               </div>
+               <div class="col-sm-1">
+                  <!--            <button class="btn btn-primary btn-sm fa fa-search" -->
+                  <!--              ng-click="showModal = true"></button> -->
+               </div>
+               <div class="col-sm-4 text-error" style="color: red">{{ModuleId_error}}</div>
+            </div>
+            <modal class="" visible="showModal" on-sown="modalOneShown()"
+               on-hide="modalOneHide()">
+               <modal-header class="tab_head"
+                  title="Module Selection"></modal-header>
+               <modal-body
+                  title1="Module Code" title2="Module Name" data="modulesListData"
+                  searchdesc1="Search Module Code" searchdesc2="Search Module Name"
+                  searchdesc3="Seach on both" keymodelid="m1" valuemodelid="m2"
+                  callback-fn="setValue(arg1,arg2)" hide-fn="hide()" status="showModal"> </modal-body>
+            </modal>
+            <div class="form-group row">
+               <div class="col-sm-3">
+                  <label class="form-control-label">Notify From </label>
+               </div>
+               <div class="col-sm-3" id="rad">
+                  <label class=" c-input c-radio"> <input  ng-disabled="true"
+                     name="radio-stacked2" value="CNT001" ng-model="Notifyfromcode"
+                     type="radio"> <span
+                     class="c-indicator c-indicator-warning"></span> <span
+                     class="c-input-text">Office</span>
+                  </label>
+                  <label class=" c-input c-radio"> <input  ng-disabled="true"
+                     name="radio-stacked2" value="CNT002" ng-model="Notifyfromcode"
+                     type="radio"> <span
+                     class="c-indicator c-indicator-warning"></span> <span
+                     class="c-input-text">Vessel</span>
+                  </label> 
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-3">
+                  <label class="form-control-label" id="">Trigger</label>
+               </div>
+               <div class="col-sm-3">
+                  <select style="width: 263px" id="actcode1" class="form-control"  ng-disabled="true"
+                     ng-model="Stats">
+                     <option ng-repeat="status in statusdetails"
+                        value="{{status.statuscode}}">{{status.statusdesc}}</option>
+                  </select>
+               </div>
+               <div class="col-sm-4 text-error" style="color: red">{{Triggercode_error}}</div>
+            </div>
+            <div class="form-group row" ng-hide="assignedgrid">
+               <div class="col-sm-3">
+                  <label class="form-control-label">Notify To </label>
+               </div>
+               <div class="col-sm-3" id="rad1">
+                  <label class="c-input c-radio"> <input  ng-disabled="true"
+                     name="radio-stacked1" value="CNT001" id="notefrom1" ng-click="notifytoclick()"
+                     ng-model="Notifytocode" type="radio">
+                  <span class="c-indicator c-indicator-warning"></span> <span
+                     class="c-input-text">Office</span> <input type="text"
+                     ng-hide="true" id="note1" ng-model="noteshoretype"
+                     class="col-sm-4 form-control">
+                  </label>
+                  <label class=" c-input c-radio"> <input  ng-disabled="true"
+                     name="radio-stacked1" value="CNT002" id="notefrom" ng-click="notifytoclick()"
+                     ng-model="Notifytocode" type="radio">
+                  <span class="c-indicator c-indicator-warning"></span> <span
+                     class="c-input-text">Vessel</span> <input type="text" 
+                     ng-hide="true" id="note" ng-model="noteshiptype"
+                     class="col-sm-4 form-control">
+                  </label>
+               </div>
+               <div class="col-sm-4 text-error" style="color: red">{{NotifyCode_error}}</div>
+            </div>
+            <div class="form-group row" ng-hide="assignedgrid">
+               <div class="col-sm-3">
+                  <label class="form-control-label" id="finlblid3">Rank</label>
+               </div>
+               <div class="col-sm-8 text-error" style="color: red">{{Rankcode_error}}</div>
+            </div>
+            <div class="form-group row" ng-hide="assignedgrid">
+               <div
+                  style="padding-left: 15px; padding-right: 15px">
+                  <div class="form-group row">
+                     <div class="col-sm-12">
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-hover">
+                              <thead>
+                                 <tr>
+                                    <th>Rank Code</th>
+                                    <th>Rank Name</th>
+                                    <th class="text-center">Action</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr ng-repeat="rank in rankdetails">
+                                    <td ng-show="false">{{$index+1}}</td>
+                                    <td>{{rank.rankcode}}</td>
+                                    <td>{{rank.rankname}}</td>
+                                    <td class="text-center"><a type="button" disabled
+                                       class="btn btn-danger btn-rounded btn-xs"
+                                       ng-click="deleteExistingRank(rank.rankcode,rank.rankname)">
+                                       <i class="fa fa-minus"></i>
+                                       </a>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-3">
+                  <label class="form-control-label" id="priorcode2">Priority</label>
+               </div>
+               <div class="col-sm-3">
+                  <select style="width: 263px" class="form-control"  ng-disabled="true"
+                     ng-model="PriorCode" id="priorcode1">
+                     <option ng-repeat="prioritytypes in prioritys"
+                        value="{{prioritytypes.prioritycode}}">{{prioritytypes.priorityname}}</option>
+                  </select>
+               </div>
+               <div class="col-sm-8 text-error" style="color: red">{{Prioritycode_error}}</div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-3">
+                  <label class="form-control-label">Notification Description</label>
+               </div>
+               <div class="col-sm-6">
+                  <textarea style=" height:66px !important"  ng-disabled="true"
+                     id="tmguid" class="form-control" rows="5" cols="5" maxlength="200"
+                     ng-model="NotifyDesc"></textarea>
+               </div>
+            </div>
+            <div class="row">
+               <div class="alert alert-success" role="alert" ng-hide="msgclear">
+                  <strong> {{informationMessage}}</strong>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="navbar-drawer  hidden-lg-down">
+                     <form class="form-inline navbar-form ">
+                        <label style="margin-left:-13px"> <strong>Items
+                        per page</strong>
+                        </label> 
+                        <select class="form-control"
+                           ng-model="pageSize" ng-selected="pageSize"
+                           ng-options="pageSize for pageSize in pageSizeLimit">{{pageSize}}</select>
+                     </form>
+                  </div>
+               </div>
+               <div class="col-sm-6" style="margin-top:10px;">
+                  <a type="button" ng-show="shouldShow" class="btn-custom pull-right"
+                     mdlcode="NFY" ng-click="cancelForm()"><img
+                     src="Sidebar/css/button/cancel.svg" /> <img
+                     src="Sidebar/css/button/cancel_h.svg" /></a> 
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-12">
+                  <div class="table-responsive">
+                     <table class="table table-hover table-striped table-bordered"
+                        cellspacing="0">
+                        <thead>
+                           <tr>
+                              <th ng-show="false" >Notify Code <a
+                                 ng-click="sort('notifycode')" class="sortDir"
+                                 ng-class="{ active: isSorted('notifycode') }">&#x25B2;</a><a
+                                 ng-click="sort('-notifycode')" class="sortDir"
+                                 ng-class="{ active: isSorted('-notifycode' ) }">&#x25BC;</a>
+                              </th>
+                              <th >Module Name <a 
+                                 ng-click="sort('mdlcode')" class="sortDir"
+                                 ng-class="{ active: isSorted('mdlcode') }">&#x25B2;</a><a
+                                 ng-click="sort('-mdlcode')" class="sortDir"
+                                 ng-class="{ active: isSorted('-mdlcode' ) }">&#x25BC;</a>
+                              </th>
+                              <th >Notify From <a 
+                                 ng-click="sort('notifyfromcode')" class="sortDir"
+                                 ng-class="{ active: isSorted('notifyfromcode') }">&#x25B2;</a><a
+                                 ng-click="sort('-notifyfromcode')" class="sortDir"
+                                 ng-class="{ active: isSorted('-notifyfromcode' ) }">&#x25BC;</a>
+                              </th>
+                              <th >Notify To <a 
+                                 ng-click="sort('notifytocode')" class="sortDir"
+                                 ng-class="{ active: isSorted('notifytocode') }">&#x25B2;</a><a
+                                 ng-click="sort('-notifytocode')" class="sortDir"
+                                 ng-class="{ active: isSorted('-notifytocode' ) }">&#x25BC;</a>
+                              </th>
+                              <th s>Trigger <a 
+                                 ng-click="sort('statusdesc')" class="sortDir"
+                                 ng-class="{ active: isSorted('statusdesc') }">&#x25B2;</a><a
+                                 ng-click="sort('-statusdesc')" class="sortDir"
+                                 ng-class="{ active: isSorted('-statusdesc' ) }">&#x25BC;</a>
+                              </th>
+                              <th >Priority <a 
+                                 ng-click="sort('priorityname')" class="sortDir"
+                                 ng-class="{ active: isSorted('priorityname') }">&#x25B2;</a><a
+                                 ng-click="sort('-priorityname')" class="sortDir"
+                                 ng-class="{ active: isSorted('-priorityname' ) }">&#x25BC;</a>
+                              </th>
+                              <th style="text-align: center;">Status<a 
+                                 ng-click="sort('masterstatusdesc')" class="sortDir"
+                                 ng-class="{ active: isSorted('masterstatusdesc') }">&#x25B2;</a><a
+                                 ng-click="sort('-masterstatusdesc')" class="sortDir"
+                                 ng-class="{ active: isSorted('-masterstatusdesc' ) }">&#x25BC;</a></th>
+                              <th style="text-align: center;">Action</th>
+                           </tr>
+                           <tr>
+                              <th><input placeholder="Search" class="form-control"
+                                 style="width: 100%;" ng-model="search['mdlname']"></th>
+                              <th><input placeholder="Search" class="form-control"
+                                 style="width: 100%;" ng-model="search['fromCntName']"></th>
+                              <th><input placeholder="Search" class="form-control"
+                                 style="width: 100%;" ng-model="search['toCntName']"></th>
+                              <th><input placeholder="Search" class="form-control"
+                                 style="width: 100%;" ng-model="search['statusdesc']"></th>
+                              <th><input placeholder="Search" class="form-control"
+                                 style="width: 100%;" ng-model="search['priorityname']"></th>
+                              <th><input placeholder="Search" class="form-control"
+                                 style="width: 100%;" ng-model="search['masterstatusdesc']"></th>
+                              <th style="width: 10%;"></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr style="text-align: center;" ng-style="set_color(x)"
+                              dir-paginate="x in notes1 = (notes | filter :search | orderBy:predicate:reverse | itemsPerPage:pageSize)">
+                              <td ng-show="false">{{x.notifycode}}</td>
+                              <td ng-show="false">{{x.mdlcode}}</td>
+                              <td>{{x.mdlname}}</td>
+                              <td>{{x.fromCntName}}</td>
+                              <td>{{x.toCntName}}</td>
+                              <td>{{x.statusdesc}}</td>
+                              <td>{{x.priorityname}}</td>
+                              <td style="text-align: center;">
+                                 <span class="label"
+                                    ng-class="{'label-success': x.masterstatusdesc == 'Active','label-danger': x.masterstatusdesc == 'Inactive'}">{{x.masterstatusdesc}}</span>
+                              </td>
+                              <td style="display: none">{{x.cruser}}</td>
+                              <td style="display: none">{{x.crdate}}</td>
+                              <td style="display: none">{{x.notifycode}}</td>
+                              <td style="display: none">{{x.actioncode}}</td>
+                              <td style="display: none">{{x.rolecode}}</td>
+                              <td style="display: none">{{x.prioritycode}}</td>
+                              <td style="display: none">{{x.rankcode}}</td>
+                              <td style="display: none">{{x.upduser}}</td>
+                              <td style="display: none">{{x.upddate}}</td>
+                              <td style="display: none">{{x.notifycode}}
+                              <td style="display: none">{{x.mdlcode}}</td>
+                              <td style="display: none">{{x.notifydesc}}</td>
+                              <td style="text-align: center;">
+                                 <span> <a
+                                    class="btn btn-success btn-sm" ng-model="notedisable"
+                                    mdlcode="NFY" ng-click="notifyEdit(x)"> <i
+                                    style="color: white !important" class="fa fa-eye"></i>
+                                 </a></span>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <!-- table-responsive -->
+                  <div class="pull-right">
+                     <dir-pagination-controls max-size="10" direction-links="true"
+                        boundary-links="true"></dir-pagination-controls>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal fade" id="followerModal" role="dialog" tabindex="-1">
+      <div class="modal-dialog" tabindex="-1">
+         <!-- Modal content-->
+         <div class="modal-content" tabindex="-1">
+            <div class="modal-header" tabindex="-1">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <h4 class="modal-title">Add Rank for Notification</h4>
+            </div>
+            <div class="modal-body" tabindex="-1" style="padding: 0;margin-bottom: -20px;">
+               <table class="table table-bordered table-fixedheader-3col">
+                  <thead>
+                     <tr>
+                        <th width="40%"><input type="text"
+                           class="form-control" placeholder="Search Rank Code"
+                           ng-model="searchparticular[1]" /></th>
+                        <th width="40%"><input type="text"
+                           class="form-control" placeholder="Search Rank Name"
+                           ng-model="searchparticular[0]" /></th>
+                        <th width="20%"
+                           style="padding-top: 16px; padding-bottom: 16px;">Status</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr
+                        ng-repeat="notifytoRank in notifytoRankList | filter:searchparticular[1] | filter:searchparticular[0] | filter:search"
+                        ng-dblclick="gettabledate(notifytoRank.rankname,notifytoRank.rankcode)">
+                        <td style="padding: 10px" width="40%">{{notifytoRank.rankcode}}</td>
+                        <td style="padding: 10px" width="40%">{{notifytoRank.rankname}}</td>
+                        <td width="20%"><span
+                           ng-if="followerButtonLabel(notifytoRank.rankcode,notifytoRank.rankname)=='Select'"><button
+                           class="btn btn-default btn-xs"
+                           ng-click="followerSelect(notifytoRank.rankcode,notifytoRank.rankname)">{{followerButtonLabel(notifytoRank.rankcode,notifytoRank.rankname)}}</button></span>
+                           <span
+                              ng-if="followerButtonLabel(notifytoRank.rankcode,notifytoRank.rankname)=='Selected'"><button
+                              class="btn btn-primary btn-xs"
+                              ng-click="followerSelect(notifytoRank.rankcode,notifytoRank.rankname)">{{followerButtonLabel(notifytoRank.rankcode,notifytoRank.rankname)}}</button></span>
+                        </td>
+                     </tr>
+                  </tbody>
+                  <tfoot>
+                     <tr>
+                        <th width="30%"><input class="pull-left" type="text"
+                           ng-model="search" placeholder="Search on both" /></th>
+                     </tr>
+                     <tr>
+                        <th width="30%">
+                           <a type="button"   
+                              class="btn-custom pull-right" data-dismiss="modal" allowed="write" mdlcode="NFY"> 
+                           <img src="Sidebar/css/button/close.svg" />
+                           <img src="Sidebar/css/button/close_h.svg" /></a>
+                        </th>
+                     </tr>
+                  </tfoot>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+   <kendo-custom-dialog ng-if="geterrorstatuscode!=0"
+      k-title="Notification Settings" name="systemvalidationdialog"
+      custom-options="actions" error-type="warning" error-message="dataerror"
+      error-status="{{geterrorstatuscode}}"
+      detail-error-message="{{detailerrormessages}}"
+      showexception="showexception" error-details="errordetails"
+      error-code="{{geterrorstatus}}"></kendo-custom-dialog>
+</div>
